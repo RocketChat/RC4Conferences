@@ -1,0 +1,3 @@
+[submodule "RC4Community"]
+	path = RC4Community
+	url = https://github.com/RocketChat/RC4Community.git
