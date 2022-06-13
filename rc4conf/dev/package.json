@@ -1,0 +1,12 @@
+{
+  "name": "dev",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "next",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "rc4conf": "file:.."
+  }
+}
