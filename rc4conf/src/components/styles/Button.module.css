@@ -1,0 +1,9 @@
+.eventButtonText {
+    resize: both;
+    margin: 10px;
+}
+
+.jokeArea {
+    display: flex;
+    flex-direction: column;
+}
