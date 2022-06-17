@@ -1,0 +1,144 @@
+.navbarItem {
+  transition: all 0.5s;
+}
+.dropdown-toggle::after {
+  display: none !important;
+}
+
+.navbarItem::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background-color: #ff5050;
+  color: transparent;
+  width: 0%;
+  content: '.';
+  height: 2px;
+}
+
+.navbarItem:hover:after {
+  width: 100%;
+}
+
+.my-dropdown-toggle:after {
+  display: none;
+}
+
+.chat {
+  border-bottom-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+/* reseting the default styles */
+.default_toggler,
+.default_toggler:hover,
+.default_toggler:active,
+.default_toggler:focus {
+  border: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar_toggler {
+  width: 30px;
+  height: 20px;
+  position: relative;
+  transition: 0.5s ease-in-out;
+}
+
+.navbar_toggler,
+.navbar_toggler:focus,
+.navbar_toggler:active,
+.toggler_icon:focus {
+  outline: none;
+  box-shadow: none;
+  border: 0;
+}
+
+.toggler_icon {
+  margin: 0;
+  padding: 0;
+  display: block;
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: rgb(107, 107, 107);
+  border-radius: 1px;
+  left: 0;
+  top: 18px;
+}
+
+.toggler_icon::before, .toggler_icon::after{
+  content: '';
+  position: absolute;
+  left: 0;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+  background-color: rgb(107, 107, 107);
+  transition: top 0.25s;
+}
+
+.toggler_icon::after {
+  top: 10px;
+}
+
+.toggler_icon::before{
+  top: -10px;
+}
+
+/* when navigation is clicked */
+.toggler_bar {
+  margin-top: 0px;
+  background-color: transparent;
+}
+
+/* state when the navbar is collapsed or collapsed==true */
+.toggler_bar_collapsed {
+  margin-top: -10px;
+}
+
+.toggler_bar::after{
+  transform: rotate(-45deg);
+  top: 0;
+}
+
+.toggler_bar::before{
+  transform: rotate(45deg);
+  top: 0
+}
+
+
+.threedots:after {
+  content: "\2807";
+  font-size: 30px;
+  height: 100%;
+  padding-left: 7px;
+}
+
+.elipses:hover,
+.elipses { 
+    color: #87898d;
+    text-decoration-line: none !important; 
+   
+}
+
+.dropdown_menu {
+  display: flex;
+  justify-content: center;
+  height: 42px;
+  width: 42px;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.dropdown_menu_item:hover,
+.dropdown_menu_item {
+  color: black;
+  text-decoration: none;
+}
