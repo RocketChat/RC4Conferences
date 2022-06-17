@@ -1,0 +1,15 @@
+.sign_card {
+    margin: auto;
+    width: 60%;
+}
+
+.sign_form_foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sign_card_foot {
+    cursor: pointer;
+    text-align: center;
+}
