@@ -1,0 +1,92 @@
+.sidechat {
+  z-index: 1;
+  min-width: 20vw;
+  margin: 0rem 1rem;
+  top: 0;
+  background-color: #fff;
+  right: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.chatbox {
+  margin: 1.5rem 0rem;
+  height: 76vh;
+  overflow: scroll;
+  overflow: auto;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.cross {
+  display: flex;
+  justify-content: right;
+  cursor: pointer;
+}
+
+.emojisHolder {
+  transform: translateX(13rem);
+  transition: all ease-out 0.3s;
+}
+
+.animatedEmoji {
+  padding-right: 7px;
+}
+.emojiHolderIsHidden::hover {
+  transform: translateX(0);
+  transition: all ease-out 0.3s;
+}
+
+.animatedEmoji:hover {
+  cursor: pointer;
+}
+
+.textInput {
+  width: 100%;
+}
+
+.track {
+  width: 5rem;
+  height: 16rem;
+  z-index: 10;
+  bottom: 3rem;
+  position: absolute;
+  right: 0.5rem;
+  animation: 2s all;
+}
+
+.emojiAnimationContainer {
+  position: absolute;
+  bottom: 0;
+  opacity: 0;
+  font-size: 2rem;
+  animation: emojiAnimationX-axis 1.5s ease-out infinite;
+}
+
+@media (max-width: 1200px) {
+  .chatbox {
+    height: calc(100vh - 15rem);
+  }
+}
+@media (max-width: 992px) {
+  .chatbox {
+    height: calc(100vh - 56.25vw - 12rem);
+  }
+}
+
+@keyframes emojiAnimationX-axis {
+  0% {
+    bottom: 5px;
+    opacity: 0;
+    scale: 0.3;
+  }
+  40% {
+    opacity: 1;
+    scale: 0.9;
+  }
+  100% {
+    bottom: 16rem;
+    opacity: 0;
+    scale: 1;
+  }
+}
