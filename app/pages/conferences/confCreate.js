@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { Stack } from "react-bootstrap";
+import { EventBasicCreate } from "../../components/conferences/create/EventCreate";
 
 function EventAuthPage() {
   return (
@@ -13,6 +14,7 @@ function EventAuthPage() {
       <div className="mx-auto">
         <h1 className="mx-auto mt-3">Preview of Event Create Component</h1>
         <Stack direction="horizontal">
+          <EventBasicCreate />
         </Stack>
       </div>
     </div>
