@@ -13,3 +13,8 @@
     cursor: pointer;
     text-align: center;
 }
+
+.create_event_root {
+    width: 50%;
+    margin: auto;
+}

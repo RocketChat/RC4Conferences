@@ -1,63 +1,49 @@
-import { useEffect, useState } from "react"
-import { Button, Card, Form } from "react-bootstrap"
+import { Card, Nav, Tab, Tabs } from "react-bootstrap";
+import { EventBasicCreate } from "./EventBasicDetails";
+import styles from "../../../styles/event.module.css";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
-export const EventBasicCreate = () => {
-    const [formState, setFormState] = useState({
-        "starts-at": new Date(),
-        "ends-at": new Date(),
-        "timezone": Intl.DateTimeFormat().resolvedOptions().timeZone
-    })
+export const EventCreate = ({ active }) => {
+  const [draft, setDraft] = useState(false);
+  const router = useRouter();
 
-    useEffect(() => {
-        console.log("useeff", formState)
-        const date = new Date()
-        date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
-        const nativeDefault = date.toISOString().slice(0,16)
-        
-        setFormState({
-            "starts-at": nativeDefault,
-            "ends-at": nativeDefault
-        })
-    }, [])
-    console.log("after", formState)
+  const pageRoute = {
+    "basic-detail": 0,
+    sessions: 1,
+  };
 
-    const handleFormSubmit = (e) => {
-        e.preventDefault()
-        console.log("published", formState)
+  useEffect(() => {
+    const check = sessionStorage.getItem("draft");
+
+    if (check != true && pageRoute[active] !== 0) {
+      let baseRoute = router.pathname.split("/");
+      baseRoute.splice(-1, 1, Object.keys(pageRoute)[0]);
+      router.push(baseRoute.join("/"));
     }
+  }, []);
 
-    const handleChange = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        console.log("calie", value)
-        setFormState((prev) => ({
-          ...prev,
-          [name]: value,
-        }));
-      };
-    
-    return (
-        <Card>
-            <Card.Header>Hello, Event!</Card.Header>
-            <Card.Body>
-                <Form onSubmit={handleFormSubmit}>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Event name*</Form.Label>
-                        <Form.Control required name="name" type="text" placeholder="" />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>Start Date*</Form.Label>
-                        <Form.Control required name="starts-at" type="datetime-local" value={formState["starts-at"]} min={formState["start-at"]} onChange={handleChange} placeholder="" />
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                        <Form.Label>End Date*</Form.Label>
-                        <Form.Control required name="ends-at" type="datetime-local" value={formState["ends-at"]} min={formState["start-at"]} onChange={handleChange} placeholder="" />
-                    </Form.Group>
-                    <Button variant="success" type="submit">
-                        Publish
-                    </Button>
-                </Form>
-            </Card.Body>
-        </Card>
-    )
-}
+  return (
+    <Card>
+      <Card.Header>
+        <Nav variant="tabs" defaultActiveKey="basic-detail" activeKey={active}>
+          <Nav.Item>
+            <Nav.Link href="basic-detail">Basic Details</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="sessions">Speakers & Session</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="other-details">Other Details</Nav.Link>
+          </Nav.Item>
+        </Nav>
+      </Card.Header>
+      <Card.Body>
+        {pageRoute[active] == 0 && <EventBasicCreate />}
+        {pageRoute[active] == 1 && "Coming Soon"}
+        {pageRoute[active] == undefined &&
+          "Hey! You got yourself on a unknown isle."}
+      </Card.Body>
+    </Card>
+  );
+};
