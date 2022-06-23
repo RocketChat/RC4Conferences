@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 
 const EventHome = () => {
   const router = useRouter();
-  let session = Cookies.get("event_authentication");
+  let session = Cookies.get("event_auth");
   useEffect(() => {
     if (session) {
     session = JSON.parse(session)
@@ -14,7 +14,7 @@ const EventHome = () => {
 
   const handleClick = () => {
     if (session?.access_token) {
-      router.push("/conferences/confCreate");
+      router.push("/conferences/create/basic-detail");
     } else {
       router.push("/conferences/confAuth");
     }
