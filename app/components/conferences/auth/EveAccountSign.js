@@ -17,7 +17,7 @@ import {
 import styles from "../../../styles/event.module.css";
 
 const setCookie = (res) => {
-  Cookies.set("event_authentication", JSON.stringify(res.data))
+  Cookies.set("event_auth", JSON.stringify(res.data))
 } 
 
 const EventSignInForm = ({ err, setErr }) => {

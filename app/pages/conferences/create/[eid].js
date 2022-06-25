@@ -1,7 +1,12 @@
 import Head from "next/head";
 import { Stack } from "react-bootstrap";
+import { useRouter } from 'next/router'
+import { EventCreate } from "../../../components/conferences/create/EventCreate";
 
-function EventAuthPage() {
+function EventCreatePage() {
+  const router = useRouter()
+  const {eid} = router.query
+  console.log("router", router.query)
   return (
     <div>
       <Head>
@@ -12,11 +17,12 @@ function EventAuthPage() {
       </Head>
       <div className="mx-auto">
         <h1 className="mx-auto mt-3">Preview of Event Create Component</h1>
-        <Stack direction="horizontal">
+        <Stack direction="vertical">
+          <EventCreate active={eid} />
         </Stack>
       </div>
     </div>
   );
 }
 
-export default EventAuthPage;
+export default EventCreatePage;
