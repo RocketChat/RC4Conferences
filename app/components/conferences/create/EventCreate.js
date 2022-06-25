@@ -1,12 +1,17 @@
 import { Card, Nav, Tab, Tabs } from "react-bootstrap";
-import { EventBasicCreate } from "./EventBasicDetails";
+import { CustomToast, EventBasicCreate } from "./EventBasicDetails";
 import styles from "../../../styles/event.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 export const EventCreate = ({ active }) => {
   const [draft, setDraft] = useState(false);
+  const [toast, setToast] = useState({
+    show: false,
+    msg: ""
+  })
   const router = useRouter();
+
 
   const pageRoute = {
     "basic-detail": 0,
@@ -16,15 +21,23 @@ export const EventCreate = ({ active }) => {
   useEffect(() => {
     const check = sessionStorage.getItem("draft");
 
-    if (check != true && pageRoute[active] !== 0) {
-      let baseRoute = router.pathname.split("/");
-      baseRoute.splice(-1, 1, Object.keys(pageRoute)[0]);
-      router.push(baseRoute.join("/"));
+    if (check != "true" && pageRoute[active] !== 0) {
+      router.push(Object.keys(pageRoute)[0]);
     }
   }, []);
 
+  const handleToast = (data, publish) => {
+    const msgText = `The Event (${data.data.attributes.identifier}) was successfully created & ${publish}`
+    setToast((prev) => ({
+        ...prev,
+        show: true,
+        msg: msgText
+    }))
+  }
+
   return (
-    <Card>
+    <>
+    <Card className={styles.create_event_root}>
       <Card.Header>
         <Nav variant="tabs" defaultActiveKey="basic-detail" activeKey={active}>
           <Nav.Item>
@@ -39,11 +52,13 @@ export const EventCreate = ({ active }) => {
         </Nav>
       </Card.Header>
       <Card.Body>
-        {pageRoute[active] == 0 && <EventBasicCreate />}
+        {pageRoute[active] == 0 && <EventBasicCreate handleToast={handleToast} />}
         {pageRoute[active] == 1 && "Coming Soon"}
         {pageRoute[active] == undefined &&
-          "Hey! You got yourself on a unknown isle."}
+          "Hey! You got yourself on an fabled isle."}
       </Card.Body>
     </Card>
+        <CustomToast type={"success"} show={toast.show} msg={toast.msg} />
+</>
   );
 };
