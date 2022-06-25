@@ -1,3 +1,18 @@
+.home_bg {
+    width: 100%;
+    height: 20rem;
+    display: flex;
+    background-size: cover;
+
+}
+
+.home_bg_content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: linear-gradient(90deg, rgb(0 0 0 / 55%), rgb(75 75 75 / 77%), rgb(174 168 168 / 0%));
+}
+
 .sign_card {
     margin: auto;
     width: 60%;
@@ -12,4 +27,15 @@
 .sign_card_foot {
     cursor: pointer;
     text-align: center;
+}
+
+.create_event_root {
+    width: 70%;
+    margin: auto;
+}
+
+.toast {
+    position: sticky;
+    top: 1px;
+    bottom: 1px;
 }
