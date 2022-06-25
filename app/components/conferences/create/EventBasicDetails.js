@@ -8,7 +8,7 @@ import {
   Toast,
 } from "react-bootstrap";
 import Cookies from "js-cookie";
-import { publishEvent } from "../../../lib/conferences/eventCall";
+import { publishEvent, publishEventTicket } from "../../../lib/conferences/eventCall";
 import { useRouter } from "next/router";
 import styles from "../../../styles/event.module.css";
 
@@ -51,9 +51,37 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
     }));
   }, []);
 
+  const handleTicketPublish = async (eid, auth) => {
+    const tdata = {
+      "data": {
+        "attributes": {
+          "name": ticket.name,
+          "sales-starts-at": new Date(formState["starts-at"]).toISOString(),
+          "sales-ends-at": new Date(formState["ends-at"]).toISOString(),
+          "quantity": ticket.quantity,
+          "type": ticket.state ? "free" : "freeRegistration",
+          "min-order": 1,
+          "max-order": 1,
+          "is-description-visible": true
+        },
+        "relationships": {
+          "event": {
+            "data": {
+              "type": "event",
+              "id": eid
+            }
+          }
+        },
+        "type": "ticket"
+      }
+    }
+
+    const tickRes = await publishEventTicket(tdata, auth)
+    return tickRes;
+  }
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log("published", formState);
     const data = {
       data: {
         attributes: { ...formState, state: publish },
@@ -67,6 +95,8 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
         : new Error("Please, Sign in again");
 
       const res = await publishEvent(data, token);
+
+      const tres = await handleTicketPublish(res.data.data.id, token)
 
       sessionStorage.setItem("draft", publish=="draft")
       sessionStorage.setItem("event", JSON.stringify(res.data))
@@ -217,7 +247,6 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
 };
 
 export const CustomToast = ({show, type, msg}) => {
-    console.log("type", type, show, msg)
     return (
         <Toast show={show} className={styles.toast} bg={type}>
       <Toast.Header>

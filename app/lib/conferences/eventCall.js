@@ -33,11 +33,23 @@ export const publishEvent = async (data, auth) => {
     "Content-Type": "application/vnd.api+json",
     "Authorization": `JWT ${auth}`
   };
-  console.log("signUpf", data)
-  console.log("auth", auth)
   const res = await axios.post(`${eventUrl}/v1/events`, data, {
     headers: headers,
   });
   return res;
 }
 // Event Create Call Ends
+
+// Event Ticket Publish Call Begins
+
+export const publishEventTicket = async (data, auth) => {
+  const headers = {
+    "Content-Type": "application/vnd.api+json",
+    "Authorization": `JWT ${auth}`
+  };
+  const res = await axios.post(`${eventUrl}/v1/tickets`, data, {
+    headers: headers,
+  });
+  return res;
+}
+// Event Ticket Publish Call Ends
