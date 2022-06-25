@@ -1,7 +1,5 @@
-import Cookies from "js-cookie";
 import Head from "next/head";
 import { Stack } from "react-bootstrap";
-import EventAuth from "../../components/conferences/auth/EveAccountSign";
 import EventHome from "../../components/conferences/EventHome";
 import Image from "next/image";
 import eventLogo from "../../../assets/event_logo.svg";
