@@ -5,18 +5,21 @@ import {
   Card,
   Form,
   InputGroup,
+  Toast,
 } from "react-bootstrap";
 import Cookies from "js-cookie";
 import { publishEvent } from "../../../lib/conferences/eventCall";
 import { useRouter } from "next/router";
+import styles from "../../../styles/event.module.css";
 
-export const EventBasicCreate = ({ setDraft }) => {
+
+export const EventBasicCreate = ({ setDraft, handleToast }) => {
   const [formState, setFormState] = useState({
     name: "",
     description: "",
     "starts-at": new Date(),
     "ends-at": new Date(),
-    "original-image-url": "",
+    "original-image-url": "https://lh3.googleusercontent.com/n6WF5Pv12ucRY8ObS74SY4coMuFs8ALtHmq7brwnMJVkBzNveiTQfj9sBygEt-KT6ykMMzDHZ3ifjY7jQkNx9Lbj7O7zhGTdMLUgkB8=w600",
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     online: true,
   });
@@ -53,7 +56,7 @@ export const EventBasicCreate = ({ setDraft }) => {
     console.log("published", formState);
     const data = {
       data: {
-        attributes: { ...formState, state: draft },
+        attributes: { ...formState, state: publish },
         type: "event",
       },
     };
@@ -64,7 +67,11 @@ export const EventBasicCreate = ({ setDraft }) => {
         : new Error("Please, Sign in again");
 
       const res = await publishEvent(data, token);
-      console.log("checking response", res);
+
+      sessionStorage.setItem("draft", publish=="draft")
+      sessionStorage.setItem("event", JSON.stringify(res.data))
+      handleToast(res.data, publish)
+      router.push("sessions")
     } catch (e) {
       console.error("Event create failed", e.response.data.error);
       if (e.response.status == 401) {
@@ -87,6 +94,7 @@ export const EventBasicCreate = ({ setDraft }) => {
   const handleSwitch = (e) => {
     const name = e.target.name;
     const value = e.target.value;
+    CustomToast({type: "success"})
     name === "switch"
       ? setTicket((prev) => ({
           ...prev,
@@ -99,6 +107,7 @@ export const EventBasicCreate = ({ setDraft }) => {
   };
 
   return (
+    <>
     <Card>
       <Card.Header>Creating Event {formState.name}!</Card.Header>
       <Card.Body>
@@ -202,5 +211,19 @@ export const EventBasicCreate = ({ setDraft }) => {
         </Form>
       </Card.Body>
     </Card>
+    </>
+
   );
 };
+
+export const CustomToast = ({show, type, msg}) => {
+    console.log("type", type, show, msg)
+    return (
+        <Toast show={show} className={styles.toast} bg={type}>
+      <Toast.Header>
+        <strong className="me-auto">Event Alert!</strong>
+      </Toast.Header>
+      <Toast.Body>{msg}</Toast.Body>
+    </Toast>
+    )
+}
