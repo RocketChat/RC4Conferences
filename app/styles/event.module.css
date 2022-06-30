@@ -39,3 +39,39 @@
     top: 1px;
     bottom: 1px;
 }
+
+/* Event Show styles begins */
+.event_banner {
+    height: 100vh;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.event_banner_title {
+    height: 100%;
+    backdrop-filter: brightness(0.3);
+    font-weight: 100;
+    font-size: xx-large;
+    text-align: center;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 576px) {
+    .event_banner {
+        height: 40vh;
+        background-size: 100vw 40vh;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 992px) {
+    .event_banner {}
+}
+
+@media (min-width: 992px) {
+    .event_banner {}
+}
+/* Event Show styles ends */
