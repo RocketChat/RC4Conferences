@@ -4,19 +4,19 @@ import {
   Container,
   Image,
   Row,
+  Stack,
   Tab,
   TabContent,
   Tabs,
 } from "react-bootstrap";
 import styles from "../../../styles/event.module.css";
-import { BsCalendar2Event } from "react-icons/bs";
+import { BsCalendar2Event, BsInfoCircle } from "react-icons/bs";
+import {GoLocation} from "react-icons/go"
+import { EventSpeaker } from "./EventSpeaker";
 
 export const EventShow = ({ event }) => {
   const [key, setKey] = useState("home");
   console.log("even", event);
-
-  let eventDesc = event.data.attributes.description;
-  eventDesc = eventDesc.replace(/(<([^>]+)>)/gi, "");
 
   return (
     <div>
@@ -25,7 +25,12 @@ export const EventShow = ({ event }) => {
         <div className={styles.event_banner_title}>
           {/* <img src={event.data.attributes["logo-url"]} width={100} /> */}
           <h4>{event.data.attributes.name}</h4>
-          <p>by {event.data.attributes["owner-name"]}</p>
+          <p>by <span style={{color: "#d6162f"}}>{event.data.attributes["owner-name"]}</span></p>
+          <hr />
+          <Stack gap={3}>
+          <EventDate eventData={event.data} />
+          <EventLocation eventData={event.data} />
+          </Stack>
         </div>
       </div>
       <div className={styles.event_nav}>
@@ -37,13 +42,17 @@ export const EventShow = ({ event }) => {
           fill
         >
           <Tab eventKey="home" title="Overview">
-            <EventDate eventData={event.data} />
-            <TabContent as="div" className={styles.event_desc}>
-              {eventDesc}
-            </TabContent>
+            <Stack>
+            <EventDesc eventData={event.data} />
+            <Image src={event.data.attributes["logo-url"]} width={100} />
+            </Stack>
           </Tab>
-          <Tab eventKey="profile" title="Sessions"></Tab>
-          <Tab eventKey="contact" title="Speakers"></Tab>
+          <Tab eventKey="profile" title="Sessions">
+            
+          </Tab>
+          <Tab eventKey="contact" title="Speakers">
+          <EventSpeaker eid={event.data.attributes.identifier} />
+          </Tab>
         </Tabs>
       </div>
     </div>
@@ -66,11 +75,55 @@ const EventDate = ({ eventData }) => {
         </Col>
         <Col>
           <div className={styles.event_date}>
-            <h5>
+            <h6>
               Date and Time ({Intl.DateTimeFormat().resolvedOptions().timeZone})
-            </h5>
+            </h6>
             <span>{start + " - "}</span>
             <span>{end}</span>
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
+
+const EventLocation = ({ eventData }) => {
+
+  const location = eventData.attributes["location-name"]
+
+  return (
+    <Container>
+      <Row>
+        <Col xs={1}>
+          <GoLocation />
+        </Col>
+        <Col>
+          <div className={styles.event_date}>
+            <h6>
+              Location
+            </h6>
+            {location ? location : "Online" }
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
+
+const EventDesc = ({ eventData }) => {
+
+  let eventDesc = eventData.attributes.description;
+  eventDesc = eventDesc.replace(/(<([^>]+)>)/gi, "");
+
+  return (
+    <Container className={styles.event_desc}>
+      <Row>
+        <Col>
+          <div >
+            <h6>About the Event</h6>
+            <p>
+              {eventDesc}
+            </p>
           </div>
         </Col>
       </Row>
