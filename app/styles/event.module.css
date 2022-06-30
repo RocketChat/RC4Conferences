@@ -42,22 +42,15 @@
 
 /* Event Show styles begins */
 .event_banner {
-    height: 100vh;
-    background-size: contain;
-    background-repeat: no-repeat;
 }
 
 .event_banner_title {
-    height: 100%;
-    backdrop-filter: brightness(0.3);
     font-weight: 100;
-    font-size: xx-large;
-    text-align: center;
-    color: #ffffff;
+    /* text-align: center; */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 1em;
+    border: solid 1px #00000030;
 }
 
 .event_desc {
@@ -65,7 +58,7 @@
 }
 
 .event_nav_header {
-    background: linear-gradient(180deg, #4a4a4b, #f8f8f800);
+    margin-bottom: 1em;
 }
 
 .event_date {
@@ -75,8 +68,6 @@
 
 @media (max-width: 576px) {
     .event_banner {
-        height: 40vh;
-        background-size: 100vw 40vh;
     }
 }
 
