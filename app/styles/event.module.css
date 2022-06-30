@@ -60,6 +60,19 @@
     align-items: center;
 }
 
+.event_desc {
+    padding: 10px;
+}
+
+.event_nav_header {
+    background: linear-gradient(180deg, #4a4a4b, #f8f8f800);
+}
+
+.event_date {
+    display: flex;
+    flex-direction: column;
+}
+
 @media (max-width: 576px) {
     .event_banner {
         height: 40vh;
