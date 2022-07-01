@@ -16,7 +16,6 @@ import { EventSpeaker } from "./EventSpeaker";
 
 export const EventShow = ({ event }) => {
   const [key, setKey] = useState("home");
-  console.log("even", event);
 
   return (
     <div>
@@ -47,11 +46,11 @@ export const EventShow = ({ event }) => {
             <Image src={event.data.attributes["logo-url"]} width={100} />
             </Stack>
           </Tab>
-          <Tab eventKey="profile" title="Sessions">
+          <Tab eventKey="sessions" title="Sessions">
             
           </Tab>
-          <Tab eventKey="contact" title="Speakers">
-          <EventSpeaker eid={event.data.attributes.identifier} />
+          <Tab eventKey="speakers" title="Speakers">
+          {key=="speakers" && <EventSpeaker eid={event.data.attributes.identifier} />}
           </Tab>
         </Tabs>
       </div>

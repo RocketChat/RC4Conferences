@@ -66,6 +66,32 @@
     flex-direction: column;
 }
 
+.speaker_intro {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.event_speaker_name {
+    font-weight: lighter;
+    font-size: larger;
+}
+
+.event_speaker_title {
+    color: #696a6a;
+    font-size: x-small;
+}
+
+.event_speaker_avatar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.event_speaker_bio {
+    font-size: smaller;
+}
+
 @media (max-width: 576px) {
     .event_banner {
     }
