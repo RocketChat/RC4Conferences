@@ -4,7 +4,8 @@
   "info": {
     "singularName": "sub-menu",
     "pluralName": "sub-menus",
-    "displayName": "SubMenuLink"
+    "displayName": "SubMenuLink",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -16,6 +17,14 @@
     },
     "url": {
       "type": "string"
+    },
+    "style": {
+      "type": "enumeration",
+      "enum": [
+        "none",
+        "disable"
+      ],
+      "default": "none"
     }
   }
 }
