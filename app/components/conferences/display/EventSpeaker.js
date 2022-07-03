@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Button, Col, Collapse, Container, Image, Row } from "react-bootstrap";
 import { getEventSpeakers } from "../../../lib/conferences/eventCall";
 import styles from "../../../styles/event.module.css";
+import { useMediaQuery } from '@rocket.chat/fuselage-hooks';
+
 
 const avatarGenerate = (sn) => {
     const res = `https://ui-avatars.com/api/?name=${sn}&background=random&size=1080`
@@ -11,6 +13,8 @@ const avatarGenerate = (sn) => {
 export const EventSpeaker = ({ eid }) => {
   const [speaker, setSpeaker] = useState(null);
   const [open, setOpen] = useState({});
+  const isSmallScreen = useMediaQuery("(max-width: 450px)");
+
 
   useEffect(async () => {
     if (!speaker) {
