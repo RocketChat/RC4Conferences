@@ -13,13 +13,17 @@ import {
 import styles from "../../../styles/event.module.css";
 import { BsCalendar2Event, BsInfoCircle } from "react-icons/bs";
 import { GoLocation } from "react-icons/go";
-import { EventSpeaker } from "./EventSpeaker";
-import { useMediaQuery } from "@rocket.chat/fuselage-hooks";
+import { EventSpeaker, MdEventSpeaker, SmEventSpeaker } from "./EventSpeaker";
+import { useMediaQueries, useMediaQuery } from "@rocket.chat/fuselage-hooks";
 
 export const EventShow = ({ event }) => {
   const [key, setKey] = useState("home");
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
-  const isCalScreen = useMediaQuery("(min-width: 450px)");
+  const isCalScreen = useMediaQueries(
+    "(min-width: 450px)",
+    " (max-width: 500px)"
+  );
+  console.log("isCalScreen", isCalScreen);
 
   return (
     <div>
@@ -28,19 +32,20 @@ export const EventShow = ({ event }) => {
         <div className={styles.event_banner_title}>
           <Container>
             <Row>
-              {isCalScreen && <Col sm={1} xs={2}>
-              <EventSingleDate eventData={event.data} />
-              </Col>}
+              {isCalScreen[0] && isCalScreen[1] && (
+                <Col sm={1} xs={2} md={0}>
+                  <EventSingleDate eventData={event.data} />
+                </Col>
+              )}
               <Col>
-            <h4>{event.data.attributes.name}</h4>
-          <p>
-            by{" "}
-            <span style={{ color: "#d6162f" }}>
-              {event.data.attributes["owner-name"]}
-            </span>
-            
-          </p>
-          </Col>
+                <h4>{event.data.attributes.name}</h4>
+                <p>
+                  by{" "}
+                  <span style={{ color: "#d6162f" }}>
+                    {event.data.attributes["owner-name"]}
+                  </span>
+                </p>
+              </Col>
             </Row>
           </Container>
           {/* <h4>{event.data.attributes.name}</h4>
@@ -76,9 +81,12 @@ export const EventShow = ({ event }) => {
           </Tab>
           <Tab eventKey="sessions" title="Sessions"></Tab>
           <Tab eventKey="speakers" title="Speakers">
-            {key == "speakers" && (
-              <EventSpeaker eid={event.data.attributes.identifier} />
-            )}
+            {key == "speakers" &&
+              (isSmallScreen ? (
+                <SmEventSpeaker eid={event.data.attributes.identifier} />
+              ) : (
+                <MdEventSpeaker eid={event.data.attributes.identifier} />
+              ))}
           </Tab>
         </Tabs>
       </div>
@@ -123,7 +131,6 @@ const EventSingleDate = ({ eventData }) => {
     <Stack className="mx-auto">
       <span>{month}</span>
       <span>{date}</span>
-      
     </Stack>
   );
 };
