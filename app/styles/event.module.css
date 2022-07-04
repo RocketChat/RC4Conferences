@@ -66,11 +66,7 @@
     flex-direction: column;
 }
 
-.speaker_intro {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-}
+
 
 .event_speaker_name {
     font-weight: lighter;
@@ -93,12 +89,23 @@
 }
 
 @media (max-width: 576px) {
-    .event_banner {
+    .speaker_intro {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
     }
 }
 
 @media (min-width: 576px) and (max-width: 992px) {
-    .event_banner {}
+    .speaker_intro {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: baseline;
+    }
+    .event_speaker_name {
+        font-size: x-large;
+    }
 }
 
 @media (min-width: 992px) {
