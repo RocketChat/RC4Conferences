@@ -15,6 +15,7 @@ import { BsCalendar2Event, BsInfoCircle } from "react-icons/bs";
 import { GoLocation } from "react-icons/go";
 import { EventSpeaker, MdEventSpeaker, SmEventSpeaker } from "./EventSpeaker";
 import { useMediaQueries, useMediaQuery } from "@rocket.chat/fuselage-hooks";
+import { EventTicket } from "./EventRegisterSection";
 
 export const EventShow = ({ event }) => {
   const [key, setKey] = useState("home");
@@ -23,12 +24,14 @@ export const EventShow = ({ event }) => {
     "(min-width: 450px)",
     " (max-width: 500px)"
   );
-  console.log("isCalScreen", isCalScreen);
+  console.log("event data", event.included)
 
   return (
     <div>
       <div className={styles.event_banner}>
         <Image src={event.data.attributes["original-image-url"]} fluid />
+        <EventTicket tktDetail={event.included[0]} />
+
         <div className={styles.event_banner_title}>
           <Container>
             <Row>
@@ -47,14 +50,9 @@ export const EventShow = ({ event }) => {
                 </p>
               </Col>
             </Row>
+            <Row>
+            </Row>
           </Container>
-          {/* <h4>{event.data.attributes.name}</h4>
-          <p>
-            by{" "}
-            <span style={{ color: "#d6162f" }}>
-              {event.data.attributes["owner-name"]}
-            </span>
-          </p> */}
           <hr />
           <Stack
             gap={isSmallScreen ? 3 : 1}
