@@ -66,7 +66,9 @@
     flex-direction: column;
 }
 
-
+.event_ticket_nav {
+    background-color: #f5455c;
+}
 
 .event_speaker_name {
     font-weight: lighter;

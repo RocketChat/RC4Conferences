@@ -59,7 +59,7 @@ export const getEventDeatils = async (eid) => {
   const headers = {
     "Accept": "application/vnd.api+json",
   };
-  const res = await axios.get(`${eventUrl}/v1/events/${eid}`);
+  const res = await axios.get(`${eventUrl}/v1/events/${eid}?include=tickets`);
   return res;
 }
 
