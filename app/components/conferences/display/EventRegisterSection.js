@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { Badge, Button, Container, Nav, Navbar } from "react-bootstrap"
+import { Badge, Button, Card, Container, Nav, Navbar } from "react-bootstrap"
 import styles from "../../../styles/event.module.css";
 
 
@@ -27,11 +27,10 @@ const detectElement = (options) => {
 export const EventTicket = ({tktDetail}) => {
     const [containerRef, inView] = detectElement({
         root: null,
-        rootMargin: "0px",
-        threshold: 0.99
+        rootMargin: "0px 0px 100% 0px",
+        threshold: 0.7
     })
 
-    console.log("ro", tktDetail)
     const tktName = tktDetail.attributes.name
     const tktPrice = tktDetail.attributes.price
     const handleRegister = () => {

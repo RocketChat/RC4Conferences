@@ -41,7 +41,16 @@
 }
 
 /* Event Show styles begins */
+.event_show_root {
+    max-width: 900px;
+    margin: 0em auto;
+}
+
 .event_banner {
+}
+
+.date_icon {
+    align-items: baseline;
 }
 
 .event_banner_title {
@@ -68,6 +77,12 @@
 
 .event_ticket_nav {
     background-color: #f5455c;
+    max-width: 900px;
+    margin: auto;
+}
+
+.event_speaker_row {
+    align-items: center;
 }
 
 .event_speaker_name {
@@ -110,12 +125,18 @@
     }
 }
 
-@media (min-width: 992px) {
+@media (min-width: 990px) {
+    .event_show_root {
+        margin: 1em auto;
+    }
     .speaker_intro {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: baseline;
+    }
+    .event_speaker_name {
+        font-size: xx-large;
     }
 }
 /* Event Show styles ends */
