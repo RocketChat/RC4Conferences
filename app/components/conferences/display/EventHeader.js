@@ -8,10 +8,6 @@ import { GoLocation } from "react-icons/go";
 export const SmEventHeader = ({ event }) => {
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
 
-  const isCalScreen = useMediaQueries(
-    "(min-width: 450px)",
-    " (max-width: 500px)"
-  );
   return (
     <div className={styles.event_banner}>
       <Image src={event.data.attributes["original-image-url"]} fluid />
@@ -20,11 +16,6 @@ export const SmEventHeader = ({ event }) => {
       <div className={styles.event_banner_title}>
         <Container>
           <Row>
-            {isCalScreen[0] && isCalScreen[1] && (
-              <Col sm={1} xs={2} md={0}>
-                <EventSingleDate eventData={event.data} />
-              </Col>
-            )}
             <Col>
               <h4>{event.data.attributes.name}</h4>
               <p>
@@ -35,7 +26,6 @@ export const SmEventHeader = ({ event }) => {
               </p>
             </Col>
           </Row>
-          <Row></Row>
         </Container>
         <hr />
         <Stack
