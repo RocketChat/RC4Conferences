@@ -47,7 +47,7 @@ export const SmEventSpeaker = ({ eid }) => {
             <Container key={spk.id} className="mb-3">
               <div className={styles.event_speaker_avatar}>
                 <Image
-                  width={100}
+                  width={70}
                   roundedCircle
                   src={
                     spk.attributes["photo-url"] ||

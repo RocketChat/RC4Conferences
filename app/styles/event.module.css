@@ -72,7 +72,7 @@
 
 .event_speaker_name {
     font-weight: lighter;
-    font-size: larger;
+    font-size: x-large;
 }
 
 .event_speaker_title {
@@ -111,6 +111,11 @@
 }
 
 @media (min-width: 992px) {
-    .event_banner {}
+    .speaker_intro {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: baseline;
+    }
 }
 /* Event Show styles ends */
