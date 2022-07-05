@@ -67,6 +67,7 @@ export default function Menubar(props) {
                     <NavDropdown.Item
                       key={sub.id || sub._id || `NavDropDownItem_${index}`}
                       href={sub.attributes.url}
+                      disabled={sub.attributes.style == "disable"}
                     >
                       {sub.attributes.label}
                     </NavDropdown.Item>
