@@ -7,25 +7,27 @@ import {
   Row,
   Stack,
   Tab,
-  TabContent,
   Tabs,
 } from "react-bootstrap";
 import styles from "../../../styles/event.module.css";
 
 import { MdEventSpeaker, SmEventSpeaker } from "./EventSpeaker";
-import { useMediaQueries, useMediaQuery } from "@rocket.chat/fuselage-hooks";
+import { useMediaQuery } from "@rocket.chat/fuselage-hooks";
 import { MdEventHeader, SmEventHeader } from "./EventHeader";
 
 export const EventShow = ({ event }) => {
   const [key, setKey] = useState("home");
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
-  
+
   const isMdScreen = useMediaQuery("(min-width: 768px)");
-  
 
   return (
     <Card className={styles.event_show_root}>
-      {isMdScreen ? <MdEventHeader event={event} /> :<SmEventHeader event={event} />}
+      {isMdScreen ? (
+        <MdEventHeader event={event} />
+      ) : (
+        <SmEventHeader event={event} />
+      )}
       <div className={styles.event_nav}>
         <Tabs
           id="controlled-tab-example"
@@ -37,7 +39,9 @@ export const EventShow = ({ event }) => {
           <Tab eventKey="home" title="Overview">
             <Stack>
               <EventDesc eventData={event.data} />
-              <Image src={event.data.attributes["logo-url"]} width={100} />
+              <div className={styles.event_logo}>
+                <Image src={event.data.attributes["logo-url"]} width={100} />
+              </div>
             </Stack>
           </Tab>
           <Tab eventKey="sessions" title="Sessions"></Tab>
