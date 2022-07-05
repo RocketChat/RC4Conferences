@@ -14,21 +14,18 @@ import styles from "../../../styles/event.module.css";
 
 import { MdEventSpeaker, SmEventSpeaker } from "./EventSpeaker";
 import { useMediaQueries, useMediaQuery } from "@rocket.chat/fuselage-hooks";
-import { SmEventHeader } from "./EventHeader";
+import { MdEventHeader, SmEventHeader } from "./EventHeader";
 
 export const EventShow = ({ event }) => {
   const [key, setKey] = useState("home");
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
-  const isCalScreen = useMediaQueries(
-    "(min-width: 450px)",
-    " (max-width: 500px)"
-  );
   
-    console.log("event data", event.included)
+  const isMdScreen = useMediaQuery("(min-width: 768px)");
+  
 
   return (
-    <div>
-      <SmEventHeader event={event} />
+    <Card className={styles.event_show_root}>
+      {isMdScreen ? <MdEventHeader event={event} /> :<SmEventHeader event={event} />}
       <div className={styles.event_nav}>
         <Tabs
           id="controlled-tab-example"
@@ -54,7 +51,7 @@ export const EventShow = ({ event }) => {
           </Tab>
         </Tabs>
       </div>
-    </div>
+    </Card>
   );
 };
 

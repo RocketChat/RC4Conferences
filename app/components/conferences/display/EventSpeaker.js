@@ -122,7 +122,7 @@ export const MdEventSpeaker = ({ eid }) => {
         speaker.data.map((spk) => {
           return (
             <Container key={spk.id} className="mb-3">
-              <Row>
+              <Row className={styles.event_speaker_row}>
                 <Col sm={2} md={2}>
                   <div className={styles.event_speaker_avatar}>
                     <Image
