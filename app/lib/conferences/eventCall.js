@@ -53,3 +53,22 @@ export const publishEventTicket = async (data, auth) => {
   return res;
 }
 // Event Ticket Publish Call Ends
+
+////// Event Fetch Call Begins
+export const getEventDeatils = async (eid) => {
+  const headers = {
+    "Accept": "application/vnd.api+json",
+  };
+  const res = await axios.get(`${eventUrl}/v1/events/${eid}?include=tickets`);
+  return res;
+}
+
+// Event Speaker call
+export const getEventSpeakers = async (eid) => {
+  const headers = {
+    "Accept": "application/vnd.api+json",
+  };
+  const res = await axios.get(`${eventUrl}/v1/events/${eid}/speakers`);
+  return res;
+}
+////// Event Fetch Call Ends
