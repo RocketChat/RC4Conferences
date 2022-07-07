@@ -3,7 +3,6 @@ import styles from '../styles/Home.module.css';
 import Infotiles from '../components/infotiles';
 import Newscarousel from '../components/newscarousel';
 import Personacircle from '../components/personalcircle';
-import Discourserankedlist from '../components/discourserankedlist';
 import Searchbox from '../components/searchbox';
 import Growthcounters from '../components/growthcounters';
 import { Container, Col } from 'react-bootstrap';
@@ -63,13 +62,6 @@ function Home(props) {
           Get What You Need...
         </h2>
         <Personacircle personas={props.personas.data}></Personacircle>
-
-        <div className={` d-flex flex-column py-5 align-items-center`}>
-          <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>
-            Community Activity
-          </h2>
-          <Discourserankedlist topposts={props.topPosts.data}></Discourserankedlist>
-        </div>
       </Container>
     </>
   );
@@ -82,10 +74,9 @@ export async function getStaticProps({ params }) {
   const guides = await fetchAPI('/guide');
   const releaseNotes = await fetchAPI('/release-note');
   const topNavItems = await fetchAPI('/top-nav-item');
-  const topPosts = await fetchAPI('/discourses');
  
   return {
-    props: { carousels, personas, guides, releaseNotes, topNavItems, topPosts },
+    props: { carousels, personas, guides, releaseNotes, topNavItems },
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 1 second
