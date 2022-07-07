@@ -6,7 +6,6 @@ import { EventCreate } from "../../../components/conferences/create/EventCreate"
 function EventCreatePage() {
   const router = useRouter()
   const {eid} = router.query
-  console.log("router", router.query)
   return (
     <div>
       <Head>
