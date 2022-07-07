@@ -1,6 +1,5 @@
 "use strict";
 
-const { getLatestCommunityActivity } = require("../config/fetchTopPosts");
 const fetchData = require("./fetchData");
 
 /**
@@ -51,7 +50,6 @@ module.exports = async () => {
   // Fetches data and populates CMS from remote on server restart
   if (process.env.INITIALIZE_DATA) {
     await fetchData();
-    await getLatestCommunityActivity();
     await setDefaultPermissions();
   }
 };

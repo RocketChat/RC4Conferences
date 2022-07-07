@@ -1,6 +1,4 @@
 'use strict';
-const { getLatestCommunityActivity } = require("./fetchTopPosts");
-const { getCommunityContributors } = require("./fetchContributors")
 const { githubKit } = require("./github");
 const { updateSpeakerData } = require('./speaker')
 /**
@@ -21,11 +19,7 @@ module.exports = {
   // '0 1 * * 1': () => {
   //
   // }
-  '*/5 * * * *': () => {
-    getLatestCommunityActivity();
-  },
   '*/60 * * * * *': () => {
-    getCommunityContributors('https://gsoc.rocket.chat/api/data','rocketChat','Rocket.Chat');
     updateSpeakerData();
   },
   '*/* 10 * * * *': () => {
