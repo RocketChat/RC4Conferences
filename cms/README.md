@@ -28,6 +28,6 @@ INITIALIZE_DATA=true npm run develop
 
 Note:
 1. `INITIALIZE_DATA` environment variable is only needed the first time you startup the cms for development.   It will seed the cms with a default set of components for you to start your own customization.  (see [fetch data](https://github.com/RonLek/RC4Community/blob/master/cms/config/functions/fetchData.js)  for the actual default initialization code)
-2. On subsequent runs, if you want to activate Discourse Integration, set the environment variables `DISCOURSE_DOMAIN`, `DISCOURSE_API_USERNAME`, `DISCOURSE_API_KEY`.  These  environment variables are required for the cron job to fetch the latest top activity on discourse with the time interval of 5 mins.
+
 
  
