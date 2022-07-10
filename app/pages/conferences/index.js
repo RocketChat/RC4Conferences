@@ -4,8 +4,9 @@ import EventHome from "../../components/conferences/EventHome";
 import Image from "next/image";
 import eventLogo from "../../../assets/event_logo.svg";
 import styles from "../../styles/event.module.css";
+import { generatePassword } from "../../components/conferences/auth/AuthHelper";
 
-function EventHomeDemo({ imgUrl }) {
+function EventHomeDemo({ imgUrl, passcode }) {
   return (
     <div>
       <Head>
@@ -21,10 +22,9 @@ function EventHomeDemo({ imgUrl }) {
             className={styles.home_bg}
           >
             <div className={styles.home_bg_content}>
-            <Image width={300} height={250} src={eventLogo} />
-            <EventHome />
+              <Image width={300} height={250} src={eventLogo} />
+              <EventHome passcode={passcode} />
             </div>
-            
           </div>
         </Stack>
       </div>
@@ -37,8 +37,14 @@ export async function getServerSideProps(context) {
     "https://source.unsplash.com/random/1920x1080/?event,online,teamwork"
   );
   const imgUrl = res.url;
+  const umail = context.req.cookies?.user_mail;
+  let passcode = null;
+  if (umail) {
+    passcode = await generatePassword(umail);
+  }
+
   return {
-    props: { imgUrl },
+    props: { imgUrl, passcode },
   };
 }
 

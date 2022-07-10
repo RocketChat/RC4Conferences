@@ -1,8 +1,14 @@
 import axios from "axios";
 
-const eventUrl = process.env.NEXT_PUBLIC_EVENT_BACKEND_URL;
+const eventUrl = process.env.NEXT_PUBLIC_EVENT_TEST_BACKEND_URL;
+const testUrl = process.env.NEXT_PUBLIC_EVENT_TEST_BACKEND_URL;
 
 // Auth calls begins
+export const checkEmail = async (emailData) => {
+  const res = await axios.post(`${eventUrl}/v1/users/check_email`, emailData);
+  return res;
+};
+
 export const eventAuthSignIn = async (signInf) => {
   const headers = {
     "Content-Type": "application/json",
@@ -17,7 +23,6 @@ export const eventAuthSignUp = async (signUpf) => {
   const headers = {
     "Content-Type": "application/vnd.api+json",
   };
-  console.log("signUpf", signUpf)
   const res = await axios.post(`${eventUrl}/v1/users`, signUpf, {
     headers: headers,
   });
@@ -31,13 +36,13 @@ export const eventAuthSignUp = async (signUpf) => {
 export const publishEvent = async (data, auth) => {
   const headers = {
     "Content-Type": "application/vnd.api+json",
-    "Authorization": `JWT ${auth}`
+    Authorization: `JWT ${auth}`,
   };
   const res = await axios.post(`${eventUrl}/v1/events`, data, {
     headers: headers,
   });
   return res;
-}
+};
 // Event Create Call Ends
 
 // Event Ticket Publish Call Begins
@@ -45,13 +50,13 @@ export const publishEvent = async (data, auth) => {
 export const publishEventTicket = async (data, auth) => {
   const headers = {
     "Content-Type": "application/vnd.api+json",
-    "Authorization": `JWT ${auth}`
+    Authorization: `JWT ${auth}`,
   };
   const res = await axios.post(`${eventUrl}/v1/tickets`, data, {
     headers: headers,
   });
   return res;
-}
+};
 // Event Ticket Publish Call Ends
 
 ////// Event Fetch Call Begins
