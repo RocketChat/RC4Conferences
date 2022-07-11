@@ -1,11 +1,11 @@
 import Head from "next/head";
 import { Stack } from "react-bootstrap";
-import { useRouter } from 'next/router'
+import { useRouter } from "next/router";
 import { EventCreate } from "../../../components/conferences/create/EventCreate";
 
 function EventCreatePage() {
-  const router = useRouter()
-  const {eid} = router.query
+  const router = useRouter();
+  const { eid } = router.query;
   return (
     <div>
       <Head>
@@ -22,6 +22,18 @@ function EventCreatePage() {
       </div>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const authCookie = context.req.cookies?.event_auth;
+  if (!authCookie) {
+    context.res.writeHead(303, { Location: "/conferences" });
+    context.res.end();
+  }
+
+  return {
+    props: {},
+  };
 }
 
 export default EventCreatePage;
