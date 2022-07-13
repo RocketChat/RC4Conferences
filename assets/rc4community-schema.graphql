@@ -10,11 +10,18 @@ type User {
   photoURL: String
   links: [Link] @relation
   NFT: [NFT] @relation
+  rc4conf: [EventUser] @relation
 }
 
 type NFT {
   address: String!
   token: String! @unique
+  user: User! @unique
+}
+
+type EventUser {
+  email: String! @unique
+  role: String!
   user: User! @unique
 }
 
