@@ -4,11 +4,14 @@ A set of scalable components for communities to build, manage, and run virtual c
 <h2 align='center'>🚀 Developer quick start 🚀</h2>
 <p align='center'> Development - Build - Production </p>
 
-## 💻 Design and Development Time
+## 💻 Developers Quick Start
 
-The only required `.env` variables for development purpose is the link to the Open Event Server backend.
+First, visit the `open-event-server` directory and follow the instructions there.
+
+
+Then set the `.env` variables for development purpose and link to the embedded backend.
 ```
-NEXT_PUBLIC_EVENT_BACKEND_URL = "https://api.eventyay.com"
+NEXT_PUBLIC_EVENT_BACKEND_URL = "http://localhost:8080"
 ```
 
 The application is written on nextjs and deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. For build and design, start it in a shell:
