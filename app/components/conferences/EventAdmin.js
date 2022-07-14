@@ -2,6 +2,7 @@ import { gql, useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import Menubar from "../menubar";
 import _ from "lodash";
+import Cookies from "js-cookie";
 
 const FindUserByMail = gql`
   query findUser($email: String!) {
@@ -12,7 +13,7 @@ const FindUserByMail = gql`
       email
       photoURL
       phoneNumber
-      events {
+      rc4conf {
         data {
           role
         }
@@ -22,38 +23,50 @@ const FindUserByMail = gql`
 `;
 
 export const VerifyUserRole = ({ menuprops }) => {
-  const [getCurrentUser, { data, error, loading }] = useLazyQuery(FindUserByMail);
-  const [verified, setVerified] = useState(false)
-
+  const [getCurrentUser, { data, error, loading }] =
+    useLazyQuery(FindUserByMail);
+  const [verified, setVerified] = useState(false);
+  const umail = Cookies.get("user_mail");
   useEffect(() => {
     getCurrentUser({
-        variables: {
-            email: "acat0@rocket.chat"
-        }
-    })
+      variables: {
+        email: umail,
+      },
+    });
   }, []);
-  let menuCache=null
+  let menuCache = null;
 
   const abortAdmin = () => {
     menuCache = _.cloneDeep(menuprops);
 
     menuCache.menu.topNavItems.data.attributes.body =
-    menuCache.menu.topNavItems.data.attributes.body.filter(
+      menuCache.menu.topNavItems.data.attributes.body.filter(
         (element) => element.label !== "Admin"
       );
   };
 
   if (data) {
-      const isAdmin = data.findUserByEmail?.events?.data[0].role
-      if (isAdmin === "Admin"){
-          !verified && setVerified(true)
-      }
+    const isAdmin = data.findUserByEmail?.rc4conf?.data[0].role;
+    if (isAdmin === "Admin") {
+      !verified && setVerified(true);
+    }
+  }
+
+  if (error) {
+    console.error(
+      "An error ocurred while getting user details on Superprofile",
+      error
+    );
   }
 
   return (
     <>
       {abortAdmin()}
-      {verified ? <Menubar menu={menuprops.menu.topNavItems} />  : <Menubar menu={menuCache.menu.topNavItems} />}
+      {verified ? (
+        <Menubar menu={menuprops.menu.topNavItems} />
+      ) : (
+        <Menubar menu={menuCache.menu.topNavItems} />
+      )}
     </>
   );
 };
