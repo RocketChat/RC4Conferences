@@ -1,40 +1,24 @@
-import { gql, useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import Menubar from "../menubar";
 import _ from "lodash";
 import Cookies from "js-cookie";
-
-const FindUserByMail = gql`
-  query findUser($email: String!) {
-    findUserByEmail(email: $email) {
-      _id
-      uid
-      displayName
-      email
-      photoURL
-      phoneNumber
-      rc4conf {
-        data {
-          role
-        }
-      }
-    }
-  }
-`;
+import { verifyAdmin } from "./auth/AuthSuperProfileHelper";
 
 export const VerifyUserRole = ({ menuprops }) => {
-  const [getCurrentUser, { data, error, loading }] =
-    useLazyQuery(FindUserByMail);
+  if (!menuprops.menu?.topNavItems) {
+    return <Menubar menu={menuprops.menu.topNavItems} />;
+  }
+  const [getCurrentUser, { data, error, loading }] = verifyAdmin();
   const [verified, setVerified] = useState(false);
   const umail = Cookies.get("user_mail");
   useEffect(() => {
-    getCurrentUser({
-      variables: {
-        email: umail,
-      },
-    });
+    getCurrentUser({ email: umail });
   }, []);
   let menuCache = null;
+
+  if (!menuprops.menu?.topNavItems) {
+    return <Menubar menu={menuprops.menu.topNavItems} />;
+  }
 
   const abortAdmin = () => {
     menuCache = _.cloneDeep(menuprops);
