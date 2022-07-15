@@ -1,11 +1,12 @@
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Spinner } from "react-bootstrap";
 import { autoLogin, setCookie } from "./auth/AuthHelper";
 
 const EventHome = ({ passcode }) => {
   const router = useRouter();
+  const [load, setLoad] = useState(false)
   let session = Cookies.get("event_auth");
   let umail = Cookies.get("user_mail");
   useEffect(() => {
@@ -15,10 +16,12 @@ const EventHome = ({ passcode }) => {
   });
 
   const handleAutoAuth = async () => {
+    setLoad(true)
     const res = await autoLogin(umail, passcode);
     if (res?.data) {
+      setLoad(false)
       setCookie(res);
-      router.push("/conferences/create/basic-detail")
+      router.push("/conferences/create/basic-detail");
     }
   };
 
@@ -32,7 +35,21 @@ const EventHome = ({ passcode }) => {
     }
   };
 
-  return <Button onClick={handleClick}>Create Event!</Button>;
+  return (
+    <Button disabled={load} onClick={handleClick}>
+      {load ? (
+        <Spinner
+          as="span"
+          animation="border"
+          size="sm"
+          role="status"
+          aria-hidden="true"
+        />
+      ) : (
+        "Create Event!"
+      )}
+    </Button>
+  );
 };
 
 export default EventHome;
