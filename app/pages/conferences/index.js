@@ -1,12 +1,16 @@
 import Head from "next/head";
-import { Stack } from "react-bootstrap";
+import { ProgressBar, Stack } from "react-bootstrap";
 import EventHome from "../../components/conferences/EventHome";
 import Image from "next/image";
 import eventLogo from "../../../assets/event_logo.svg";
 import styles from "../../styles/event.module.css";
 import { generatePassword } from "../../components/conferences/auth/AuthHelper";
+import { fetchAPI } from "../../lib/api";
+import { ssrVerifyAdmin } from "../../components/conferences/auth/AuthSuperProfileHelper";
+import Cookies from "js-cookie";
 
 function EventHomeDemo({ imgUrl, passcode }) {
+
   return (
     <div>
       <Head>
@@ -39,12 +43,19 @@ export async function getServerSideProps(context) {
   const imgUrl = res.url;
   const umail = context.req.cookies?.user_mail;
   let passcode = null;
+  let isAdmin = false
   if (umail) {
     passcode = await generatePassword(umail);
+    isAdmin = await ssrVerifyAdmin({email: umail})
   }
+  if (!isAdmin) {
+    context.res.writeHead(303, { Location: "/" });
+    context.res.end();
+  }
+  const topNavItems = await fetchAPI("/top-nav-item");
 
   return {
-    props: { imgUrl, passcode },
+    props: { imgUrl, passcode, topNavItems },
   };
 }
 
