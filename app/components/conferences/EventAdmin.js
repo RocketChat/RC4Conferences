@@ -30,7 +30,7 @@ export const VerifyUserRole = ({ menuprops }) => {
   };
 
   if (data) {
-    const isAdmin = data.findUserByEmail?.rc4conf?.data[0].role;
+    const isAdmin = data.findUserByEmail?.rc4conf?.data[0]?.role;
     if (isAdmin === "Admin") {
       !verified && setVerified(true);
     }
