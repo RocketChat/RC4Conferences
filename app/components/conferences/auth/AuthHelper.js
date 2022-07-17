@@ -7,7 +7,7 @@ import {
 } from "../../../lib/conferences/eventCall";
 
 export const generatePassword = async (mail) => {
-  const passcode = crypto.HmacSHA256(mail, process.env.EVENT_USER_PARAPHRASE);
+  const passcode = crypto.HmacSHA256(mail, process.env.EVENT_USER_PASSPHRASE);
 
   return passcode.toString(crypto.enc.Base64);
 };

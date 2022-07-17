@@ -13,27 +13,18 @@ Then set the `.env` variables for development purpose and link to the embedded b
 ```
 NEXT_PUBLIC_EVENT_BACKEND_URL = "http://localhost:8080"
 ```
-
-### Start Strapi CMS
+Add a few other required `.env` variables which includes the email address for Event Admin and the passphrase required for encrypting mail address and generating passwords
 ```
-cd cms
-npm i
-INITIALIZE_DATA=true npm run develop
+EVENT_USER_PASSPHRASE = "your super secret phrase"
+NEXT_PUBLIC_EVENT_ADMIN_MAIL="acat0@rocket.chat"
 ```
 
-The application is written on nextjs and deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. For build and design, start it in a shell:
-
-```
-cd app
-npm i
-npm run dev
-```
 <hr />
 
 ### SuperProfile Setup
 
 <details>
-<summary>Fauna Local Development Setup</summary>
+<summary>Fauna Local Docker Image Development Setup</summary>
 
 For setting up the local development copy of Fauna, first run the below command to start the Fauna Docker image as a single developer node, with ephemeral data.
 ```
@@ -188,12 +179,12 @@ NEXT_PUBLIC_FAUNA_DOMAIN="https://graphql.us.fauna.com/graphql"
 mutation {
   createUser(data: {
     displayName: "YOUR_NAME"
-    email: "YOUR_EMAIL"
+    email: "NEXT_PUBLIC_EVENT_ADMIN_MAIL"
     uid: "ANY_UNIQUE_NUMBER"
     events: {
       create: {
         role: "Admin"
-        email: "YOUR_EMAIL"
+        email: "NEXT_PUBLIC_EVENT_ADMIN_MAIL"
       }
     }
   }) {
@@ -202,16 +193,26 @@ mutation {
   }
 }
 ```
-6. Copy the email address and in the browser console run
-```
-document.cookie="user_mail=YOUR_EMAIL"
-```
-(Note: YOUR_EMAIL should be same as the user created in step 5)
 
-7. Congrats! and thank you! for reading this. With this you are all set, to access Admin menus.
+6. Congrats! and thank you! for reading this. With this you are all set, to access Admin menus.
 
 </details>
 <hr />
+
+### Start Strapi CMS
+```
+cd cms
+npm i
+INITIALIZE_DATA=true npm run develop
+```
+
+The application is written on nextjs and deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. For build and design, start it in a shell:
+
+```
+cd app
+npm i
+npm run dev
+```
 
 ### Route Details
 
