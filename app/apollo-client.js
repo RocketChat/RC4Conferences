@@ -4,9 +4,9 @@ import { setContext } from '@apollo/client/link/context';
 const httpLink = createHttpLink({
   // Uncomment the appropriate line according to the
   // region group where you created your database.
-//   uri: 'https://graphql.fauna.com/graphql',
+  // uri: 'https://graphql.fauna.com/graphql',
   // uri: 'https://graphql.eu.fauna.com/graphql',
-  uri: 'https://graphql.us.fauna.com/graphql',
+  uri: process.env.NEXT_PUBLIC_FAUNA_DOMAIN,
 });
 
 const authLink = setContext((_, { headers }) => {
