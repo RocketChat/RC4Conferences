@@ -2,7 +2,7 @@ import crypto from "crypto-js";
 
 export default function handler(req, res) {
   if (req.method === "POST") {
-    const encrypted = crypto.AES.encrypt(req.body.mail, process.env.EVENT_USER_PARAPHRASE);
+    const encrypted = crypto.AES.encrypt(req.body.mail, process.env.EVENT_USER_PASSPHRASE);
     res.status(200).json({ hash: encrypted.toString() });
     // Process a POST request
   } else {
