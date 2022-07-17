@@ -2,6 +2,20 @@ import axios from "axios";
 
 const eventUrl = process.env.NEXT_PUBLIC_EVENT_TEST_BACKEND_URL;
 const testUrl = process.env.NEXT_PUBLIC_EVENT_TEST_BACKEND_URL;
+const nextDeployUrl =
+  process.env.NODE_ENV === "development" ? "http://localhost:3000" : "";
+
+//NextJS local API route call begins
+export const signCook = async (mail) => {
+  const res = await axios.post(`${nextDeployUrl}/api/conf/signCook`, mail);
+  return res;
+};
+
+export const unsignCook = async (hash) => {
+  const res = await axios.post(`${nextDeployUrl}/api/conf/unsignCook`, hash);
+  return res;
+};
+//NextJS local API route call ends
 
 // Auth calls begins
 export const checkEmail = async (emailData) => {
@@ -62,18 +76,18 @@ export const publishEventTicket = async (data, auth) => {
 ////// Event Fetch Call Begins
 export const getEventDeatils = async (eid) => {
   const headers = {
-    "Accept": "application/vnd.api+json",
+    Accept: "application/vnd.api+json",
   };
   const res = await axios.get(`${eventUrl}/v1/events/${eid}?include=tickets`);
   return res;
-}
+};
 
 // Event Speaker call
 export const getEventSpeakers = async (eid) => {
   const headers = {
-    "Accept": "application/vnd.api+json",
+    Accept: "application/vnd.api+json",
   };
   const res = await axios.get(`${eventUrl}/v1/events/${eid}/speakers`);
   return res;
-}
+};
 ////// Event Fetch Call Ends

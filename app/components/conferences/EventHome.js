@@ -6,9 +6,9 @@ import { autoLogin, setCookie } from "./auth/AuthHelper";
 
 const EventHome = ({ passcode }) => {
   const router = useRouter();
-  const [load, setLoad] = useState(false)
+  const [load, setLoad] = useState(false);
   let session = Cookies.get("event_auth");
-  let umail = Cookies.get("user_mail");
+  let umail = process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL;
   useEffect(() => {
     if (session) {
       session = JSON.parse(session);
@@ -16,10 +16,10 @@ const EventHome = ({ passcode }) => {
   });
 
   const handleAutoAuth = async () => {
-    setLoad(true)
+    setLoad(true);
     const res = await autoLogin(umail, passcode);
     if (res?.data) {
-      setLoad(false)
+      setLoad(false);
       setCookie(res);
       router.push("/conferences/create/basic-detail");
     }
