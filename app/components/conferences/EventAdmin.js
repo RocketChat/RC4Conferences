@@ -3,6 +3,7 @@ import Menubar from "../menubar";
 import _ from "lodash";
 import Cookies from "js-cookie";
 import { verifyAdmin } from "./auth/AuthSuperProfileHelper";
+import { unsignCook } from "../../lib/conferences/eventCall";
 
 export const VerifyUserRole = ({ menuprops }) => {
   if (!menuprops.menu?.topNavItems) {
@@ -10,9 +11,14 @@ export const VerifyUserRole = ({ menuprops }) => {
   }
   const [getCurrentUser, { data, error, loading }] = verifyAdmin();
   const [verified, setVerified] = useState(false);
-  const umail = Cookies.get("user_mail");
-  useEffect(() => {
-    getCurrentUser({ email: umail });
+  const hashmail = Cookies.get("hashmail");
+  useEffect(async () => {
+    try {
+      const res = await unsignCook({ hash: hashmail });
+      getCurrentUser({ email: res.data.mail });
+    } catch {
+      console.error("Error while deciphering");
+    }
   }, []);
   let menuCache = null;
 

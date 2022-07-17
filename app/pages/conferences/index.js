@@ -8,6 +8,7 @@ import { generatePassword } from "../../components/conferences/auth/AuthHelper";
 import { fetchAPI } from "../../lib/api";
 import { ssrVerifyAdmin } from "../../components/conferences/auth/AuthSuperProfileHelper";
 import Cookies from "js-cookie";
+import { unsignCook } from "../../lib/conferences/eventCall";
 
 function EventHomeDemo({ imgUrl, passcode }) {
 
@@ -40,14 +41,18 @@ export async function getServerSideProps(context) {
   const res = await fetch(
     "https://source.unsplash.com/random/1920x1080/?event,online,teamwork"
   );
+  const umail = context.req.cookies?.hashmail;
+  const mailres = await unsignCook({
+    hash: umail
+  })
   const imgUrl = res.url;
-  const umail = context.req.cookies?.user_mail;
   let passcode = null;
   let isAdmin = false
-  if (umail) {
-    passcode = await generatePassword(umail);
-    isAdmin = await ssrVerifyAdmin({email: umail})
+  if (mailres.data.mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
+    passcode = await generatePassword(mailres.data.mail);
+    isAdmin = await ssrVerifyAdmin({email: mailres.data.mail})
   }
+  
   if (!isAdmin) {
     context.res.writeHead(303, { Location: "/" });
     context.res.end();

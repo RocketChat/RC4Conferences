@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { EventCreate } from "../../../components/conferences/create/EventCreate";
 import { ssrVerifyAdmin } from "../../../components/conferences/auth/AuthSuperProfileHelper";
 import { fetchAPI } from "../../../lib/api";
+import { unsignCook } from "../../../lib/conferences/eventCall";
 
 function EventCreatePage() {
   const router = useRouter();
@@ -28,10 +29,13 @@ function EventCreatePage() {
 
 export async function getServerSideProps(context) {
   const authCookie = context.req.cookies?.event_auth;
-  const umail = context.req.cookies?.user_mail;
-  let isAdmin = false
-  if (umail) {
-    isAdmin = await ssrVerifyAdmin({email: umail})
+  const umail = context.req.cookies?.hashmail;
+  const mailres = await unsignCook({
+    hash: umail,
+  });
+  let isAdmin = false;
+  if (mailres.data.mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
+    isAdmin = await ssrVerifyAdmin({ email: mailres.data.mail });
   }
   if (!isAdmin) {
     context.res.writeHead(303, { Location: "/" });
@@ -44,7 +48,7 @@ export async function getServerSideProps(context) {
   }
 
   return {
-    props: {topNavItems},
+    props: { topNavItems },
   };
 }
 

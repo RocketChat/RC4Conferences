@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import crypto from "crypto-js";
 import Cookies from "js-cookie";
 import {
@@ -14,13 +13,15 @@ export const generatePassword = async (mail) => {
 };
 
 export const setCookie = (res) => {
-    let cookieData = {
-        ...res.data
-    }
-    const jwtDec = JSON.parse(Buffer.from(res.data.access_token.split('.')[1], 'base64').toString())
-    cookieData["jwtInfo"] = jwtDec
-    const expTime = new Date(jwtDec.exp*1000)
-  Cookies.set("event_auth", JSON.stringify(cookieData), {expires: expTime});
+  let cookieData = {
+    ...res.data,
+  };
+  const jwtDec = JSON.parse(
+    Buffer.from(res.data.access_token.split(".")[1], "base64").toString()
+  );
+  cookieData["jwtInfo"] = jwtDec;
+  const expTime = new Date(jwtDec.exp * 1000);
+  Cookies.set("event_auth", JSON.stringify(cookieData), { expires: expTime });
 };
 
 const signIn = async (mail, passcode) => {
