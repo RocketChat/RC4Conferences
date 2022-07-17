@@ -41,6 +41,7 @@ export const useDummyAuth = () => {
     setUser({});
     sessionStorage.removeItem("dummy_user");
     Cookies.remove("hashmail");
+    Cookies.remove("event_auth")
   };
 
   return {
