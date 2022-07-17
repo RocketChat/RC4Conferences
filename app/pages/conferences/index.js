@@ -1,11 +1,17 @@
 import Head from "next/head";
-import { Stack } from "react-bootstrap";
+import { ProgressBar, Stack } from "react-bootstrap";
 import EventHome from "../../components/conferences/EventHome";
 import Image from "next/image";
 import eventLogo from "../../../assets/event_logo.svg";
 import styles from "../../styles/event.module.css";
+import { generatePassword } from "../../components/conferences/auth/AuthHelper";
+import { fetchAPI } from "../../lib/api";
+import { ssrVerifyAdmin } from "../../components/conferences/auth/AuthSuperProfileHelper";
+import Cookies from "js-cookie";
+import { unsignCook } from "../../lib/conferences/eventCall";
 
-function EventHomeDemo({ imgUrl }) {
+function EventHomeDemo({ imgUrl, passcode }) {
+
   return (
     <div>
       <Head>
@@ -21,10 +27,9 @@ function EventHomeDemo({ imgUrl }) {
             className={styles.home_bg}
           >
             <div className={styles.home_bg_content}>
-            <Image width={300} height={250} src={eventLogo} />
-            <EventHome />
+              <Image width={300} height={250} src={eventLogo} />
+              <EventHome passcode={passcode} />
             </div>
-            
           </div>
         </Stack>
       </div>
@@ -36,9 +41,26 @@ export async function getServerSideProps(context) {
   const res = await fetch(
     "https://source.unsplash.com/random/1920x1080/?event,online,teamwork"
   );
+  const umail = context.req.cookies?.hashmail;
+  const mailres = await unsignCook({
+    hash: umail
+  })
   const imgUrl = res.url;
+  let passcode = null;
+  let isAdmin = false
+  if (mailres.data.mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
+    passcode = await generatePassword(mailres.data.mail);
+    isAdmin = await ssrVerifyAdmin({email: mailres.data.mail})
+  }
+  
+  if (!isAdmin) {
+    context.res.writeHead(303, { Location: "/" });
+    context.res.end();
+  }
+  const topNavItems = await fetchAPI("/top-nav-item");
+
   return {
-    props: { imgUrl },
+    props: { imgUrl, passcode, topNavItems },
   };
 }
 
