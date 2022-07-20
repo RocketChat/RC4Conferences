@@ -84,18 +84,35 @@ export const getEventDeatils = async (eid) => {
 export const getUserEventDeatils = async (uid, auth) => {
   const headers = {
     Accept: "application/vnd.api+json",
-    Authorization: `JWT ${auth}`
+    Authorization: `JWT ${auth}`,
   };
-  const res = await axios.get(`${eventUrl}/v1/users/${uid}/events`, {headers: headers});
+  const res = await axios.get(`${eventUrl}/v1/users/${uid}/events`, {
+    headers: headers,
+  });
   return res;
 };
 
 // Event Speaker call
-export const getEventSpeakers = async (eid) => {
+export const getEventSpeakers = async (eid, auth) => {
   const headers = {
     Accept: "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
   };
-  const res = await axios.get(`${eventUrl}/v1/events/${eid}/speakers`);
+  const res = await axios.get(`${eventUrl}/v1/events/${eid}/speakers`, {
+    headers: headers,
+  });
+  return res;
+};
+
+export const addEventSpeakers = async (data, auth) => {
+  const headers = {
+    Accept: "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
+    "Content-Type": "application/vnd.api+json",
+  };
+  const res = await axios.post(`${eventUrl}/v1/speakers`, data, {
+    headers: headers,
+  });
   return res;
 };
 ////// Event Fetch Call Ends
