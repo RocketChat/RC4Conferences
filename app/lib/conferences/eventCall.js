@@ -115,4 +115,15 @@ export const addEventSpeakers = async (data, auth) => {
   });
   return res;
 };
+
+export const deleteEventSpeaker = async (sid, auth) => {
+  const headers = {
+    Accept: "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
+  };
+  const res = await axios.delete(`${eventUrl}/v1/speakers/${sid}`, {
+    headers: headers,
+  });
+  return res;
+};
 ////// Event Fetch Call Ends

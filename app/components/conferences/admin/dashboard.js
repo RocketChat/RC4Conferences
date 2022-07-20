@@ -32,7 +32,7 @@ export const EventDashBoard = () => {
             <ListGroup.Item key={event.id} className={styles.admin_event_item}>
               <div>{event.attributes.name}</div>
               <ButtonGroup>
-                <Button variant="secondary">Preview</Button>
+                <Button variant="secondary" target="_blank" href={`/conferences/c/${event.id}`}>Preview</Button>
                 <Button href={`/conferences/admin/c/${event.id}`}>Edit</Button>
               </ButtonGroup>
             </ListGroup.Item>

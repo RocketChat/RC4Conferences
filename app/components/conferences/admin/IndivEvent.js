@@ -6,26 +6,29 @@ import {
   Container,
   Form,
   Image,
-  InputGroup,
   ListGroup,
   ListGroupItem,
   Modal,
-  Nav,
   Row,
+  Spinner,
   Stack,
   Tab,
   Tabs,
 } from "react-bootstrap";
 import {
   addEventSpeakers,
+  deleteEventSpeaker,
   getEventSpeakers,
 } from "../../../lib/conferences/eventCall";
 import styles from "../../../styles/event.module.css";
 
-export const IndivEventDash = ({ eid }) => {
+export const IndivEventDash = ({ eid, event }) => {
   const [speakerInfo, setSpeakerInfo] = useState(null);
   const [modalShow, setModalShow] = useState(false);
   const [editSpeaker, setEditSpeaker] = useState({});
+  const [load, setLoad] = useState(false);
+  console.log("event", event);
+
   let authCookie = Cookies.get("event_auth");
   if (authCookie) {
     authCookie = JSON.parse(authCookie);
@@ -69,12 +72,15 @@ export const IndivEventDash = ({ eid }) => {
     const form = e.currentTarget;
     try {
       if (form.checkValidity() === true) {
+        setLoad(true);
         const res = await publishSpeaker();
         setSpeakerInfo((oarr) => [...oarr, res.data.data]);
         setModalShow(false);
       }
     } catch (e) {
-      console.error("An error occurred while adding publishing speaker", e);
+      console.error("An error occurred while publishing speaker", e);
+    } finally {
+      setLoad(false);
     }
   };
 
@@ -83,41 +89,57 @@ export const IndivEventDash = ({ eid }) => {
     const tvalue = e.target.value;
     setEditSpeaker({ ...editSpeaker, [tname]: tvalue });
   };
+
+  const handleDelete = async (e) => {
+    try {
+      await deleteEventSpeaker(e.target.id, authCookie?.access_token);
+      setSpeakerInfo((oarr) => oarr.filter((spk) => spk.id !== e.target.id));
+    } catch (e) {
+      console.error("An error occurred while deleting the Speaker", e);
+    }
+  };
   return (
     <Container>
-      <Tabs
-        defaultActiveKey="speaker"
-        id="uncontrolled-tab-example"
-        className="mb-3"
-      >
-        <Tab eventKey="speaker" title="Speaker">
-          <Stack className={styles.speaker_add_btn}>
-            <Button onClick={() => setModalShow(true)}>Add Speaker</Button>
-          </Stack>
-          <SpeakerModal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-            handleAddSpeaker={handleAddSpeaker}
-            handleChange={handleChange}
-          />
-          <SpeakerList
-            setSpeakerInfo={setSpeakerInfo}
-            speakerInfo={speakerInfo}
-            fetchSpeaker={fetchSpeaker}
-          />
-        </Tab>
-        <Tab eventKey="contact" title="Contact" disabled></Tab>
-      </Tabs>
+      <Row>
+        <h4>{event.data.attributes.name}</h4>
+      </Row>
+      <Row>
+        <Tabs
+          defaultActiveKey="speaker"
+          id="uncontrolled-tab-example"
+          className="mb-3"
+          fill
+        >
+          <Tab eventKey="speaker" title="Speaker">
+            <Stack className={styles.speaker_add_btn}>
+              <Button onClick={() => setModalShow(true)}>Add Speaker</Button>
+            </Stack>
+            <SpeakerModal
+              show={modalShow}
+              onHide={() => setModalShow(false)}
+              handleAddSpeaker={handleAddSpeaker}
+              handleChange={handleChange}
+              load={load}
+            />
+            <SpeakerList
+              setSpeakerInfo={setSpeakerInfo}
+              speakerInfo={speakerInfo}
+              fetchSpeaker={fetchSpeaker}
+              handleDelete={handleDelete}
+            />
+          </Tab>
+          <Tab eventKey="contact" title="Contact" disabled></Tab>
+        </Tabs>
+      </Row>
     </Container>
   );
 };
 
 const SpeakerList = ({
-  eid,
-  auth,
   fetchSpeaker,
   speakerInfo,
   setSpeakerInfo,
+  handleDelete,
 }) => {
   useEffect(async () => {
     if (!speakerInfo) {
@@ -149,7 +171,11 @@ const SpeakerList = ({
                       <span>{spk.attributes.name}</span>
                     </Col>
                     <Col className={styles.event_speaker_delete}>
-                      <Button variant={"danger"} id={spk.id}>
+                      <Button
+                        variant={"danger"}
+                        id={spk.id}
+                        onClick={handleDelete}
+                      >
                         Delete
                       </Button>
                     </Col>
@@ -164,6 +190,7 @@ const SpeakerList = ({
 };
 
 const SpeakerModal = (props) => {
+  const { handleAddSpeaker, handleChange } = props;
   return (
     <Modal
       {...props}
@@ -176,13 +203,13 @@ const SpeakerModal = (props) => {
           Modal heading
         </Modal.Title>
       </Modal.Header>
-      <Form onSubmit={props.handleAddSpeaker}>
+      <Form onSubmit={handleAddSpeaker}>
         <Modal.Body>
           <Form.Group className="mb-3">
             <Form.Label>Name</Form.Label>
             <Form.Control
               required
-              onChange={props.handleChange}
+              onChange={handleChange}
               type="text"
               name="name"
               placeholder="Name"
@@ -192,7 +219,7 @@ const SpeakerModal = (props) => {
             <Form.Label>Profile Pic URL</Form.Label>
             <Form.Control
               type="url"
-              onChange={props.handleChange}
+              onChange={handleChange}
               name="photo-url"
               placeholder="https://link-to.image"
             />
@@ -201,7 +228,7 @@ const SpeakerModal = (props) => {
             <Form.Label>Email address</Form.Label>
             <Form.Control
               required
-              onChange={props.handleChange}
+              onChange={handleChange}
               name="email"
               type="email"
               placeholder="name@example.com"
@@ -211,7 +238,7 @@ const SpeakerModal = (props) => {
             <Form.Label>Short Biography</Form.Label>
             <Form.Control
               required
-              onChange={props.handleChange}
+              onChange={handleChange}
               name="short-biography"
               as="textarea"
               type="textarea"
@@ -222,7 +249,7 @@ const SpeakerModal = (props) => {
             <Form.Label>Long Biography</Form.Label>
             <Form.Control
               as="textarea"
-              onChange={props.handleChange}
+              onChange={handleChange}
               name="long-biography"
               type="textarea"
               placeholder="Write to your heart's content"
@@ -230,7 +257,19 @@ const SpeakerModal = (props) => {
           </Form.Group>
         </Modal.Body>
         <Modal.Footer>
-          <Button type="submit">Close</Button>
+          <Button disabled={props.load} variant="success" type="submit">
+            {props.load ? (
+              <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />
+            ) : (
+              "Add"
+            )}
+          </Button>
         </Modal.Footer>
       </Form>
     </Modal>
