@@ -159,4 +159,14 @@
   justify-content: space-between;
 }
 
+.speaker_add_btn {
+  align-items: flex-end;
+  margin-bottom: 0.75em;
+}
+
+.event_speaker_delete {
+  display: flex;
+  justify-content: flex-end;
+}
+
 /* Admin Dashboard style ends */
