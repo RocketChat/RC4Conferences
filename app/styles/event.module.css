@@ -145,3 +145,18 @@
   }
 }
 /* Event Show styles ends */
+
+/* Admin Dashboard style begins */
+
+.admin_event_list {
+  margin: auto;
+  width: 90vw;
+}
+
+.admin_event_item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+/* Admin Dashboard style ends */

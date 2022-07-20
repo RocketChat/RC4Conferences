@@ -1,10 +1,8 @@
 import Head from "next/head";
 import { Stack } from "react-bootstrap";
 import { useRouter } from 'next/router'
-import { getEventDeatils } from "../../../lib/conferences/eventCall";
-import { EventShow } from "../../../components/conferences/display/EventShow";
 
-function EventDisplayPage({event}) {
+function EventEditPage({event}) {
   const router = useRouter()
   const {eid} = router.query
   return (
@@ -17,8 +15,7 @@ function EventDisplayPage({event}) {
       </Head>
       <div className="mx-auto">
         <Stack direction="vertical">
-          
-          <EventShow event={event} />
+          {eid}
         </Stack>
       </div>
     </div>
@@ -26,14 +23,13 @@ function EventDisplayPage({event}) {
 }
 
 export async function getServerSideProps(context) {
-  console.log("context", context.query.eid)
   const eventIdentifier = context.query.eid
   //temp 9ddffcbb
-    const res = await getEventDeatils(eventIdentifier)
-    const event = res.data
+    // const res = await getEventDeatils(eventIdentifier)
+    // const event = res.data
     return {
-      props: { event },
+      props: { },
     };
   }
 
-export default EventDisplayPage;
+export default EventEditPage;

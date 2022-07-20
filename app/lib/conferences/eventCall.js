@@ -81,6 +81,15 @@ export const getEventDeatils = async (eid) => {
   return res;
 };
 
+export const getUserEventDeatils = async (uid, auth) => {
+  const headers = {
+    Accept: "application/vnd.api+json",
+    Authorization: `JWT ${auth}`
+  };
+  const res = await axios.get(`${eventUrl}/v1/users/${uid}/events`, {headers: headers});
+  return res;
+};
+
 // Event Speaker call
 export const getEventSpeakers = async (eid) => {
   const headers = {

@@ -19,10 +19,10 @@ const EventHome = ({ passcode }) => {
     setLoad(true);
     const res = await autoLogin(umail, passcode);
     if (res?.data) {
-      setLoad(false);
       setCookie(res);
       router.push("/conferences/create/basic-detail");
     }
+    setLoad(false)
   };
 
   const handleClick = () => {
