@@ -6,7 +6,7 @@ A set of scalable components for communities to build, manage, and run virtual c
 
 ## 💻 Developers Quick Start
 
-First, visit the `open-event-server` directory and follow the instructions there.
+First, visit the `open-event-server` [directory](./open-event-server/README.md) and follow the instructions there.
 
 
 Then set the `.env` variables for development purpose and link to the embedded backend.
