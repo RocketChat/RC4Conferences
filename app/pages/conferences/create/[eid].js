@@ -30,6 +30,14 @@ function EventCreatePage() {
 export async function getServerSideProps(context) {
   const authCookie = context.req.cookies?.event_auth;
   const umail = context.req.cookies?.hashmail;
+  if (!umail) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
   const mailres = await unsignCook({
     hash: umail,
   });
@@ -37,14 +45,23 @@ export async function getServerSideProps(context) {
   if (mailres.data.mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
     isAdmin = await ssrVerifyAdmin({ email: mailres.data.mail });
   }
+
   if (!isAdmin) {
-    context.res.writeHead(303, { Location: "/" });
-    context.res.end();
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
   }
   const topNavItems = await fetchAPI("/top-nav-item");
   if (!authCookie) {
-    context.res.writeHead(303, { Location: "/conferences" });
-    context.res.end();
+    return {
+      redirect: {
+        destination: "/conferences",
+        permanent: false,
+      },
+    };
   }
 
   return {

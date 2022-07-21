@@ -40,8 +40,12 @@ export async function getServerSideProps(context) {
     context.res.end();
   }
   if (!authCookie) {
-    context.res.writeHead(303, { Location: "/conferences" });
-    context.res.end();
+    return {
+      redirect: {
+        destination: "/conferences",
+        permanent: false,
+      },
+    };
   }
   const topNavItems = await fetchAPI("/top-nav-item");
 

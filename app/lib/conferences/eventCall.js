@@ -42,6 +42,29 @@ export const eventAuthSignUp = async (signUpf) => {
   return res;
 };
 
+export const userAdminPatch = async (uid, data, auth) => {
+  const headers = {
+    "Content-Type": "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
+  };
+  const res = await axios.patch(`${eventUrl}/v1/users/${uid}`, data, {
+    headers: headers,
+  });
+  return res;
+};
+
+export const userSetVerified = async (uid, data, auth) => {
+  const headers = {
+    "Content-Type": "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
+  };
+
+  const res = await axios.patch(`${eventUrl}/v1/users/${uid}`, data, {
+    headers: headers,
+  });
+  return res;
+};
+
 // Auth call Ends
 
 // Event Create Call Begins
