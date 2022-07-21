@@ -1,5 +1,4 @@
 'use strict';
-const { githubKit } = require("./github");
 const { updateSpeakerData } = require('./speaker')
 /**
  * Cron config that gives you an opportunity
@@ -22,7 +21,4 @@ module.exports = {
   '*/60 * * * * *': () => {
     updateSpeakerData();
   },
-  '*/* 10 * * * *': () => {
-    githubKit('RocketChat','RC4Community',['issues','contributors','pulls']);
-  }
 };
