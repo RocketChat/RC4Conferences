@@ -3,6 +3,7 @@ import { Stack } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { IndivEventDash } from "../../../../components/conferences/admin/IndivEvent";
 import { getEventDeatils } from "../../../../lib/conferences/eventCall";
+import { fetchAPI } from "../../../../lib/api";
 
 function EventEditPage({ event }) {
   const router = useRouter();
@@ -26,17 +27,23 @@ function EventEditPage({ event }) {
 
 export async function getServerSideProps(context) {
   const authCookie = context.req.cookies?.event_auth;
-  const eventIdentifier = context.query.eid
+  const eventIdentifier = context.query.eid;
 
   if (!authCookie) {
-    context.res.writeHead(303, { Location: "/conferences" });
-    context.res.end();
+    return {
+      redirect: {
+        destination: "/conferences",
+        permanent: false,
+      },
+    };
   }
   //temp 9ddffcbb
-  const res = await getEventDeatils(eventIdentifier)
-  const event = res.data
+  const res = await getEventDeatils(eventIdentifier);
+  const event = res.data;
+  const topNavItems = await fetchAPI("/top-nav-item");
+
   return {
-    props: {event},
+    props: { event, topNavItems },
   };
 }
 
