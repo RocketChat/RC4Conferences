@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const eventUrl = process.env.NEXT_PUBLIC_EVENT_BACKEND_URL;
-const nextDeployUrl =
-  process.env.NODE_ENV === "development" ? "http://localhost:3000" : "";
+const nextDeployUrl = `http://localhost:${process.env.NEXT_PUBLIC_PORT}` || "http://localhost:3000";
 
 //NextJS local API route call begins
 export const signCook = async (mail) => {
