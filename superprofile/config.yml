@@ -1,5 +1,4 @@
 ---
-auth_root_key: abcdef123456
 cluster_name: rocketchat
 storage_data_path: /var/lib/faunadb
 log_path: /var/log/faunadb

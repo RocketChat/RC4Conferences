@@ -1,0 +1,10 @@
+Create(
+    Collection("EventUser"),
+    {
+        data: {
+            email: "acat0@rocket.chat",
+            role: "Admin",
+            user: Ref(Collection("User"), "1")
+        }
+    }
+)
