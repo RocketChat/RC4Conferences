@@ -1,7 +1,6 @@
 "use strict";
 
 const fetchData = require("./fetchData");
-const initFauna = require('./faunaPopulate');
 
 /**
  * An asynchronous bootstrap function that runs before
@@ -52,6 +51,5 @@ module.exports = async () => {
   if (process.env.INITIALIZE_DATA) {
     await fetchData();
     await setDefaultPermissions();
-    await initFauna();
   }
 };
