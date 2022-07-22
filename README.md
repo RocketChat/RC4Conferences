@@ -9,11 +9,11 @@ A set of scalable components for communities to build, manage, and run virtual c
 First, visit the `open-event-server` directory and follow the instructions [there](./open-event-server/README.md).
 
 
-Then set the `.env` variables for development purpose and link to the embedded backend.
+Then set the `app/.env` variables for development purpose and link to the embedded backend.
 ```
 NEXT_PUBLIC_EVENT_BACKEND_URL = "http://localhost:8080"
 ```
-Add a few other required `.env` variables which includes the email address for Event Admin and the passphrase required for encrypting mail address and generating passwords
+Add a few other required `app/.env` variables which includes the email address for Event Admin and the passphrase required for encrypting mail address and generating passwords
 ```
 EVENT_USER_PASSPHRASE = "your super secret phrase"
 NEXT_PUBLIC_EVENT_ADMIN_MAIL="acat0@rocket.chat"
