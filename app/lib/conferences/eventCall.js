@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const eventUrl = process.env.NEXT_PUBLIC_EVENT_BACKEND_URL;
-const nextDeployUrl =
-  process.env.NODE_ENV === "development" ? "http://localhost:3000" : "";
+const nextDeployUrl = `http://localhost:${process.env.NEXT_PUBLIC_PORT}` || "http://localhost:3000";
 
 //NextJS local API route call begins
 export const signCook = async (mail) => {
@@ -37,6 +36,29 @@ export const eventAuthSignUp = async (signUpf) => {
     "Content-Type": "application/vnd.api+json",
   };
   const res = await axios.post(`${eventUrl}/v1/users`, signUpf, {
+    headers: headers,
+  });
+  return res;
+};
+
+export const userAdminPatch = async (uid, data, auth) => {
+  const headers = {
+    "Content-Type": "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
+  };
+  const res = await axios.patch(`${eventUrl}/v1/users/${uid}`, data, {
+    headers: headers,
+  });
+  return res;
+};
+
+export const userSetVerified = async (uid, data, auth) => {
+  const headers = {
+    "Content-Type": "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
+  };
+
+  const res = await axios.patch(`${eventUrl}/v1/users/${uid}`, data, {
     headers: headers,
   });
   return res;
@@ -81,12 +103,49 @@ export const getEventDeatils = async (eid) => {
   return res;
 };
 
-// Event Speaker call
-export const getEventSpeakers = async (eid) => {
+export const getUserEventDeatils = async (uid, auth) => {
   const headers = {
     Accept: "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
   };
-  const res = await axios.get(`${eventUrl}/v1/events/${eid}/speakers`);
+  const res = await axios.get(`${eventUrl}/v1/users/${uid}/events`, {
+    headers: headers,
+  });
+  return res;
+};
+
+// Event Speaker call
+export const getEventSpeakers = async (eid, auth) => {
+  const headers = {
+    Accept: "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
+  };
+  const res = await axios.get(`${eventUrl}/v1/events/${eid}/speakers`, {
+    headers: headers,
+  });
+  return res;
+};
+
+export const addEventSpeakers = async (data, auth) => {
+  const headers = {
+    Accept: "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
+    "Content-Type": "application/vnd.api+json",
+  };
+  const res = await axios.post(`${eventUrl}/v1/speakers`, data, {
+    headers: headers,
+  });
+  return res;
+};
+
+export const deleteEventSpeaker = async (sid, auth) => {
+  const headers = {
+    Accept: "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
+  };
+  const res = await axios.delete(`${eventUrl}/v1/speakers/${sid}`, {
+    headers: headers,
+  });
   return res;
 };
 ////// Event Fetch Call Ends

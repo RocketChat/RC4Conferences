@@ -1,0 +1,5 @@
+init_flag
+gc.log.*
+*.log
+dbkey
+db/

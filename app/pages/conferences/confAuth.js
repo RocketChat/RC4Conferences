@@ -33,6 +33,10 @@ export async function getServerSideProps(context) {
     context.res.writeHead(303, { Location: "/" });
     context.res.end();
   }
+  else {
+    context.res.writeHead(303, { Location: "/" });
+    context.res.end();
+  }
   const topNavItems = await fetchAPI("/top-nav-item");
 
   return {
