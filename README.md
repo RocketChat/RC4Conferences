@@ -46,9 +46,15 @@ INITIALIZE_DATA=true npm run develop
 ```
 
 The application is written on nextjs and deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. For build and design, start it in a shell:
-
 ```
 cd app
+```
+> If you are running the application on a different port (say on `3001`), then please run
+```
+export NEXT_PUBLIC_PORT=3001
+```
+
+```
 npm i
 npm run dev
 ```
