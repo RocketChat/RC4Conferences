@@ -5,12 +5,14 @@ const path = require("path");
 
 module.exports = async () => {
 
+    var scheme= process.env.NODE_ENV === "development" ? "http" : "https"
+
   var client = new faunadb.Client({
     secret: process.env.FAUNA_DB_SECRET,
     domain: process.env.FAUNA_DB_DOMAIN,
     // NOTE: Use the correct domain for your database's Region Group.
     port: process.env.FAUNA_DB_PORT,
-    scheme: process.env.NODE_ENV === "development" ? "http" : "https"
+    scheme: scheme
   });
   var q = faunadb.query;
 
@@ -19,11 +21,11 @@ module.exports = async () => {
     Authorization: `Bearer ${process.env.FAUNA_DB_SECRET}`,
   };
 
-  const file = path.resolve(__dirname, "../../assets/r0c4conf-schema.graphql");
+  const file = path.resolve(__dirname, "../../assets/rc4conf-schema.graphql");
 
     try {
       await axios.post(
-        `https://${process.env.FAUNA_GRAPHQL_DOMAIN}:${process.env.FAUNA_DB_PORT}/import?mode=replace`,
+        `${scheme}://${process.env.FAUNA_GRAPHQL_DOMAIN}:${process.env.FAUNA_GRAPHQL_PORT}/import?mode=replace`,
         fs.createReadStream(file),
         {
           headers: headers,
@@ -38,7 +40,7 @@ module.exports = async () => {
               {
                   data: {
                       uid: "1",
-                      email: FAUNA_ADMIN_EMAIL,
+                      email: process.env.FAUNA_ADMIN_EMAIL,
                       displayName: "Evan.Shu",
                   },
                 },
@@ -53,7 +55,7 @@ module.exports = async () => {
                 {
                     data: {
                         uid: "1",
-                        email: FAUNA_ADMIN_EMAIL,
+                        email: process.env.FAUNA_ADMIN_EMAIL,
                         displayName: "Evan.Shu",
                         user: q.Ref(q.Collection("User"), "1")
                     },
