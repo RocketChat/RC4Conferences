@@ -2,7 +2,6 @@ import Head from "next/head";
 import { Stack } from "react-bootstrap";
 import { useRouter } from 'next/router'
 import { getEventDeatils } from "../../../lib/conferences/eventCall";
-import Image from 'next/image'
 import { EventShow } from "../../../components/conferences/display/EventShow";
 
 function EventDisplayPage({event}) {
