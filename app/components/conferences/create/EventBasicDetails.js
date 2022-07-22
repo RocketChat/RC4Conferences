@@ -22,6 +22,7 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
     "original-image-url": "https://lh3.googleusercontent.com/n6WF5Pv12ucRY8ObS74SY4coMuFs8ALtHmq7brwnMJVkBzNveiTQfj9sBygEt-KT6ykMMzDHZ3ifjY7jQkNx9Lbj7O7zhGTdMLUgkB8=w600",
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     online: true,
+    "is-sessions-speakers-enabled": true 
   });
 
   const [publish, setPublish] = useState("draft");

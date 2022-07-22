@@ -4,6 +4,8 @@ import {
   checkEmail,
   eventAuthSignIn,
   eventAuthSignUp,
+  userAdminPatch,
+  userSetVerified,
 } from "../../../lib/conferences/eventCall";
 
 export const generatePassword = async (mail) => {
@@ -47,6 +49,29 @@ const signUp = async (mail, passcode) => {
   return res;
 };
 
+const setAdmin = async (uid, token) => {
+  const toSend = {
+    "data": {
+      "attributes": {
+        "is-admin": true
+      },
+      "type": "user",
+      "id": uid
+    }
+  }
+  const toVerifyData = {
+    "data": {
+      "attributes": {
+        "is-verified": true
+      },
+      "type": "user",
+      "id": uid
+    }
+  }
+  await userAdminPatch(uid, toSend, token)
+  await userSetVerified(uid, toVerifyData, token)
+}
+
 export const autoLogin = async (mail, passcode) => {
   try {
     const emailData = {
@@ -58,10 +83,12 @@ export const autoLogin = async (mail, passcode) => {
       return ressignin;
     } else {
       const ressignup = await signUp(mail, passcode);
+      
       const ressignin = await signIn(
         ressignup.data.data.attributes.email,
         passcode
       );
+      await setAdmin(ressignup.data.data.id, ressignin.data.access_token)
       return ressignin;
     }
   } catch (error) {

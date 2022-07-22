@@ -42,6 +42,14 @@ export async function getServerSideProps(context) {
     "https://source.unsplash.com/random/1920x1080/?event,online,teamwork"
   );
   const umail = context.req.cookies?.hashmail;
+  if (!umail) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      },
+    }
+  }
   const mailres = await unsignCook({
     hash: umail
   })
@@ -54,9 +62,14 @@ export async function getServerSideProps(context) {
   }
   
   if (!isAdmin) {
-    context.res.writeHead(303, { Location: "/" });
-    context.res.end();
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      },
+    }
   }
+  
   const topNavItems = await fetchAPI("/top-nav-item");
 
   return {

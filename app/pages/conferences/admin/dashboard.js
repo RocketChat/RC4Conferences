@@ -1,14 +1,12 @@
 import Head from "next/head";
 import { Stack } from "react-bootstrap";
-import { useRouter } from "next/router";
 import { EventCreate } from "../../../components/conferences/create/EventCreate";
 import { ssrVerifyAdmin } from "../../../components/conferences/auth/AuthSuperProfileHelper";
 import { fetchAPI } from "../../../lib/api";
 import { unsignCook } from "../../../lib/conferences/eventCall";
+import { EventDashBoard } from "../../../components/conferences/admin/dashboard";
 
-function EventCreatePage() {
-  const router = useRouter();
-  const { eid } = router.query;
+function EventDashBoardPage() {
   return (
     <div>
       <Head>
@@ -18,9 +16,9 @@ function EventCreatePage() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <div className="mx-auto">
-        <h1 className="mx-auto mt-3">Preview of Event Create Component</h1>
+        <h1 className="mx-auto mt-3">Preview of Event Dashboard</h1>
         <Stack direction="vertical">
-          <EventCreate active={eid} />
+          <EventDashBoard />
         </Stack>
       </div>
     </div>
@@ -30,14 +28,6 @@ function EventCreatePage() {
 export async function getServerSideProps(context) {
   const authCookie = context.req.cookies?.event_auth;
   const umail = context.req.cookies?.hashmail;
-  if (!umail) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
   const mailres = await unsignCook({
     hash: umail,
   });
@@ -45,16 +35,10 @@ export async function getServerSideProps(context) {
   if (mailres.data.mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
     isAdmin = await ssrVerifyAdmin({ email: mailres.data.mail });
   }
-
   if (!isAdmin) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
+    context.res.writeHead(303, { Location: "/" });
+    context.res.end();
   }
-  const topNavItems = await fetchAPI("/top-nav-item");
   if (!authCookie) {
     return {
       redirect: {
@@ -63,10 +47,11 @@ export async function getServerSideProps(context) {
       },
     };
   }
+  const topNavItems = await fetchAPI("/top-nav-item");
 
   return {
     props: { topNavItems },
   };
 }
 
-export default EventCreatePage;
+export default EventDashBoardPage;
