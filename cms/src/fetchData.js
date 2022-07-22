@@ -31,7 +31,7 @@ module.exports = async () => {
       .query("api::github-repository.github-repository")
       .count({});
     var speakersCount = await strapi.db.query("api::speaker.speaker").count({});
-
+    console.log("topnv", topNavItemCount)
     // initial fetch
     speakers.map(async (speaker, index) => {
       if (index <= speakersCount - 1) {
@@ -175,6 +175,7 @@ module.exports = async () => {
           data: {
             label: subMenu.label,
             url: subMenu.url,
+            style: subMenu?.style
           },
         });
       } else {
@@ -182,6 +183,7 @@ module.exports = async () => {
           data: {
             label: subMenu.label,
             url: subMenu.url,
+            style: subMenu?.style
           },
         });
       }
@@ -224,8 +226,12 @@ module.exports = async () => {
     }
 
     if (topNavItemCount) {
-      await strapi.service("api::top-nav-item.top-nav-item").createOrUpdate({
-        where: { id: 1 },
+      await strapi.entityService.update("api::top-nav-item.top-nav-item", 1, {
+        populate: {
+          body: {
+            populate: '*'
+          }
+        },
         data: {
           body: topNavItem.body.map((topNavItem, index) => {
             if (topNavItem.__component === "menu.links") {
@@ -253,7 +259,7 @@ module.exports = async () => {
         },
       });
     } else {
-      await strapi.service("api::top-nav-item.top-nav-item").create({
+      await strapi.entityService.create("api::top-nav-item.top-nav-item", {
         data: {
           body: topNavItem.body.map((topNavItem, index) => {
             if (topNavItem.__component === "menu.links") {
