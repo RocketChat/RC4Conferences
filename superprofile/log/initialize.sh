@@ -12,7 +12,6 @@ if [ ! -e $ALREADY_INITIALIZED ]; then
    fauna eval RC4Conference --file=/var/log/faunadb/initUser.fql
    echo "-- initializing fauna collection EventUser... --"
    fauna eval RC4Conference --file=/var/log/faunadb/initEvuser.fql
-   echo "-- All set, superprofile launch 🚀"
 else
    echo "-- already initialized, do nothing --"
 fi
