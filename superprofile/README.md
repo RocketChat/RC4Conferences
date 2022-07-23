@@ -2,25 +2,14 @@
 
 1. In the directory `/superprofile`, run
 ```
-docker-compose up -d
-```
->To check the progress of the container run, please run 
-```
-docker logs faunadb
+sh initFaunaOnce.sh 
 ```
 
-2. Once the container is up and running, run the following script
+On a successful run two flag files would be created an flag file `init_flag` and `init_key_flag` to track the first time data initialization run, and...
 ```
-docker exec -it faunadb /bin/sh  /var/log/faunadb/initialize.sh
+NEXT_PUBLIC_FAUNA_SECRET
+NEXT_PUBLIC_FAUNA_DOMAIN
 ```
-On a successful run two files would be created an flag file `init_flag` to track the first time data initialization run, and an `dbkey` which holds the Database key.
+...the above two variables with some values would be appended inside the `.env` file inside the `app` directory.
 
-3. Run the below line to copy the value of `dbkey` and paste in the `app/.env`
-```
-echo -n "NEXT_PUBLIC_FAUNA_SECRET=" | cat - ./log/dbkey >> ../app/.env
-```
-4. Also, add the url for doing mutations.
-```
-echo NEXT_PUBLIC_FAUNA_DOMAIN="http://localhost:8084/graphql" >> ../app/.env
-```
 Congrats 🎉! The Superprofile setup is done.
