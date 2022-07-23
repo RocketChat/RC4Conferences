@@ -34,7 +34,7 @@ For setting up the local development copy of Fauna Superprofile please follow th
 <details>
 <summary>Fauna Cloud/SaaS Setup</summary>
 
-For fauna cloud setup follow the instructions [here](./superprofile/CLOUDREADME.md)
+For fauna cloud setup follow the instructions [here](./superprofile/cloud/README.md)
 
 </details>
 <hr />
