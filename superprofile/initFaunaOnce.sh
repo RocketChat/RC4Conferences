@@ -6,15 +6,12 @@ docker compose up -d
 echo "Waiting $waittime seconds for container to get shipped..."
 sleep $waittime
 
-FAUNA_CONTAINER_ID=$( docker ps -q -f name=faunadb )
 DBF="log/init_key_flag"
 container_name="faunadb"
 healthy="healthy"
 container_state="$( docker inspect -f '{{ .State.Health.Status }}' ${container_name} )"
 
-if [ -z "$FAUNA_CONTAINER_ID" ]; then
-    echo "FaunaDB container was unable to install and start"
-elif [ "$container_state" != $healthy ]; then
+if [ "$container_state" != $healthy ]; then
     echo "Docker container needs extra startup time, please increase the \$waittlist value in initFaunaOnce.sh"
     echo "Process ended with health status of Container: $container_state"
 else
