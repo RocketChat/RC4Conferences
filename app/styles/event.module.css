@@ -170,3 +170,30 @@
 }
 
 /* Admin Dashboard style ends */
+
+/* Conference Greenroom Style Begins */
+
+.dayofevent_wrapper {
+  display: flex;
+  height: calc(100vh);
+  background-color: #3e3030;
+  margin-bottom: -3rem;
+  flex-direction: column;
+}
+
+.dayofevent_button {
+  margin: auto;
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+}
+
+.greenroom_button_text {
+  font-size: small;
+}
+
+.greenroom_jitsi {
+  display: flex;
+}
+
+/* Conference Greenroom Style Ends */
