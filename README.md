@@ -65,3 +65,5 @@ The screenshot of `/conferences` page.
 [Fauna Superprofile local docker custom setup docs](./superprofile/README.md)
 
 [Fauna Superprofile SaaS custom setup docs](./superprofile/cloud/README.md)
+
+[Details about different env files in open-event-server directory](./open-event-server/README.md#details-about-different-env-files)
