@@ -30,30 +30,6 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
   const [logItems, updateLog] = useState([]);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
   const [mute, setMute] = useState(true);
-  const [name, setName] = useState(null);
-  const dataArr = [
-    { speaker: "A", hour: "10" },
-    { speaker: "B", hour: "20" },
-    { speaker: "C", hour: "30" },
-    { speaker: "D", hour: "40" },
-    { speaker: "Z", hour: "50" },
-  ];
-
-  const handleDisplayName = async (hr) => {
-    const tar = dataArr.find((o) => o.hour === hr);
-    if (!tar || tar.speaker == name) {
-      return;
-    }
-    setName(tar.speaker);
-    await apiRef.current.executeCommand("displayName", tar.speaker);
-  };
-
-  useEffect(() => {
-    setInterval(() => {
-      const tada = new Date();
-      handleDisplayName(tada.getHours().toString());
-    }, 900000);
-  }, []);
 
   const printEventOutput = (payload) => {
     updateLog((items) => [...items, JSON.stringify(payload)]);
@@ -439,15 +415,16 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
             disableModeratorIndicator: true,
             startScreenSharing: false,
             enableEmailInStats: false,
-            toolbarButtons: [],
-            enableWelcomePage: false,
-            prejoinPageEnabled: false,
+            toolbarButtons: ["microphone", "camera", "select-background", "hangup"],
+            enableWelcomePage: true,
+            prejoinPageEnabled: true,
             startWithVideoMuted: false,
             liveStreamingEnabled: true,
-            disableSelfView: false,
+            disableSelfView: true,
             disableSelfViewSettings: true,
             disableShortcuts: true,
             disable1On1Mode: true,
+            defaultRemoteDisplayName: "Fellow Rocketeer",
             p2p: {
               enabled: false,
             },
@@ -455,7 +432,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
           interfaceConfigOverwrite={{
             DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
             FILM_STRIP_MAX_HEIGHT: 0,
-            TILE_VIEW_MAX_COLUMNS: 0,
+            TILE_VIEW_MAX_COLUMNS: 2,
             VIDEO_QUALITY_LABEL_DISABLED: true,
           }}
           userInfo={{
