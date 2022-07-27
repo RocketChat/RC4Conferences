@@ -23,6 +23,7 @@
   display: flex;
   width: 100%;
   margin-top: 1em;
+  height: 70vh;
 }
 
 .log {

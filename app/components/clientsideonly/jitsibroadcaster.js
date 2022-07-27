@@ -78,8 +78,8 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
   const handleJitsiIFrameRef1 = (iframeRef) => {
     iframeRef.style.border = "10px solid cadetblue";
     iframeRef.style.background = "cadetblue";
-    iframeRef.style.height = "25em";
-    iframeRef.style.width = "75%";
+    iframeRef.style.height = "inherit";
+    iframeRef.style.width = "inherit";
   };
 
   const showDevices = async (ref) => {
@@ -400,9 +400,9 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
 
   return (
     <>
-      {rtmp ? renderStream(rtmp) : rtmpSrc && renderStream(rtmpSrc)}
+      {/* {rtmp ? renderStream(rtmp) : rtmpSrc && renderStream(rtmpSrc)} */}
       <div className={styles.jitsiContainer}>
-        {toggleDevice()}
+        {/* {toggleDevice()} */}
 
         <JitsiMeeting
           domain="meet.jit.si"
@@ -439,10 +439,10 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
             displayName: disName,
           }}
         />
-        {toggleView()}
+        {/* {toggleView()} */}
       </div>
-      {toolButton()}
-      <div className={styles.log}>{renderLog()}</div>
+      {/* {toolButton()} */}
+      {/* <div className={styles.log}>{renderLog()}</div> */}
     </>
   );
 };
