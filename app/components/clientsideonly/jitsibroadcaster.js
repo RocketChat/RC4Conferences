@@ -79,7 +79,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     iframeRef.style.border = "10px solid cadetblue";
     iframeRef.style.background = "cadetblue";
     iframeRef.style.height = "inherit";
-    iframeRef.style.width = "inherit";
+    iframeRef.style.width = "90%";
   };
 
   const showDevices = async (ref) => {

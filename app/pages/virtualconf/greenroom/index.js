@@ -26,7 +26,7 @@ const Greenroom = () => {
           <Row>
             <Col>
               <Jitsibroadcaster
-                room={"GSOC Alumnus Meet Test"}
+                room={"GSOC Alumnus Meet"}
                 disName={"Speaker"}
                 handleChat={handleOpenChat}
               />
