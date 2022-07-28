@@ -81,6 +81,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     iframeRef.style.background = "cadetblue";
     iframeRef.style.height = "inherit";
     iframeRef.style.width = "90%";
+    iframeRef.allow = "display-capture"
   };
 
   const showDevices = async (ref) => {
@@ -419,7 +420,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
             toolbarButtons: ["microphone", "camera", "select-background", "hangup"],
             enableWelcomePage: true,
             prejoinPageEnabled: true,
-            startWithVideoMuted: false,
+            startWithVideoMuted: true,
             liveStreamingEnabled: true,
             disableSelfView: true,
             disableSelfViewSettings: true,
