@@ -33,6 +33,7 @@ export const EventSpeakerStage = () => {
             </Card.Body>
           </Card>
           </Collapse>
+          
         </div>
         <div className={styles.dayofevent_button}>
           <SpeakerChatToolbar setOpen={setOpen} open={open} />
