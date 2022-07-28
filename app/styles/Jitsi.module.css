@@ -35,6 +35,13 @@
   overflow: auto;
 }
 
+.dayofeventleft_button {
+  margin: auto;
+  left: 25px;
+  bottom: 25px;
+  position: fixed;
+}
+
 @media (min-width: 830px) {
   .device {
     margin: auto;

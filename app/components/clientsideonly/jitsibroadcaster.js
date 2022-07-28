@@ -17,6 +17,7 @@ import { HiViewGridAdd } from "react-icons/hi";
 import styles from "../../styles/Jitsi.module.css";
 import { FaRocketchat } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
+import { SpeakerMiscToolbar } from "../conferences/dayOfEvent/greenroom/SpeakerToolbar";
 
 const JitsiMeeting = dynamic(
   () => import("@jitsi/react-sdk").then((mod) => mod.JitsiMeeting),
@@ -442,6 +443,10 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
         {/* {toggleView()} */}
       </div>
       {/* {toolButton()} */}
+      <div className={styles.dayofeventleft_button}>
+        <SpeakerMiscToolbar apiRef={apiRef} />
+        
+      </div>
       {/* <div className={styles.log}>{renderLog()}</div> */}
     </>
   );
