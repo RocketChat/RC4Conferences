@@ -7,37 +7,14 @@ A set of scalable components for communities to build, manage, and run virtual c
 ## 💻 Developers Quick Start
 
 
-First, visit the `open-event-server` directory and follow the instructions [there](./open-event-server/README.md).
+### Start Backend (Open Event Server + Fauna based Superprofile)
 
-
-Then set the `app/.env` variables for development purpose and link to the embedded backend.
+To start both the backend together in the root directory (`/RC4Conferences`), run
 ```
-NEXT_PUBLIC_EVENT_BACKEND_URL = "http://localhost:8080"
+sh startBackend.sh
 ```
-Add a few other required `app/.env` variables which includes the email address for Event Admin and the passphrase required for encrypting mail address and generating passwords
-```
-EVENT_USER_PASSPHRASE = "your super secret phrase"
-NEXT_PUBLIC_EVENT_ADMIN_MAIL="acat0@rocket.chat"
-```
-
-<hr />
-
-### SuperProfile Setup
-
-<details>
-<summary>Fauna Local Docker Image Development Setup</summary>
-
-For setting up the local development copy of Fauna Superprofile please follow the instructions [here](./superprofile/README.md).
-
-</details>
-
-<details>
-<summary>Fauna Cloud/SaaS Setup</summary>
-
-For fauna cloud setup follow the instructions [here](./superprofile/CLOUDREADME.md)
-
-</details>
-<hr />
+(Currently, for development purpose we are using defult secret values)
+> For production deployments, please change the secret values in `open-event-server/.env.example` and ``open-event-server/.env.dev.app``
 
 ### Start Strapi CMS
 ```
@@ -81,3 +58,12 @@ The preview components are displayed on the pages starting `/conferences`.
 ### Screenshots
 The screenshot of `/conferences` page.
 <img src="https://user-images.githubusercontent.com/61188295/175766978-24a765d4-3d53-4eb9-8107-bee0569de380.png" alt="event home page">
+
+### Additional Resources
+[Open Event Server custom deployment docs](./open-event-server/README.md)
+
+[Fauna Superprofile local docker custom setup docs](./superprofile/README.md)
+
+[Fauna Superprofile SaaS custom setup docs](./superprofile/cloud/README.md)
+
+[Details about different env files in open-event-server directory](./open-event-server/README.md#details-about-different-env-files)
