@@ -1,0 +1,4 @@
+
+NEXT_PUBLIC_EVENT_BACKEND_URL="http://localhost:8080"
+EVENT_USER_PASSPHRASE="yourSecretGoesHere"
+NEXT_PUBLIC_EVENT_ADMIN_MAIL="acat0@rocket.chat"
