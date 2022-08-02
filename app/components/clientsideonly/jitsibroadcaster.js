@@ -446,7 +446,6 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
       {/* {toolButton()} */}
       <div className={styles.dayofeventleft_button}>
         <SpeakerMiscToolbar apiRef={apiRef} />
-        
       </div>
       {/* <div className={styles.log}>{renderLog()}</div> */}
     </>
