@@ -17,6 +17,7 @@ import { HiViewGridAdd } from "react-icons/hi";
 import styles from "../../styles/Jitsi.module.css";
 import { FaRocketchat } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
+import { SpeakerMiscToolbar } from "../conferences/dayOfEvent/greenroom/SpeakerToolbar";
 
 const JitsiMeeting = dynamic(
   () => import("@jitsi/react-sdk").then((mod) => mod.JitsiMeeting),
@@ -30,30 +31,6 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
   const [logItems, updateLog] = useState([]);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
   const [mute, setMute] = useState(true);
-  const [name, setName] = useState(null);
-  const dataArr = [
-    { speaker: "A", hour: "10" },
-    { speaker: "B", hour: "20" },
-    { speaker: "C", hour: "30" },
-    { speaker: "D", hour: "40" },
-    { speaker: "Z", hour: "50" },
-  ];
-
-  const handleDisplayName = async (hr) => {
-    const tar = dataArr.find((o) => o.hour === hr);
-    if (!tar || tar.speaker == name) {
-      return;
-    }
-    setName(tar.speaker);
-    await apiRef.current.executeCommand("displayName", tar.speaker);
-  };
-
-  useEffect(() => {
-    setInterval(() => {
-      const tada = new Date();
-      handleDisplayName(tada.getHours().toString());
-    }, 900000);
-  }, []);
 
   const printEventOutput = (payload) => {
     updateLog((items) => [...items, JSON.stringify(payload)]);
@@ -102,8 +79,9 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
   const handleJitsiIFrameRef1 = (iframeRef) => {
     iframeRef.style.border = "10px solid cadetblue";
     iframeRef.style.background = "cadetblue";
-    iframeRef.style.height = "25em";
-    iframeRef.style.width = "75%";
+    iframeRef.style.height = "inherit";
+    iframeRef.style.width = "90%";
+    iframeRef.allow = "display-capture"
   };
 
   const showDevices = async (ref) => {
@@ -424,9 +402,9 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
 
   return (
     <>
-      {rtmp ? renderStream(rtmp) : rtmpSrc && renderStream(rtmpSrc)}
+      {/* {rtmp ? renderStream(rtmp) : rtmpSrc && renderStream(rtmpSrc)} */}
       <div className={styles.jitsiContainer}>
-        {toggleDevice()}
+        {/* {toggleDevice()} */}
 
         <JitsiMeeting
           domain="meet.jit.si"
@@ -439,15 +417,16 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
             disableModeratorIndicator: true,
             startScreenSharing: false,
             enableEmailInStats: false,
-            toolbarButtons: [],
-            enableWelcomePage: false,
-            prejoinPageEnabled: false,
-            startWithVideoMuted: false,
+            toolbarButtons: ["microphone", "camera", "select-background", "hangup"],
+            enableWelcomePage: true,
+            prejoinPageEnabled: true,
+            startWithVideoMuted: true,
             liveStreamingEnabled: true,
-            disableSelfView: false,
+            disableSelfView: true,
             disableSelfViewSettings: true,
             disableShortcuts: true,
             disable1On1Mode: true,
+            defaultRemoteDisplayName: "Fellow Rocketeer",
             p2p: {
               enabled: false,
             },
@@ -455,17 +434,20 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
           interfaceConfigOverwrite={{
             DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
             FILM_STRIP_MAX_HEIGHT: 0,
-            TILE_VIEW_MAX_COLUMNS: 0,
+            TILE_VIEW_MAX_COLUMNS: 2,
             VIDEO_QUALITY_LABEL_DISABLED: true,
           }}
           userInfo={{
             displayName: disName,
           }}
         />
-        {toggleView()}
+        {/* {toggleView()} */}
       </div>
-      {toolButton()}
-      <div className={styles.log}>{renderLog()}</div>
+      {/* {toolButton()} */}
+      <div className={styles.dayofeventleft_button}>
+        <SpeakerMiscToolbar apiRef={apiRef} />
+      </div>
+      {/* <div className={styles.log}>{renderLog()}</div> */}
     </>
   );
 };
