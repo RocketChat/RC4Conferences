@@ -8,7 +8,23 @@ To start the development environment simply run the following, the script would 
 ```
 sh startdevenv.sh
 ```
-(Currently, for development purpose we are using defult secret values)
+Development Info:
+1. The Strapi admin portal would be opnened by default while starting the development setup.
+2. The NextJS url would be shown in the logs for reference
+```
+> rc4community@0.3.0 dev
+> next dev
+
+
+> backend@0.1.0 build
+> strapi build
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000 <-- your NextJS locahost url
+
+```
+3. On visiting the NextJS app localhost url first time, first login using the dummy login button, then do a refresh to load the admin menu.
+(Currently, for development purpose we are using defult secret values).
+
 > For production deployments, please change the secret values in `open-event-server/.env.example` and ``open-event-server/.env.dev.app``
 
 ### Route Details
