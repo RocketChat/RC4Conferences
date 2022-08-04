@@ -1,3 +1,5 @@
+#!/bin/sh
+
 STRAPI_PORT=1337
 NEXTJS_PORT=3000
 counter=0
