@@ -13,12 +13,12 @@ sh initFaunaOnce.sh
 cd ..
 
 if [ -s $ERR_FILE ];then
-    echo "***Some error occurred while starting the Open Event Server please check open-event-server/$ERR_FILE , resolve them, and then re-run the init command***"
+    echo "\033[31m***Some error occurred while starting the Open Event Server please check open-event-server/$ERR_FILE , resolve them, and then re-run the init command***\e[0m"
 fi
 if [ -z $OES_CONTAINER_ID ]; then
-    echo "***Open-event-server Docker container was unable to install and start, please rerun the script***"
+    echo "\033[31m***Open-event-server Docker container was unable to install and start, please rerun the script***\e[0m"
 fi
 if [ -z $FAUNA_CONTAINER_ID ]; then
     echo $FAUNA_CONTAINER_ID
-    echo "***FaunaDB container was unable to install and start, please rerun the script***"
+    echo "\033[31m***FaunaDB container was unable to install and start, please rerun the script***\e[0m"
 fi
