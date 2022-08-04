@@ -1,6 +1,14 @@
 #!/bin/sh
 
 waittime=30
+ALREADY_INITIALIZED="log/init_key_flag"
+
+FAUNA_CONTAINER_ID=$( docker ps -q -f name=faunadb )
+
+if [ -e $ALREADY_INITIALIZED ] && [ ! -z $FAUNA_CONTAINER_ID ]; then
+    echo "-- Superprofile is already up and running --"
+    exit 0
+fi
 
 docker compose up -d
 echo "Waiting $waittime seconds for container to get shipped..."
