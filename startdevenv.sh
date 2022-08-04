@@ -44,15 +44,11 @@ check_and_set_next_port
 export NEXT_PUBLIC_PORT=$NEXTJS_PORT
 
 printf '\nNEXT_PUBLIC_STRAPI_API_URL'="http://127.0.0.1:$STRAPI_PORT" >> app/.env
-cd cms
+sh strapi.sh $STRAPI_PORT &
+
+cd app
+export PORT=$NEXTJS_PORT
 npm i
-export PORT=$STRAPI_PORT
-npm run build
-INITIALIZE_DATA=true npm run develop 
-&
-cd ..
-&
-cd app &
-npm i &
-npm run dev &
+npm run dev
+
 
