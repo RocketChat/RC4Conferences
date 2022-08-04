@@ -1,41 +1,31 @@
 # RC4Conferences
 A set of scalable components for communities to build, manage, and run virtual conferences of any size.
 
-<h2 align='center'>🚀 Developer quick start 🚀</h2>
+<h2 align='center'>🚀 Developer lightning quick start 🚀</h2>
 <p align='center'> Development - Build - Production </p>
 
-## 💻 Developers Quick Start
-
-
-### Start Backend (Open Event Server + Fauna based Superprofile)
-
-To start both the backend together in the root directory (`/RC4Conferences`), run
+To start the development environment simply run the following, the script would handle all process and would output error if there is any, or else you'll be good to start developing.
 ```
-sh startBackend.sh
+sh startdevenv.sh
 ```
-(Currently, for development purpose we are using defult secret values)
+Development Info:
+1. The Strapi admin portal would be opnened by default while starting the development setup.
+2. The NextJS url would be shown in the logs for reference
+```
+> rc4community@0.3.0 dev
+> next dev
+
+
+> backend@0.1.0 build
+> strapi build
+
+ready - started server on 0.0.0.0:3000, url: http://localhost:3000 <-- your NextJS locahost url
+
+```
+3. On visiting the NextJS app localhost url first time, first login using the dummy login button, then do a refresh to load the admin menu.
+(Currently, for development purpose we are using defult secret values).
+
 > For production deployments, please change the secret values in `open-event-server/.env.example` and ``open-event-server/.env.dev.app``
-
-### Start Strapi CMS
-```
-cd cms
-npm i
-INITIALIZE_DATA=true npm run develop
-```
-
-The application is written on nextjs and deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. For build and design, start it in a shell:
-```
-cd app
-```
-> If you are running the application on a different port (say on `3001`), then please run
-```
-export NEXT_PUBLIC_PORT=3001
-```
-
-```
-npm i
-npm run dev
-```
 
 ### Route Details
 

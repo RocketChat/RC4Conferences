@@ -1,6 +1,13 @@
 #!/bin/sh
 ERR_LOG="please check err_log.txt file for more details";
 ERR_FILE="log/err_log.txt"
+INIT_FLAG="log/init_flag"
+OES_CONTAINER_ID=$( docker ps -q -f name=opev-web )
+
+if [ -e $INIT_FLAG ] && [ ! -z $OES_CONTAINER_ID ]; then
+    echo "-- Open Event Server is already up and running --"
+    exit 0
+fi
 
 if [ -s $ERR_FILE ]; then
     rm -r -f log/*
@@ -18,3 +25,7 @@ docker compose up -d
 
 echo "--Copying default environment variables to app/.env--"
 cat .env.dev.app >> ../app/.env
+
+if [ ! -s $ERR_FILE ]; then
+    touch $INIT_FLAG
+fi
