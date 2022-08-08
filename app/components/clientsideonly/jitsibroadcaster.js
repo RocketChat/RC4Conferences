@@ -17,7 +17,7 @@ import { HiViewGridAdd } from "react-icons/hi";
 import styles from "../../styles/Jitsi.module.css";
 import { FaRocketchat } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
-import { SpeakerMiscToolbar } from "../conferences/dayOfEvent/greenroom/SpeakerToolbar";
+import { GreenRoomTool, SpeakerMiscToolbar } from "../conferences/dayOfEvent/greenroom/SpeakerToolbar";
 
 const JitsiMeeting = dynamic(
   () => import("@jitsi/react-sdk").then((mod) => mod.JitsiMeeting),
@@ -341,41 +341,6 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     </div>
   );
 
-  const toolButton = () => (
-    <div className={styles.deviceButton}>
-      <ButtonGroup className="m-auto">
-        <Button
-          variant="success"
-          title="Click to toogle audio"
-          onClick={() => {
-            apiRef.current.executeCommand("toggleAudio");
-            setMute(!mute);
-          }}
-        >
-          {mute ? <BiMicrophoneOff /> : <BiMicrophone />}
-        </Button>
-        <DropdownButton variant="danger" as={ButtonGroup} title="End">
-          <Dropdown.Item
-            as="button"
-            onClick={() => apiRef.current.executeCommand("hangup")}
-          >
-            Leave Meet
-          </Dropdown.Item>
-          <Dropdown.Item
-            variant="danger"
-            as="button"
-            onClick={() => apiRef.current.stopRecording("stream")}
-          >
-            End for everyone!
-          </Dropdown.Item>
-        </DropdownButton>
-        <Button color="#f5455c" onClick={handleChat}>
-          <FaRocketchat />
-        </Button>
-      </ButtonGroup>
-    </div>
-  );
-
   const renderLog = () =>
     logItems.map((item, index) => (
       <div
@@ -417,7 +382,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
             disableModeratorIndicator: true,
             startScreenSharing: false,
             enableEmailInStats: false,
-            toolbarButtons: ["microphone", "camera", "select-background", "hangup"],
+            toolbarButtons: ["select-background", "hangup"],
             enableWelcomePage: true,
             prejoinPageEnabled: true,
             startWithVideoMuted: true,
@@ -427,6 +392,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
             disableShortcuts: true,
             disable1On1Mode: true,
             defaultRemoteDisplayName: "Fellow Rocketeer",
+            subject: " ",
             p2p: {
               enabled: false,
             },
@@ -436,6 +402,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
             FILM_STRIP_MAX_HEIGHT: 0,
             TILE_VIEW_MAX_COLUMNS: 2,
             VIDEO_QUALITY_LABEL_DISABLED: true,
+            RECENT_LIST_ENABLED: false
           }}
           userInfo={{
             displayName: disName,
@@ -443,6 +410,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
         />
         {/* {toggleView()} */}
       </div>
+      <GreenRoomTool apiRef={apiRef} />
       {/* {toolButton()} */}
       <div className={styles.dayofeventleft_button}>
         <SpeakerMiscToolbar apiRef={apiRef} />
