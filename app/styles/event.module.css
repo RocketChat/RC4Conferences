@@ -196,4 +196,8 @@
   display: flex;
 }
 
+.deviceButton {
+  position: fixed;
+}
+
 /* Conference Greenroom Style Ends */
