@@ -4,6 +4,13 @@ import { DoEWrapper } from "../wrapperComponent";
 import { SpeakerChatToolbar } from "./SpeakerToolbar";
 import { Card, Collapse } from "react-bootstrap";
 import { useState } from "react";
+import dynamic from "next/dynamic";
+// import { RCComponent } from "rc-component-react";
+
+const RCComponent = dynamic(
+  () => import("rc-component-react").then((mod) => mod.RCComponent),
+  { ssr: false }
+);
 
 export const EventSpeakerStage = () => {
   const [open, setOpen] = useState(false);
@@ -17,27 +24,37 @@ export const EventSpeakerStage = () => {
           />
           <Collapse in={open}>
 
-          <Card
+          <div
             style={{
-              width: "18rem",
+              width: "30vw",
               marginTop: "15px",
               right: "25px",
+              position: "relative"
             }}
           >
-            <Card.Body>
-              <Card.Title>Chat PlaceHolder</Card.Title>
-              <Card.Text>
-                The Chat would appear in here, this window is just an
-                placeholder until we integrate the RocketChat Mini Chat
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          </Collapse>
-          
-        </div>
-        <div className={styles.dayofevent_button}>
+              <RCComponent
+                moreOpts={true}
+                isClosable={true}
+                setClosableState={setOpen}
+                width="100%"
+                height="55vh"
+                GOOGLE_CLIENT_ID={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
+                host={'http://localhost:3000'}
+                roomId={'GENERAL'}
+                channelName="CustomerService"
+                anonymousMode={true}
+                isFullScreenFromStart={false}
+              />
+              <div className={styles.dayofevent_collapsed_button}>
           <SpeakerChatToolbar setOpen={setOpen} open={open} />
+        </div> 
+          </div>
+
+          </Collapse>
         </div>
+        {!open && <div className={styles.dayofevent_button}>
+          <SpeakerChatToolbar setOpen={setOpen} open={open} />
+        </div>}
       </DoEWrapper>
     </div>
   );

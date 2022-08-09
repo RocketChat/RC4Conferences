@@ -39,7 +39,7 @@
   margin: auto;
   left: 25px;
   bottom: 25px;
-  position: fixed;
+  position: absolute;
 }
 
 @media (min-width: 830px) {
