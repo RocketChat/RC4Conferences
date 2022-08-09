@@ -77,8 +77,6 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
   };
 
   const handleJitsiIFrameRef1 = (iframeRef) => {
-    iframeRef.style.border = "10px solid cadetblue";
-    iframeRef.style.background = "cadetblue";
     iframeRef.style.height = "inherit";
     iframeRef.style.width = "90%";
     iframeRef.allow = "display-capture"
@@ -378,14 +376,14 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
           onApiReady={(externalApi) => handleApiReady(externalApi, apiRef)}
           getIFrameRef={handleJitsiIFrameRef1}
           configOverwrite={{
-            startWithAudioMuted: true,
+            startWithAudioMuted: false,
             disableModeratorIndicator: true,
             startScreenSharing: false,
             enableEmailInStats: false,
             toolbarButtons: ["select-background", "hangup"],
             enableWelcomePage: true,
             prejoinPageEnabled: true,
-            startWithVideoMuted: true,
+            startWithVideoMuted: false,
             liveStreamingEnabled: true,
             disableSelfView: true,
             disableSelfViewSettings: true,
@@ -408,14 +406,13 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
             displayName: disName,
           }}
         />
-        {/* {toggleView()} */}
+        <GreenRoomTool apiRef={apiRef} />
       </div>
-      <GreenRoomTool apiRef={apiRef} />
-      {/* {toolButton()} */}
+      
       <div className={styles.dayofeventleft_button}>
+      
         <SpeakerMiscToolbar apiRef={apiRef} />
       </div>
-      {/* <div className={styles.log}>{renderLog()}</div> */}
     </>
   );
 };

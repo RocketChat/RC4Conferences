@@ -43,7 +43,7 @@ export const SpeakerMiscToolbar = ({ apiRef }) => {
 };
 
 export const GreenRoomTool = ({ apiRef }) => {
-  const [mute, setMute] = useState(true);
+  const [mute, setMute] = useState(false);
   const [cammute, setCammute] = useState(false);
   const [devices, setDevices] = useState(null)
   const [currDev, setCurrDev] = useState({})
@@ -114,10 +114,10 @@ export const GreenRoomTool = ({ apiRef }) => {
           name={"audioInput"} 
           onClick={toggleDevice}
         >
-          {mute ? <BiMicrophoneOff name={"audioInput"} onClick={toggleDevice} /> : <BiMicrophone name={"audioInput"} onClick={toggleDevice} />}
+          {mute ? <BiMicrophoneOff name={"audioInput"} onClick={toggleDevice} /> : <BiMicrophone name={"audioInput"} onClick={() => toggleDevice} />}
         </Button>
         <Button color="#f5455c" name={"videoInput"} onClick={toggleDevice}>
-          {cammute ? <BiCameraOff name={"videoInput"} onClick={toggleDevice} /> : <BiCamera name={"videoInput"} onClick={toggleDevice} />}
+          {cammute ? <BiCameraOff name={"videoInput"} onClick={toggleDevice} /> : <BiCamera name={"videoInput"} onClick={() => toggleDevice} />}
         </Button>
 
         <DropdownButton
