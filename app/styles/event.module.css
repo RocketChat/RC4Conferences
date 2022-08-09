@@ -183,7 +183,7 @@
 
 .dayofevent_button {
   margin: auto;
-  position: fixed;
+  position: absolute;
   bottom: 25px;
   right: 25px;
 }
@@ -197,7 +197,12 @@
 }
 
 .deviceButton {
-  position: fixed;
+  position: absolute;
+}
+
+.dayofevent_collapsed_button {
+  position: absolute;
+  right: 0px;
 }
 
 /* Conference Greenroom Style Ends */

@@ -75,7 +75,7 @@ export const GreenRoomTool = ({ apiRef }) => {
     setTimeout(async () => {
       const devList = await apiRef.current.getCurrentDevices();
       setCurrDev(devList)
-    }, 500);
+    }, 600);
   }
   catch(err) {
     console.error(`An error while changing ${e.target.getAttribute("devicetype")} device`, err)
@@ -107,7 +107,7 @@ export const GreenRoomTool = ({ apiRef }) => {
 
   return (
     <div className={styles.deviceButton}>
-      <ButtonGroup className="m-auto">
+      <ButtonGroup size={"lg"} className="m-auto">
         <Button
           variant="success"
           title="Click to toogle audio"
