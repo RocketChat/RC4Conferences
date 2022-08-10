@@ -7,7 +7,7 @@ import {
   BiMicrophoneOff,
 } from "react-icons/bi";
 import { FaQuestionCircle, FaRocketchat } from "react-icons/fa";
-import { MdScreenShare, MdSettings } from "react-icons/md";
+import { MdPeople, MdScreenShare, MdSettings } from "react-icons/md";
 import styles from "../../../../styles/event.module.css";
 
 export const SpeakerChatToolbar = ({ setOpen, open }) => {
@@ -26,73 +26,125 @@ export const SpeakerChatToolbar = ({ setOpen, open }) => {
 };
 
 export const SpeakerMiscToolbar = ({ apiRef }) => {
-  return (
+  const [speakers, setSpeakers] = useState(null);
+  const [isopen, setIsopen] = useState(false)
+  const feSpks = apiRef?.current?.getParticipantsInfo();
+  useEffect(async () => {
+    if (isopen && feSpks!==speakers) {
+      setSpeakers(() => (feSpks))
+    }
+    if (apiRef.current) {
+      await apiRef.current.addEventListeners({
+        videoConferenceJoined: handleJitsiParticipant,
+        videoConferenceLeft: handleJitsiParticipant,
+        participantJoined: handleJitsiParticipant,
+        participantKickedOut: handleJitsiParticipant,
+        participantLeft: handleJitsiParticipant
+      })
+    }
+  }, [apiRef.current])
+
+  const handleJitsiParticipant = () => {
+    const feSpks = apiRef?.current?.getParticipantsInfo();
+    setSpeakers(feSpks)
+  }
+  if (apiRef.current) {
+    
+  }
+
+  const handlePeopleShow = () => {
+    setIsopen(!isopen)
+  };
+  return apiRef.current ? (
     <ButtonGroup size={"sm"}>
-      {apiRef.current && (
-        <Button
-          onClick={async () =>
-            await apiRef.current.executeCommand("toggleShareScreen")
-          }
-        >
-          <MdScreenShare size={20} />
-          <div className={styles.greenroom_button_text}>Present</div>
-        </Button>
-      )}
+      <DropdownButton
+        as={ButtonGroup}
+        title={<MdPeople size={20} />}
+        drop={"up"}
+        onClick={handlePeopleShow}
+      >
+        <Dropdown.Header>Speakers</Dropdown.Header>
+        {speakers ? (
+          speakers?.map((spk) => {
+            return <Dropdown.Item key={spk.participantId} disabled>{spk.formattedDisplayName}</Dropdown.Item>;
+          })
+        ) : (
+          <Dropdown.Item>The room is lonely, no one here</Dropdown.Item>
+          
+        )}
+      </DropdownButton>
+      <Button
+        onClick={async () =>
+          await apiRef.current.executeCommand("toggleShareScreen")
+        }
+      >
+        <MdScreenShare size={20} />
+        <div className={styles.greenroom_button_text}>Present</div>
+      </Button>
     </ButtonGroup>
+  ) : (
+    <></>
   );
 };
 
 export const GreenRoomTool = ({ apiRef }) => {
   const [mute, setMute] = useState(false);
   const [cammute, setCammute] = useState(false);
-  const [devices, setDevices] = useState(null)
-  const [currDev, setCurrDev] = useState({})
+  const [devices, setDevices] = useState(null);
+  const [currDev, setCurrDev] = useState({});
   useEffect(async () => {
     try {
-      const devList = await apiRef.current.getAvailableDevices()
+      const devList = await apiRef.current.getAvailableDevices();
       const currdevList = await apiRef.current.getCurrentDevices();
 
-      setDevices(devList)
-      setCurrDev(currdevList)
+      setDevices(devList);
+      setCurrDev(currdevList);
+    } catch (e) {
+      console.error("Error while updating device list", e);
     }
-    catch(e) {
-      console.error("Error while updating device list", e)
-    }
-  }, [apiRef.current])
+  }, [apiRef.current]);
 
   const handleSelect = async (e) => {
-    const devicetype = e.target.getAttribute("devicetype")
+    const devicetype = e.target.getAttribute("devicetype");
 
     try {
-      if (devicetype==="audioInput") {
-        await apiRef.current.setAudioInputDevice(e.target.name)
+      if (devicetype === "audioInput") {
+        await apiRef.current.setAudioInputDevice(e.target.name);
       }
-      if (devicetype==="videoInput") {
-        await apiRef.current.setVideoInputDevice(e.target.name)
-      }    
-    setCurrDev({...currDev, [devicetype]: e.target.name})
-    
-    setTimeout(async () => {
-      const devList = await apiRef.current.getCurrentDevices();
-      setCurrDev(devList)
-    }, 600);
-  }
-  catch(err) {
-    console.error(`An error while changing ${e.target.getAttribute("devicetype")} device`, err)
-  }
-  }
+      if (devicetype === "videoInput") {
+        await apiRef.current.setVideoInputDevice(e.target.name);
+      }
+      setCurrDev({ ...currDev, [devicetype]: e.target.name });
+
+      setTimeout(async () => {
+        const devList = await apiRef.current.getCurrentDevices();
+        setCurrDev(devList);
+      }, 600);
+    } catch (err) {
+      console.error(
+        `An error while changing ${e.target.getAttribute("devicetype")} device`,
+        err
+      );
+    }
+  };
 
   const showDevice = (deviceType) => {
-    return (
-      devices[deviceType].map((edev) => {
-        return (
-          <Dropdown.Item as={"button"} devicetype={deviceType} key={edev.deviceId} name={edev.label} eventKey={edev.deviceId} onClick={handleSelect} active={edev.deviceId===currDev[deviceType]?.deviceId}>
-            {edev.label}
-          </Dropdown.Item>
-        )
-      })
-    )
-  }
+    return devices[deviceType].map((edev) => {
+      return (
+        <Dropdown.Item
+          as={"button"}
+          devicetype={deviceType}
+          key={edev.deviceId}
+          name={edev.label}
+          eventKey={edev.deviceId}
+          onClick={handleSelect}
+          active={edev.deviceId === currDev[deviceType]?.deviceId}
+        >
+          {edev.label}
+        </Dropdown.Item>
+      );
+    });
+  };
 
   const toggleDevice = async (e) => {
     if (e.target.getAttribute("name") === "audioInput") {
@@ -103,7 +155,7 @@ export const GreenRoomTool = ({ apiRef }) => {
       await apiRef.current.executeCommand("toggleVideo");
       setCammute(!cammute);
     }
-  }
+  };
 
   return (
     <div className={styles.deviceButton}>
@@ -111,13 +163,21 @@ export const GreenRoomTool = ({ apiRef }) => {
         <Button
           variant="success"
           title="Click to toogle audio"
-          name={"audioInput"} 
+          name={"audioInput"}
           onClick={toggleDevice}
         >
-          {mute ? <BiMicrophoneOff name={"audioInput"} onClick={toggleDevice} /> : <BiMicrophone name={"audioInput"} onClick={() => toggleDevice} />}
+          {mute ? (
+            <BiMicrophoneOff name={"audioInput"} onClick={toggleDevice} />
+          ) : (
+            <BiMicrophone name={"audioInput"} onClick={() => toggleDevice} />
+          )}
         </Button>
         <Button color="#f5455c" name={"videoInput"} onClick={toggleDevice}>
-          {cammute ? <BiCameraOff name={"videoInput"} onClick={toggleDevice} /> : <BiCamera name={"videoInput"} onClick={() => toggleDevice} />}
+          {cammute ? (
+            <BiCameraOff name={"videoInput"} onClick={toggleDevice} />
+          ) : (
+            <BiCamera name={"videoInput"} onClick={() => toggleDevice} />
+          )}
         </Button>
 
         <DropdownButton
@@ -127,12 +187,12 @@ export const GreenRoomTool = ({ apiRef }) => {
           variant={"secondary"}
           id="bg-nested-dropdown"
         >
-          <div style={{overflowY: "scroll", height: "30vh"}}>
-          <Dropdown.Header>Microphone</Dropdown.Header>
-          {devices ? showDevice("audioInput") : "No devices found"}
-          <Dropdown.Divider></Dropdown.Divider>
-          <Dropdown.Header>Camera</Dropdown.Header>
-          {devices ? showDevice("videoInput") : "No devices found"}
+          <div style={{ overflowY: "scroll", height: "30vh" }}>
+            <Dropdown.Header>Microphone</Dropdown.Header>
+            {devices ? showDevice("audioInput") : "No devices found"}
+            <Dropdown.Divider></Dropdown.Divider>
+            <Dropdown.Header>Camera</Dropdown.Header>
+            {devices ? showDevice("videoInput") : "No devices found"}
           </div>
         </DropdownButton>
       </ButtonGroup>
@@ -140,56 +200,55 @@ export const GreenRoomTool = ({ apiRef }) => {
   );
 };
 
-
 //Commented out an alternative recursive function, to be preserved for avoiding future wheel reinventing
 
-  // const changeDevice = async (
-  //   devList,
-  //   nextDevice,
-  //   deviceType,
-  //   currDevList,
-  //   currIndex,
-  //   nextDeviceInd
-  // ) => {
-  //   console.log("nextDeviceInd", nextDeviceInd, "currIndex", currIndex)
-  //   if (nextDeviceInd != currIndex) {
-  //     const t = await apiRef.current.setAudioInputDevice(
-  //       nextDevice.label,
-  //       nextDevice.deviceId
-  //     );
-  //     // setTimeout(async () => {
-  //     //   const changedCurrDevList = await apiRef.current.getCurrentDevices();
-  //     //   console.log("changedCurrDevList", changedCurrDevList[deviceType])
-  //     // }, 1);
-  //   
-  //     if (
-  //       changedCurrDevList[deviceType].deviceId ===
-  //       currDevList[deviceType].deviceId
-  //     ) {
-        
-  //       let tempNextDeviceInd = nextDeviceInd + 1;
-  //       let tempDevListLen = devList[deviceType].length;
+// const changeDevice = async (
+//   devList,
+//   nextDevice,
+//   deviceType,
+//   currDevList,
+//   currIndex,
+//   nextDeviceInd
+// ) => {
+//   console.log("nextDeviceInd", nextDeviceInd, "currIndex", currIndex)
+//   if (nextDeviceInd != currIndex) {
+//     const t = await apiRef.current.setAudioInputDevice(
+//       nextDevice.label,
+//       nextDevice.deviceId
+//     );
+//     // setTimeout(async () => {
+//     //   const changedCurrDevList = await apiRef.current.getCurrentDevices();
+//     //   console.log("changedCurrDevList", changedCurrDevList[deviceType])
+//     // }, 1);
+//
+//     if (
+//       changedCurrDevList[deviceType].deviceId ===
+//       currDevList[deviceType].deviceId
+//     ) {
 
-  //       if (tempNextDeviceInd >= tempDevListLen)
-  //         tempNextDeviceInd -= tempDevListLen;
-        
-  //         let tempNext = devList[deviceType][tempNextDeviceInd];
-  //       console.log("checknextDevice", tempNext)
-  //       await changeDevice(
-  //         devList,
-  //         tempNext,
-  //         deviceType,
-  //         changedCurrDevList,
-  //         currIndex,
-  //         tempNextDeviceInd
-  //       );
-  //     }
+//       let tempNextDeviceInd = nextDeviceInd + 1;
+//       let tempDevListLen = devList[deviceType].length;
 
-  //     else {
-  //       return;
-  //     }
-  //   }
-  //   else {
-  //     return
-  //   } 
-  // };
+//       if (tempNextDeviceInd >= tempDevListLen)
+//         tempNextDeviceInd -= tempDevListLen;
+
+//         let tempNext = devList[deviceType][tempNextDeviceInd];
+//       console.log("checknextDevice", tempNext)
+//       await changeDevice(
+//         devList,
+//         tempNext,
+//         deviceType,
+//         changedCurrDevList,
+//         currIndex,
+//         tempNextDeviceInd
+//       );
+//     }
+
+//     else {
+//       return;
+//     }
+//   }
+//   else {
+//     return
+//   }
+// };
