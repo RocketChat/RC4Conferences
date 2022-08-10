@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, ButtonGroup, Dropdown, DropdownButton } from "react-bootstrap";
+import { Button, ButtonGroup, Container, Dropdown, DropdownButton, Row } from "react-bootstrap";
 import {
   BiCamera,
   BiCameraOff,
@@ -48,9 +48,6 @@ export const SpeakerMiscToolbar = ({ apiRef }) => {
     const feSpks = apiRef?.current?.getParticipantsInfo();
     setSpeakers(feSpks)
   }
-  if (apiRef.current) {
-    
-  }
 
   const handlePeopleShow = () => {
     setIsopen(!isopen)
@@ -63,15 +60,21 @@ export const SpeakerMiscToolbar = ({ apiRef }) => {
         drop={"up"}
         onClick={handlePeopleShow}
       >
+        <Container style={{overflow: "auto", maxHeight: "50vh", maxWidth: "50vw"}}>
+        <Row>
         <Dropdown.Header>Speakers</Dropdown.Header>
-        {speakers ? (
+        {Array.isArray(speakers) && speakers.length ? (
           speakers?.map((spk) => {
-            return <Dropdown.Item key={spk.participantId} disabled>{spk.formattedDisplayName}</Dropdown.Item>;
+            return <Dropdown.ItemText key={spk.participantId}>{spk.formattedDisplayName}</Dropdown.ItemText>;
           })
         ) : (
-          <Dropdown.Item>The room is lonely, no one here</Dropdown.Item>
+          <Dropdown.Item disabled>The room is lonely, no one here</Dropdown.Item>
           
         )}
+        
+        
+    </Row>
+        </Container>
       </DropdownButton>
       <Button
         onClick={async () =>
