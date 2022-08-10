@@ -12,14 +12,14 @@ const RCComponent = dynamic(
   { ssr: false }
 );
 
-export const EventSpeakerStage = () => {
+export const EventSpeakerStage = ({spkdata, eventdata, isAdmin, eventIdentifier}) => {
   const [open, setOpen] = useState(false);
   return (
     <div>
       <DoEWrapper>
         <div className={styles.greenroom_jitsi}>
           <Jitsibroadcaster
-            room={"GSOC Alumnus Meet Test"}
+            room={eventdata ? eventdata.attributes?.["chat-room-name"] : `${new Date()}-eventIdentifier`}
             disName={"Speaker"}
           />
           <Collapse in={open}>
@@ -39,8 +39,8 @@ export const EventSpeakerStage = () => {
                 width="100%"
                 height="55vh"
                 GOOGLE_CLIENT_ID={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
-                host={'http://localhost:3000'}
-                roomId={'GENERAL'}
+                host={process.env.NEXT_PUBLIC_RC_URL}
+                roomId={'CUSTOMERSERVICE'}
                 channelName="CustomerService"
                 anonymousMode={true}
                 isFullScreenFromStart={false}
