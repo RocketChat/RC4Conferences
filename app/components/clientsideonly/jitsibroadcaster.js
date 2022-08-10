@@ -30,7 +30,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
   const apiRef = useRef();
   const [logItems, updateLog] = useState([]);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
-  const [mute, setMute] = useState(true);
+  const [speakers, setSpeakers] = useState(null);
 
   const printEventOutput = (payload) => {
     updateLog((items) => [...items, JSON.stringify(payload)]);
@@ -263,94 +263,6 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
       </ButtonGroup>
     </div>
   );
-
-  const toggleDevice = () => (
-    <div className={styles.device}>
-      <Button disabled variant="light">
-        <AiFillSetting size={20} />
-      </Button>
-      <ButtonGroup vertical className="m-auto">
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">Microphone Device</Tooltip>}
-        >
-          <Button
-            title="Click to switch audio devices"
-            onClick={() => showAudioDevice(apiRef)}
-          >
-            <RiMic2Line size={20} />
-          </Button>
-        </OverlayTrigger>
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">Camera Device</Tooltip>}
-        >
-          <Button
-            title="Click to switch video devices"
-            onClick={() => showDevices(apiRef)}
-          >
-            <MdCameraswitch size={20} />
-          </Button>
-        </OverlayTrigger>
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">Audio Device</Tooltip>}
-        >
-          <Button
-            title="Click to switch audio devices"
-            onClick={() => showAudioOutDevices(apiRef)}
-          >
-            <MdHeadset size={20} />
-          </Button>
-        </OverlayTrigger>
-      </ButtonGroup>
-    </div>
-  );
-
-  const toggleView = () => (
-    <div className={styles.view}>
-      <Button variant="light" disabled>
-        <AiFillEye size={20} />
-      </Button>
-      <ButtonGroup vertical className="m-auto">
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">Tile View</Tooltip>}
-        >
-          <Button
-            variant="secondary"
-            onClick={() => makeTile(apiRef)}
-            title="Click to toggle tile view"
-          >
-            <HiViewGridAdd size={20} />
-          </Button>
-        </OverlayTrigger>
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">First User</Tooltip>}
-        >
-          <Button onClick={() => showUsers(apiRef, 0)} variant="secondary">
-            <BiUserPin size={20} />
-          </Button>
-        </OverlayTrigger>
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">Second User</Tooltip>}
-        >
-          <Button onClick={() => showUsers(apiRef, 1)} variant="secondary">
-            <FiUsers size={20} />
-          </Button>
-        </OverlayTrigger>
-      </ButtonGroup>
-    </div>
-  );
-
-  const renderLog = () =>
-    logItems.map((item, index) => (
-      <div
-        style={{
-          fontFamily: "monospace",
-          padding: "5px",
-        }}
-        key={index}
-      >
-        {item}
-      </div>
-    ));
 
   const renderSpinner = () => (
     <div
