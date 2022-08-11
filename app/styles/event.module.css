@@ -206,3 +206,21 @@
 }
 
 /* Conference Greenroom Style Ends */
+
+/* Mainstage Style Begins */
+
+.mainstage_chattool {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+}
+
+.mainstage_chatwindow {
+  width: 30vw;
+  margin-top: 15px;
+  right: 25px;
+  overflow: auto;
+  margin: 1em;
+}
+
+/* Mainstage Style Ends */

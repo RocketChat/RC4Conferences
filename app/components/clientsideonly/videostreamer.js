@@ -46,7 +46,7 @@ export default function Videostreamer(props) {
           console.log(`script loaded correctly, window.FB has been populated`)
         }
       />
-      <Col>
+      <Col style={{maxWidth: "80vw", margin: "auto", marginTop: "1em"}}>
         <video
           autoPlay
           id="my-video"
