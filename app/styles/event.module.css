@@ -216,12 +216,12 @@
 }
 
 .mainstage_chatwindow {
-  width: 30vw;
   margin-top: 15px;
   right: 25px;
   overflow: auto;
   margin: 1em;
-  height: 85vh;
+  height: 80vh;
+  width: 35vw;
 }
 
 /* Mainstage Style Ends */

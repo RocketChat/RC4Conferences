@@ -34,8 +34,8 @@ export const EventMainstage = ({ eventdetails }) => {
                 moreOpts={true}
                 isClosable={true}
                 setClosableState={setOpen}
-                width="100%"
-                height="60vh"
+                width="fit-content"
+                height="55vh"
                 GOOGLE_CLIENT_ID={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
                 host={process.env.NEXT_PUBLIC_RC_URL}
                 roomId={"CUSTOMERSERVICE"}
