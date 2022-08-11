@@ -11,6 +11,12 @@
   align-items: center;
   justify-content: center;
 }
+
+#my_video {
+  width: 100%;
+  height: 75vh;
+}
+
 .chatButton {
   width: 4rem;
   position: absolute;
