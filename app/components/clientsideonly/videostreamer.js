@@ -49,12 +49,11 @@ export default function Videostreamer(props) {
       <Col style={{maxWidth: "80vw", margin: "auto", marginTop: "1em"}}>
         <video
           autoPlay
-          id="my-video"
+          id={styles.my_video}
           className="video-js vjs-big-play-centered vjs-responsive"
           controls
           preload="auto"
           poster={props.poster}
-          data-setup='{"fluid": true}'
         >
           <source src={props.src} type={props.type}></source>
           <p class="vjs-no-js">

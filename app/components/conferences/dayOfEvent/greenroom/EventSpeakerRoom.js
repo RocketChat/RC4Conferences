@@ -5,7 +5,6 @@ import { SpeakerChatToolbar } from "./SpeakerToolbar";
 import { Card, Collapse } from "react-bootstrap";
 import { useState } from "react";
 import dynamic from "next/dynamic";
-// import { RCComponent } from "rc-component-react";
 
 const RCComponent = dynamic(
   () => import("rc-component-react").then((mod) => mod.RCComponent),
