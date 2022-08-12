@@ -39,8 +39,8 @@ export const EventSpeakerStage = ({spkdata, eventdata, isAdmin, eventIdentifier}
                 height="55vh"
                 GOOGLE_CLIENT_ID={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
                 host={process.env.NEXT_PUBLIC_RC_URL}
-                roomId={'CUSTOMERSERVICE'}
-                channelName="CustomerService"
+                roomId={'GENERAL'}
+                channelName="General"
                 anonymousMode={true}
                 isFullScreenFromStart={false}
               />
