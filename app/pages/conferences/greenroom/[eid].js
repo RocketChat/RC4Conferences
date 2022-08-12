@@ -49,7 +49,7 @@ const Greenroom = ({eventIdentifier, isAdmin, spkdata, eventdata}) => {
     }
 
     if(!eventdata && !spkdata) {
-      throw new Error("An error in fetching speaker and eventdetails")
+      throw new Error("An error in fetching speaker and eventdetails, please check if the Open Event Server is up and running or this particular event doesn't exist yet")
     }
     // const topNavItems = await fetchAPI("/top-nav-item");
   
