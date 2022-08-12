@@ -4,6 +4,23 @@ STRAPI_PORT=1337
 NEXTJS_PORT=3000
 counter=0
 watchdog=5
+watchtimer=0
+
+trap_ctrlc ()
+{
+    # perform cleanup here
+    echo "--performing clean up--"
+    cd ..
+    sh cleanup.sh
+ 
+    # exit shell script with error code 2
+    # if omitted, shell script will continue execution
+    exit 2
+}
+ 
+# initialise trap to call trap_ctrlc function
+# when signal 2 (SIGINT) is received
+trap "trap_ctrlc" 2
 
 check_and_set_strapi_port() {
 
@@ -38,6 +55,17 @@ check_and_set_next_port() {
 }
 
 sh startBackend.sh
+
+while [ $? -ne 0 ] && [ $watchtimer -lt 5 ]
+do
+    watchtimer=$((watchtimer+1))
+    sh startBackend.sh
+done
+
+if [ $? -eq 1 ];then
+    echo "\033[31m***Unable to successfully launch the superprofile or open-event-server container, please view the logs for more info and resolve&rerun the script***\e[0m"
+    exit 1
+fi
 
 check_and_set_strapi_port
 counter=0
