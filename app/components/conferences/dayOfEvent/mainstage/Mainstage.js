@@ -38,8 +38,8 @@ export const EventMainstage = ({ eventdetails }) => {
                 height="55vh"
                 GOOGLE_CLIENT_ID={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
                 host={process.env.NEXT_PUBLIC_RC_URL}
-                roomId={"CUSTOMERSERVICE"}
-                channelName="Customer"
+                roomId={"GENERAL"}
+                channelName="General"
                 anonymousMode={true}
                 isFullScreenFromStart={false}
               />
