@@ -4,7 +4,7 @@
         "name": "Sarah M.",
         "email": "dhgysfmedomihkzkwv@kvhrr.com",
         "mobile": null,
-        "photo_url": "/images/speakers/SarahM._6250.jpeg",
+        "photo_url": "https://api.eventyay.com/static/media/users/6250/thumbnail/Qmx0OVdPd2/f4d35988-a44d-4b54-9dfd-cc390b462ebf.jpg",
         "organisation": null,
         "position": "An AI",
         "country": null,
@@ -34,8 +34,7 @@
         "speaker_positions": {},
         "speaking_experience": null,
         "sponsorship_required": null,
-        "thumbnail_image_url": "https://api.eventyay.com/static/media/users/6250/thumbnail/Qmx0OVdPd2/f4d35988-a44d-4b54-9dfd-cc390b462ebf.jpg",
-        "user_id": 1
+        "thumbnail_image_url": "https://api.eventyay.com/static/media/users/6250/thumbnail/Qmx0OVdPd2/f4d35988-a44d-4b54-9dfd-cc390b462ebf.jpg"
     },
     {
         "id": 2,
@@ -72,8 +71,7 @@
         "speaker_positions": {},
         "speaking_experience": null,
         "sponsorship_required": null,
-        "thumbnail_image_url": null,
-        "user_id": 1
+        "thumbnail_image_url": null
     },
     {
         "id": 3,
@@ -110,8 +108,7 @@
         "speaker_positions": {},
         "speaking_experience": null,
         "sponsorship_required": null,
-        "thumbnail_image_url": null,
-        "user_id": 1
+        "thumbnail_image_url": null
     },
     {
         "id": 4,
@@ -148,8 +145,7 @@
         "speaker_positions": {},
         "speaking_experience": null,
         "sponsorship_required": null,
-        "thumbnail_image_url": null,
-        "user_id": 1
+        "thumbnail_image_url": null
     },
     {
         "id": 5,
@@ -186,15 +182,14 @@
         "speaker_positions": {},
         "speaking_experience": null,
         "sponsorship_required": null,
-        "thumbnail_image_url": null,
-        "user_id": 1
+        "thumbnail_image_url": null
     },
     {
         "id": 6,
         "name": "Priya Bihani",
         "email": null,
         "mobile": null,
-        "photo_url": "/images/speakers/PriyaBihani_6255.jpeg",
+        "photo_url": "https://api.eventyay.com/static/media/users/6255/thumbnail/MFN3Wm1mVm/e195953c-153d-44d0-a7bf-3651ed7460e8.jpg",
         "organisation": "RC",
         "position": "RC GSoC Alumnus",
         "country": null,
@@ -224,15 +219,14 @@
         "speaker_positions": {},
         "speaking_experience": null,
         "sponsorship_required": null,
-        "thumbnail_image_url": "https://api.eventyay.com/static/media/users/6255/thumbnail/MFN3Wm1mVm/e195953c-153d-44d0-a7bf-3651ed7460e8.jpg",
-        "user_id": 1
+        "thumbnail_image_url": "https://api.eventyay.com/static/media/users/6255/thumbnail/MFN3Wm1mVm/e195953c-153d-44d0-a7bf-3651ed7460e8.jpg"
     },
     {
         "id": 7,
         "name": "Rohan Lekhwani",
         "email": null,
         "mobile": null,
-        "photo_url": "/images/speakers/RohanLekhwani_6253.jpeg",
+        "photo_url": "https://api.eventyay.com/static/media/users/6253/thumbnail/THpDT2JPam/42b02f36-d635-420b-a32f-52199f3905ef.jpg",
         "organisation": "RC",
         "position": "GSoC Mentor @ Rocket.Chat",
         "country": null,
@@ -262,15 +256,14 @@
         "speaker_positions": {},
         "speaking_experience": null,
         "sponsorship_required": null,
-        "thumbnail_image_url": "https://api.eventyay.com/static/media/users/6253/thumbnail/THpDT2JPam/42b02f36-d635-420b-a32f-52199f3905ef.jpg",
-        "user_id": 1
+        "thumbnail_image_url": "https://api.eventyay.com/static/media/users/6253/thumbnail/THpDT2JPam/42b02f36-d635-420b-a32f-52199f3905ef.jpg"
     },
     {
         "id": 8,
         "name": "Fongang Rodrique",
         "email": null,
         "mobile": null,
-        "photo_url": "/images/speakers/FongangRodrique_6254.jpeg",
+        "photo_url": "https://api.eventyay.com/static/media/users/6254/thumbnail/SXVjOWp4Kz/6af3e34e-6075-4c12-b27e-cb7530118dca.jpg",
         "organisation": "RC",
         "position": "Technical Writer at Rocket.Chat",
         "country": null,
@@ -300,8 +293,7 @@
         "speaker_positions": {},
         "speaking_experience": null,
         "sponsorship_required": null,
-        "thumbnail_image_url": "https://api.eventyay.com/static/media/users/6254/thumbnail/SXVjOWp4Kz/6af3e34e-6075-4c12-b27e-cb7530118dca.jpg",
-        "user_id": 1
+        "thumbnail_image_url": "https://api.eventyay.com/static/media/users/6254/thumbnail/SXVjOWp4Kz/6af3e34e-6075-4c12-b27e-cb7530118dca.jpg"
     },
     {
         "id": 9,
@@ -338,7 +330,6 @@
         "speaker_positions": {},
         "speaking_experience": null,
         "sponsorship_required": null,
-        "thumbnail_image_url": null,
-        "user_id": 1
+        "thumbnail_image_url": null
     }
 ]
