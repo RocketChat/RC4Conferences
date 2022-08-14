@@ -22,9 +22,11 @@ else
     cd open-event-server
     docker exec -it opev-postgres /bin/sh /var/log/seed/seed.sh
     cd ..
-    if [ ! -z $INIT_DB ];then
-        echo echo "\033[31m***Open-event-server DB was not seeded with demo event, please check pg logs***\e[0m"
+    if [ ! -e $INIT_DB ];then
+        echo "\033[31m***Open-event-server DB was not seeded with demo event, please check pg logs***\e[0m"
         exit 1
+    else
+        echo "--Successfully seeded the database with demo data--"
     fi
 fi
 if [ -z $FAUNA_CONTAINER_ID ]; then

@@ -2,3 +2,4 @@ err_log.txt
 init_flag
 seed/seed.txt
 seed/init_db
+seed/seed_*
