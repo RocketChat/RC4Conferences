@@ -29,6 +29,7 @@ services:
     restart: unless-stopped
     volumes:
       - pg:/var/lib/postgresql/data
+      - ./seed:/var/log/seed
     environment:
       POSTGRES_USER: open_event_user
       POSTGRES_PASSWORD: opev_pass
