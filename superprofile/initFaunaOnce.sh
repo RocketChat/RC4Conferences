@@ -23,11 +23,11 @@ if [ "$container_state" != $healthy ]; then
     echo "Docker container needs extra startup time, please increase the \$waittlist value in initFaunaOnce.sh"
     echo "Process ended with health status of Container: $container_state"
 else
-    docker exec -it faunadb /bin/sh  /var/log/faunadb/initialize.sh
+    docker exec -it faunadb /bin/sh  /var/log/faunadb/initialize.sh $1
     if [ -f log/dbkey ] && [ ! -f log/init_key_flag ]; then
         echo "Copying over secrets to ../app/.env"
         printf '\nNEXT_PUBLIC_FAUNA_SECRET=' | cat - ./log/dbkey >> ../app/.env &&
-        printf '\nNEXT_PUBLIC_FAUNA_DOMAIN'="http://localhost:8084/graphql" >> ../app/.env
+        printf '\nNEXT_PUBLIC_FAUNA_DOMAIN'="http://$1:8084/graphql" >> ../app/.env
         touch $DBF &&
         echo "-- All set, superprofile launch 🚀"
     else
