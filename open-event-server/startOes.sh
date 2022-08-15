@@ -24,6 +24,8 @@ echo "--Downloading and starting the open-event docker images and containers--"
 docker compose up -d
 
 echo "--Copying default environment variables to app/.env--"
+printf '\nNEXT_PUBLIC_EVENT_BACKEND_URL'="http://$1:8080" >> ../app/.env
+
 cat .env.dev.app >> ../app/.env
 
 if [ ! -s $ERR_FILE ]; then
