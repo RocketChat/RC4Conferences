@@ -6,7 +6,7 @@ if [ ! -e $ALREADY_INITIALIZED ]; then
    fauna create-database RC4Conference 
    fauna create-key RC4Conference | awk '/secret: */{print $2}' -  > dbkey
    echo "-- uploading graphql schema... --"
-   fauna upload-graphql-schema /var/log/faunadb/schema.gql --domain="localhost" --port="8443" --scheme="http"  --secret=`cat dbkey` --graphqlHost=localhost --graphqlPort=8084 --mode=replace
+   fauna upload-graphql-schema /var/log/faunadb/schema.gql --domain="$1" --port="8443" --scheme="http"  --secret=`cat dbkey` --graphqlHost=$1 --graphqlPort=8084 --mode=replace
    echo "-- schema uploaded successfully... --"
    echo "-- initializing fauna collection User... --"
    fauna eval RC4Conference --file=/var/log/faunadb/initUser.fql

@@ -6,11 +6,11 @@ FAUNA_CONTAINER_ID=$( docker ps -q -f name=faunadb )
 
 echo "--Starting the Open Event server--"
 cd open-event-server
-sh startOes.sh
+sh startOes.sh $1
 
 echo "--Starting Superprofile Backend--"
 cd ../superprofile
-sh initFaunaOnce.sh
+sh initFaunaOnce.sh $1
 cd ..
 
 if [ -s $ERR_FILE ];then
