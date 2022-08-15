@@ -6,8 +6,10 @@ A set of scalable components for communities to build, manage, and run virtual c
 
 To start the development environment simply run the following, the script would handle all process and would output error if there is any, or else you'll be good to start developing.
 ```
-sh startdevenv.sh
+sh startdevenv.sh localhost
 ```
+>Note: Please replace the "localhost" with your static IP if you are doing environment setup on your VM.
+
 Development Info:
 1. The Strapi admin portal would be opnened by default while starting the development setup.
 2. The NextJS url would be shown in the logs for reference

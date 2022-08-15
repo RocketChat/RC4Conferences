@@ -77,7 +77,7 @@ else
     exit 1
 fi
 
-sh startBackend.sh
+sh startBackend.sh $1
 
 while [ $? -ne 0 ] && [ $watchtimer -lt 5 ]
 do
@@ -96,12 +96,16 @@ check_and_set_next_port
 
 export NEXT_PUBLIC_PORT=$NEXTJS_PORT
 
-printf '\nNEXT_PUBLIC_STRAPI_API_URL'="http://127.0.0.1:$STRAPI_PORT" >> app/.env
-sh strapi.sh $STRAPI_PORT &
+printf '\nNEXT_PUBLIC_STRAPI_API_URL'="http://$1:$STRAPI_PORT" >> app/.env
+printf '\nNEXT_PUBLIC_EVENT_SPK_MAIL'="dhgysfmedomihkzkwv@kvhrr.com" >> app/.env
+printf '\nNEXT_PUBLIC_EVENT_ANON_MAIL'="anon@pikapii.com" >> app/.env
+printf '\nNEXT_PUBLIC_API_URL'="http://$1:$NEXTJS_PORT" >> app/.env
 
-cd app
-export PORT=$NEXTJS_PORT
-npm i
-npm run dev
+# sh strapi.sh $STRAPI_PORT &
+
+# cd app
+# export PORT=$NEXTJS_PORT
+# npm i
+# npm run dev
 
 
