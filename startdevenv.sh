@@ -105,7 +105,6 @@ sh strapi.sh $STRAPI_PORT &
 
 cd app
 export PORT=$NEXTJS_PORT
-export NEXT_PUBLIC_PORT=$NEXTJS_PORT
 npm i
 npm run dev
 
