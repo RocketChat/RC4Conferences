@@ -101,11 +101,11 @@ printf '\nNEXT_PUBLIC_EVENT_SPK_MAIL'="dhgysfmedomihkzkwv@kvhrr.com" >> app/.env
 printf '\nNEXT_PUBLIC_EVENT_ANON_MAIL'="anon@pikapii.com" >> app/.env
 printf '\nNEXT_PUBLIC_API_URL'="http://$1:$NEXTJS_PORT" >> app/.env
 
-# sh strapi.sh $STRAPI_PORT &
+sh strapi.sh $STRAPI_PORT &
 
-# cd app
-# export PORT=$NEXTJS_PORT
-# npm i
-# npm run dev
+cd app
+export PORT=$NEXTJS_PORT
+npm i
+npm run dev
 
 
