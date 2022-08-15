@@ -22,6 +22,14 @@ const Greenroom = ({eventIdentifier, isAdmin, spkdata, eventdata}) => {
     const authCookie = context.req.cookies?.event_auth;
     const umail = context.req.cookies?.hashmail;
     const eventIdentifier = context.query.eid
+    if (!umail) {
+      return {
+        redirect: {
+          destination: "/",
+          permanent: false,
+        },
+      };
+    }
     const mailres = await unsignCook({
       hash: umail,
     });
@@ -30,14 +38,6 @@ const Greenroom = ({eventIdentifier, isAdmin, spkdata, eventdata}) => {
       isAdmin = await ssrVerifyAdmin({ email: mailres.data.mail });
     }
     const {isSpeaker, spkdata, eventdata} = await verifySpeaker(eventIdentifier, authCookie, mailres)
-    if (!authCookie) {
-      return {
-        redirect: {
-          destination: "/conferences",
-          permanent: false,
-        },
-      };
-    }
     
     if (!isAdmin && !isSpeaker) {
       return {

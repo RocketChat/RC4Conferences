@@ -2,9 +2,11 @@ import { getEventDeatils, getEventSpeakers } from "../../../lib/conferences/even
 
 export const verifySpeaker = async (eid, acook, mailres) => {
     let spkMail = []
+    let token=null
     
     try {
-        const token = JSON.parse(acook).access_token
+        if (acook) token = JSON.parse(acook).access_token
+
         const mailid = mailres.data.mail
         const spkData = await getEventSpeakers(eid, token)
         const eventdata = await getEventDeatils(eid)
