@@ -9,8 +9,20 @@ A set of scalable components for communities to build, manage, and run virtual c
 NEXT_PUBLIC_GOOGLE_CLIENT_ID="your google client id"
 NEXT_PUBLIC_RC_URL="your url of the RC instance"
 ```
+**Optional Starts
 
-2. To start the development environment first run the following, the script would handle all process and would output error if there is any, or else you'll be good to start developing.
+2. For Greenroom and Mainstage Page to work, there is a need to add some additional environment vars (`app/.env`), which are as followed.
+```
+NEXT_PUBLIC_IPINFO_TOKEN="token from ipinfo"
+NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP="rtmp url to broadcast the stream"
+NEXT_PUBLIC_SERVER_STREAM_LINK0="Asia server broadcast link"
+NEXT_PUBLIC_SERVER_STREAM_LINK1="Any other region server broadcasr link"
+``` 
+For more detail on how to get ipinfo token and server links, please read [here](./docs/components/serverStreaming/README.md)
+
+**Optional Ends 
+
+3. To start the development environment first run the following, the script would handle all process and would output error if there is any, or else you'll be good to start developing.
 ```
 sh startdevenv.sh localhost
 ```
