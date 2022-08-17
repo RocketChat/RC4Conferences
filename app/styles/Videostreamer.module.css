@@ -17,6 +17,14 @@
   height: 75vh;
 }
 
+@media (max-width: 845px) {
+  #my_video {
+    width: 100%;
+    height: 40vh;
+  }
+}
+
+
 .chatButton {
   width: 4rem;
   position: absolute;
@@ -28,6 +36,12 @@
 .chatButton:hover {
   background-color: transparent;
   color: #f5455c;
+}
+
+.video_server {
+  position: absolute;
+  left: 5;
+  z-index: 10;
 }
 
 @media (max-width: 1200px) {

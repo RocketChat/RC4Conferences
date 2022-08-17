@@ -230,4 +230,23 @@
   width: 35vw;
 }
 
+.mainstage_root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+@media (max-width: 845px) {
+  .mainstage_chatwindow {
+    height: 40vh;
+    width: 90%;
+    overflow: initial;
+    max-width: 80vw;
+  }
+  .mainstage_root {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 /* Mainstage Style Ends */
