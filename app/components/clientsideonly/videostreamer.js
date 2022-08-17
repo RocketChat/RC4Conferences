@@ -1,4 +1,4 @@
-import { Col, Row, Toast, ToastContainer } from "react-bootstrap";
+import { Badge, Col, Row, Toast, ToastContainer } from "react-bootstrap";
 import styles from "../../styles/Videostreamer.module.css";
 import Script from "next/script";
 import Head from "next/head";
@@ -45,9 +45,9 @@ export default function Videostreamer(props) {
         }
       />
       <Col style={{ maxWidth: "80vw", margin: "auto", marginTop: "1em" }}>
-        <Row>
-          <span style={{ color: "white" }}>Server: {props.region}</span>
-        </Row>
+        <div className={styles.video_server}>
+          <Badge pill bg={"warning"} text={"black"}>{props.region}</Badge>
+          </div>
         <video
           autoPlay
           id={styles.my_video}

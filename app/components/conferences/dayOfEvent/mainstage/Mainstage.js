@@ -7,6 +7,8 @@ import { DoEWrapper } from "../wrapperComponent";
 import styles from "../../../../styles/event.module.css";
 import dynamic from "next/dynamic";
 import { getIPInfo } from "../../../../lib/geoAPI";
+import { useMediaQuery } from "@rocket.chat/fuselage-hooks";
+
 
 const RCComponent = dynamic(
   () => import("rc-component-react").then((mod) => mod.RCComponent),
@@ -17,10 +19,12 @@ const asiaLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK0;
 const otherLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK1;
 
 export const EventMainstage = ({ eventdetails }) => {
-  const [open, setOpen] = useState(false);
+  const isSmallScreen = useMediaQuery("(max-width: 845px)");
+  const [open, setOpen] = useState(isSmallScreen);
   const [streamLink, setStreamLink] = useState(asiaLink);
   const [region, setRegion] = useState("Asia");
   const evePoster = eventdetails?.data?.attributes?.["original-image-url"];
+  
 
   useEffect(async () => {
     try {
@@ -40,7 +44,7 @@ export const EventMainstage = ({ eventdetails }) => {
 
   return (
     <DoEWrapper>
-      <div style={{ display: "flex" }}>
+      <div className={styles.mainstage_root}>
         <Videostreamer
           poster={evePoster ? evePoster : "/gsocsmall.jpg"}
           src={streamLink}
@@ -53,8 +57,8 @@ export const EventMainstage = ({ eventdetails }) => {
               moreOpts={true}
               isClosable={true}
               setClosableState={setOpen}
-              width="fit-content"
-              height="55vh"
+              width={isSmallScreen ? "100%": "fit-content"}
+              height={isSmallScreen ? "30vh": "55vh"}
               GOOGLE_CLIENT_ID={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
               host={process.env.NEXT_PUBLIC_RC_URL}
               roomId={"GENERAL"}
