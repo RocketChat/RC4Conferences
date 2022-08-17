@@ -15,7 +15,7 @@ import { MdEventSpeaker, SmEventSpeaker } from "./EventSpeaker";
 import { useMediaQuery } from "@rocket.chat/fuselage-hooks";
 import { MdEventHeader, SmEventHeader } from "./EventHeader";
 
-export const EventShow = ({ event }) => {
+export const EventShow = ({ event, isSignedIn }) => {
   const [key, setKey] = useState("home");
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
 
@@ -24,9 +24,9 @@ export const EventShow = ({ event }) => {
   return (
     <Card className={styles.event_show_root}>
       {isMdScreen ? (
-        <MdEventHeader event={event} />
+        <MdEventHeader event={event} isSignedIn={isSignedIn} />
       ) : (
-        <SmEventHeader event={event} />
+        <SmEventHeader event={event} isSignedIn={isSignedIn} />
       )}
       <div className={styles.event_nav}>
         <Tabs
