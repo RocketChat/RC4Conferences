@@ -5,13 +5,17 @@ import { EventTicket } from "./EventRegisterSection";
 import { BsCalendar2Event, BsInfoCircle } from "react-icons/bs";
 import { GoLocation } from "react-icons/go";
 
-export const SmEventHeader = ({ event }) => {
+export const SmEventHeader = ({ event, isSignedIn }) => {
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
 
   return (
     <div className={styles.event_banner}>
       <Image src={event.data.attributes["original-image-url"]} fluid />
-      <EventTicket tktDetail={event.included[0]} />
+      <EventTicket
+        tktDetail={event.included[0]}
+        event={event}
+        isSignedIn={isSignedIn}
+      />
 
       <div className={styles.event_banner_title}>
         <Container>
@@ -40,7 +44,7 @@ export const SmEventHeader = ({ event }) => {
   );
 };
 
-export const MdEventHeader = ({ event }) => {
+export const MdEventHeader = ({ event, isSignedIn }) => {
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
 
   const isCalScreen = useMediaQueries(
@@ -73,7 +77,11 @@ export const MdEventHeader = ({ event }) => {
         </Row>
       </Container>
 
-      <EventTicket tktDetail={event.included[0]} />
+      <EventTicket
+        tktDetail={event.included[0]}
+        event={event}
+        isSignedIn={isSignedIn}
+      />
     </div>
   );
 };

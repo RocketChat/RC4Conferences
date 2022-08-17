@@ -144,6 +144,12 @@
     font-size: xx-large;
   }
 }
+
+.join_modal_button {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 /* Event Show styles ends */
 
 /* Admin Dashboard style begins */

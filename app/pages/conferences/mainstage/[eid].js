@@ -1,9 +1,13 @@
 import Head from "next/head";
 import { Stack } from "react-bootstrap";
 import { useRouter } from "next/router";
-import { getEventDeatils, unsignCook } from "../../../lib/conferences/eventCall";
+import {
+  getEventDeatils,
+  unsignCook,
+} from "../../../lib/conferences/eventCall";
 import { EventShow } from "../../../components/conferences/display/EventShow";
 import { EventMainstage } from "../../../components/conferences/dayOfEvent/mainstage/Mainstage";
+import { fetchAPI } from "../../../lib/api";
 
 const EventMainstagePage = ({ event }) => {
   return (
@@ -45,16 +49,19 @@ export async function getServerSideProps(context) {
   const emailRegex =
     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
-    if (!emailRegex.test(mailres.data.mail)) {
-      return {
-        redirect: {
-          destination: "/",
-          permanent: false,
-        },
-      };
-    }
+  if (!emailRegex.test(mailres.data.mail)) {
     return {
-    props: { eventIdentifier },
+      redirect: {
+        destination: `/conferences/c/${eventIdentifier}`,
+        permanent: false,
+      },
+    };
+  }
+
+  const topNavItems = await fetchAPI("/top-nav-item");
+
+  return {
+    props: { eventIdentifier, topNavItems },
   };
 }
 
