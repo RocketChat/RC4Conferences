@@ -26,7 +26,7 @@ const JitsiMeeting = dynamic(
 
 const rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
-const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
+const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
   const apiRef = useRef();
   const [logItems, updateLog] = useState([]);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
@@ -326,7 +326,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
       
       <div className={styles.dayofeventleft_button}>
       
-        <SpeakerMiscToolbar apiRef={apiRef} />
+        <SpeakerMiscToolbar apiRef={apiRef} isAdmin={isAdmin} />
       </div>
     </>
   );
