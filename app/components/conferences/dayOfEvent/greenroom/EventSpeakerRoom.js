@@ -5,6 +5,7 @@ import { SpeakerChatToolbar } from "./SpeakerToolbar";
 import { Card, Collapse } from "react-bootstrap";
 import { useState } from "react";
 import dynamic from "next/dynamic";
+import { useMediaQuery } from "@rocket.chat/fuselage-hooks";
 
 const RCComponent = dynamic(
   () => import("rc-component-react").then((mod) => mod.RCComponent),
@@ -12,7 +13,9 @@ const RCComponent = dynamic(
 );
 
 export const EventSpeakerStage = ({spkdata, eventdata, isAdmin, eventIdentifier}) => {
+  const isSmallScreen = useMediaQuery("(max-width: 845px)");
   const [open, setOpen] = useState(false);
+
   return (
     <div>
       <DoEWrapper>
@@ -25,19 +28,14 @@ export const EventSpeakerStage = ({spkdata, eventdata, isAdmin, eventIdentifier}
           <Collapse in={open}>
 
           <div
-            style={{
-              width: "30vw",
-              marginTop: "15px",
-              right: "25px",
-              position: "relative"
-            }}
+            className={styles.greenroom_root}
           >
               <RCComponent
                 moreOpts={true}
                 isClosable={true}
                 setClosableState={setOpen}
                 width="100%"
-                height="55vh"
+                height={isSmallScreen ? "30vh": "55vh"}
                 GOOGLE_CLIENT_ID={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
                 host={process.env.NEXT_PUBLIC_RC_URL}
                 roomId={'GENERAL'}
