@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { Button, ButtonGroup, Container, Dropdown, DropdownButton, Row } from "react-bootstrap";
+import {
+  Button,
+  ButtonGroup,
+  Container,
+  Dropdown,
+  DropdownButton,
+  Row,
+} from "react-bootstrap";
 import {
   BiCamera,
   BiCameraOff,
@@ -7,8 +14,10 @@ import {
   BiMicrophoneOff,
 } from "react-icons/bi";
 import { FaQuestionCircle, FaRocketchat } from "react-icons/fa";
-import { MdPeople, MdScreenShare, MdSettings } from "react-icons/md";
+import { MdLiveTv, MdPeople, MdScreenShare, MdSettings } from "react-icons/md";
 import styles from "../../../../styles/event.module.css";
+
+const rtmpKey = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
 export const SpeakerChatToolbar = ({ setOpen, open }) => {
   return (
@@ -25,13 +34,13 @@ export const SpeakerChatToolbar = ({ setOpen, open }) => {
   );
 };
 
-export const SpeakerMiscToolbar = ({ apiRef }) => {
+export const SpeakerMiscToolbar = ({ apiRef, isAdmin }) => {
   const [speakers, setSpeakers] = useState(null);
-  const [isopen, setIsopen] = useState(false)
+  const [isopen, setIsopen] = useState(false);
   const feSpks = apiRef?.current?.getParticipantsInfo();
   useEffect(async () => {
-    if (isopen && feSpks!==speakers) {
-      setSpeakers(() => (feSpks))
+    if (isopen && feSpks !== speakers) {
+      setSpeakers(() => feSpks);
     }
     if (apiRef.current) {
       await apiRef.current.addEventListeners({
@@ -39,41 +48,80 @@ export const SpeakerMiscToolbar = ({ apiRef }) => {
         videoConferenceLeft: handleJitsiParticipant,
         participantJoined: handleJitsiParticipant,
         participantKickedOut: handleJitsiParticipant,
-        participantLeft: handleJitsiParticipant
-      })
+        participantLeft: handleJitsiParticipant,
+      });
     }
-  }, [apiRef.current])
+  }, [apiRef.current]);
 
   const handleJitsiParticipant = () => {
     const feSpks = apiRef?.current?.getParticipantsInfo();
-    setSpeakers(feSpks)
-  }
+    setSpeakers(feSpks);
+  };
+
+  const handleStartStream = async () => {
+    try {
+      await apiRef.current.executeCommand("startRecording", {
+        mode: "stream",
+        rtmpStreamKey: rtmpKey,
+        youtubeStreamKey: "",
+      });
+    } catch (e) {
+      console.error("An error ocurred while starting sthe stream", e);
+    }
+  };
+
+  const handleStopStream = async () => {
+    try {
+      await apiRef.current.stopRecording("stream");
+    } catch (e) {
+      console.error("An error ocurred while starting sthe stream", e);
+    }
+  };
 
   const handlePeopleShow = () => {
-    setIsopen(!isopen)
+    setIsopen(!isopen);
   };
   return apiRef.current ? (
     <ButtonGroup size={"sm"}>
+      {isAdmin && (
+        <DropdownButton
+          as={ButtonGroup}
+          title={<MdLiveTv size={20} />}
+          drop={"up"}
+        >
+          <Dropdown.Item as={"button"} onClick={handleStartStream}>
+            Go Live!
+          </Dropdown.Item>
+          <Dropdown.Item as={"button"} onClick={handleStopStream}>
+            End Broadcast
+          </Dropdown.Item>
+        </DropdownButton>
+      )}
       <DropdownButton
         as={ButtonGroup}
         title={<MdPeople size={20} />}
         drop={"up"}
         onClick={handlePeopleShow}
       >
-        <Container style={{overflow: "auto", maxHeight: "50vh", maxWidth: "50vw"}}>
-        <Row>
-        <Dropdown.Header>Speakers</Dropdown.Header>
-        {Array.isArray(speakers) && speakers.length ? (
-          speakers?.map((spk) => {
-            return <Dropdown.ItemText key={spk.participantId}>{spk.formattedDisplayName}</Dropdown.ItemText>;
-          })
-        ) : (
-          <Dropdown.Item disabled>The room is lonely, no one here</Dropdown.Item>
-          
-        )}
-        
-        
-    </Row>
+        <Container
+          style={{ overflow: "auto", maxHeight: "50vh", maxWidth: "50vw" }}
+        >
+          <Row>
+            <Dropdown.Header>Speakers</Dropdown.Header>
+            {Array.isArray(speakers) && speakers.length ? (
+              speakers?.map((spk) => {
+                return (
+                  <Dropdown.ItemText key={spk.participantId}>
+                    {spk.formattedDisplayName}
+                  </Dropdown.ItemText>
+                );
+              })
+            ) : (
+              <Dropdown.Item disabled>
+                The room is lonely, no one here
+              </Dropdown.Item>
+            )}
+          </Row>
         </Container>
       </DropdownButton>
       <Button

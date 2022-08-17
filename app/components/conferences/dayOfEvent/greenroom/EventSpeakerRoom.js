@@ -20,6 +20,7 @@ export const EventSpeakerStage = ({spkdata, eventdata, isAdmin, eventIdentifier}
           <Jitsibroadcaster
             room={eventdata ? eventdata.attributes?.["chat-room-name"] : `${new Date()}-eventIdentifier`}
             disName={"Speaker"}
+            isAdmin={isAdmin}
           />
           <Collapse in={open}>
 
