@@ -193,6 +193,16 @@
   bottom: 25px;
   right: 25px;
 }
+/* width: "30vw",
+              marginTop: "15px",
+              right: "25px",
+              position: "relative" */
+.greenroom_root {
+  width: 30vw;
+  margin-top: 15px;
+  right: 25px;
+  position: relative;
+}
 
 .greenroom_button_text {
   font-size: small;
@@ -200,6 +210,27 @@
 
 .greenroom_jitsi {
   display: flex;
+  align-items: center;
+}
+
+@media (max-width: 845px) {
+  .greenroom_jitsi {
+    flex-direction: column;
+  }
+
+  .greenroom_root {
+    width: 90%;
+    margin-top: 15px;
+    right: 0;
+    position: relative;
+  }
+
+  .dayofevent_button {
+    margin: auto;
+    position: fixed;
+    bottom: 75px;
+    right: 25px;
+  }
 }
 
 .deviceButton {
