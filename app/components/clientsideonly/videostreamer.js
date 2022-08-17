@@ -1,4 +1,4 @@
-import { Col, Toast, ToastContainer } from "react-bootstrap";
+import { Col, Row, Toast, ToastContainer } from "react-bootstrap";
 import styles from "../../styles/Videostreamer.module.css";
 import Script from "next/script";
 import Head from "next/head";
@@ -10,20 +10,18 @@ export default function Videostreamer(props) {
   const pingStream = async () => {
     const response = await fetch(props.src);
     if (response.ok) {
-      setPing(true)
+      setPing(true);
     }
-    
+
     return response;
   };
   useEffect(() => {
     setInterval(async () => {
-      pingStream()
-        .catch((e) => {
-          console.error("Stream error", e);
-          setPing(false);
-          return
-        });
-      
+      pingStream().catch((e) => {
+        console.error("Stream error", e);
+        setPing(false);
+        return;
+      });
     }, 30000);
   }, []);
 
@@ -46,7 +44,10 @@ export default function Videostreamer(props) {
           console.log(`script loaded correctly, window.FB has been populated`)
         }
       />
-      <Col style={{maxWidth: "80vw", margin: "auto", marginTop: "1em"}}>
+      <Col style={{ maxWidth: "80vw", margin: "auto", marginTop: "1em" }}>
+        <Row>
+          <span style={{ color: "white" }}>Server: {props.region}</span>
+        </Row>
         <video
           autoPlay
           id={styles.my_video}
@@ -56,7 +57,7 @@ export default function Videostreamer(props) {
           poster={props.poster}
         >
           <source src={props.src} type={props.type}></source>
-          <p class="vjs-no-js">
+          <p className="vjs-no-js">
             To view this video please enable JavaScript, and consider upgrading
             to a web browser that
             <a href="https://videojs.com/html5-video-support/" target="_blank">
@@ -64,10 +65,7 @@ export default function Videostreamer(props) {
             </a>
           </p>
         </video>
-        <Alert
-          show={!ping}
-          handleToast={handleToast}
-        />
+        <Alert show={!ping} handleToast={handleToast} />
       </Col>
     </>
   );

@@ -31,8 +31,8 @@ const EventMainstagePage = ({ event }) => {
 export async function getServerSideProps(context) {
   const eventIdentifier = context.query.eid;
   //temp 9ddffcbb
-  // const res = await getEventDeatils(eventIdentifier)
-  // const event = res.data
+  const res = await getEventDeatils(eventIdentifier);
+  const event = res.data;
   const umail = context.req.cookies?.hashmail;
   if (!umail) {
     return {
@@ -61,7 +61,7 @@ export async function getServerSideProps(context) {
   const topNavItems = await fetchAPI("/top-nav-item");
 
   return {
-    props: { eventIdentifier, topNavItems },
+    props: { eventIdentifier, topNavItems, event },
   };
 }
 
