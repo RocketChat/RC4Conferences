@@ -20,9 +20,13 @@ import styles from "../../../../styles/event.module.css";
 const rtmpKey = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
 export const SpeakerChatToolbar = ({ setOpen, open }) => {
+
+  const handleClick = () => {
+    
+  }
   return (
     <ButtonGroup size={"sm"}>
-      <Button>
+      <Button variant={'secondary'} onClick={handleClick}>
         <FaQuestionCircle />
         <div className={styles.greenroom_button_text}>Question</div>
       </Button>
