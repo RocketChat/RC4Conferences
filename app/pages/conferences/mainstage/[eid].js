@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Stack } from "react-bootstrap";
 import { useRouter } from "next/router";
 import {
+  getAllEvents,
   getEventDeatils,
   unsignCook,
 } from "../../../lib/conferences/eventCall";
@@ -28,35 +29,31 @@ const EventMainstagePage = ({ event }) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const eventIdentifier = context.query.eid;
+export async function getStaticPaths() {
+  let paths = null;
+  try {
+    const res = await getAllEvents();
+    paths = res.data.data.map((event) => ({
+      params: { eid: event.id },
+    }));
+    return {
+      paths: paths,
+      fallback: "blocking", 
+    };
+  } catch (e) {
+    console.error("An error while fetching list of events", e);
+    return {
+      paths: [{ params: { eid: 1 } }],
+      fallback: "blocking", 
+    };
+  }
+}
+
+export async function getStaticProps(context) {
+  const eventIdentifier = context.params.eid;
   //temp 9ddffcbb
   const res = await getEventDeatils(eventIdentifier);
   const event = res.data;
-  const umail = context.req.cookies?.hashmail;
-  if (!umail) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-  const mailres = await unsignCook({
-    hash: umail,
-  });
-
-  const emailRegex =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-
-  if (!emailRegex.test(mailres.data.mail)) {
-    return {
-      redirect: {
-        destination: `/conferences/c/${eventIdentifier}`,
-        permanent: false,
-      },
-    };
-  }
 
   const topNavItems = await fetchAPI("/top-nav-item");
 
