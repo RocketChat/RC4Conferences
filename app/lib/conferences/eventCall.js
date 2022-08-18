@@ -103,6 +103,14 @@ export const getEventDeatils = async (eid) => {
   return res;
 };
 
+export const getAllEvents = async (eid) => {
+  const headers = {
+    Accept: "application/vnd.api+json",
+  };
+  const res = await axios.get(`${eventUrl}/v1/events`);
+  return res;
+};
+
 export const getUserEventDeatils = async (uid, auth) => {
   const headers = {
     Accept: "application/vnd.api+json",
@@ -120,10 +128,10 @@ export const getEventSpeakers = async (eid, auth) => {
     Accept: "application/vnd.api+json",
     Authorization: `JWT ${auth}`,
   };
-  const res = await axios.get(`${eventUrl}/v1/events/${eid}/speakers`, {
+  const res = await fetch(`${eventUrl}/v1/events/${eid}/speakers`, {
     headers: headers,
   });
-  return res;
+  return res.json();
 };
 
 export const addEventSpeakers = async (data, auth) => {
