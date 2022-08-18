@@ -15,7 +15,8 @@ export const EventDashBoard = () => {
   if (authCookie) {
     authCookie = JSON.parse(authCookie);
   }
-  useEffect(async () => {
+  useEffect(() => {
+    const fetchEventDeatils = async () => {
     try {
       if (!eventData) {
         const eventres = await getUserEventDeatils(
@@ -27,6 +28,8 @@ export const EventDashBoard = () => {
     } catch (e) {
       console.error("An error while fetching event details", e);
     }
+  }
+  fetchEventDeatils()
   }, []);
 
   const handleDelete = async (e) => {

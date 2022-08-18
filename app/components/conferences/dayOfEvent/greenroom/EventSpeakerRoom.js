@@ -15,64 +15,69 @@ const RCComponent = dynamic(
   { ssr: false }
 );
 
-export const EventSpeakerStage = ({spkdata, eventdata, eventIdentifier}) => {
+export const EventSpeakerStage = ({ spkdata, eventdata, eventIdentifier }) => {
   const isSmallScreen = useMediaQuery("(max-width: 790px)");
   const [open, setOpen] = useState(false);
 
-  let isAdmin = false
-  
-  useEffect(async () => {
-    try {
-    const hashmail = Cookies.get("hashmail")
+  let isAdmin = false;
 
-    const res = await unsignCook({ hash: hashmail })
-    const mail = res.data.mail
-    
-    if (mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
-      isAdmin = await ssrVerifyAdmin({ email: mail });
-    }
-  } catch(e) {
-    console.error("An error while verifying admin access", e)
-  }
-  }, [])
+  useEffect(() => {
+    const verifyAdminAccess = async () => {
+      try {
+        const hashmail = Cookies.get("hashmail");
+
+        const res = await unsignCook({ hash: hashmail });
+        const mail = res.data.mail;
+
+        if (mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
+          isAdmin = await ssrVerifyAdmin({ email: mail });
+        }
+      } catch (e) {
+        console.error("An error while verifying admin access", e);
+      }
+    };
+    verifyAdminAccess();
+  }, []);
 
   return (
     <div>
       <DoEWrapper>
         <div className={styles.greenroom_jitsi}>
           <Jitsibroadcaster
-            room={eventdata ? eventdata.data.attributes?.["chat-room-name"] : `DemoDay-${eventIdentifier}`}
+            room={
+              eventdata
+                ? eventdata.data.attributes?.["chat-room-name"]
+                : `DemoDay-${eventIdentifier}`
+            }
             disName={"Speaker"}
             isAdmin={isAdmin}
           />
           <Collapse in={open}>
-
-          <div
-            className={styles.greenroom_root}
-          >
+            <div className={styles.greenroom_root}>
               <RCComponent
                 moreOpts={true}
                 isClosable={true}
                 setClosableState={setOpen}
                 width="100%"
-                height={isSmallScreen ? "30vh": "55vh"}
+                height={isSmallScreen ? "30vh" : "55vh"}
                 GOOGLE_CLIENT_ID={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
                 host={process.env.NEXT_PUBLIC_RC_URL}
-                roomId={'GENERAL'}
+                roomId={"GENERAL"}
                 channelName="General"
                 anonymousMode={true}
                 isFullScreenFromStart={false}
               />
               <div className={styles.dayofevent_collapsed_button}>
-          <SpeakerChatToolbar setOpen={setOpen} open={open} />
-        </div> 
-          </div>
-
+                <SpeakerChatToolbar setOpen={setOpen} open={open} />
+              </div>
+            </div>
           </Collapse>
         </div>
-        {!open && <div className={styles.dayofevent_button}>
-          <SpeakerChatToolbar setOpen={setOpen} open={open} />
-        </div>}
+        {!open && (
+          <div className={styles.dayofevent_button}>
+            <SpeakerChatToolbar setOpen={setOpen} open={open} />
+          </div>
+        )}
       </DoEWrapper>
     </div>
   );

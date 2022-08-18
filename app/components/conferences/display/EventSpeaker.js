@@ -21,10 +21,13 @@ export const SmEventSpeaker = ({ eid }) => {
   const [speaker, setSpeaker] = useState(null);
   const [open, setOpen] = useState({});
 
-  useEffect(async () => {
-    if (!speaker) {
-      await getSpeakers();
-    }
+  useEffect(() => {
+    const fetchSpeakers = async () => {
+      if (!speaker) {
+        await getSpeakers();
+      }
+    };
+    fetchSpeakers();
   }, []);
 
   const getSpeakers = async () => {
@@ -98,10 +101,13 @@ export const MdEventSpeaker = ({ eid }) => {
   const [speaker, setSpeaker] = useState(null);
   const [open, setOpen] = useState({});
 
-  useEffect(async () => {
-    if (!speaker) {
-      await getSpeakers();
-    }
+  useEffect(() => {
+    const fetchSpeakers = async () => {
+      if (!speaker) {
+        await getSpeakers();
+      }
+    };
+    fetchSpeakers();
   }, []);
 
   const getSpeakers = async () => {
