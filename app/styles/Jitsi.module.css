@@ -28,7 +28,7 @@
   width: 100%;
 }
 
-@media (max-width: 845px) {
+@media (max-width: 790px) {
   .jitsiContainer {
     height: 40vh;
   }
@@ -48,7 +48,7 @@
   position: absolute;
 }
 
-@media (max-width: 845px) { 
+@media (max-width: 790px) { 
   .dayofeventleft_button {
     bottom: 75px;
     position: fixed;

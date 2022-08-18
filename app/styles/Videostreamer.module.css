@@ -17,7 +17,7 @@
   height: 75vh;
 }
 
-@media (max-width: 845px) {
+@media (max-width: 790px) {
   #my_video {
     width: 100%;
     height: 40vh;

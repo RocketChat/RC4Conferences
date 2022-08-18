@@ -3,25 +3,45 @@ import styles from "../../../../styles/event.module.css";
 import { DoEWrapper } from "../wrapperComponent";
 import { SpeakerChatToolbar } from "./SpeakerToolbar";
 import { Card, Collapse } from "react-bootstrap";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useMediaQuery } from "@rocket.chat/fuselage-hooks";
+import { ssrVerifyAdmin } from "../../auth/AuthSuperProfileHelper";
+import { unsignCook } from "../../../../lib/conferences/eventCall";
+import Cookies from "js-cookie";
 
 const RCComponent = dynamic(
   () => import("rc-component-react").then((mod) => mod.RCComponent),
   { ssr: false }
 );
 
-export const EventSpeakerStage = ({spkdata, eventdata, isAdmin, eventIdentifier}) => {
-  const isSmallScreen = useMediaQuery("(max-width: 845px)");
+export const EventSpeakerStage = ({spkdata, eventdata, eventIdentifier}) => {
+  const isSmallScreen = useMediaQuery("(max-width: 790px)");
   const [open, setOpen] = useState(false);
+
+  let isAdmin = false
+  
+  useEffect(async () => {
+    try {
+    const hashmail = Cookies.get("hashmail")
+
+    const res = await unsignCook({ hash: hashmail })
+    const mail = res.data.mail
+    
+    if (mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
+      isAdmin = await ssrVerifyAdmin({ email: mail });
+    }
+  } catch(e) {
+    console.error("An error while verifying admin access", e)
+  }
+  }, [])
 
   return (
     <div>
       <DoEWrapper>
         <div className={styles.greenroom_jitsi}>
           <Jitsibroadcaster
-            room={eventdata ? eventdata.attributes?.["chat-room-name"] : `${new Date()}-eventIdentifier`}
+            room={eventdata ? eventdata.data.attributes?.["chat-room-name"] : `DemoDay-${eventIdentifier}`}
             disName={"Speaker"}
             isAdmin={isAdmin}
           />

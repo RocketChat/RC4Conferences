@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 import {
+  getAllEvents,
   getEventDeatils,
   getEventSpeakers,
   unsignCook,
@@ -9,8 +10,12 @@ import { EventSpeakerStage } from "../../../components/conferences/dayOfEvent/gr
 import { ssrVerifyAdmin } from "../../../components/conferences/auth/AuthSuperProfileHelper";
 import { fetchAPI } from "../../../lib/api";
 import { verifySpeaker } from "../../../components/conferences/dayOfEvent/helper";
+import Cookies from "js-cookie";
+import { useEffect } from "react";
 
-const Greenroom = ({ eventIdentifier, isAdmin, spkdata, eventdata }) => {
+const Greenroom = ({ eventIdentifier, spkdata, eventdata }) => {
+  
+  
   return (
     <>
       <Head>
@@ -19,7 +24,6 @@ const Greenroom = ({ eventIdentifier, isAdmin, spkdata, eventdata }) => {
       </Head>
       <EventSpeakerStage
         eventdata={eventdata}
-        isAdmin={isAdmin}
         spkdata={spkdata}
         eventIdentifier={eventIdentifier}
       />
@@ -27,49 +31,36 @@ const Greenroom = ({ eventIdentifier, isAdmin, spkdata, eventdata }) => {
   );
 };
 
-export async function getServerSideProps(context) {
-  const authCookie = context.req.cookies?.event_auth;
-  const umail = context.req.cookies?.hashmail;
-  const eventIdentifier = context.query.eid;
-  if (!umail) {
+export async function getStaticPaths() {
+  let paths = null;
+  try {
+    const res = await getAllEvents();
+    paths = res.data.data.map((event) => ({
+      params: { eid: event.id },
+    }));
     return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
+      paths: paths,
+      fallback: "blocking", 
+    };
+  } catch (e) {
+    console.error("An error while fetching list of events", e);
+    return {
+      paths: [{ params: { eid: 1 } }],
+      fallback: "blocking", 
     };
   }
-  const mailres = await unsignCook({
-    hash: umail,
-  });
-  let isAdmin = false;
-  if (mailres.data.mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
-    isAdmin = await ssrVerifyAdmin({ email: mailres.data.mail });
-  }
-  const { isSpeaker, spkdata, eventdata } = await verifySpeaker(
-    eventIdentifier,
-    authCookie,
-    mailres
-  );
+}
 
-  if (!isAdmin && !isSpeaker) {
-    return {
-      redirect: {
-        destination: `/conferences/c/${eventIdentifier}`,
-        permanent: false,
-      },
-    };
-  }
+export async function getStaticProps(context) {
+  const eventIdentifier = context.params.eid;
+  //temp 9ddffcbb
+  const res = await getEventDeatils(eventIdentifier);
+  const eventdata = res.data;
 
-  if (!eventdata && !spkdata) {
-    throw new Error(
-      "An error in fetching speaker and eventdetails, please check if the Open Event Server is up and running or this particular event doesn't exist yet"
-    );
-  }
   const topNavItems = await fetchAPI("/top-nav-item");
 
   return {
-    props: { eventIdentifier, isAdmin, spkdata, eventdata, topNavItems },
+    props: { eventIdentifier, topNavItems, eventdata },
   };
 }
 
