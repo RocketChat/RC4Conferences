@@ -30,7 +30,6 @@ module.exports = async () => {
     //   .query("api::github-repository.github-repository")
     //   .count({});
     var speakersCount = await strapi.db.query("api::speaker.speaker").count({});
-    console.log("topnv", topNavItemCount)
     // initial fetch
     speakers.map(async (speaker, index) => {
       if (index <= speakersCount - 1) {
