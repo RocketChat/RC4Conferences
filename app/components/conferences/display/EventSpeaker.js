@@ -29,7 +29,7 @@ export const SmEventSpeaker = ({ eid }) => {
 
   const getSpeakers = async () => {
     const res = await getEventSpeakers(eid);
-    setSpeaker(res.data);
+    setSpeaker(res);
   };
 
   const handleBioOpen = (e) => {
@@ -106,7 +106,7 @@ export const MdEventSpeaker = ({ eid }) => {
 
   const getSpeakers = async () => {
     const res = await getEventSpeakers(eid);
-    setSpeaker(res.data);
+    setSpeaker(res);
   };
 
   const handleBioOpen = (e) => {
