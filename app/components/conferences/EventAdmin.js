@@ -15,8 +15,10 @@ export const VerifyUserRole = ({ menuprops }) => {
   useEffect(() => {
     const decipherEmail = async () => {
       try {
+        if (hashmail) {
         const res = await unsignCook({ hash: hashmail });
         getCurrentUser({ email: res.data.mail });
+        }
       } catch {
         console.error("Error while deciphering");
       }
