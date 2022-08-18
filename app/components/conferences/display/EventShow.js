@@ -20,30 +20,30 @@ import { unsignCook } from "../../../lib/conferences/eventCall";
 export const EventShow = ({ event }) => {
   const [key, setKey] = useState("home");
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
-  const [isSignedIn, setIsSignedIn] = useState(false)
+  const [isSignedIn, setIsSignedIn] = useState(false);
 
   const isMdScreen = useMediaQuery("(min-width: 768px)");
 
-  useEffect(async () => {
+  useEffect(() => {
+    const checkSignedIn = async () => {
+      try {
+        const hashmail = Cookies.get("hashmail");
 
-    try {
-      const hashmail = Cookies.get("hashmail")
-  
-      const res = await unsignCook({ hash: hashmail })
-      const mail = res.data.mail
+        const res = await unsignCook({ hash: hashmail });
+        const mail = res.data.mail;
 
-      
-      const emailRegex =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+        const emailRegex =
+          /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
-    if (emailRegex.test(mail)) {
-      setIsSignedIn(true)
-    }
-    } catch(e) {
-      console.error("An error while verifying admin access", e)
-    }    
-  }, [])
-
+        if (emailRegex.test(mail)) {
+          setIsSignedIn(true);
+        }
+      } catch (e) {
+        console.error("An error while verifying admin access", e);
+      }
+    };
+    checkSignedIn();
+  }, []);
 
   return (
     <Card className={styles.event_show_root}>

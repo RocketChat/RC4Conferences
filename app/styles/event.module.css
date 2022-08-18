@@ -193,10 +193,7 @@
   bottom: 25px;
   right: 25px;
 }
-/* width: "30vw",
-              marginTop: "15px",
-              right: "25px",
-              position: "relative" */
+
 .greenroom_root {
   width: 30vw;
   margin-top: 15px;
@@ -258,7 +255,6 @@
   overflow: auto;
   margin: 1em;
   height: 80vh;
-  width: 35vw;
 }
 
 .mainstage_root {

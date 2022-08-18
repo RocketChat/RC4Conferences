@@ -20,13 +20,9 @@ import styles from "../../../../styles/event.module.css";
 const rtmpKey = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
 export const SpeakerChatToolbar = ({ setOpen, open }) => {
-
-  const handleClick = () => {
-    
-  }
   return (
     <ButtonGroup size={"sm"}>
-      <Button variant={'secondary'} onClick={handleClick}>
+      <Button variant={"secondary"}>
         <FaQuestionCircle />
         <div className={styles.greenroom_button_text}>Question</div>
       </Button>
@@ -42,19 +38,22 @@ export const SpeakerMiscToolbar = ({ apiRef, isAdmin }) => {
   const [speakers, setSpeakers] = useState(null);
   const [isopen, setIsopen] = useState(false);
   const feSpks = apiRef?.current?.getParticipantsInfo();
-  useEffect(async () => {
-    if (isopen && feSpks !== speakers) {
-      setSpeakers(() => feSpks);
-    }
-    if (apiRef.current) {
-      await apiRef.current.addEventListeners({
-        videoConferenceJoined: handleJitsiParticipant,
-        videoConferenceLeft: handleJitsiParticipant,
-        participantJoined: handleJitsiParticipant,
-        participantKickedOut: handleJitsiParticipant,
-        participantLeft: handleJitsiParticipant,
-      });
-    }
+  useEffect(() => {
+    const getCurrSpeakers = async () => {
+      if (isopen && feSpks !== speakers) {
+        setSpeakers(() => feSpks);
+      }
+      if (apiRef.current) {
+        await apiRef.current.addEventListeners({
+          videoConferenceJoined: handleJitsiParticipant,
+          videoConferenceLeft: handleJitsiParticipant,
+          participantJoined: handleJitsiParticipant,
+          participantKickedOut: handleJitsiParticipant,
+          participantLeft: handleJitsiParticipant,
+        });
+      }
+    };
+    getCurrSpeakers();
   }, [apiRef.current]);
 
   const handleJitsiParticipant = () => {
@@ -147,16 +146,19 @@ export const GreenRoomTool = ({ apiRef }) => {
   const [cammute, setCammute] = useState(false);
   const [devices, setDevices] = useState(null);
   const [currDev, setCurrDev] = useState({});
-  useEffect(async () => {
-    try {
-      const devList = await apiRef.current.getAvailableDevices();
-      const currdevList = await apiRef.current.getCurrentDevices();
+  useEffect(() => {
+    const getDevices = async () => {
+      try {
+        const devList = await apiRef.current.getAvailableDevices();
+        const currdevList = await apiRef.current.getCurrentDevices();
 
-      setDevices(devList);
-      setCurrDev(currdevList);
-    } catch (e) {
-      console.error("Error while updating device list", e);
-    }
+        setDevices(devList);
+        setCurrDev(currdevList);
+      } catch (e) {
+        console.error("Error while updating device list", e);
+      }
+    };
+    getDevices();
   }, [apiRef.current]);
 
   const handleSelect = async (e) => {
