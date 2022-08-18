@@ -31,15 +31,30 @@ const verifyGreenroomAccess = async (mail, eventIdentifier) => {
   return true;
 }
 
+const verifyAdminAccess = async (mail) => {
+  let isAdmin = false
+  if (mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
+    isAdmin = await ssrVerifyAdmin({ email: mail });
+  }
+
+  if (!isAdmin) {
+    return false
+  }
+  return true;
+}
+
 // This function can be marked `async` if using `await` inside
 export async function middleware(request) {
   const umail = request.cookies["hashmail"];
+
+  const oesCookie = request.cookies["event_auth"]
+
 
   if (!umail) {
     return NextResponse.redirect(new URL("/", request.url))
   }
 
-  const eventIdentifier = request.page.params.eid
+  const eventIdentifier = request.page?.params?.eid
 
   const decrypted = crypto.AES.decrypt(
     umail,
@@ -47,6 +62,21 @@ export async function middleware(request) {
   );
 
   const decryptedMail = decrypted.toString(crypto.enc.Utf8)
+
+  if (request.nextUrl.pathname.startsWith("/conferences/create") || request.nextUrl.pathname.startsWith("/admin/dashboard")) {
+    verifySignedInUser(decryptedMail)
+
+    const isAdmin = await verifyAdminAccess(decryptedMail)
+    if (!isAdmin) {
+      return NextResponse.redirect(new URL("/", request.url))
+    }
+
+    if (!oesCookie) {
+      return NextResponse.redirect(new URL(`/conferences`, request.url))
+    }
+
+    return NextResponse.next();
+  }
 
   if (request.nextUrl.pathname.startsWith("/conferences/mainstage")) {
     verifySignedInUser(decryptedMail)
@@ -68,5 +98,5 @@ export async function middleware(request) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/greenroom*", "mainstage/*", "/admin/*", "/create/*"],
+  matcher: ["/greenroom/:eid", "/mainstage/:eid", "/admin/*", "/create/:eid"],
 };

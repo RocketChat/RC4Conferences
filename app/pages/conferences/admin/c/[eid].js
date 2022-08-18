@@ -3,7 +3,6 @@ import { Stack } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { IndivEventDash } from "../../../../components/conferences/admin/IndivEvent";
 import { getEventDeatils } from "../../../../lib/conferences/eventCall";
-import { fetchAPI } from "../../../../lib/api";
 
 function EventEditPage({ event }) {
   const router = useRouter();
@@ -40,10 +39,9 @@ export async function getServerSideProps(context) {
   //temp 9ddffcbb
   const res = await getEventDeatils(eventIdentifier);
   const event = res.data;
-  const topNavItems = await fetchAPI("/top-nav-item");
 
   return {
-    props: { event, topNavItems },
+    props: { event },
   };
 }
 
