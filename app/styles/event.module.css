@@ -213,7 +213,7 @@
   align-items: center;
 }
 
-@media (max-width: 845px) {
+@media (max-width: 790px) {
   .greenroom_jitsi {
     flex-direction: column;
   }
@@ -267,7 +267,7 @@
   align-items: center;
 }
 
-@media (max-width: 845px) {
+@media (max-width: 790px) {
   .mainstage_chatwindow {
     height: 40vh;
     width: 90%;
