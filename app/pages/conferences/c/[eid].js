@@ -2,13 +2,14 @@ import Head from "next/head";
 import { Stack } from "react-bootstrap";
 import { useRouter } from "next/router";
 import {
+  getAllEvents,
   getEventDeatils,
   unsignCook,
 } from "../../../lib/conferences/eventCall";
 import { EventShow } from "../../../components/conferences/display/EventShow";
 import { fetchAPI } from "../../../lib/api";
 
-function EventDisplayPage({ event, isSignedIn }) {
+function EventDisplayPage({ event }) {
   const router = useRouter();
   const { eid } = router.query;
   const eventname = event?.data?.attributes?.name;
@@ -22,36 +23,43 @@ function EventDisplayPage({ event, isSignedIn }) {
       </Head>
       <div className="mx-auto">
         <Stack direction="vertical">
-          <EventShow event={event} isSignedIn={isSignedIn} />
+          <EventShow event={event} />
         </Stack>
       </div>
     </div>
   );
 }
 
-export async function getServerSideProps(context) {
-  const eventIdentifier = context.query.eid;
-  let isSignedIn = false;
-  const umail = context.req.cookies?.hashmail;
-  let mailres = null;
-  if (umail) {
-    mailres = await unsignCook({
-      hash: umail,
-    });
-    const emailRegex =
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-
-    if (emailRegex.test(mailres.data.mail)) {
-      isSignedIn = true;
-    }
+export async function getStaticPaths() {
+  let paths = null;
+  try {
+    const res = await getAllEvents();
+    paths = res.data.data.map((event) => ({
+      params: { eid: event.id },
+    }));
+    return {
+      paths: paths,
+      fallback: "blocking", 
+    };
+  } catch (e) {
+    console.error("An error while fetching list of events", e);
+    return {
+      paths: [{ params: { eid: 1 } }],
+      fallback: "blocking", 
+    };
   }
+}
 
+export async function getStaticProps(context) {
+  const eventIdentifier = context.params.eid;
   //temp 9ddffcbb
   const res = await getEventDeatils(eventIdentifier);
   const event = res.data;
+
   const topNavItems = await fetchAPI("/top-nav-item");
+
   return {
-    props: { event, isSignedIn, topNavItems },
+    props: { topNavItems, event },
   };
 }
 
