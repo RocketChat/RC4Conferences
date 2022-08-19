@@ -112,7 +112,7 @@ export async function middleware(request) {
     verifySignedInUser(decryptedMail)
     const hasAccess = await verifyGreenroomAccess(decryptedMail, eventIdentifier)
     if (!hasAccess) {
-      return NextResponse.redirect(new URL(`/conferences/c/${eventIdentifier}`, request.url))
+      return NextResponse.redirect(new URL(`/conferences/c/${eventIdentifier}?error=0`, request.url))
     }
     return NextResponse.next();
   }
