@@ -17,7 +17,7 @@ import { MdEventHeader, SmEventHeader } from "./EventHeader";
 import Cookies from "js-cookie";
 import { unsignCook } from "../../../lib/conferences/eventCall";
 
-export const EventShow = ({ event }) => {
+export const EventShow = ({ event, error }) => {
   const [key, setKey] = useState("home");
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -48,9 +48,9 @@ export const EventShow = ({ event }) => {
   return (
     <Card className={styles.event_show_root}>
       {isMdScreen ? (
-        <MdEventHeader event={event} isSignedIn={isSignedIn} />
+        <MdEventHeader event={event} isSignedIn={isSignedIn} error={error} />
       ) : (
-        <SmEventHeader event={event} isSignedIn={isSignedIn} />
+        <SmEventHeader event={event} isSignedIn={isSignedIn} error={error} />
       )}
       <div className={styles.event_nav}>
         <Tabs

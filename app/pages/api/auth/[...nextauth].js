@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
 import KeyCloakProvider from "next-auth/providers/keycloak";
-import { signOut } from "next-auth/react";
 import { RocketChatOAuthProvider } from "../../../lib/auth/RocketChatOAuthProvider";
 import { signCook } from "../../../lib/conferences/eventCall";
 
@@ -28,21 +27,11 @@ export default async function handleAuth(req, res) {
       }),
     ],
     callbacks: {
-      async jwt({ token, account, profile }) {
+      async jwt({ token, account, profile, session }) {
         // Called when generating our custom token
         // Persist the OAuth access_token to the token right after signin
 
         if (account) {
-          const cookieExp = new Date(account.expires_at * 1000).toUTCString();
-          const hashmail = await signCook({ mail: token.email });
-          res.setHeader("Set-Cookie", [
-            "hashmail=" +
-              hashmail.data.hash +
-              "; expires=" +
-              cookieExp +
-              "; path=/",
-          ]);
-
           token.accessToken = account.access_token;
         }
         return token;
@@ -51,6 +40,18 @@ export default async function handleAuth(req, res) {
         session.user.id = token.sub;
         session.user.sub = token.sub;
         session.user.image = token.picture;
+
+        if (session.user?.email) {
+          const hashmail = await signCook({ mail: session.user.email });
+          const expTime = new Date(session.expires).toUTCString();
+          res.setHeader("Set-Cookie", [
+            "hashmail=" +
+              hashmail.data.hash +
+              "; expires=" +
+              expTime +
+              "; path=/",
+          ]);
+        }
         return session;
       },
     },

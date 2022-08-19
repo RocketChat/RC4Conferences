@@ -13,6 +13,7 @@ import {
 import styles from "../../../styles/event.module.css";
 import { BiError } from "react-icons/bi";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 const detectElement = (options) => {
   const containerRef = useRef(null);
@@ -35,7 +36,7 @@ const detectElement = (options) => {
   return [containerRef, inView];
 };
 
-export const EventTicket = ({ tktDetail, event, isSignedIn }) => {
+export const EventTicket = ({ tktDetail, event, isSignedIn, error }) => {
   const [containerRef, inView] = detectElement({
     root: null,
     rootMargin: "0px 0px 100% 0px",
@@ -43,6 +44,21 @@ export const EventTicket = ({ tktDetail, event, isSignedIn }) => {
   });
 
   const [open, setOpen] = useState(false);
+
+  const errMessHelper = {
+    0: "The User Email doesn't have the Speaker/Admin rights, please contact the event organizer for rights.",
+    1: "It seems there is an issue with your login, please logout and signin then try again!",
+    2: "Looks like you are not logged in, please login and try again!",
+  };
+  const [err, setErr] = useState(errMessHelper[2]);
+  const [alertOp, setAlertOp] = useState(false);
+
+  useEffect(() => {
+    if (Object.keys(errMessHelper).includes(error)) {
+      setErr(errMessHelper[error]);
+      setAlertOp(true);
+    }
+  }, []);
 
   const tktName = tktDetail.attributes.name;
   const tktPrice = tktDetail.attributes.price;
@@ -66,6 +82,9 @@ export const EventTicket = ({ tktDetail, event, isSignedIn }) => {
         handleClose={handleJoin}
         event={event}
         isSignedIn={isSignedIn}
+        alertOp={alertOp}
+        setAlertOp={setAlertOp}
+        err={err}
       />
     </>
   );
@@ -109,19 +128,19 @@ const TopNav = ({ brand, price, handleJoin }) => {
   );
 };
 
-const JoinModal = ({ open, handleClose, event, isSignedIn }) => {
+const JoinModal = ({
+  open,
+  handleClose,
+  event,
+  isSignedIn,
+  alertOp,
+  setAlertOp,
+  err,
+}) => {
   const eventName = event?.data?.attributes.name;
   const eventId = event?.data?.id;
   const router = useRouter();
 
-  const handleRedirect = (e) => {
-    const targetLocation = e.target.name;
-    try {
-      router.push(`/conferences/${targetLocation}/${eventId}`);
-    } catch (e) {
-      console.error("An error while redirecting to the Day Of Event Page");
-    }
-  };
   return (
     <Modal show={open} onHide={handleClose} backdrop="static">
       <Modal.Header>
@@ -129,25 +148,30 @@ const JoinModal = ({ open, handleClose, event, isSignedIn }) => {
       </Modal.Header>
       <Modal.Body>
         <div className={styles.join_modal_button}>
-          <Button
-            name={"greenroom"}
-            disabled={!isSignedIn}
-            onClick={handleRedirect}
-          >
-            Join as a Speaker
-          </Button>
+          <Link href={`/conferences/greenroom/${eventId}`}>
+            <Button
+              name={"greenroom"}
+              disabled={!isSignedIn}
+            >
+              Join as a Speaker
+            </Button>
+          </Link>
           <br />
-          <Button
-            disabled={!isSignedIn}
-            name={"mainstage"}
-            onClick={handleRedirect}
-          >
-            Join as a Attendee
-          </Button>
+          <Link href={`/conferences/mainstage/${eventId}`} replace>
+            <Button
+              disabled={!isSignedIn}
+              name={"mainstage"}
+            >
+              Join as a Attendee
+            </Button>
+          </Link>
         </div>
-        <Alert className="mt-3" variant={"danger"} show={!isSignedIn}>
-          {<BiError />} Looks like you are not logged in, please login to
-          continue!
+        <Alert
+          className="mt-3"
+          variant={"danger"}
+          show={!isSignedIn || alertOp}
+        >
+          {<BiError />} {err}
         </Alert>
       </Modal.Body>
       <Modal.Footer>

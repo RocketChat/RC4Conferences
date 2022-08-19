@@ -11,7 +11,8 @@ import { fetchAPI } from "../../../lib/api";
 
 function EventDisplayPage({ event }) {
   const router = useRouter();
-  const { eid } = router.query;
+  console.log("chredirecting.....................................")
+  const { eid, error } = router.query;
   const eventname = event?.data?.attributes?.name;
   return (
     <div>
@@ -23,7 +24,7 @@ function EventDisplayPage({ event }) {
       </Head>
       <div className="mx-auto">
         <Stack direction="vertical">
-          <EventShow event={event} />
+          <EventShow event={event} error={error} />
         </Stack>
       </div>
     </div>
