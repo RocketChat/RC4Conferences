@@ -8,6 +8,7 @@ export default function RocketChatAuthMenuButton({}){
     const {data: session} = useSession();
     const user = session?.user;
     const [isOpen,setOpen] = useState(false);
+
     const dialogRef = useRef();
     const onAvatarButtonClick = () => {
         if(session){
@@ -16,15 +17,7 @@ export default function RocketChatAuthMenuButton({}){
             signIn("rocket.chat",null,{prompt: "login"});
         }
     }
-    useEffect(()=>{
-        const clickListener = (e) => {
-            if(!e.target.closest('.'+styles.authDialogWrapper)){
-                setOpen(false);
-            }
-        }
-        document.body.addEventListener('click',clickListener);
-        return () => document.body.removeEventListener('click',clickListener);
-    },[dialogRef.current]);
+
     return (
         <div className={styles.authDialogWrapper} ref={dialogRef}>
             <div className={styles.avatar}>
