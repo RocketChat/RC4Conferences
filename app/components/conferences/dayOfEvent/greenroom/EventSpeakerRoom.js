@@ -54,11 +54,12 @@ export const EventSpeakerStage = ({ spkdata, eventdata, eventIdentifier }) => {
           />
           <Collapse in={open}>
             <div className={styles.greenroom_root}>
+              <div className={styles.greenroom_chat_container}>
               <RCComponent
                 moreOpts={true}
                 isClosable={true}
                 setClosableState={setOpen}
-                width="100%"
+                width="auto"
                 height={isSmallScreen ? "30vh" : "55vh"}
                 GOOGLE_CLIENT_ID={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
                 host={process.env.NEXT_PUBLIC_RC_URL}
@@ -67,6 +68,7 @@ export const EventSpeakerStage = ({ spkdata, eventdata, eventIdentifier }) => {
                 anonymousMode={true}
                 isFullScreenFromStart={false}
               />
+              </div>
               <div className={styles.dayofevent_collapsed_button}>
                 <SpeakerChatToolbar setOpen={setOpen} open={open} />
               </div>
