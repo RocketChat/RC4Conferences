@@ -31,7 +31,7 @@ export default function Menubar(props) {
     process.env.ROCKETCHAT_CLIENT_ID &&
     process.env.ROCKETCHAT_CLIENT_SECRET &&
     process.env.ROCKETCHAT_URL;
-
+    
   if (!hasAllRequiredCreds) console.log("RC4Community is now using a dummy Auth Component! If you wish to use a robust Auth component, provide all the credentials first (https://github.com/RocketChat/RC4Community/tree/master/app/components/auth)")
   return (
     <Container fluid className="border-bottom ">
@@ -116,7 +116,7 @@ export default function Menubar(props) {
           )}
         </div>
         <div className="mx-2">
-          {!hasAllRequiredCreds ? (
+          {hasAllRequiredCreds ? (
             <RocketChatAuthMenuButton />
           ) : (
             <DummyLoginButton />
