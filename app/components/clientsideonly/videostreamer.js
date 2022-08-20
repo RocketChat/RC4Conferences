@@ -44,7 +44,7 @@ export default function Videostreamer(props) {
           console.log(`script loaded correctly, window.FB has been populated`)
         }
       />
-      <Col style={{ maxWidth: "80vw", margin: "auto", marginTop: "1em" }}>
+      <Col className={styles.video_root}>
         <div className={styles.video_server}>
           <Badge pill bg={"warning"} text={"black"}>{props.region}</Badge>
           </div>

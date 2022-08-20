@@ -8,7 +8,11 @@ A set of scalable components for communities to build, manage, and run virtual c
 ```
 NEXT_PUBLIC_GOOGLE_CLIENT_ID="your google client id"
 NEXT_PUBLIC_RC_URL="your url of the RC instance"
+NEXT_PUBLIC_RC_ROOM_ID="public channel room id"
 ```
+
+*The `NEXT_PUBLIC_RC_ROOM_ID` defaults to "GENERAL".
+
 **Optional Starts
 
 2. For Greenroom and Mainstage Page to work, there is a need to add some additional environment vars (`app/.env`), which are as followed.

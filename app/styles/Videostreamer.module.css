@@ -17,10 +17,20 @@
   height: 75vh;
 }
 
+/* maxWidth: "80vw", margin: "auto", marginTop: "1em" */
+.video_root {
+  max-width: 80vw;
+  margin: auto;
+  margin-top: 1em;
+}
+
 @media (max-width: 790px) {
   #my_video {
     width: 100%;
     height: 40vh;
+  }
+  .video_root {
+    width: 80vw;
   }
 }
 
