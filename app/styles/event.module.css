@@ -207,12 +207,12 @@
 
 .greenroom_jitsi {
   display: flex;
-  align-items: center;
 }
 
 @media (max-width: 790px) {
   .greenroom_jitsi {
     flex-direction: column;
+    align-items: center;
   }
 
   .greenroom_root {
@@ -254,13 +254,18 @@
   right: 25px;
   overflow: auto;
   margin: 1em;
-  height: 80vh;
+  max-height: 80vh;
+  max-width: 30vw;
 }
 
 .mainstage_root {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.greenroom_chat_container {
+  overflow: auto;
 }
 
 @media (max-width: 790px) {
