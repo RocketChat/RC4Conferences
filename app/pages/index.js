@@ -54,7 +54,7 @@ function Home(props) {
           <h2 className={`mx-auto  w-auto pb-5 ${styles.title}`}>
             Latest Community News
           </h2>
-          {/* <Newscarousel carousels={props.carousels.data}></Newscarousel> */}
+          <Newscarousel carousels={props.carousels.data}></Newscarousel>
         </div>
 
         <h2 className={`mx-auto w-auto m-5 ${styles.title}`}>

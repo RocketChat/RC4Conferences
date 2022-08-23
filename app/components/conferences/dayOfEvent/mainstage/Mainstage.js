@@ -55,7 +55,7 @@ export const EventMainstage = ({ eventdetails }) => {
               moreOpts={true}
               isClosable={true}
               setClosableState={setOpen}
-              width={isSmallScreen ? "100%" : "fit-content"}
+              width={isSmallScreen ? "100%" : "auto"}
               height={isSmallScreen ? "30vh" : "55vh"}
               GOOGLE_CLIENT_ID={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
               host={process.env.NEXT_PUBLIC_RC_URL}

@@ -309,6 +309,11 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
             p2p: {
               enabled: false,
             },
+            remoteVideoMenu: {
+              disableKick : !isAdmin,
+              disableGrantModerator : !isAdmin
+            },
+            disableRemoteMute: !isAdmin
           }}
           interfaceConfigOverwrite={{
             DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
@@ -321,7 +326,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
             displayName: disName,
           }}
         />
-        <GreenRoomTool apiRef={apiRef} />
+        {apiRef.current && <GreenRoomTool apiRef={apiRef} />}
       </div>
       
       <div className={styles.dayofeventleft_button}>
