@@ -18,8 +18,8 @@ const RCComponent = dynamic(
 export const EventSpeakerStage = ({ spkdata, eventdata, eventIdentifier }) => {
   const isSmallScreen = useMediaQuery("(max-width: 790px)");
   const [open, setOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false)
 
-  let isAdmin = false;
 
   useEffect(() => {
     const verifyAdminAccess = async () => {
@@ -30,7 +30,8 @@ export const EventSpeakerStage = ({ spkdata, eventdata, eventIdentifier }) => {
         const mail = res.data.mail;
 
         if (mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
-          isAdmin = await ssrVerifyAdmin({ email: mail });
+          const isAdminRes = await ssrVerifyAdmin({ email: mail });
+          setIsAdmin(isAdminRes)
         }
       } catch (e) {
         console.error("An error while verifying admin access", e);
@@ -63,7 +64,11 @@ export const EventSpeakerStage = ({ spkdata, eventdata, eventIdentifier }) => {
                 height={isSmallScreen ? "30vh" : "55vh"}
                 GOOGLE_CLIENT_ID={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID}
                 host={process.env.NEXT_PUBLIC_RC_URL}
-                roomId={"GENERAL"}
+                roomId={
+                  process.env.NEXT_PUBLIC_RC_ROOM_ID
+                    ? process.env.NEXT_PUBLIC_RC_ROOM_ID
+                    : "GENERAL"
+                }
                 channelName="General"
                 anonymousMode={true}
                 isFullScreenFromStart={false}
