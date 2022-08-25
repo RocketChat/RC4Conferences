@@ -17,7 +17,7 @@ export const verifySpeaker = async (eid, acook, mailid) => {
     if (spkMail.includes(mailid)) {
       return { isSpeaker: true };
     } else {
-      return { isSpeaker: falses };
+      return { isSpeaker: false };
     }
   } catch (e) {
     console.error("An error while getting speaker details", e);
