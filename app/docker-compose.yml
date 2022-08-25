@@ -1,0 +1,25 @@
+version: '3.7'
+services:
+    rc4conf:
+        image: next/next-frontend
+        build:
+          context: ./
+          dockerfile: ./Dockerfile
+          network: oesnet
+        container_name: rc4conf
+        restart: unless-stopped
+        working_dir: /app
+        networks:
+          - spnet
+          - oesnet
+          - mainnet
+
+
+networks:
+  spnet:
+    external: yes
+  oesnet:
+    external: yes
+  mainnet:
+    external: yes
+  
