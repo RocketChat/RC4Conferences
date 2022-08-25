@@ -10,7 +10,9 @@ services:
       - ./log:/var/log/faunadb
       - ./config.yml:/etc/fauna.yml
     command: --config /etc/fauna.yml
-    ports:
-      - "8443:8443"
-      - "8444:8444"
-      - "8084:8084"
+    networks:
+      - spnet
+
+networks:
+  spnet:
+    external: yes
