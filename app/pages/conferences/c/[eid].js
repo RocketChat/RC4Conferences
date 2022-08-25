@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import {
   getAllEvents,
   getEventDeatils,
+  getEventSpeakers,
   unsignCook,
 } from "../../../lib/conferences/eventCall";
 import { EventShow } from "../../../components/conferences/display/EventShow";
@@ -56,7 +57,7 @@ export async function getStaticProps(context) {
   const res = await getEventDeatils(eventIdentifier);
   const event = res.data;
 
-  const spkdata = await getEventSpeakers(eid);
+  const spkdata = await getEventSpeakers(eventIdentifier);
 
 
   const topNavItems = await fetchAPI("/top-nav-item");
