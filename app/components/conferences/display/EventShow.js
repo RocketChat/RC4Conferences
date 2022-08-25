@@ -17,7 +17,7 @@ import { MdEventHeader, SmEventHeader } from "./EventHeader";
 import Cookies from "js-cookie";
 import { unsignCook } from "../../../lib/conferences/eventCall";
 
-export const EventShow = ({ event, error }) => {
+export const EventShow = ({ event, error, speaker }) => {
   const [key, setKey] = useState("home");
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
   const [isSignedIn, setIsSignedIn] = useState(false);
@@ -72,9 +72,9 @@ export const EventShow = ({ event, error }) => {
           <Tab eventKey="speakers" title="Speakers">
             {key == "speakers" &&
               (isSmallScreen ? (
-                <SmEventSpeaker eid={event.data.attributes.identifier} />
+                <SmEventSpeaker eid={event.data.attributes.identifier} speaker={speaker} />
               ) : (
-                <MdEventSpeaker eid={event.data.attributes.identifier} />
+                <MdEventSpeaker eid={event.data.attributes.identifier} speaker={speaker} />
               ))}
           </Tab>
         </Tabs>

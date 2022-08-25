@@ -9,9 +9,8 @@ import {
 import { EventShow } from "../../../components/conferences/display/EventShow";
 import { fetchAPI } from "../../../lib/api";
 
-function EventDisplayPage({ event }) {
+function EventDisplayPage({ event, spkdata }) {
   const router = useRouter();
-  console.log("chredirecting.....................................")
   const { eid, error } = router.query;
   const eventname = event?.data?.attributes?.name;
   return (
@@ -24,7 +23,7 @@ function EventDisplayPage({ event }) {
       </Head>
       <div className="mx-auto">
         <Stack direction="vertical">
-          <EventShow event={event} error={error} />
+          <EventShow event={event} error={error} speaker={spkdata} />
         </Stack>
       </div>
     </div>
@@ -57,10 +56,13 @@ export async function getStaticProps(context) {
   const res = await getEventDeatils(eventIdentifier);
   const event = res.data;
 
+  const spkdata = await getEventSpeakers(eid);
+
+
   const topNavItems = await fetchAPI("/top-nav-item");
 
   return {
-    props: { topNavItems, event },
+    props: { topNavItems, event, spkdata },
   };
 }
 

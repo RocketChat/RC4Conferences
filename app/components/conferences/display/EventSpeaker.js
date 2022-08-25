@@ -17,23 +17,8 @@ const avatarGenerate = (sn) => {
   return res;
 };
 
-export const SmEventSpeaker = ({ eid }) => {
-  const [speaker, setSpeaker] = useState(null);
+export const SmEventSpeaker = ({ eid, speaker }) => {
   const [open, setOpen] = useState({});
-
-  useEffect(() => {
-    const fetchSpeakers = async () => {
-      if (!speaker) {
-        await getSpeakers();
-      }
-    };
-    fetchSpeakers();
-  }, []);
-
-  const getSpeakers = async () => {
-    const res = await getEventSpeakers(eid);
-    setSpeaker(res);
-  };
 
   const handleBioOpen = (e) => {
     const tmod = e.target.id;
@@ -97,23 +82,8 @@ export const SmEventSpeaker = ({ eid }) => {
   );
 };
 
-export const MdEventSpeaker = ({ eid }) => {
-  const [speaker, setSpeaker] = useState(null);
+export const MdEventSpeaker = ({ eid, speaker }) => {
   const [open, setOpen] = useState({});
-
-  useEffect(() => {
-    const fetchSpeakers = async () => {
-      if (!speaker) {
-        await getSpeakers();
-      }
-    };
-    fetchSpeakers();
-  }, []);
-
-  const getSpeakers = async () => {
-    const res = await getEventSpeakers(eid);
-    setSpeaker(res);
-  };
 
   const handleBioOpen = (e) => {
     const tmod = e.target.id;
