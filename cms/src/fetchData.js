@@ -8,6 +8,7 @@ const {
   topNavItem,
   speakers,
   forms,
+  session
 } = require("../config/initialData");
 
 module.exports = async () => {
@@ -30,6 +31,8 @@ module.exports = async () => {
     //   .query("api::github-repository.github-repository")
     //   .count({});
     var speakersCount = await strapi.db.query("api::speaker.speaker").count({});
+    var sessionCount = await strapi.db.query("api::session.session").count({});
+    
     // initial fetch
     speakers.map(async (speaker, index) => {
       if (index <= speakersCount - 1) {
