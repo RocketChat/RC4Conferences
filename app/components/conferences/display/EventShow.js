@@ -146,7 +146,7 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
     }));
   };
   return (
-    <Container>
+    <Container style={{maxWidth: "99vw"}}>
       <Table responsive striped hover>
         <thead>
           <tr>
