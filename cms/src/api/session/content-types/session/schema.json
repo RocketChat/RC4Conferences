@@ -4,19 +4,20 @@
   "info": {
     "singularName": "session",
     "pluralName": "sessions",
-    "displayName": "Session"
+    "displayName": "Session",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
-    "start_name": {
+    "start_time": {
       "type": "datetime",
       "required": true,
       "default": "2022-08-30T18:30:00.000Z"
     },
-    "end_date": {
+    "end_time": {
       "type": "datetime"
     },
     "presenter": {

@@ -8,7 +8,7 @@ const {
   topNavItem,
   speakers,
   forms,
-  session
+  sessions
 } = require("../config/initialData");
 
 module.exports = async () => {
@@ -32,7 +32,7 @@ module.exports = async () => {
     //   .count({});
     var speakersCount = await strapi.db.query("api::speaker.speaker").count({});
     var sessionCount = await strapi.db.query("api::session.session").count({});
-    
+
     // initial fetch
     speakers.map(async (speaker, index) => {
       if (index <= speakersCount - 1) {
@@ -64,6 +64,31 @@ module.exports = async () => {
             duration_minutes: speaker.duration_minutes,
             live: speaker.live,
             ended: speaker.ended,
+          },
+        });
+      }
+    });
+
+    sessions.map(async (session, index) => {
+      if (index <= sessionCount - 1) {
+        await strapi.db.query("api::session.session").update({
+          where: { id: session.id },
+          data: {
+            start_time: session.start_time,
+            end_time: session.end_time,
+            presenter: session.presenter,
+            presentation_title: session.presentation_title,
+            duration_minutes: session.duration_minutes,
+          },
+        });
+      } else {
+        await strapi.service("api::speaker.speaker").create({
+          data: {
+            start_time: session.start_time,
+            end_time: session.end_time,
+            presenter: session.presenter,
+            presentation_title: session.presentation_title,
+            duration_minutes: session.duration_minutes,
           },
         });
       }
