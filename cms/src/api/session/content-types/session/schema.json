@@ -34,6 +34,12 @@
       "required": true,
       "default": 20,
       "min": 0
+    },
+    "mentor": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
     }
   }
 }

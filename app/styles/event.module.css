@@ -110,6 +110,10 @@
   font-size: smaller;
 }
 
+.session_expand {
+  cursor: pointer;
+}
+
 @media (max-width: 576px) {
   .speaker_intro {
     display: flex;
