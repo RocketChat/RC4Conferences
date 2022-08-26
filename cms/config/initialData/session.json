@@ -1,10 +1,18 @@
 [
     {
         "id": 1,
-        "start_time": "",
-        "end_time": "",
-        "presenter": "",
+        "start_time": "2022-08-30T18:33:00.000Z",
+        "end_time": "2022-08-30T18:55:00.000Z",
+        "presenter": "Dnouv",
         "presentation_title": "Summit KickOff!",
+        "duration_minutes" : 25 
+    },
+    {
+        "id": 2,
+        "start_time": "2022-08-30T18:55:00.000Z",
+        "end_time": "2022-08-30T19:15:00.000Z",
+        "presenter": "Luca",
+        "presentation_title": "Project 0!",
         "duration_minutes" : 20 
     }
 ]
