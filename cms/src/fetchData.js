@@ -79,16 +79,20 @@ module.exports = async () => {
             presenter: session.presenter,
             presentation_title: session.presentation_title,
             duration_minutes: session.duration_minutes,
+            mentor: session.mentors,
+            description: session.description
           },
         });
       } else {
-        await strapi.service("api::speaker.speaker").create({
+        await strapi.db.query("api::session.session").create({
           data: {
             start_time: session.start_time,
             end_time: session.end_time,
             presenter: session.presenter,
             presentation_title: session.presentation_title,
             duration_minutes: session.duration_minutes,
+            mentor: session.mentors,
+            description: session.description
           },
         });
       }
