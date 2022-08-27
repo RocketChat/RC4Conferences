@@ -60,7 +60,7 @@ export const EventTicket = ({ tktDetail, event, error }) => {
       setErr(errMessHelper[error]);
       setAlertOp(true);
     }
-  }, []);
+  });
 
   const tktName = tktDetail.attributes.name;
   const tktPrice = tktDetail.attributes.price;
