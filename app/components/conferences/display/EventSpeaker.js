@@ -142,7 +142,7 @@ export const MdEventSpeaker = ({ eid, speaker }) => {
                     <Col>
                       <Collapse in={open[spk.id]}>
                         <div id="example-collapse-text" className={styles.speaker_bio_expand}>
-                          {spk.attributes["long-biography"] ||
+                          {spk.attributes["long-biography"] ? <span dangerouslySetInnerHTML={{__html: spk.attributes["long-biography"]}} /> :
                             "Hey, looks like this fellow speaker likes surprises."}
                         </div>
                       </Collapse>
