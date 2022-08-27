@@ -6,7 +6,7 @@ import Jitsibroadcaster from "../../../components/clientsideonly/jitsibroadcaste
 import InAppChat from "../../../components/inappchat/inappchat";
 
 const greenroom_rid = "QEevFeokh4bkpX2mJ";
-const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://open.rocket.chat";
+const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://open.rocket.chat/channel/DemoDay2022";
 
 const Greenroom = () => {
   const [openChat, setOpenChat] = useState(false);
