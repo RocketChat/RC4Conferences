@@ -112,9 +112,14 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  padding: 15px;
 }
 
 .event_speaker_bio {
+  font-size: smaller;
+}
+
+.speaker_bio_expand {
   font-size: smaller;
 }
 
