@@ -50,6 +50,14 @@
   margin: 0em auto;
 }
 
+@media (min-width: 768px) {
+  .event_custom_container {
+    max-width: 100%;
+  }
+}
+
+
+
 .date_icon {
   align-items: baseline;
 }

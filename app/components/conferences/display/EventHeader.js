@@ -54,14 +54,14 @@ export const MdEventHeader = ({ event, isSignedIn, error }) => {
   );
   return (
     <div className={styles.event_banner}>
-      <Container>
-        <Row>
+      <Container className={styles.event_custom_container}>
+        <Row style={{background: "url(https://github.com/RocketChat/Rocket.Chat.Demo.App/raw/master/rocketchat_gsoc2022_demoday.png)", backgroundSize: "67%"}}>
           <Col fluid>
-            <Image src={event.data.attributes["original-image-url"]} fluid />
+            {/* <Image src={event.data.attributes["original-image-url"]} fluid /> */}
           </Col>
-          <Col className="mt-1" fluid>
+          <Col className="mt-1" md={5} sm={4} style={{backdropFilter: "blur(45px)"}}>
             <Row>
-              <h4>{event.data.attributes.name}</h4>
+              <h5>{event.data.attributes.name}</h5>
               <p>
                 by{" "}
                 <span style={{ color: "#d6162f" }}>
