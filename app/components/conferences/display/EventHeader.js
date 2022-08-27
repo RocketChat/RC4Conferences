@@ -59,7 +59,7 @@ export const MdEventHeader = ({ event, isSignedIn, error }) => {
           <Col fluid>
             {/* <Image src={event.data.attributes["original-image-url"]} fluid /> */}
           </Col>
-          <Col className="mt-1" md={5} sm={4} style={{backdropFilter: "blur(45px)"}}>
+          <Col className="mt-1" md={5} sm={5} style={{backdropFilter: "blur(45px)"}}>
             <Row>
               <h5>{event.data.attributes.name}</h5>
               <p>
@@ -71,7 +71,7 @@ export const MdEventHeader = ({ event, isSignedIn, error }) => {
             </Row>
 
             <Stack gap={3}>
-              <EventDate eventData={event.data} />
+              <MdEventDate eventData={event.data} />
               <MdEventLocation eventData={event.data} />
             </Stack>
           </Col>
@@ -116,6 +116,32 @@ export const EventDate = ({ eventData }) => {
   );
 };
 
+export const MdEventDate = ({ eventData }) => {
+  let start = eventData.attributes["starts-at"];
+  let end = eventData.attributes["ends-at"];
+  start = `${new Date(start).toDateString()} ${new Date(
+    start
+  ).toLocaleTimeString()}`;
+  end = `${new Date(end).toDateString()} ${new Date(end).toLocaleTimeString()}`;
+
+  return (
+      <Row className={styles.date_icon}>
+        <Col xs={1}>
+          <BsCalendar2Event />
+        </Col>
+        <Col>
+          <div className={styles.event_date}>
+            <h6>
+              Date and Time ({Intl.DateTimeFormat().resolvedOptions().timeZone})
+            </h6>
+            <span>{start + " - "}</span>
+            <span>{end}</span>
+          </div>
+        </Col>
+      </Row>
+  );
+};
+
 export const EventSingleDate = ({ eventData }) => {
   let start = eventData.attributes["starts-at"];
   start = new Date(start);
@@ -153,8 +179,7 @@ const MdEventLocation = ({ eventData }) => {
   const location = eventData.attributes["location-name"];
 
   return (
-    <Container className="mb-5">
-      <Row>
+      <Row className="mb-5">
         <Col xs={1}>
           <GoLocation />
         </Col>
@@ -164,6 +189,5 @@ const MdEventLocation = ({ eventData }) => {
           </div>
         </Col>
       </Row>
-    </Container>
   );
 };
