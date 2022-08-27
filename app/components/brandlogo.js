@@ -3,8 +3,6 @@ import styles from "../styles/BrandLogo.module.css";
 
 export default function BrandLogo(props) {
   return (
-    <>
-      <a href={props.brandLink} className={styles.brand}>
         <Image
           src={props.logoLink}
           title={props.imageTitle}
@@ -12,7 +10,5 @@ export default function BrandLogo(props) {
           height={props.height}
           width={props.width}
         />
-      </a>
-    </>
   );
 }

@@ -64,6 +64,7 @@ export const SmEventSpeaker = ({ eid, speaker }) => {
                     size="sm"
                     id={spk.id}
                     onClick={handleBioOpen}
+                    style={{cursor: "pointer"}}
                   >
                     {`Learn More>`}
                   </Button>
@@ -131,6 +132,7 @@ export const MdEventSpeaker = ({ eid, speaker }) => {
                         bg="white"
                         id={spk.id}
                         onClick={handleBioOpen}
+                        style={{cursor: "pointer"}}
                       >
                         {`Learn More>`}
                       </Badge>
