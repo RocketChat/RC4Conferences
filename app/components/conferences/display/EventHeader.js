@@ -5,7 +5,7 @@ import { EventTicket } from "./EventRegisterSection";
 import { BsCalendar2Event, BsInfoCircle } from "react-icons/bs";
 import { GoLocation } from "react-icons/go";
 
-export const SmEventHeader = ({ event, isSignedIn, error }) => {
+export const SmEventHeader = ({ event, error }) => {
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
 
   return (
@@ -14,7 +14,6 @@ export const SmEventHeader = ({ event, isSignedIn, error }) => {
       <EventTicket
         tktDetail={event.included[0]}
         event={event}
-        isSignedIn={isSignedIn}
         error={error}
       />
 
@@ -45,7 +44,7 @@ export const SmEventHeader = ({ event, isSignedIn, error }) => {
   );
 };
 
-export const MdEventHeader = ({ event, isSignedIn, error }) => {
+export const MdEventHeader = ({ event, error }) => {
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
 
   const isCalScreen = useMediaQueries(
@@ -81,7 +80,6 @@ export const MdEventHeader = ({ event, isSignedIn, error }) => {
       <EventTicket
         tktDetail={event.included[0]}
         event={event}
-        isSignedIn={isSignedIn}
         error={error}
       />
     </div>

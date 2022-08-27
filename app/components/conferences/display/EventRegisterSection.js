@@ -14,6 +14,8 @@ import styles from "../../../styles/event.module.css";
 import { BiError } from "react-icons/bi";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Cookies from "js-cookie";
+import { unsignCook } from "../../../lib/conferences/eventCall";
 
 const detectElement = (options) => {
   const containerRef = useRef(null);
@@ -36,7 +38,7 @@ const detectElement = (options) => {
   return [containerRef, inView];
 };
 
-export const EventTicket = ({ tktDetail, event, isSignedIn, error }) => {
+export const EventTicket = ({ tktDetail, event, error }) => {
   const [containerRef, inView] = detectElement({
     root: null,
     rootMargin: "0px 0px 100% 0px",
@@ -81,7 +83,6 @@ export const EventTicket = ({ tktDetail, event, isSignedIn, error }) => {
         open={open}
         handleClose={handleJoin}
         event={event}
-        isSignedIn={isSignedIn}
         alertOp={alertOp}
         setAlertOp={setAlertOp}
         err={err}
@@ -132,7 +133,6 @@ const JoinModal = ({
   open,
   handleClose,
   event,
-  isSignedIn,
   alertOp,
   setAlertOp,
   err,
@@ -140,6 +140,29 @@ const JoinModal = ({
   const eventName = event?.data?.attributes.name;
   const eventId = event?.data?.id;
   const router = useRouter();
+
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  useEffect(() => {
+    const checkSignedIn = async () => {
+      try {
+        const hashmail = Cookies.get("hashmail");
+
+        const res = await unsignCook({ hash: hashmail });
+        const mail = res.data.mail;
+
+        const emailRegex =
+          /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+        if (emailRegex.test(mail)) {
+          setIsSignedIn(true);
+        }
+      } catch (e) {
+        console.error("An error while verifying admin access", e);
+      }
+    };
+    checkSignedIn();
+  });
 
   return (
     <Modal show={open} onHide={handleClose} backdrop="static">

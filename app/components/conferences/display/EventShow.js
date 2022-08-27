@@ -27,37 +27,15 @@ export const EventShow = ({ event, error, speaker, prsession }) => {
   const [toOpen, setToOpen] = useState({});
 
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
-  const [isSignedIn, setIsSignedIn] = useState(false);
 
   const isMdScreen = useMediaQuery("(min-width: 768px)");
-
-  useEffect(() => {
-    const checkSignedIn = async () => {
-      try {
-        const hashmail = Cookies.get("hashmail");
-
-        const res = await unsignCook({ hash: hashmail });
-        const mail = res.data.mail;
-
-        const emailRegex =
-          /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-
-        if (emailRegex.test(mail)) {
-          setIsSignedIn(true);
-        }
-      } catch (e) {
-        console.error("An error while verifying admin access", e);
-      }
-    };
-    checkSignedIn();
-  }, []);
 
   return (
     <Card className={styles.event_show_root}>
       {isMdScreen ? (
-        <MdEventHeader event={event} isSignedIn={isSignedIn} error={error} />
+        <MdEventHeader event={event} error={error} />
       ) : (
-        <SmEventHeader event={event} isSignedIn={isSignedIn} error={error} />
+        <SmEventHeader event={event} error={error} />
       )}
       <div className={styles.event_nav}>
         <Tabs
