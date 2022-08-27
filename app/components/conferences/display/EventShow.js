@@ -103,8 +103,8 @@ export const EventShow = ({ event, error, speaker, prsession }) => {
 };
 
 const EventDesc = ({ eventData }) => {
-  let eventDesc = eventData.attributes.description;
-  eventDesc = eventDesc.replace(/(<([^>]+)>)/gi, "");
+  const eventDesc = eventData.attributes.description;
+  // eventDesc = eventDesc.replace(/(<([^>]+)>)/gi, "");
 
   return (
     <Container className={styles.event_desc}>
@@ -112,7 +112,7 @@ const EventDesc = ({ eventData }) => {
         <Col>
           <div>
             <h6>About the Event</h6>
-            <p>{eventDesc}</p>
+            <div dangerouslySetInnerHTML={{__html: eventDesc}} />
           </div>
         </Col>
       </Row>
@@ -190,7 +190,7 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
                   </tr>
                   <tr>
                     <Collapse in={toOpen[sess.id]}>
-                      <td colspan="12">{`Descsription: ${sess.attributes.description}`}</td>
+                      <td colSpan="12">{`Descsription: ${sess.attributes.description}`}</td>
                     </Collapse>
                   </tr>
                 </>
