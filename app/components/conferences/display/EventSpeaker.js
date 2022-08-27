@@ -100,7 +100,7 @@ export const MdEventSpeaker = ({ eid, speaker }) => {
           return (
             <Container key={spk.id} className="mb-3">
               <Row className={styles.event_speaker_row}>
-                <Col sm={2} md={2}>
+                <Col sm={3} md={2}>
                   <div className={styles.event_speaker_avatar}>
                     <Image
                       fluid
@@ -141,7 +141,7 @@ export const MdEventSpeaker = ({ eid, speaker }) => {
                   <Row>
                     <Col>
                       <Collapse in={open[spk.id]}>
-                        <div id="example-collapse-text">
+                        <div id="example-collapse-text" className={styles.speaker_bio_expand}>
                           {spk.attributes["long-biography"] ||
                             "Hey, looks like this fellow speaker likes surprises."}
                         </div>
