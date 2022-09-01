@@ -27,7 +27,6 @@ export const IndivEventDash = ({ eid, event }) => {
   const [modalShow, setModalShow] = useState(false);
   const [editSpeaker, setEditSpeaker] = useState({});
   const [load, setLoad] = useState(false);
-  console.log("event", event);
 
   let authCookie = Cookies.get("event_auth");
   if (authCookie) {
@@ -141,15 +140,18 @@ const SpeakerList = ({
   setSpeakerInfo,
   handleDelete,
 }) => {
-  useEffect(async () => {
-    if (!speakerInfo) {
-      try {
-        const res = await fetchSpeaker();
-        setSpeakerInfo(res.data.data);
-      } catch (e) {
-        console.error("An error occurred while loading speakers", e);
+  useEffect(() => {
+    const spkInfo = async () => {
+      if (!speakerInfo) {
+        try {
+          const res = await fetchSpeaker();
+          setSpeakerInfo(res.data);
+        } catch (e) {
+          console.error("An error occurred while loading speakers", e);
+        }
       }
-    }
+    };
+    spkInfo();
   }, []);
   return (
     <ListGroup>

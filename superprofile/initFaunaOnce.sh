@@ -10,7 +10,7 @@ if [ -e $ALREADY_INITIALIZED ] && [ ! -z $FAUNA_CONTAINER_ID ]; then
     exit 0
 fi
 
-docker compose up -d
+docker-compose up -d
 echo "Waiting $waittime seconds for container to get shipped..."
 sleep $waittime
 

@@ -31,12 +31,13 @@ export default function Menubar(props) {
     process.env.ROCKETCHAT_CLIENT_ID &&
     process.env.ROCKETCHAT_CLIENT_SECRET &&
     process.env.ROCKETCHAT_URL;
+    
   if (!hasAllRequiredCreds) console.log("RC4Community is now using a dummy Auth Component! If you wish to use a robust Auth component, provide all the credentials first (https://github.com/RocketChat/RC4Community/tree/master/app/components/auth)")
   return (
     <Container fluid className="border-bottom ">
       <Navbar expand="lg" className=" bg-white mx-4 my-2">
+        <Navbar.Brand>
         <BrandLogo
-          brandLink={"/"}
           logoLink={
             "https://global-uploads.webflow.com/611a19b9853b7414a0f6b3f6/611bbb87319adfd903b90f24_logoRC.svg"
           }
@@ -45,6 +46,7 @@ export default function Menubar(props) {
           height={21}
           width={124}
         />
+        </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="basic-navbar-nav"
           className={styles.default_toggler + " ms-auto"}
@@ -64,7 +66,7 @@ export default function Menubar(props) {
           </button>
         </Navbar.Toggle>
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mx-auto">
+          <Nav className="me-auto">
             {props.menu?.data?.attributes?.body?.map((item, index) => {
               return item.sub_menus && item?.sub_menus?.data?.length ? (
                 <NavDropdown

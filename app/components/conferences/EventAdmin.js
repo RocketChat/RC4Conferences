@@ -12,13 +12,18 @@ export const VerifyUserRole = ({ menuprops }) => {
   const [getCurrentUser, { data, error, loading }] = verifyAdmin();
   const [verified, setVerified] = useState(false);
   const hashmail = Cookies.get("hashmail");
-  useEffect(async () => {
-    try {
-      const res = await unsignCook({ hash: hashmail });
-      getCurrentUser({ email: res.data.mail });
-    } catch {
-      console.error("Error while deciphering");
-    }
+  useEffect(() => {
+    const decipherEmail = async () => {
+      try {
+        if (hashmail) {
+        const res = await unsignCook({ hash: hashmail });
+        getCurrentUser({ email: res.data.mail });
+        }
+      } catch {
+        console.error("Error while deciphering");
+      }
+    };
+    decipherEmail();
   }, []);
   let menuCache = null;
 

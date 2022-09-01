@@ -35,6 +35,8 @@ services:
       POSTGRES_PASSWORD: opev_pass
       POSTGRES_DB: open_event
       APP_CONFIG: config.DevelopmentConfig
+    networks:
+      - oesnet
 
   redis:
     image: redis:3-alpine
@@ -43,12 +45,14 @@ services:
     command: redis-server
     volumes:
       - rd:/var/lib/redis/data
+    networks:
+      - oesnet
 
   web:
     <<: *defaults
     container_name: opev-web
-    ports:
-      - 8080:8080
+    networks:
+      - oesnet
 
 
 volumes:
@@ -56,3 +60,7 @@ volumes:
       external: true
     rd:
       external: true
+  
+networks:
+  oesnet:
+    external: yes

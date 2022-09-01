@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sessions",
+  "info": {
+    "singularName": "session",
+    "pluralName": "sessions",
+    "displayName": "Session",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "start_time": {
+      "type": "datetime",
+      "required": true,
+      "default": "2022-08-30T18:30:00.000Z"
+    },
+    "end_time": {
+      "type": "datetime"
+    },
+    "presenter": {
+      "type": "string",
+      "default": "RGSoC'er",
+      "required": true
+    },
+    "presentation_title": {
+      "type": "text",
+      "default": "Please look forward to my talk."
+    },
+    "duration_minutes": {
+      "type": "integer",
+      "required": true,
+      "default": 20,
+      "min": 0
+    },
+    "mentor": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

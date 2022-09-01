@@ -5,7 +5,7 @@ echo "--Stopping the Open Event server--"
 
 if [ ! -z $OES_CONTAINER_ID ]; then
     cd open-event-server
-    docker compose down -v
+    docker-compose down -v
     cd ..
 fi
 
@@ -13,6 +13,6 @@ echo "--Stopping Superprofile Backend--"
 
 if [ ! -z $FAUNA_CONTAINER_ID ]; then
     cd superprofile
-    docker compose down
+    docker-compose down
     cd ..
 fi

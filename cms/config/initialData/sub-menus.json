@@ -98,6 +98,7 @@
   {
     "id": 13,
     "label": "GSoC 2022",
+    "style": "disable",
     "url": null,
     "published_at": "2021-06-21T09:03:49.991Z",
     "created_at": "2021-06-21T09:03:57.289Z",
@@ -105,8 +106,8 @@
   },
   {
     "id": 14,
-    "label": "GSoC Demo Day",
-    "url": "/virtualconf/mainstage",
+    "label": "GSoC 2022 Demo Day",
+    "url": "/conferences/c/1",
     "published_at": "2021-06-21T09:03:49.991Z",
     "created_at": "2021-06-21T09:03:57.289Z",
     "updated_at": "2021-06-21T09:03:57.289Z"

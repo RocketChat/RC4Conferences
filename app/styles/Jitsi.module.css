@@ -21,8 +21,17 @@
 
 .jitsiContainer {
   display: flex;
-  width: 100%;
   margin-top: 1em;
+  height: 70vh;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+@media (max-width: 790px) {
+  .jitsiContainer {
+    height: 50vh;
+  }
 }
 
 .log {
@@ -31,6 +40,21 @@
   white-space: nowrap;
   overflow: auto;
 }
+
+.dayofeventleft_button {
+  margin: auto;
+  left: 25px;
+  bottom: 25px;
+  position: absolute;
+}
+
+@media (max-width: 790px) { 
+  .dayofeventleft_button {
+    bottom: 75px;
+    position: fixed;
+    z-index: 10;
+  }
+ }
 
 @media (min-width: 830px) {
   .device {

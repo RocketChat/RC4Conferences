@@ -17,6 +17,7 @@ import { HiViewGridAdd } from "react-icons/hi";
 import styles from "../../styles/Jitsi.module.css";
 import { FaRocketchat } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
+import { GreenRoomTool, SpeakerMiscToolbar } from "../conferences/dayOfEvent/greenroom/SpeakerToolbar";
 
 const JitsiMeeting = dynamic(
   () => import("@jitsi/react-sdk").then((mod) => mod.JitsiMeeting),
@@ -25,35 +26,11 @@ const JitsiMeeting = dynamic(
 
 const rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
-const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
+const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
   const apiRef = useRef();
   const [logItems, updateLog] = useState([]);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
-  const [mute, setMute] = useState(true);
-  const [name, setName] = useState(null);
-  const dataArr = [
-    { speaker: "A", hour: "10" },
-    { speaker: "B", hour: "20" },
-    { speaker: "C", hour: "30" },
-    { speaker: "D", hour: "40" },
-    { speaker: "Z", hour: "50" },
-  ];
-
-  const handleDisplayName = async (hr) => {
-    const tar = dataArr.find((o) => o.hour === hr);
-    if (!tar || tar.speaker == name) {
-      return;
-    }
-    setName(tar.speaker);
-    await apiRef.current.executeCommand("displayName", tar.speaker);
-  };
-
-  useEffect(() => {
-    setInterval(() => {
-      const tada = new Date();
-      handleDisplayName(tada.getHours().toString());
-    }, 900000);
-  }, []);
+  const [speakers, setSpeakers] = useState(null);
 
   const printEventOutput = (payload) => {
     updateLog((items) => [...items, JSON.stringify(payload)]);
@@ -100,10 +77,9 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
   };
 
   const handleJitsiIFrameRef1 = (iframeRef) => {
-    iframeRef.style.border = "10px solid cadetblue";
-    iframeRef.style.background = "cadetblue";
-    iframeRef.style.height = "25em";
-    iframeRef.style.width = "75%";
+    iframeRef.style.height = "inherit";
+    iframeRef.style.width = "90%";
+    iframeRef.allow = "display-capture"
   };
 
   const showDevices = async (ref) => {
@@ -288,129 +264,6 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
     </div>
   );
 
-  const toggleDevice = () => (
-    <div className={styles.device}>
-      <Button disabled variant="light">
-        <AiFillSetting size={20} />
-      </Button>
-      <ButtonGroup vertical className="m-auto">
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">Microphone Device</Tooltip>}
-        >
-          <Button
-            title="Click to switch audio devices"
-            onClick={() => showAudioDevice(apiRef)}
-          >
-            <RiMic2Line size={20} />
-          </Button>
-        </OverlayTrigger>
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">Camera Device</Tooltip>}
-        >
-          <Button
-            title="Click to switch video devices"
-            onClick={() => showDevices(apiRef)}
-          >
-            <MdCameraswitch size={20} />
-          </Button>
-        </OverlayTrigger>
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">Audio Device</Tooltip>}
-        >
-          <Button
-            title="Click to switch audio devices"
-            onClick={() => showAudioOutDevices(apiRef)}
-          >
-            <MdHeadset size={20} />
-          </Button>
-        </OverlayTrigger>
-      </ButtonGroup>
-    </div>
-  );
-
-  const toggleView = () => (
-    <div className={styles.view}>
-      <Button variant="light" disabled>
-        <AiFillEye size={20} />
-      </Button>
-      <ButtonGroup vertical className="m-auto">
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">Tile View</Tooltip>}
-        >
-          <Button
-            variant="secondary"
-            onClick={() => makeTile(apiRef)}
-            title="Click to toggle tile view"
-          >
-            <HiViewGridAdd size={20} />
-          </Button>
-        </OverlayTrigger>
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">First User</Tooltip>}
-        >
-          <Button onClick={() => showUsers(apiRef, 0)} variant="secondary">
-            <BiUserPin size={20} />
-          </Button>
-        </OverlayTrigger>
-        <OverlayTrigger
-          overlay={<Tooltip id="tooltip-disabled">Second User</Tooltip>}
-        >
-          <Button onClick={() => showUsers(apiRef, 1)} variant="secondary">
-            <FiUsers size={20} />
-          </Button>
-        </OverlayTrigger>
-      </ButtonGroup>
-    </div>
-  );
-
-  const toolButton = () => (
-    <div className={styles.deviceButton}>
-      <ButtonGroup className="m-auto">
-        <Button
-          variant="success"
-          title="Click to toogle audio"
-          onClick={() => {
-            apiRef.current.executeCommand("toggleAudio");
-            setMute(!mute);
-          }}
-        >
-          {mute ? <BiMicrophoneOff /> : <BiMicrophone />}
-        </Button>
-        <DropdownButton variant="danger" as={ButtonGroup} title="End">
-          <Dropdown.Item
-            as="button"
-            onClick={() => apiRef.current.executeCommand("hangup")}
-          >
-            Leave Meet
-          </Dropdown.Item>
-          <Dropdown.Item
-            variant="danger"
-            as="button"
-            onClick={() => apiRef.current.stopRecording("stream")}
-          >
-            End for everyone!
-          </Dropdown.Item>
-        </DropdownButton>
-        <Button color="#f5455c" onClick={handleChat}>
-          <FaRocketchat />
-        </Button>
-      </ButtonGroup>
-    </div>
-  );
-
-  const renderLog = () =>
-    logItems.map((item, index) => (
-      <div
-        style={{
-          fontFamily: "monospace",
-          padding: "5px",
-        }}
-        key={index}
-      >
-        {item}
-      </div>
-    ));
-
   const renderSpinner = () => (
     <div
       style={{
@@ -424,9 +277,9 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
 
   return (
     <>
-      {rtmp ? renderStream(rtmp) : rtmpSrc && renderStream(rtmpSrc)}
+      {/* {rtmp ? renderStream(rtmp) : rtmpSrc && renderStream(rtmpSrc)} */}
       <div className={styles.jitsiContainer}>
-        {toggleDevice()}
+        {/* {toggleDevice()} */}
 
         <JitsiMeeting
           domain="meet.jit.si"
@@ -435,37 +288,51 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat }) => {
           onApiReady={(externalApi) => handleApiReady(externalApi, apiRef)}
           getIFrameRef={handleJitsiIFrameRef1}
           configOverwrite={{
-            startWithAudioMuted: true,
+            startWithAudioMuted: false,
             disableModeratorIndicator: true,
             startScreenSharing: false,
             enableEmailInStats: false,
-            toolbarButtons: [],
-            enableWelcomePage: false,
-            prejoinPageEnabled: false,
+            toolbarButtons: ["select-background", "hangup"],
+            enableWelcomePage: true,
+            enableNoAudioDetection: true,
+            hideConferenceSubject: true,
+            hideConferenceTimer: true,
+            prejoinPageEnabled: true,
             startWithVideoMuted: false,
             liveStreamingEnabled: true,
-            disableSelfView: false,
+            disableSelfView: true,
             disableSelfViewSettings: true,
             disableShortcuts: true,
-            disable1On1Mode: true,
+            disable1On1Mode: false,
+            defaultRemoteDisplayName: "Fellow Rocketeer",
+            subject: " ",
             p2p: {
               enabled: false,
             },
+            remoteVideoMenu: {
+              disableKick : !isAdmin,
+              disableGrantModerator : !isAdmin
+            },
+            disableRemoteMute: !isAdmin
           }}
           interfaceConfigOverwrite={{
             DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
             FILM_STRIP_MAX_HEIGHT: 0,
-            TILE_VIEW_MAX_COLUMNS: 0,
+            TILE_VIEW_MAX_COLUMNS: 2,
             VIDEO_QUALITY_LABEL_DISABLED: true,
+            RECENT_LIST_ENABLED: false
           }}
           userInfo={{
             displayName: disName,
           }}
         />
-        {toggleView()}
+        {apiRef.current && <GreenRoomTool apiRef={apiRef} />}
       </div>
-      {toolButton()}
-      <div className={styles.log}>{renderLog()}</div>
+      
+      <div className={styles.dayofeventleft_button}>
+      
+        <SpeakerMiscToolbar apiRef={apiRef} isAdmin={isAdmin} />
+      </div>
     </>
   );
 };

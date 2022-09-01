@@ -8,6 +8,7 @@
     transform: translate(50%,0);
     top: 62px;
     width: 350px;
+    height: 20vh;
     max-height: -webkit-calc(100vh - 62px - 100px);
     max-height: calc(100vh - 62px - 100px);
     overflow-y: auto;
@@ -31,6 +32,7 @@
         right: 8px;
         top: 62px;
         width: 354px;
+        height: 30vh;
         transform: translateX(0);
     }
 }

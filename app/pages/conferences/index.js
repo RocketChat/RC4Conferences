@@ -2,12 +2,10 @@ import Head from "next/head";
 import { ProgressBar, Stack } from "react-bootstrap";
 import EventHome from "../../components/conferences/EventHome";
 import Image from "next/image";
-import eventLogo from "../../../assets/event_logo.svg";
+import eventLogo from "../../assets/event_logo.svg";
 import styles from "../../styles/event.module.css";
 import { generatePassword } from "../../components/conferences/auth/AuthHelper";
-import { fetchAPI } from "../../lib/api";
 import { ssrVerifyAdmin } from "../../components/conferences/auth/AuthSuperProfileHelper";
-import Cookies from "js-cookie";
 import { unsignCook } from "../../lib/conferences/eventCall";
 
 function EventHomeDemo({ imgUrl, passcode }) {
@@ -70,10 +68,8 @@ export async function getServerSideProps(context) {
     }
   }
   
-  const topNavItems = await fetchAPI("/top-nav-item");
-
   return {
-    props: { imgUrl, passcode, topNavItems },
+    props: { imgUrl, passcode },
   };
 }
 

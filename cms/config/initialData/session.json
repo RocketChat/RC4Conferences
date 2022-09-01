@@ -1,0 +1,147 @@
+
+[
+    {
+        "id": 1,
+        "start_time": "2022-08-30T21:33:00.000Z",
+        "end_time": "2022-08-30T21:55:00.000Z",
+        "presentation_title": "Standalone Desktop Messaging cross-platforms Applet",
+        "mentors": "Jean Brito, Gabriel Casals",
+        "description": "A simple desktop application similar to the old Google Talk, it has a simple channel list on a little window and each chat will open in another separated window, making it possible to talk with people without opening a big window. It makes the usage of Rocket.chat more seamless. This project extensively uses Rocket.Chat's In-App Chat APIs (REST APIs).",
+        "presenter": "Ahmed Ibrahim",
+        "duration_minutes": 20
+    },
+
+    {
+        "id": 2,
+        "start_time": "2022-08-30T18:56:00.000Z",
+        "end_time": "2022-08-30T19:00:00.000Z",
+        "presenter": "Aswini P Kumar",
+        "presentation_title": "Weekly Video Meeting and Archive App - BigBlueButton + Rocket.Chat",
+        "mentors": "Debdut Chakraborty & Felipe Cecagno",
+        "description": "Big Blue Button is one of the most popular open source virtual classroom and conferencing tool available today. This project is a very simple integration with Rocket.Chat for conducting a weekly meeting and maintaining the recording video archive.",
+        "duration_minutes": 4
+    },
+    {
+        "id": 3,
+        "start_time": "2022-08-30T19:16:00.000Z",
+        "end_time": "2022-08-30T19:25:00.000Z",
+        "presenter": "Danish Ahmed Mirza",
+        "presentation_title": "New Emoji Picker for Mobile Client",
+        "mentors": "Diego Mello, Daniel Silva",
+        "description": "Designing the new emoji picker from scratch.",
+        "duration_minutes": 9
+    },
+    {
+        "id": 4,
+        "start_time": "2022-08-30T19:26:00.000Z",
+        "end_time": "2022-08-30T19:30:00.000Z",
+        "presenter": "Dnouv",
+        "presentation_title": "Rocket.Chat for Virtual Conferences - Eventyay integration",
+        "mentors": "Sing Li & Marcos Defendi",
+        "description": "This project creates a totally open source end-to-end solution for planning, management and running of online virtual events.",
+        "duration_minutes": 4
+    },
+    {
+        "id": 5,
+        "start_time": "2022-08-30T19:31:00.000Z",
+        "end_time": "2022-08-30T19:35:00.000Z",
+        "presenter": "Evan Slack",
+        "presentation_title": "Rocket.Chat Golang SDK",
+        "mentors": "Caue Felchar & Aaron Ogle",
+        "description": "A Golang module to enable any Go packge to talk to a Rocket.Chat server with ease, making it possible to create from custom clients to bots.",
+        "duration_minutes": 4
+    },
+    {
+        "id": 6,
+        "start_time": "2022-08-30T19:36:00.000Z",
+        "end_time": "2022-08-30T19:40:00.000Z",
+        "presenter": "Irfan Asif",
+        "presentation_title": "Rocket.Chat Figma App",
+        "mentors": "Douglas Gubert, Ivan Netto & Alvaro Mello",
+        "Description": "This project brings Figma's life right into Rocket.Chat.",
+        "duration_minutes": 4
+    },
+    {
+        "id": 7,
+        "start_time": "2022-08-30T19:41:00.000Z",
+        "end_time": "2022-08-30T19:45:00.000Z",
+        "presenter": "Mustafa Hasan Khan",
+        "presentation_title": "ClickUp App for Rocket.Chat",
+        "mentors": "Douglas Gubert & Allan Ribeiro",
+        "description": "This app makes it easier for Rocket.Chat users to perform simple clickup tasks without having to leave the platform, making team communications more efficient, and team members more productive.",
+        "duration_minutes": 4
+    },
+    {
+        "id": 8,
+        "start_time": "2022-08-30T19:46:00.000Z",
+        "end_time": "2022-08-30T19:50:00.000Z",
+        "presenter": "Nishant Patel",
+        "presentation_title": "Message Forwarding (For Rocket.Chat)",
+        "mentors": "Douglas Fabris & Milton Rucks",
+        "description": "This project implements the ability to forward messages to another channel, thread, or discussion. It significantly improves the user's experience and their productivity.",
+        "duration_minutes": 4
+    },
+    {
+        "id": 9,
+        "start_time": "2022-08-30T19:51:00.000Z",
+        "end_time": "2022-08-30T19:55:00.000Z",
+        "presenter": "Samad Khan",
+        "presentation_title": "Rocket.Chat GitHub App",
+        "mentors": "Rohan Lekhwani & Sing Li",
+        "description": "This app enables the users to perform many GitHub activities right from Rocket.Chat. Including query of issues and PRs, code modification logs, and announcement of events - such as new releases, PR merges, and so on.",
+        "duration_minutes": 4
+    },
+    {
+        "id": 10,
+        "start_time": "2022-08-30T19:56:00.000Z",
+        "end_time": "2022-08-30T20:00:00.000Z",
+        "presenter": "Sangyul Cha",
+        "presentation_title": "Botpress Connector Enhancements",
+        "mentors": "Frank Dase & Duda Nogueira",
+        "description": "This project extends a existing community-contributed Botpress connector to facilitate deployment of Botpress chatbots and Omnichannel bots. Better rich UI/UX / interaction support for bots and ability to run multiple instances of multiple bots.",
+        "duration_minutes": 4
+    },
+
+    {
+        "id": 11,
+        "start_time": "2022-08-30T20:01:00.000Z",
+        "end_time": "2022-08-30T20:05:00.000Z",
+        "presenter": "Sidharth Mohanty",
+        "presentation_title": "Rocket.Chat ReactJS fullstack Component",
+        "mentors": "Rohan Lekhwani",
+        "description": "A ready-to-go easy to embed mini-chat React component. This component is configurable to use any public channel on a Rocket.Chat server.",
+        "duration_minutes": 4
+    },
+    {
+        "id": 12,
+        "start_time": "2022-08-30T20:06:00.000Z",
+        "end_time": "2022-08-30T20:10:00.000Z",
+        "presenter": "Sitaram Rathi",
+        "presentation_title": "Rocket.Chat TUI",
+        "mentors": "Aaron Ogle & Debdut Chakraborty",
+        "description": "This project brings Rocket.Chat right into your terminal. By design this is to be extremely lightweight and blazing fast for basic functions, with the only noticeable latency source being the SDK calls.",
+        "duration_minutes": 4
+    },
+    {
+        "id": 13,
+        "start_time": "2022-08-30T20:11:00.000Z",
+        "end_time": "2022-08-30T20:15:00.000Z",
+        "presenter": "Vivek Srivastava",
+        "presentation_title": "Playground for UIKit ReactJS components",
+        "mentors": "Martin Schoeler & Guilherme Gazzo",
+        "description": "A playground that allows developers to test UIKit ReactJS components and Interactions",
+        "duration_minutes": 4
+    },
+    {
+        "id": 14,
+        "start_time": "2022-08-30T20:16:00.000Z",
+        "end_time": "2022-08-30T20:20:00.000Z",
+        "presenter": "Yuqing",
+        "presentation_title": "Rocket.Chat - Teams Bridge: interop with Microsoft Teams",
+        "mentors": "Gabriel Engel, Yash Rajpal & Fábio Albuquerque",
+        "description": "This project creates a Rocket.Chat App that acts as a bridge between Rocket.Chat and Microsoft Team. Users on one system are be able to chat with the other through shared channels. Support for rich interactions including DM, emoji's, embedded graphics, shared youtube links and so on.",
+        "duration_minutes": 4
+    }
+]
+
+

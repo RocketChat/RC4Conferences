@@ -3,7 +3,7 @@ import { NavLink } from 'react-bootstrap';
 
 const RocketChatLinkButton = ({
   children,
-  href = 'https://open.rocket.chat/',
+  href = 'https://open.rocket.chat/channel/DemoDay2022',
   ...props
 }) => {
   return (

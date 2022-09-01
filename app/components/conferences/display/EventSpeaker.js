@@ -17,20 +17,8 @@ const avatarGenerate = (sn) => {
   return res;
 };
 
-export const SmEventSpeaker = ({ eid }) => {
-  const [speaker, setSpeaker] = useState(null);
+export const SmEventSpeaker = ({ eid, speaker }) => {
   const [open, setOpen] = useState({});
-
-  useEffect(async () => {
-    if (!speaker) {
-      await getSpeakers();
-    }
-  }, []);
-
-  const getSpeakers = async () => {
-    const res = await getEventSpeakers(eid);
-    setSpeaker(res.data);
-  };
 
   const handleBioOpen = (e) => {
     const tmod = e.target.id;
@@ -76,6 +64,7 @@ export const SmEventSpeaker = ({ eid }) => {
                     size="sm"
                     id={spk.id}
                     onClick={handleBioOpen}
+                    style={{cursor: "pointer"}}
                   >
                     {`Learn More>`}
                   </Button>
@@ -94,20 +83,8 @@ export const SmEventSpeaker = ({ eid }) => {
   );
 };
 
-export const MdEventSpeaker = ({ eid }) => {
-  const [speaker, setSpeaker] = useState(null);
+export const MdEventSpeaker = ({ eid, speaker }) => {
   const [open, setOpen] = useState({});
-
-  useEffect(async () => {
-    if (!speaker) {
-      await getSpeakers();
-    }
-  }, []);
-
-  const getSpeakers = async () => {
-    const res = await getEventSpeakers(eid);
-    setSpeaker(res.data);
-  };
 
   const handleBioOpen = (e) => {
     const tmod = e.target.id;
@@ -123,7 +100,7 @@ export const MdEventSpeaker = ({ eid }) => {
           return (
             <Container key={spk.id} className="mb-3">
               <Row className={styles.event_speaker_row}>
-                <Col sm={2} md={2}>
+                <Col sm={3} md={2}>
                   <div className={styles.event_speaker_avatar}>
                     <Image
                       fluid
@@ -155,6 +132,7 @@ export const MdEventSpeaker = ({ eid }) => {
                         bg="white"
                         id={spk.id}
                         onClick={handleBioOpen}
+                        style={{cursor: "pointer"}}
                       >
                         {`Learn More>`}
                       </Badge>
@@ -163,8 +141,8 @@ export const MdEventSpeaker = ({ eid }) => {
                   <Row>
                     <Col>
                       <Collapse in={open[spk.id]}>
-                        <div id="example-collapse-text">
-                          {spk.attributes["long-biography"] ||
+                        <div id="example-collapse-text" className={styles.speaker_bio_expand}>
+                          {spk.attributes["long-biography"] ? <span dangerouslySetInnerHTML={{__html: spk.attributes["long-biography"]}} /> :
                             "Hey, looks like this fellow speaker likes surprises."}
                         </div>
                       </Collapse>
