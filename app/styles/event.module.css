@@ -50,6 +50,14 @@
   margin: 0em auto;
 }
 
+@media (min-width: 768px) {
+  .event_custom_container {
+    max-width: 100%;
+  }
+}
+
+
+
 .date_icon {
   align-items: baseline;
 }
@@ -104,10 +112,19 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
+  padding: 15px;
 }
 
 .event_speaker_bio {
   font-size: smaller;
+}
+
+.speaker_bio_expand {
+  font-size: smaller;
+}
+
+.session_expand {
+  cursor: pointer;
 }
 
 @media (max-width: 576px) {
@@ -144,6 +161,12 @@
     font-size: xx-large;
   }
 }
+
+.join_modal_button {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 /* Event Show styles ends */
 
 /* Admin Dashboard style begins */
@@ -170,3 +193,109 @@
 }
 
 /* Admin Dashboard style ends */
+
+/* Conference Greenroom Style Begins */
+
+.dayofevent_wrapper {
+  display: flex;
+  height: calc(110vh);
+  background-color: #3e3030;
+  margin-bottom: -3rem;
+  flex-direction: column;
+}
+
+.dayofevent_button {
+  margin: auto;
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+}
+
+.greenroom_root {
+  width: 30vw;
+  margin-top: 15px;
+  right: 25px;
+  position: relative;
+}
+
+.greenroom_button_text {
+  font-size: small;
+}
+
+.greenroom_jitsi {
+  display: flex;
+}
+
+@media (max-width: 790px) {
+  .greenroom_jitsi {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .greenroom_root {
+    width: 90%;
+    margin-top: 15px;
+    right: 0;
+    position: relative;
+  }
+
+  .dayofevent_button {
+    margin: auto;
+    position: fixed;
+    bottom: 75px;
+    right: 25px;
+  }
+}
+
+.deviceButton {
+  position: absolute;
+}
+
+.dayofevent_collapsed_button {
+  position: absolute;
+  right: 0px;
+}
+
+/* Conference Greenroom Style Ends */
+
+/* Mainstage Style Begins */
+
+.mainstage_chattool {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+}
+
+.mainstage_chatwindow {
+  margin-top: 15px;
+  right: 25px;
+  overflow: auto;
+  margin: 1em;
+  max-height: 80vh;
+  max-width: 30vw;
+}
+
+.mainstage_root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.greenroom_chat_container {
+  overflow: auto;
+}
+
+@media (max-width: 790px) {
+  .mainstage_chatwindow {
+    height: 40vh;
+    width: 90%;
+    overflow: initial;
+    max-width: 80vw;
+  }
+  .mainstage_root {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Mainstage Style Ends */

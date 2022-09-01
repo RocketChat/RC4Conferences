@@ -9,9 +9,12 @@ import { FaRocketchat } from "react-icons/fa";
 import { getIPInfo } from "../../../lib/geoAPI";
 
 const rid = "QEevFeokh4bkpX2mJ";
-const host = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://open.rocket.chat";
-const asiaLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK0
-const otherLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK1
+const host =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://open.rocket.chat";
+const asiaLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK0;
+const otherLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK1;
 
 export default function ConfMainStage() {
   const [openChat, setOpenChat] = useState(true);
@@ -22,20 +25,21 @@ export default function ConfMainStage() {
     setOpenChat((prevState) => !prevState);
   };
 
-
-  useEffect(async () => {
-    try {
-      const res = await getIPInfo();
-      const ipInfo = res.data
-      if (ipInfo.timezone.split("/")[0] == "Asia") {
-        setStreamLink(asiaLink);
-      } else {
-        setStreamLink(otherLink);
+  useEffect(() => {
+    const fetchIPdetails = async () => {
+      try {
+        const res = await getIPInfo();
+        const ipInfo = res.data;
+        if (ipInfo.timezone.split("/")[0] == "Asia") {
+          setStreamLink(asiaLink);
+        } else {
+          setStreamLink(otherLink);
+        }
+      } catch (e) {
+        console.error("error in ip allocation switching to Asia server", e);
       }
-      
-    } catch (e) {
-      console.error("error in ip allocation switching to Asia server", e)
-    }
+    };
+    fetchIPdetails();
   }, []);
 
   return (
@@ -72,4 +76,3 @@ export default function ConfMainStage() {
     </>
   );
 }
-

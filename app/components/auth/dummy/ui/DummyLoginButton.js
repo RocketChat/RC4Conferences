@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { NoUserAvatar } from "../../NoUserAvatar";
-import { Button } from "react-bootstrap";
+import { Button, Dropdown, DropdownButton } from "react-bootstrap";
 import styles from "../styles/DummyLoginButton.module.css";
 import { useDummyAuth } from "../hooks/useDummyAuth";
 
 export default function DummyLoginButton() {
   const [isLoginUiOpen, setIsLoginUiOpen] = useState(false);
   const { user, handleLogin, handleLogout } = useDummyAuth();
+
 
   return (
     <div className={styles.authDialogWrapper}>
@@ -63,7 +64,11 @@ export default function DummyLoginButton() {
             </>
           ) : (
             <div className="d-flex flex-column align-items-center my-3">
-              <Button onClick={handleLogin}>Login</Button>
+              <DropdownButton title="Login as" >
+                  <Dropdown.Item as={"button"} onClick={() => handleLogin("admin")} eventKey="1">Admin</Dropdown.Item>
+                  {process.env.NEXT_PUBLIC_EVENT_SPK_MAIL && <Dropdown.Item as={"button"} onClick={() => handleLogin("speaker")}>Speaker</Dropdown.Item>}
+                  {process.env.NEXT_PUBLIC_EVENT_ANON_MAIL && <Dropdown.Item as={"button"} onClick={() => handleLogin("attendee")}>Attendee</Dropdown.Item>}
+              </DropdownButton>
             </div>
           )}
         </div>

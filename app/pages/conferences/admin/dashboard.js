@@ -25,28 +25,8 @@ function EventDashBoardPage() {
   );
 }
 
-export async function getServerSideProps(context) {
-  const authCookie = context.req.cookies?.event_auth;
-  const umail = context.req.cookies?.hashmail;
-  const mailres = await unsignCook({
-    hash: umail,
-  });
-  let isAdmin = false;
-  if (mailres.data.mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
-    isAdmin = await ssrVerifyAdmin({ email: mailres.data.mail });
-  }
-  if (!isAdmin) {
-    context.res.writeHead(303, { Location: "/" });
-    context.res.end();
-  }
-  if (!authCookie) {
-    return {
-      redirect: {
-        destination: "/conferences",
-        permanent: false,
-      },
-    };
-  }
+export async function getStaticProps(context) {
+
   const topNavItems = await fetchAPI("/top-nav-item");
 
   return {

@@ -4,11 +4,39 @@ A set of scalable components for communities to build, manage, and run virtual c
 <h2 align='center'>🚀 Developer lightning quick start 🚀</h2>
 <p align='center'> Development - Build - Production </p>
 
-To start the development environment simply run the following, the script would handle all process and would output error if there is any, or else you'll be good to start developing.
+1. Setup the Embedded Chat by first following the instructions [here](https://github.com/RocketChat/EmbeddedChat#setting-up-authentication) to get the Google Cloud Client ID and the Rocket Chat instance url. After getting both of them paste it in the `app/.env` with the following key name,
+```
+NEXT_PUBLIC_GOOGLE_CLIENT_ID="your google client id"
+NEXT_PUBLIC_RC_URL="your url of the RC instance"
+NEXT_PUBLIC_RC_ROOM_ID="public channel room id"
+```
+
+*The `NEXT_PUBLIC_RC_ROOM_ID` defaults to "GENERAL".
+
+**Optional Starts
+
+2. For Greenroom and Mainstage Page to work, there is a need to add some additional environment vars (`app/.env`), which are as followed.
+```
+NEXT_PUBLIC_IPINFO_TOKEN="token from ipinfo"
+NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP="rtmp url to broadcast the stream"
+NEXT_PUBLIC_SERVER_STREAM_LINK0="Asia server broadcast link"
+NEXT_PUBLIC_SERVER_STREAM_LINK1="Any other region server broadcasr link"
+``` 
+For more detail on how to get ipinfo token and server links, please read [here](./docs/components/serverStreaming/README.md)
+
+**Optional Ends 
+
+3. To start the development environment first run the following, the script would handle all process and would output error if there is any, or else you'll be good to start developing.
 ```
 sh startdevenv.sh localhost
 ```
 >Note: Please replace the "localhost" with your static IP if you are doing environment setup on your VM.
+
+3. Once the development server is launched create a dummy event by following the link in the top nav to `Admin>Create`.
+
+4. After the event is created, visit the Greenroom page since only one event is there, vist the url `/conferences/greenroom/1` and the subsequent event mainstage on `conferences/mainstage/1`
+
+(Note: In the following PR, the dummy event create would be implemented, please stay tuned.)
 
 Development Info:
 1. The Strapi admin portal would be opnened by default while starting the development setup.

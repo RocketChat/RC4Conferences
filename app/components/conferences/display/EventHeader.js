@@ -5,13 +5,17 @@ import { EventTicket } from "./EventRegisterSection";
 import { BsCalendar2Event, BsInfoCircle } from "react-icons/bs";
 import { GoLocation } from "react-icons/go";
 
-export const SmEventHeader = ({ event }) => {
+export const SmEventHeader = ({ event, error }) => {
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
 
   return (
     <div className={styles.event_banner}>
       <Image src={event.data.attributes["original-image-url"]} fluid />
-      <EventTicket tktDetail={event.included[0]} />
+      <EventTicket
+        tktDetail={event.included[0]}
+        event={event}
+        error={error}
+      />
 
       <div className={styles.event_banner_title}>
         <Container>
@@ -40,7 +44,7 @@ export const SmEventHeader = ({ event }) => {
   );
 };
 
-export const MdEventHeader = ({ event }) => {
+export const MdEventHeader = ({ event, error }) => {
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
 
   const isCalScreen = useMediaQueries(
@@ -49,14 +53,14 @@ export const MdEventHeader = ({ event }) => {
   );
   return (
     <div className={styles.event_banner}>
-      <Container>
-        <Row>
+      <Container className={styles.event_custom_container}>
+        <Row style={{background: "url(https://github.com/RocketChat/Rocket.Chat.Demo.App/raw/master/rocketchat_gsoc2022_demoday.png)", backgroundSize: "67%"}}>
           <Col fluid>
-            <Image src={event.data.attributes["original-image-url"]} fluid />
+            {/* <Image src={event.data.attributes["original-image-url"]} fluid /> */}
           </Col>
-          <Col className="mt-1" fluid>
+          <Col className="mt-1" md={5} sm={5} style={{backdropFilter: "blur(45px)"}}>
             <Row>
-              <h4>{event.data.attributes.name}</h4>
+              <h5>{event.data.attributes.name}</h5>
               <p>
                 by{" "}
                 <span style={{ color: "#d6162f" }}>
@@ -66,14 +70,18 @@ export const MdEventHeader = ({ event }) => {
             </Row>
 
             <Stack gap={3}>
-              <EventDate eventData={event.data} />
+              <MdEventDate eventData={event.data} />
               <MdEventLocation eventData={event.data} />
             </Stack>
           </Col>
         </Row>
       </Container>
 
-      <EventTicket tktDetail={event.included[0]} />
+      <EventTicket
+        tktDetail={event.included[0]}
+        event={event}
+        error={error}
+      />
     </div>
   );
 };
@@ -103,6 +111,32 @@ export const EventDate = ({ eventData }) => {
         </Col>
       </Row>
     </Container>
+  );
+};
+
+export const MdEventDate = ({ eventData }) => {
+  let start = eventData.attributes["starts-at"];
+  let end = eventData.attributes["ends-at"];
+  start = `${new Date(start).toDateString()} ${new Date(
+    start
+  ).toLocaleTimeString()}`;
+  end = `${new Date(end).toDateString()} ${new Date(end).toLocaleTimeString()}`;
+
+  return (
+      <Row className={styles.date_icon}>
+        <Col xs={1}>
+          <BsCalendar2Event />
+        </Col>
+        <Col>
+          <div className={styles.event_date}>
+            <h6>
+              Date and Time ({Intl.DateTimeFormat().resolvedOptions().timeZone})
+            </h6>
+            <span>{start + " - "}</span>
+            <span>{end}</span>
+          </div>
+        </Col>
+      </Row>
   );
 };
 
@@ -143,8 +177,7 @@ const MdEventLocation = ({ eventData }) => {
   const location = eventData.attributes["location-name"];
 
   return (
-    <Container className="mb-5">
-      <Row>
+      <Row className="mb-5">
         <Col xs={1}>
           <GoLocation />
         </Col>
@@ -154,6 +187,5 @@ const MdEventLocation = ({ eventData }) => {
           </div>
         </Col>
       </Row>
-    </Container>
   );
 };
