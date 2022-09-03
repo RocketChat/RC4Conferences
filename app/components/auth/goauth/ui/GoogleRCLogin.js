@@ -92,10 +92,6 @@ const AccessModal = ({handleLogin, handleResend, isModalOpen, setIsModalOpen ,ac
 
   return (
     <>
-      <Button variant="primary" onClick={handleModalToggle}>
-        Launch demo modal
-      </Button>
-
       <Modal show={isModalOpen} onHide={handleModalToggle}>
         <Modal.Header closeButton>
           <Modal.Title>Two-factor authentication via {method}</Modal.Title>
