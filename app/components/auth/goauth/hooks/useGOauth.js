@@ -7,9 +7,17 @@ import { useGoogleLogin } from "../useGoogleLogin";
 
 export const useRCGoogleAuth = () => {
   const [user, setUser] = useState({});
-  const {signIn} = useGoogleLogin(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID)
-  const {signOut} = useGoogleLogin()
-  const RCInstance = new RocketChatInstance(process.env.NEXT_PUBLIC_RC_URL, process.env.NEXT_PUBLIC_RC_ROOM_ID);
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [userOrEmail, setUserOrEmail] = useState(null);
+  const [method, setMethod] = useState(undefined);
+
+  const { signIn } = useGoogleLogin(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
+  const { signOut } = useGoogleLogin();
+
+  const RCInstance = new RocketChatInstance(
+    process.env.NEXT_PUBLIC_RC_URL,
+    process.env.NEXT_PUBLIC_RC_ROOM_ID
+  );
 
   useEffect(() => {
     const isStoredInSession = JSON.parse(sessionStorage.getItem("grc_user"));
@@ -18,25 +26,33 @@ export const useRCGoogleAuth = () => {
     }
   }, []);
 
-  const handleLogin = async (role) => {
+  const handleLogin = async (acsCode) => {
     try {
+      const res = await RCInstance.googleSSOLogin(signIn, acsCode);
+      if (res?.me) {
+        const hashmail = await signCook({ mail: res.me.email });
+        sessionStorage.setItem("grc_user", JSON.stringify(res.me));
+        setUser(res.me);
 
-      const res = await RCInstance.googleSSOLogin(signIn)
-      const hashmail = await signCook({ mail: res.me.email });
-            sessionStorage.setItem("grc_user", JSON.stringify(res.me));
-
-      setUser(res.me);
-
-      Cookies.set("hashmail", hashmail.data.hash);
-
+        Cookies.set("hashmail", hashmail.data.hash);
+      }
+      if (res.error === "totp-required") {
+        setUserOrEmail(res.details.emailOrUsername);
+        setIsModalOpen(true);
+        if (res.details.availableMethods.length > 1) {
+          setMethod("totp");
+        } else {
+          setMethod(res.details.availableMethods[0]);
+        }
+      }
     } catch (e) {
-      console.error("An error occurred while setting up user", e);
+      console.error("A error occurred while setting up user", e);
     }
   };
 
   const handleLogout = async () => {
     setUser({});
-    const res = await RCInstance.logout(signOut)
+    await RCInstance.logout(signOut);
 
     sessionStorage.removeItem("grc_user");
     Cookies.remove("hashmail");
@@ -44,9 +60,19 @@ export const useRCGoogleAuth = () => {
     // Router.reload();
   };
 
+  const handleResend = async () => {
+    const res = await RCInstance.resend2FA(userOrEmail)
+    return res
+  }
+
   return {
     user,
     handleLogin,
     handleLogout,
+    handleResend,
+    isModalOpen,
+    setIsModalOpen,
+    method,
+    userOrEmail
   };
 };
