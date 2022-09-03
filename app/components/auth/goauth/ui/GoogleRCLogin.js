@@ -64,7 +64,7 @@ export default function RCGoogleLoginButton() {
             </>
           ) : (
             <div className="d-flex flex-column align-items-center my-3">
-              <Button onClick={handleLogin}>Admin</Button>
+              <Button onClick={handleLogin}>Log In</Button>
             </div>
           )}
         </div>
