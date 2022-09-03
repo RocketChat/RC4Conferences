@@ -7,7 +7,7 @@ import { useGoogleLogin } from "../useGoogleLogin";
 
 export const useRCGoogleAuth = () => {
   const [user, setUser] = useState({});
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [userOrEmail, setUserOrEmail] = useState(null);
   const [method, setMethod] = useState(undefined);
 
