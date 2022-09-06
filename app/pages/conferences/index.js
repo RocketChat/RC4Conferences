@@ -54,7 +54,7 @@ export async function getServerSideProps(context) {
   const imgUrl = res.url;
   let passcode = null;
   let isAdmin = false
-  if (mailres.data.mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
+  if (mailres.mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
     passcode = await generatePassword(mailres.data.mail);
     isAdmin = await ssrVerifyAdmin({email: mailres.data.mail})
   }
