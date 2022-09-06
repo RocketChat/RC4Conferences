@@ -27,7 +27,7 @@ export const EventSpeakerStage = ({ spkdata, eventdata, eventIdentifier }) => {
         const hashmail = Cookies.get("hashmail");
 
         const res = await unsignCook({ hash: hashmail });
-        const mail = res.data.mail;
+        const mail = res.mail;
 
         if (mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
           const isAdminRes = await ssrVerifyAdmin({ email: mail });

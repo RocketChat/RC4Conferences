@@ -1,7 +1,7 @@
 import { NextResponse, URLPattern } from "next/server";
 import crypto from "crypto-js";
 
-import { ssrVerifyAdmin } from "./components/conferences/auth/AuthSuperProfileHelper";
+import { ssrVerifyAdmin, ssrVerifySpeaker } from "./components/conferences/auth/AuthSuperProfileHelper";
 import { verifySpeaker } from "./components/conferences/dayOfEvent/helper";
 
 const verifySignedInUser = (mail) => {
@@ -13,7 +13,7 @@ const verifySignedInUser = (mail) => {
     return;
 }
 
-const verifyGreenroomAccess = async (mail, eventIdentifier) => {
+const verifyGreenroomAccess = async (mail, eventIdentifier, rolecookie) => {
   let isAdmin = false
   if (mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
     isAdmin = await ssrVerifyAdmin({ email: mail });
@@ -25,10 +25,12 @@ const verifyGreenroomAccess = async (mail, eventIdentifier) => {
     mail
   );
 
+  const {hashRole, isSuperSpeaker} = await ssrVerifySpeaker({email: mail}, rolecookie)
+
   if (!isAdmin && !isSpeaker) {
-    return false
+    return {hashRole, hasAccess: false}
   }
-  return true;
+  return {hashRole, hasAccess: true};
 }
 
 const verifyAdminAccess = async (mail) => {
@@ -68,6 +70,7 @@ const params = (url) => {
 export async function middleware(request) {
   const umail = request.cookies.get("hashmail")
   const oesCookie = request.cookies.get("event_auth")
+  const rolecookie = request.cookies.get("hashrole")
 
   if (!umail) {
     return NextResponse.redirect(new URL("/", request.url))
@@ -109,12 +112,19 @@ export async function middleware(request) {
   }
 
   if (request.nextUrl.pathname.startsWith("/conferences/greenroom")) {
+    const response = NextResponse.next()
+
     verifySignedInUser(decryptedMail)
-    const hasAccess = await verifyGreenroomAccess(decryptedMail, eventIdentifier)
+    let now = new Date()
+    now.setHours(now.getHours()+1)
+    
+    const {hashRole, hasAccess} = await verifyGreenroomAccess(decryptedMail, eventIdentifier, rolecookie)
     if (!hasAccess) {
       return NextResponse.redirect(new URL(`/conferences/c/${eventIdentifier}?error=0`, request.url))
     }
-    return NextResponse.next();
+    
+    response.cookies.set("hashrole", hashRole?.hash, {expires: now})
+    return response
   }
 
   return NextResponse.next();
