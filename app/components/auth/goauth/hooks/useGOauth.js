@@ -57,6 +57,7 @@ export const useRCGoogleAuth = () => {
     sessionStorage.removeItem("grc_user");
     Cookies.remove("hashmail");
     Cookies.remove("event_auth");
+    Cookies.remove("hashrole")
     // Router.reload();
   };
 
