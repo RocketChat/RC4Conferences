@@ -149,7 +149,7 @@ export const addEventSpeakers = async (data, auth) => {
     Authorization: `JWT ${auth}`,
     "Content-Type": "application/vnd.api+json",
   };
-  const res = await axios.post(`${eventUrl}/v1/speakers`, data, {
+  const res = await axios.post(`${eventUrl}/v1/speakers?sort=id`, data, {
     headers: headers,
   });
   return res;
