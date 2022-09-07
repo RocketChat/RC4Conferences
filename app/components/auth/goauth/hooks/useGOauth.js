@@ -58,7 +58,7 @@ export const useRCGoogleAuth = () => {
     Cookies.remove("hashmail");
     Cookies.remove("event_auth");
     Cookies.remove("hashrole")
-    // Router.reload();
+    Router.reload();
   };
 
   const handleResend = async () => {
