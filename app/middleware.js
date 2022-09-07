@@ -27,7 +27,7 @@ const verifyGreenroomAccess = async (mail, eventIdentifier, rolecookie) => {
 
   const {hashRole, isSuperSpeaker} = await ssrVerifySpeaker({email: mail}, rolecookie)
 
-  if (!isAdmin && !isSpeaker) {
+  if (!isAdmin && !isSpeaker && !isSuperSpeaker) {
     return {hashRole, hasAccess: false}
   }
   return {hashRole, hasAccess: true};
