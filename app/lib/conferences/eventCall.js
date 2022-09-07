@@ -137,7 +137,7 @@ export const getEventSpeakers = async (eid, auth) => {
     Accept: "application/vnd.api+json",
     Authorization: `JWT ${auth}`,
   };
-  const res = await fetch(`${eventUrl}/v1/events/${eid}/speakers`, {
+  const res = await fetch(`${eventUrl}/v1/events/${eid}/speakers?sort=id`, {
     headers: headers,
   });
   return res.json();
@@ -149,7 +149,7 @@ export const addEventSpeakers = async (data, auth) => {
     Authorization: `JWT ${auth}`,
     "Content-Type": "application/vnd.api+json",
   };
-  const res = await axios.post(`${eventUrl}/v1/speakers?sort=id`, data, {
+  const res = await axios.post(`${eventUrl}/v1/speakers`, data, {
     headers: headers,
   });
   return res;
