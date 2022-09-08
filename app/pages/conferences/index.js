@@ -55,8 +55,8 @@ export async function getServerSideProps(context) {
   let passcode = null;
   let isAdmin = false
   if (mailres.mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
-    passcode = await generatePassword(mailres.data.mail);
-    isAdmin = await ssrVerifyAdmin({email: mailres.data.mail})
+    passcode = await generatePassword(mailres.mail);
+    isAdmin = await ssrVerifyAdmin({email: mailres.mail})
   }
   
   if (!isAdmin) {
