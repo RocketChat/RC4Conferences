@@ -154,7 +154,7 @@ const JoinModal = ({
         const hashmail = Cookies.get("hashmail");
 
         const res = await unsignCook({ hash: hashmail });
-        const mail = res.data.mail;
+        const mail = res.mail;
 
         const emailRegex =
           /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;

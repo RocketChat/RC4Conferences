@@ -7,6 +7,7 @@ import RocketChatLinkButton from "./rocketchatlinkbutton";
 import Cookies from "js-cookie";
 import Link from "next/link";
 import { DummyLoginButton } from "./auth/dummy";
+import RCGoogleLoginButton from "./auth/goauth/ui/GoogleRCLogin";
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -117,11 +118,12 @@ export default function Menubar(props) {
           )}
         </div>
         <div className="mx-2">
-          {hasAllRequiredCreds ? (
+          {/* {hasAllRequiredCreds ? (
             <RocketChatAuthMenuButton />
           ) : (
             <DummyLoginButton />
-          )}
+          )} */}
+          <RCGoogleLoginButton />
         </div>
       </Navbar>
     </Container>

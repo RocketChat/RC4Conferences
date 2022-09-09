@@ -2,15 +2,28 @@ import { useEffect, useState } from "react";
 import {
   Badge,
   Button,
+  ButtonGroup,
   Col,
   Collapse,
   Container,
   Image,
+  OverlayTrigger,
   Row,
+  Tooltip,
 } from "react-bootstrap";
 import { getEventSpeakers } from "../../../lib/conferences/eventCall";
 import styles from "../../../styles/event.module.css";
 import { useMediaQuery } from "@rocket.chat/fuselage-hooks";
+import { BiLink } from "react-icons/bi";
+import {
+  AiFillMessage,
+  AiOutlineMessage,
+  AiTwotoneMessage,
+} from "react-icons/ai";
+import { TbMessageShare, TiContacts } from "react-icons/ti";
+import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import { FiMail } from "react-icons/fi";
+import { BsTwitter } from "react-icons/bs";
 
 const avatarGenerate = (sn) => {
   const res = `https://ui-avatars.com/api/?name=${sn}&background=random&size=1080`;
@@ -19,6 +32,36 @@ const avatarGenerate = (sn) => {
 
 export const SmEventSpeaker = ({ eid, speaker }) => {
   const [open, setOpen] = useState({});
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      <Container>
+        <Row>
+          <ButtonGroup>
+            {props.attributes.github && (
+              <Button variant="link" href={props.attributes.github}>
+                <FaGithub />
+              </Button>
+            )}
+            {props.attributes.email && (
+              <Button variant="link" href={`mailto:${props.attributes.email}`}>
+                <FiMail />
+              </Button>
+            )}
+            {props.attributes.twitter && (
+              <Button variant="link" href={props.attributes.twitter}>
+                <FaTwitter />
+              </Button>
+            )}
+            {props.attributes.linkedin && (
+              <Button variant="link" href={props.attributes.linkedin}>
+                <FaLinkedin />
+              </Button>
+            )}
+          </ButtonGroup>
+        </Row>
+      </Container>
+    </Tooltip>
+  );
 
   const handleBioOpen = (e) => {
     const tmod = e.target.id;
@@ -48,6 +91,15 @@ export const SmEventSpeaker = ({ eid, speaker }) => {
               <Row className={styles.speaker_intro}>
                 <div className={styles.event_speaker_name}>
                   {spk.attributes.name}
+                  <OverlayTrigger
+                    placement="top"
+                    delay={{ show: 250, hide: 400 }}
+                    overlay={renderTooltip(spk)}
+                  >
+                    <Button size="sm" variant="link">
+                      <TiContacts />
+                    </Button>
+                  </OverlayTrigger>
                 </div>
                 <div className={styles.event_speaker_title}>
                   {spk.attributes.position}
@@ -64,7 +116,7 @@ export const SmEventSpeaker = ({ eid, speaker }) => {
                     size="sm"
                     id={spk.id}
                     onClick={handleBioOpen}
-                    style={{cursor: "pointer"}}
+                    style={{ cursor: "pointer" }}
                   >
                     {`Learn More>`}
                   </Button>
@@ -85,6 +137,36 @@ export const SmEventSpeaker = ({ eid, speaker }) => {
 
 export const MdEventSpeaker = ({ eid, speaker }) => {
   const [open, setOpen] = useState({});
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      <Container>
+        <Row>
+          <ButtonGroup>
+            {props.attributes.github && (
+              <Button variant="link" href={props.attributes.github}>
+                <FaGithub />
+              </Button>
+            )}
+            {props.attributes.email && (
+              <Button variant="link" href={`mailto:${props.attributes.email}`}>
+                <FiMail />
+              </Button>
+            )}
+            {props.attributes.twitter && (
+              <Button variant="link" href={props.attributes.twitter}>
+                <FaTwitter />
+              </Button>
+            )}
+            {props.attributes.linkedin && (
+              <Button variant="link" href={props.attributes.linkedin}>
+                <FaLinkedin />
+              </Button>
+            )}
+          </ButtonGroup>
+        </Row>
+      </Container>
+    </Tooltip>
+  );
 
   const handleBioOpen = (e) => {
     const tmod = e.target.id;
@@ -118,6 +200,15 @@ export const MdEventSpeaker = ({ eid, speaker }) => {
                     <Row className={styles.speaker_intro}>
                       <Col md="auto" className={styles.event_speaker_name}>
                         {spk.attributes.name}
+                        <OverlayTrigger
+                          placement="top"
+                          delay={{ show: 250, hide: 1000 }}
+                          overlay={renderTooltip(spk)}
+                        >
+                          <Button size="sm" variant="link">
+                            <TiContacts size={"20"} />
+                          </Button>
+                        </OverlayTrigger>
                       </Col>
                       <Col md="auto" className={styles.event_speaker_title}>
                         {spk.attributes.position}
@@ -132,7 +223,7 @@ export const MdEventSpeaker = ({ eid, speaker }) => {
                         bg="white"
                         id={spk.id}
                         onClick={handleBioOpen}
-                        style={{cursor: "pointer"}}
+                        style={{ cursor: "pointer" }}
                       >
                         {`Learn More>`}
                       </Badge>
@@ -141,9 +232,19 @@ export const MdEventSpeaker = ({ eid, speaker }) => {
                   <Row>
                     <Col>
                       <Collapse in={open[spk.id]}>
-                        <div id="example-collapse-text" className={styles.speaker_bio_expand}>
-                          {spk.attributes["long-biography"] ? <span dangerouslySetInnerHTML={{__html: spk.attributes["long-biography"]}} /> :
-                            "Hey, looks like this fellow speaker likes surprises."}
+                        <div
+                          id="example-collapse-text"
+                          className={styles.speaker_bio_expand}
+                        >
+                          {spk.attributes["long-biography"] ? (
+                            <span
+                              dangerouslySetInnerHTML={{
+                                __html: spk.attributes["long-biography"],
+                              }}
+                            />
+                          ) : (
+                            "Hey, looks like this fellow speaker likes surprises."
+                          )}
                         </div>
                       </Collapse>
                     </Col>
