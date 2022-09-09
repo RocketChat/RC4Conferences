@@ -21,6 +21,7 @@ import { MdEventHeader, SmEventHeader } from "./EventHeader";
 import Cookies from "js-cookie";
 import { unsignCook } from "../../../lib/conferences/eventCall";
 import { BiChevronDown, BiExpand } from "react-icons/bi";
+import { BsYoutube } from "react-icons/bs";
 
 export const EventShow = ({ event, error, speaker, prsession }) => {
   const [key, setKey] = useState("home");
@@ -107,7 +108,6 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
     duration_minutes: "Duration Minutes",
   };
 
-
   const retHours = (tm) => {
     const tmToDate = new Date(tm);
     return tmToDate.toLocaleTimeString([], {
@@ -129,7 +129,7 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
         <thead>
           <tr>
             <th>#</th>
-            <th></th>
+            <th>View</th>
             {Object.values(helperHead).map((hitem, ind) => {
               return <th key={ind}>{hitem}</th>;
             })}
@@ -153,9 +153,9 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
                       </Badge>
                     </td>
                     <td>
-                      <Badge pill bg="warning">
-                        {" "}
-                      </Badge>
+                      <Button variant="link" target="_blank" href={`${sess.attributes.youtube}`}>
+                        <BsYoutube color="red" size={"25"} href={`${sess.attributes.youtube}`}/>
+                      </Button>
                     </td>
                     <td>
                       {retHours(sess.attributes.start_time)} -{" "}
