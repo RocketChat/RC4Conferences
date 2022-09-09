@@ -80,7 +80,8 @@ module.exports = async () => {
             presentation_title: session.presentation_title,
             duration_minutes: session.duration_minutes,
             mentor: session.mentors,
-            description: session.description
+            description: session.description,
+            youtube: session.youtube
           },
         });
       } else {
@@ -92,7 +93,8 @@ module.exports = async () => {
             presentation_title: session.presentation_title,
             duration_minutes: session.duration_minutes,
             mentor: session.mentors,
-            description: session.description
+            description: session.description,
+            youtube: session.youtube
           },
         });
       }
