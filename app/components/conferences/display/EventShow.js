@@ -18,14 +18,21 @@ import styles from "../../../styles/event.module.css";
 import { MdEventSpeaker, SmEventSpeaker } from "./EventSpeaker";
 import { useMediaQuery } from "@rocket.chat/fuselage-hooks";
 import { MdEventHeader, SmEventHeader } from "./EventHeader";
-import Cookies from "js-cookie";
-import { unsignCook } from "../../../lib/conferences/eventCall";
-import { BiChevronDown, BiExpand } from "react-icons/bi";
+
 import { BsYoutube } from "react-icons/bs";
 
 export const EventShow = ({ event, error, speaker, prsession }) => {
+  let urlHash = ""
+
   const [key, setKey] = useState("home");
   const [toOpen, setToOpen] = useState({});
+
+  const helperTabOptions = ["home", "sessions", "speakers"]
+  useEffect(() => {
+    const rawHash = window.location.hash
+    urlHash = rawHash.substring(1)
+    if (helperTabOptions.includes(urlHash)) setKey(urlHash)
+  }, [])
 
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
 
