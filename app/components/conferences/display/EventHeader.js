@@ -25,7 +25,7 @@ export const SmEventHeader = ({ event, error }) => {
               <p>
                 by{" "}
                 <span style={{ color: "#d6162f" }}>
-                  {event.data.attributes["owner-name"]}
+                  {event.data.attributes["owner-name"] || "Dnouv"}
                 </span>
               </p>
             </Col>
@@ -64,7 +64,7 @@ export const MdEventHeader = ({ event, error }) => {
               <p>
                 by{" "}
                 <span style={{ color: "#d6162f" }}>
-                  {event.data.attributes["owner-name"]}
+                  {event.data.attributes["owner-name"] || "Dnouv"}
                 </span>
               </p>
             </Row>
