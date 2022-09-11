@@ -40,6 +40,10 @@
     },
     "description": {
       "type": "text"
+    },
+    "youtube": {
+      "type": "string",
+      "default": "https://www.youtube.com/watch?v=UkPzcJ20aJM&ab_channel=Rocket.Chat"
     }
   }
 }
