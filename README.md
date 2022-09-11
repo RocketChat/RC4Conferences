@@ -33,6 +33,12 @@ For more detail on how to get ipinfo token and server links, please read [here](
 
 **Optional Ends
 
+Once all the environment variables are set run the following script to start the NextJS frontend.
+```
+sh startNext.sh localhost
+```
+>Note: Please replace the "localhost" with your static IP if you are doing environment setup on your VM.
+
 4. Once the development server is launched create a dummy event by following the link in the top nav to `Admin>Create`.
 
 5. After the event is created, visit the Greenroom page since only one event is there, vist the url `/conferences/greenroom/1` and the subsequent event mainstage on `conferences/mainstage/1`
