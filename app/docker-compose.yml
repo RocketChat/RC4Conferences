@@ -3,8 +3,8 @@ services:
     rc4conf:
         image: next/next-frontend
         build:
-          context: ./
-          dockerfile: ./Dockerfile
+          context: .
+          dockerfile: Dockerfile
           network: oesnet
         container_name: rc4conf
         restart: unless-stopped
