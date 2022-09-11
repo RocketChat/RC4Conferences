@@ -10,7 +10,7 @@ if [ -e $ALREADY_INITIALIZED ] && [ ! -z $FAUNA_CONTAINER_ID ]; then
     exit 0
 fi
 
-docker-compose up -d
+docker-compose -f docker-compose-dev.yml up -d
 echo "Waiting $waittime seconds for container to get shipped..."
 sleep $waittime
 
@@ -26,7 +26,7 @@ else
     docker exec -it faunadb /bin/sh  /var/log/faunadb/initialize.sh $1
     if [ -f log/dbkey ] && [ ! -f log/init_key_flag ]; then
         echo "Copying over secrets to ../app/.env"
-        printf '\nNEXT_PUBLIC_FAUNA_SECRET=' | cat - ./log/dbkey >> ../app/.env &&
+        printf '\nNEXT_PUBLIC_FAUNA_SECRET=' | cat - ./log/dbkey >> ../app/.env
         printf '\nNEXT_PUBLIC_FAUNA_DOMAIN'="http://$1:8084/graphql" >> ../app/.env
         touch $DBF &&
         echo "-- All set, superprofile launch 🚀"

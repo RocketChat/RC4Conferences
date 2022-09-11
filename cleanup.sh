@@ -1,6 +1,5 @@
 OES_CONTAINER_ID=$( docker ps -q -f name=opev-web )
 FAUNA_CONTAINER_ID=$( docker ps -q -f name=faunadb )
-
 echo "--Stopping the Open Event server--"
 
 if [ ! -z $OES_CONTAINER_ID ]; then
