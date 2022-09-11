@@ -106,9 +106,10 @@ const InNav = ({ brand, price, handleJoin, containerRef }) => {
           </Badge>
         </Navbar.Brand>
         <Nav className="me-auto"></Nav>
-        <Link href={"https://bbb.rocket.chat/b/deb-ped-v5x-mp5"}>
+        {/* <Link href={"https://bbb.rocket.chat/b/deb-ped-v5x-mp5"}>
         <Button>Join</Button>
-        </Link>
+        </Link> */}
+        <Button onClick={handleJoin}>Join</Button>
       </Container>
     </Navbar>
   );
@@ -125,23 +126,16 @@ const TopNav = ({ brand, price, handleJoin }) => {
           </Badge>
         </Navbar.Brand>
         <Nav className="me-auto"></Nav>
-        <Link href={"https://bbb.rocket.chat/b/deb-ped-v5x-mp5"}>
+        {/* <Link href={"https://bbb.rocket.chat/b/deb-ped-v5x-mp5"}>
         <Button>Join</Button>
-        </Link>
-        {/* <Button onClick={handleJoin}>Join</Button> */}
+        </Link> */}
+        <Button onClick={handleJoin}>Join</Button>
       </Container>
     </Navbar>
   );
 };
 
-const JoinModal = ({
-  open,
-  handleClose,
-  event,
-  alertOp,
-  setAlertOp,
-  err,
-}) => {
+const JoinModal = ({ open, handleClose, event, alertOp, setAlertOp, err }) => {
   const eventName = event?.data?.attributes.name;
   const eventId = event?.data?.id;
   const router = useRouter();
@@ -177,19 +171,13 @@ const JoinModal = ({
       <Modal.Body>
         <div className={styles.join_modal_button}>
           <Link href={`/conferences/greenroom/${eventId}`}>
-            <Button
-              name={"greenroom"}
-              disabled={!isSignedIn}
-            >
+            <Button name={"greenroom"} disabled={!isSignedIn}>
               Join as a Speaker
             </Button>
           </Link>
           <br />
           <Link href={`/conferences/mainstage/${eventId}`} replace>
-            <Button
-              disabled={!isSignedIn}
-              name={"mainstage"}
-            >
+            <Button disabled={!isSignedIn} name={"mainstage"}>
               Join as a Attendee
             </Button>
           </Link>
