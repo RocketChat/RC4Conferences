@@ -18,13 +18,21 @@ import styles from "../../../styles/event.module.css";
 import { MdEventSpeaker, SmEventSpeaker } from "./EventSpeaker";
 import { useMediaQuery } from "@rocket.chat/fuselage-hooks";
 import { MdEventHeader, SmEventHeader } from "./EventHeader";
-import Cookies from "js-cookie";
-import { unsignCook } from "../../../lib/conferences/eventCall";
-import { BiChevronDown, BiExpand } from "react-icons/bi";
+
+import { BsYoutube } from "react-icons/bs";
 
 export const EventShow = ({ event, error, speaker, prsession }) => {
+  let urlHash = ""
+
   const [key, setKey] = useState("home");
   const [toOpen, setToOpen] = useState({});
+
+  const helperTabOptions = ["home", "sessions", "speakers"]
+  useEffect(() => {
+    const rawHash = window.location.hash
+    urlHash = rawHash.substring(1)
+    if (helperTabOptions.includes(urlHash)) setKey(urlHash)
+  }, [])
 
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
 
@@ -107,7 +115,6 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
     duration_minutes: "Duration Minutes",
   };
 
-
   const retHours = (tm) => {
     const tmToDate = new Date(tm);
     return tmToDate.toLocaleTimeString([], {
@@ -129,7 +136,7 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
         <thead>
           <tr>
             <th>#</th>
-            <th></th>
+            <th>View</th>
             {Object.values(helperHead).map((hitem, ind) => {
               return <th key={ind}>{hitem}</th>;
             })}
@@ -153,9 +160,9 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
                       </Badge>
                     </td>
                     <td>
-                      <Badge pill bg="warning">
-                        {" "}
-                      </Badge>
+                      <Button variant="link" target="_blank" href={`${sess.attributes.youtube}`}>
+                        <BsYoutube color="red" size={"25"} href={`${sess.attributes.youtube}`}/>
+                      </Button>
                     </td>
                     <td>
                       {retHours(sess.attributes.start_time)} -{" "}
