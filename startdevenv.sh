@@ -1,7 +1,6 @@
 #!/bin/sh
 
 STRAPI_PORT=1337
-NEXTJS_PORT=3000
 counter=0
 watchdog=5
 watchtimer=0
@@ -10,7 +9,8 @@ trap_ctrlc ()
 {
     # perform cleanup here
     echo "--performing clean up--"
-    cd ..
+    chmod +x cleanup.sh
+    ls
     sh cleanup.sh
  
     # exit shell script with error code 2
@@ -35,22 +35,6 @@ check_and_set_strapi_port() {
         exit 1
     else
         echo "🚀 An empty port found for Strapi🚀"
-    fi
-}
-
-check_and_set_next_port() {
-    if lsof -Pi :$NEXTJS_PORT -sTCP:LISTEN -t >/dev/null && [ "$counter" -lt $watchdog ]; then
-        echo "NextJS port $NEXTJS_PORT already occupied, changing to the next consecutive port"
-        NEXTJS_PORT=$((NEXTJS_PORT+1))
-        counter=$((counter+1))
-        check_and_set_next_port
-    elif [ "$counter" -ge $watchdog ]; then
-        echo "\033[31mUnable to allocate an empty port for NextJS, the last tried port was $NEXTJS_PORT\e[0m"
-        echo "Please either change the $NEXTJS_PORT to an other random number/unused port number"
-        echo "After changes re-run the script"
-        exit 1
-    else
-        echo "🚀 An empty port found for NextJS 🚀"
     fi
 }
 
@@ -92,16 +76,12 @@ fi
 
 check_and_set_strapi_port
 counter=0
-check_and_set_next_port
-
-export NEXT_PUBLIC_PORT=$NEXTJS_PORT
 
 printf '\nNEXT_PUBLIC_STRAPI_API_URL'="http://$1:$STRAPI_PORT" >> app/.env
 printf '\nNEXT_PUBLIC_EVENT_SPK_MAIL'="dhgysfmedomihkzkwv@kvhrr.com" >> app/.env
 printf '\nNEXT_PUBLIC_EVENT_ANON_MAIL'="anon@pikapii.com" >> app/.env
-printf '\nNEXT_PUBLIC_API_URL'="http://$1:$NEXTJS_PORT" >> app/.env
 
-sh strapi.sh $STRAPI_PORT &
+sh strapi.sh $STRAPI_PORT
 
 cd ..
 
