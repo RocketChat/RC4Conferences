@@ -7,9 +7,9 @@ A set of scalable components for communities to build, manage, and run virtual c
 
 1. To start the development environment first run the following, the script would handle all process and would output error if there are any.
 ```
-sh startdevenv.sh localhost
+sh startdevenv.sh 127.0.0.1
 ```
->Note: Please replace the "localhost" with your static IP if you are doing environment setup on your VM.
+>Note: Please replace the "127.0.0.1"(localhost) with your static IP if you are doing environment setup on your VM.
 
 2. Setup the Embedded Chat by first following the instructions [here](https://github.com/RocketChat/EmbeddedChat#setting-up-authentication) to get the Google Cloud Client ID and the Rocket Chat instance url. After getting both of them paste it in the `app/.env` with the following key name,
 ```
@@ -35,9 +35,9 @@ For more detail on how to get ipinfo token and server links, please read [here](
 
 Once all the environment variables are set run the following script to start the NextJS frontend.
 ```
-sh startNext.sh localhost
+sh startNext.sh 127.0.0.1
 ```
->Note: Please replace the "localhost" with your static IP if you are doing environment setup on your VM.
+>Note: Please replace the "127.0.0.1"(localhost) with your static IP if you are doing environment setup on your VM.
 
 4. Once the development server is launched create a dummy event by following the link in the top nav to `Admin>Create`.
 
