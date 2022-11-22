@@ -36,6 +36,8 @@ For more detail on how to get ipinfo token and server links, please read [here](
 Once all the environment variables are set run the following script to start the NextJS frontend.
 ```
 sh startNext.sh localhost
+
+sh startNextGp.sh localhost (Only for Gitpod Users)
 ```
 >Note: Please replace the "localhost" with your static IP if you are doing environment setup on your VM.
 
