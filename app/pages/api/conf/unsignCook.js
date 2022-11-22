@@ -3,7 +3,10 @@ import crypto from "crypto-js";
 export default function handler(req, res) {
     if (req.method === 'POST') {
       let hashObject = undefined
-      if (req.body) {
+      if (typeof req.body == Object) {
+        hashObject = req.body
+      }
+      if (typeof req.body == "string") {
         hashObject = JSON.parse(req.body)
       }
       if (!hashObject?.hash) {
