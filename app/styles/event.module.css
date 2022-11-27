@@ -72,11 +72,17 @@
 
 .event_desc {
   margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .event_logo {
   display: flex;
   justify-content: space-around;
+  margin-bottom: 1em;
+}
+
+.event_organizer_header {
+  text-align: center;
 }
 
 .event_nav_header {
