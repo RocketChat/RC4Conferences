@@ -17,9 +17,9 @@ services:
 
 networks:
   spnet:
-    external: yes
+    external: true
   oesnet:
-    external: yes
+    external: true
   mainnet:
-    external: yes
+    external: true
   
