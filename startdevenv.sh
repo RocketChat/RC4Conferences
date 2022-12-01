@@ -61,12 +61,12 @@ else
     exit 1
 fi
 
-sh startBackend.sh $1
+sh startBackend.sh $1 $2
 
 while [ $? -ne 0 ] && [ $watchtimer -lt 5 ]
 do
     watchtimer=$((watchtimer+1))
-    sh startBackend.sh
+    sh startBackend.sh $1 $2
 done
 
 if [ $? -eq 1 ];then
