@@ -5,11 +5,11 @@ INIT_DB=open-event-server/seed/init_db
 
 echo "--Starting the Open Event server--"
 cd open-event-server
-sh startOes.sh $1
+sh startOes.sh $1 $2
 
 echo "--Starting Superprofile Backend--"
 cd ../superprofile
-sh initFaunaOnce.sh $1
+sh initFaunaOnce.sh $1 $2
 cd ..
 
 OES_CONTAINER_ID=$( docker ps -q -f name=opev-web )
