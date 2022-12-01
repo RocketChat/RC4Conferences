@@ -7,10 +7,10 @@ echo "--Starting the Open Event server--"
 cd open-event-server
 sh startOes.sh $1
 
-# echo "--Starting Superprofile Backend--"
-# cd ../superprofile
-# sh initFaunaOnce.sh $1
-# cd ..
+echo "--Starting Superprofile Backend--"
+cd ../superprofile
+sh initFaunaOnce.sh $1
+cd ..
 
 OES_CONTAINER_ID=$( docker ps -q -f name=opev-web )
 FAUNA_CONTAINER_ID=$( docker ps -q -f name=faunadb )
