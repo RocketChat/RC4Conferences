@@ -168,7 +168,16 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
             <Form.Control
               name="original-image-url"
               type="url"
-              placeholder=""
+              placeholder="https://via.placeholder.com/1920x960.png"
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Event Organizer logo</Form.Label>
+            <Form.Control
+              name="logo-url"
+              type="url"
+              placeholder="https://via.placeholder.com/100.png"
               onChange={handleChange}
             />
           </Form.Group>
