@@ -63,4 +63,4 @@ volumes:
   
 networks:
   oesnet:
-    external: yes
+    external: true

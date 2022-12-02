@@ -10,7 +10,18 @@ if [ -e $ALREADY_INITIALIZED ] && [ ! -z $FAUNA_CONTAINER_ID ]; then
     exit 0
 fi
 
-docker-compose -f docker-compose-dev.yml up -d
+if [ "$2" = 'production' ]; then
+    docker-compose up -d
+    echo "--Starting the production build of Superprofile--"
+    echo "--Copying default environment variables to app/.env--"
+    printf '\nNEXT_PUBLIC_FAUNA_DOMAIN'="http://fauna:8084/graphql" >> ../app/.env
+else
+    docker-compose -f docker-compose-dev.yml up -d
+    echo "--Starting the development build of Superprofile--"
+    echo "--Copying default environment variables to app/.env--"
+    printf '\nNEXT_PUBLIC_FAUNA_DOMAIN'="http://$1:8084/graphql" >> ../app/.env
+fi
+
 echo "Waiting $waittime seconds for container to get shipped..."
 sleep $waittime
 
@@ -27,7 +38,6 @@ else
     if [ -f log/dbkey ] && [ ! -f log/init_key_flag ]; then
         echo "Copying over secrets to ../app/.env"
         printf '\nNEXT_PUBLIC_FAUNA_SECRET=' | cat - ./log/dbkey >> ../app/.env
-        printf '\nNEXT_PUBLIC_FAUNA_DOMAIN'="http://$1:8084/graphql" >> ../app/.env
         touch $DBF &&
         echo "-- All set, superprofile launch 🚀"
     else
