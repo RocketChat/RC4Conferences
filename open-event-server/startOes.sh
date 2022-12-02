@@ -21,10 +21,18 @@ echo "--Creating an .env file with .env.example as source--"
 cp .env.example .env 2>> $ERR_FILE || echo "ERROR WHILE COPYING\n$ERR_LOG"
 
 echo "--Downloading and starting the open-event docker images and containers--"
-docker-compose -f docker-compose-dev.yml up -d
 
-echo "--Copying default environment variables to app/.env--"
-printf '\nNEXT_PUBLIC_EVENT_BACKEND_URL'="http://$1:8080" >> ../app/.env
+if [ "$2" = 'production' ]; then
+    echo "--Starting the production build of Open Event Server--"
+    docker-compose up -d
+    echo "--Copying default environment variables to app/.env--"
+    printf '\nNEXT_PUBLIC_EVENT_BACKEND_URL'="http://opev-web:8080" >> ../app/.env
+else
+    echo "--Starting the development build of Open Event Server--"
+    docker-compose -f docker-compose-dev.yml up -d
+    echo "--Copying default environment variables to app/.env--"
+    printf '\nNEXT_PUBLIC_EVENT_BACKEND_URL'="http://$1:8080" >> ../app/.env
+fi
 
 cat .env.dev.app >> ../app/.env
 

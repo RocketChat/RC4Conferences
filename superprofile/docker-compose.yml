@@ -15,4 +15,4 @@ services:
 
 networks:
   spnet:
-    external: yes
+    external: true
