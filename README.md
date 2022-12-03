@@ -1,26 +1,109 @@
-# Rocket Chat for Virtual Conferences - RC4Conferences
-A set of scalable components for communities to build, manage, and run virtual conferences of any size.
+# RC4Conferences
+Rocket Chat for Virtual Conferences a.k.a __RC4Confernces__ (in short) is a set of scalable components for communities to build, manage, and run virtual conferences of any size. RC4Conferences extends [RC4Community](https://github.com/RocketChat/RC4Community) which is a set of tools to build and grow massive online communities with Rocket.Chat.
 
-<h2 align='center'>🚀 Developer lightning quick start 🚀</h2>
-<p align='center'> Development - Build - Production </p>
+## Table of Contents
+
+- [Installation]()
+    - [Pre-requisites]()
+    - [Local Development Setup]()
+        - [Server-Side]()
+        - [Client-Side]()
+    - [Gitpod Development Setup]()
+        - [Server-Side]()
+        - [Client-side]()
+    - [Optional Features Setup]()
+        - [Embedded Rocket.Chat]()
+        - [GreenRoom Page]()
+        - [Mainstage Page]()
+- [Usage]()
+    - ...
+
+# Installation
+
+
+## Pre-requisites
+- [Docker](https://docs.docker.com/desktop/install/linux-install/)
+- Docker Compose
+- [Node](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) ~16.x.x
+- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) 
+- Bash shell
+- we recommend: 8GB system memory (please use Gitpod for better resources)
+
+## Local Development Setup
+
+### <ins> Server Side Setup </ins>
+
+The server-side of RC4Conferences comprises of Eventyay's [Open Event Server](https://github.com/fossasia/open-event-server) Docker Image, [FaunaDB development Docker Image](https://docs.fauna.com/fauna/current/build/tools/dev), and [Strapi CMS](https://strapi.io/). To start both of the services simulataneously, please run the following, 
  
-
-1. To start the development environment first run the following, the script would handle all process and would output error if there are any.
 ```
 sh startdevenv.sh localhost
 ```
->Note: Please replace the "localhost" with your static IP if you are doing environment setup on your VM.
+_Note: Please replace the "localhost" (127.0.0.1) with your static IP if you are doing environment setup on your VM. For e.g. `173.456.1.19`_
 
-2. Setup the Embedded Chat by first following the instructions [here](https://github.com/RocketChat/EmbeddedChat#setting-up-authentication) to get the Google Cloud Client ID and the Rocket Chat instance url. After getting both of them paste it in the `app/.env` with the following key name,
+The above script shall successfully with starting 5 ports 
+- 8080
+- 8443
+- 8444
+- 8084
+- Random port for Strapi (defaults to 1337)
+
+In case of any error output while script is executing, please rectify them, or else open a new issue, the community shall help you at earliest.
+
+You have successfully setup the backend of __RC4Conferences__, now please move forward 🚀 to setting up the client-side. 
+
+### <ins> Client Side Setup </ins>
+
+The client-side of RC4Conferences is developed using NextJS, to start the development environment of NextJS please run the following,
+```
+sh startNext.sh localhost
+```
+_Note: Please replace the "localhost" (127.0.0.1) with your static IP if you are doing environment setup on your VM. For e.g. `173.456.1.19`_
+
+On a successful execution of script, the NextJS will start on port `3000` (default) or if it is occupied the next available port shall be used e.g., `3001`.
+
+Congratulations! 🎉 You have successfully setup both the Client-Side and Server-Side. 
+
+## Gitpod Development Setup
+
+To start the development on Gitpod, click on the button "Open in Gitpod"
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/RocketChat/RC4Conferences)
+
+### <ins>Server-side setup</ins>
+
+Same as mentioned in the Local Development [Server-side setup](#server-side-setup)
+
+### <ins>Client-side setup</ins>
+The client-side of RC4Conferences is developed using NextJS, to start the development environment of NextJS please run the following,
+```
+sh startNextGp.sh localhost
+```
+_Note: Please replace the "localhost" (127.0.0.1) with your static IP if you are doing environment setup on your VM. For e.g. `173.456.1.19`_
+
+On a successful execution of script, the NextJS will start on port `3000` (default) or if it is occupied the next available port shall be used e.g., `3001`.
+
+Congratulations! 🎉 You have successfully setup both the Client-Side and Server-Side. 
+
+## Optional Features Setup
+> Note: Please restart the client-side application after any of the following changes
+### <ins>Embedded Chat</ins>
+
+RC4Conferences integrates the [RC Embedded Chat Component](https://github.com/RocketChat/EmbeddedChat) to enable smooth and real-time communication during the live conferences, between the Speakers and the Event Attendees.
+
+For trying out the Embedded Chat in __RC4Conf erences__, please setup the Embedded Chat by following the instructions [here](https://github.com/RocketChat/EmbeddedChat#setting-up-authentication) from the steps mentioned in there note down the Google Cloud Client ID and the Rocket Chat instance url. Now after getting the Google Cloud Client ID and the Rocket Chat instance url paste them in the `app/.env` with the following key name,
 ```
 NEXT_PUBLIC_GOOGLE_CLIENT_ID="your google client id"
 NEXT_PUBLIC_RC_URL="your url of the RC instance"
 NEXT_PUBLIC_RC_ROOM_ID="public channel room id"
 ```
 
-*The `NEXT_PUBLIC_RC_ROOM_ID` defaults to "GENERAL".
+_The `NEXT_PUBLIC_RC_ROOM_ID` defaults to "GENERAL"._
 
 **Optional Starts
+
+### <ins>GreenRoom Setup</ins>
+In RC4Conferences, the greenroom page is the space where the Event Speakers come together, and speak. The Speaker interface is built on top of [Jitsi React SDK](https://jitsi.github.io/handbook/docs/dev-guide/dev-guide-react-sdk/),
+
+
 
 3. For Greenroom and Mainstage Page to work, there is a need to add some additional environment vars (`app/.env`), which are as followed.
 ```
