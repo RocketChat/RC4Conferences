@@ -15,7 +15,7 @@ Rocket Chat for Virtual Conferences a.k.a __RC4Confernces__ (in short) is a set 
         - [Embedded Rocket.Chat](#embedded-chat)
         - [GreenRoom Page](#greenroom-setup)
         - [Mainstage Page](#mainstage-setup)
-        - [RTMP Server URI](#rtmp-server-link)
+        - [RTMP Server URI](#rtmp-server-uri)
 - [Usage](#usage)
     - [Create an Event](#create-an-event)
     - [Preview an Event](#preview-an-event)
@@ -147,10 +147,17 @@ Thank you!
 
 ## Create an Event
 To get started with creating a Event, on the homepage first login with "Admin" role. Once successfully logged in an additional top navbar item __Admin__ becomes available.
+Here is a demo walkthrough of creating a event:
+
+https://user-images.githubusercontent.com/61188295/207706981-d70725bd-e93e-4ac7-b926-eb32551b4b81.mp4
+
 
 ## Preview an Event
 
 Event details can be seen on the `conferenences/c/[eid]` page which includes the _Event poster, Event name, Event date, Event description, Event sessions, Event speakers_. Please refer to the below demo walkthrough.
+
+https://user-images.githubusercontent.com/61188295/207707047-e5abb73d-f08e-47d7-9a29-fa64921b8333.mp4
+
 
 ## Admin Dashboard - Manage Events
 On the Admin dashboard all the events created by the user would be listed along with some additional options to do:
@@ -160,15 +167,24 @@ On the Admin dashboard all the events created by the user would be listed along 
 
 Here is a walkthrough demo of Admin dashboard page.
 
+https://user-images.githubusercontent.com/61188295/207707100-a6d70089-74c9-4352-84e7-7512da505567.mp4
+
+
+
 ## Role based access
 Greenroom page is only accessible by users with a _Speaker_ and _Admin_ role, whereas Mainstage page is accessible by all the _Admin_, _Speaker_, and _Attendee_ role users.
 Below is a walkthrough of trying out the role based access on the Greenroom page.
+
+https://user-images.githubusercontent.com/61188295/207707148-5ce39306-9e51-4dcf-a826-302fdc9738cb.mp4
+
 
 ## Greenroom and Mainstage Page
 On the Day of Event, Attendees and Speakers interact through the Greenroom and Mainstage page.
 
 Below is a walkthrough which shows how the _Event Admin_ starts a live stream on Greenroom page, and simulataneously the broadcast is shown on the Mainstage page.
 Furthermore, the Speakers and Attendees share their messages using the Embedded Chat window.
+
+https://user-images.githubusercontent.com/61188295/207707250-535c02a9-db6a-470a-afcd-8aed89e47d67.mp4
 
 
 >Fun try: Try refreshing the `/conferences` page. (Hint: Background image)
