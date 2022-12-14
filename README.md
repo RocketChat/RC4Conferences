@@ -3,26 +3,23 @@ Rocket Chat for Virtual Conferences a.k.a __RC4Confernces__ (in short) is a set 
 
 ## Table of Contents
 
-- [Installation]()
-    - [Pre-requisites]()
-    - [Local Development Setup]()
-        - [Server-Side]()
-        - [Client-Side]()
-    - [Gitpod Development Setup]()
-        - [Server-Side]()
-        - [Client-side]()
-    - [Day of Event Setup (Optional)]()
-        - [Embedded Rocket.Chat]()
-        - [GreenRoom Page]()
-        - [Mainstage Page]()
-- [Usage]()
-    - [Create an Event]()
-    - [Preview an Event]()
-    - [Join GreenRoom Page]()
-        - [Start the Stream]()
-        - [Stop the Stream]()
-    - [Join Mainstage Page]()
-    - []
+- [Installation](#installation)
+    - [Pre-requisites](#pre-requisites)
+    - [Local Development Setup](#local-development-setup)
+        - [Server-Side](#server-side-setup)
+        - [Client-Side](#client-side-setup)
+    - [Gitpod Development Setup](#gitpod-development-setup)
+        - [Server-Side](#server-side-setup-1)
+        - [Client-side](#client-side-setup-1)
+    - [Day of Event Setup (Optional)](#day-of-event-setup)
+        - [Embedded Rocket.Chat](#embedded-chat)
+        - [GreenRoom Page](#greenroom-setup)
+        - [Mainstage Page](#mainstage-setup)
+        - [RTMP Server URI](#rtmp-server-link)
+- [Usage](#usage)
+    - [Create an Event](#create-an-event)
+    - [Preview an Event](#preview-an-event)
+    - [Day of Event Page](#greenroom-and-mainstage-page)
 
 # Installation
 
@@ -89,7 +86,8 @@ On a successful execution of script, the NextJS will start on port `3000` (defau
 
 Congratulations! 🎉 You have successfully setup both the Client-Side and Server-Side. 
 
-## Day of Event Setup
+## Day of Event Setup (Optional)
+** If you are not working on anything related to the Mainstage or Greenroom Page, please feel free to skip this setup.
 > Note: Please restart the client-side application after any of the following changes
 ### <ins>Embedded Chat</ins>
 
@@ -112,6 +110,7 @@ Jitsi provides a way to stream the call over RTMP, to setup we require a RTMP se
 ```
 NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP="rtmp url to broadcast the stream"
 ```
+> To get the RTMP URI please follow the steps [here](#rtmp-server-link).
 ### <ins>Mainstage Setup</ins>
 On Mainstage page, during the conference, the attendees view the stream of Speakers talk from the Greenroom Page. Stream data from Jitsi is sent to the RTMP forest, and from there we can have multiple relays, for example, "Singapore Relay" and "North America Relay". To get the setup right, please enter this two relay links in the `app/.env` as
 ```
@@ -133,52 +132,47 @@ sh startNextGp.sh localhost (Only for Gitpod Users)
 ```
 _Note: Please replace the "localhost" (127.0.0.1) with your static IP if you are doing environment setup on your VM. For e.g. `173.456.1.19`_
 
-4. Once the development server is launched create a dummy event by following the link in the top nav to `Admin>Create`.
+### RTMP Server URI
 
-5. After the event is created, visit the Greenroom page since only one event is there, vist the url `/conferences/greenroom/1` and the subsequent event mainstage on `conferences/mainstage/1`
+Steps to get a RTMP server URI:
+1. Go [here](https://stream.twitch.tv/ingests/) and choose the best server, which would be at the top of the list of items which would be for me `rtmp://bom01.contribute.live-video.net/app/{stream_key}`
+2. Replace the `stream_key` with the key you get from [here](https://www.twitch.tv/broadcast/dashboard/streamkey) it would be a long string e.g., `live_782944617_qB6DwHtSgAMc5i9Vf2kuW21tJwIHZb`
+3. Now the stream URI becomes `rtmp://bom01.contribute.live-video.net/app/live_782944617_qB6DwHtSgAMc5i9Vf2kuW21tJwIHZb`, which you will use for `NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP`.
+4. Now, since this is a third-party service, any stream you do on the greenroom page will be visible on the Twitch dashboard.
+5. We are open to contributions for embedding this stream e.g., Twitch, Vimeo in RC4Conferences.
 
-(Note: In the following PR, the dummy event create would be implemented, please stay tuned.)
+Thank you!
 
-Development Info:
-1. The Strapi admin portal would be opnened by default while starting the development setup.
-2. The NextJS url would be shown in the logs for reference
-```
-> rc4community@0.3.0 dev
-> next dev
+# Usage
 
+## Create an Event
+To get started with creating a Event, on the homepage first login with "Admin" role. Once successfully logged in an additional top navbar item __Admin__ becomes available.
 
-> backend@0.1.0 build
-> strapi build
+## Preview an Event
 
-ready - started server on 0.0.0.0:3000, url: http://localhost:3000 <-- your NextJS locahost url
+Event details can be seen on the `conferenences/c/[eid]` page which includes the _Event poster, Event name, Event date, Event description, Event sessions, Event speakers_. Please refer to the below demo walkthrough.
 
-```
-3. On visiting the NextJS app localhost url first time, first login using the dummy login button, then do a refresh to load the admin menu.
-(Currently, for development purpose we are using defult secret values).
+## Admin Dashboard - Manage Events
+On the Admin dashboard all the events created by the user would be listed along with some additional options to do:
+- Add Event speakers
+- Delete Event speakers
+- Delete an Event
 
-> For production deployments, please change the secret values in `open-event-server/.env.example` and ``open-event-server/.env.dev.app``
+Here is a walkthrough demo of Admin dashboard page.
 
-### Route Details
+## Role based access
+Greenroom page is only accessible by users with a _Speaker_ and _Admin_ role, whereas Mainstage page is accessible by all the _Admin_, _Speaker_, and _Attendee_ role users.
+Below is a walkthrough of trying out the role based access on the Greenroom page.
 
-The preview components are displayed on the pages starting `/conferences`.
+## Greenroom and Mainstage Page
+On the Day of Event, Attendees and Speakers interact through the Greenroom and Mainstage page.
 
-1. On the root `localhost:3000/conferences` page, there is a button **Create Event!** which redirects the users to the Event Create page.
+Below is a walkthrough which shows how the _Event Admin_ starts a live stream on Greenroom page, and simulataneously the broadcast is shown on the Mainstage page.
+Furthermore, the Speakers and Attendees share their messages using the Embedded Chat window.
+
 
 >Fun try: Try refreshing the `/conferences` page. (Hint: Background image)
 
-2. If a user is not signed in, they will be redirected to `/conferences/confAuth` page, which helps to get sign in or sign up.
-3. If a user is already signed in, then they will be redirected to `/conferences/create/basic-detail` page. 
-4. Currently, only the basic events data are used to publish the event which includes - Event name, Event start Date, Event end Date, Ticket name, Ticket Quantity, and Ticket Type.
-
-> Please Note: Currently, all the ticket types would be free by default.
-
-5. The `Next` button will save the Event as a Draft, and the `Publish` button will directly publish the event.
-
-6. The other sections **Speakers** and **Other Details** will be soon implemented. Please look forward to trying out them.
-
-### Screenshots
-The screenshot of `/conferences` page.
-<img src="https://user-images.githubusercontent.com/61188295/175766978-24a765d4-3d53-4eb9-8107-bee0569de380.png" alt="event home page">
 
 ### Additional Resources
 [Open Event Server custom deployment docs](./open-event-server/README.md)
