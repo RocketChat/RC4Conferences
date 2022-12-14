@@ -11,12 +11,18 @@ Rocket Chat for Virtual Conferences a.k.a __RC4Confernces__ (in short) is a set 
     - [Gitpod Development Setup]()
         - [Server-Side]()
         - [Client-side]()
-    - [Optional Features Setup]()
+    - [Day of Event Setup (Optional)]()
         - [Embedded Rocket.Chat]()
         - [GreenRoom Page]()
         - [Mainstage Page]()
 - [Usage]()
-    - ...
+    - [Create an Event]()
+    - [Preview an Event]()
+    - [Join GreenRoom Page]()
+        - [Start the Stream]()
+        - [Stop the Stream]()
+    - [Join Mainstage Page]()
+    - []
 
 # Installation
 
@@ -83,13 +89,13 @@ On a successful execution of script, the NextJS will start on port `3000` (defau
 
 Congratulations! 🎉 You have successfully setup both the Client-Side and Server-Side. 
 
-## Optional Features Setup
+## Day of Event Setup
 > Note: Please restart the client-side application after any of the following changes
 ### <ins>Embedded Chat</ins>
 
 RC4Conferences integrates the [RC Embedded Chat Component](https://github.com/RocketChat/EmbeddedChat) to enable smooth and real-time communication during the live conferences, between the Speakers and the Event Attendees.
 
-For trying out the Embedded Chat in __RC4Conf erences__, please setup the Embedded Chat by following the instructions [here](https://github.com/RocketChat/EmbeddedChat#setting-up-authentication) from the steps mentioned in there note down the Google Cloud Client ID and the Rocket Chat instance url. Now after getting the Google Cloud Client ID and the Rocket Chat instance url paste them in the `app/.env` with the following key name,
+For trying out the Embedded Chat in __RC4Conferences__, please setup the Embedded Chat by following the instructions [here](https://github.com/RocketChat/EmbeddedChat#setting-up-authentication) from the steps mentioned in there note down the Google Cloud Client ID and the Rocket Chat instance url. Now after getting the Google Cloud Client ID and the Rocket Chat instance url paste them in the `app/.env` with the following key name,
 ```
 NEXT_PUBLIC_GOOGLE_CLIENT_ID="your google client id"
 NEXT_PUBLIC_RC_URL="your url of the RC instance"
@@ -98,31 +104,34 @@ NEXT_PUBLIC_RC_ROOM_ID="public channel room id"
 
 _The `NEXT_PUBLIC_RC_ROOM_ID` defaults to "GENERAL"._
 
-**Optional Starts
 
 ### <ins>GreenRoom Setup</ins>
-In RC4Conferences, the greenroom page is the space where the Event Speakers come together, and speak. The Speaker interface is built on top of [Jitsi React SDK](https://jitsi.github.io/handbook/docs/dev-guide/dev-guide-react-sdk/),
+In RC4Conferences, the greenroom page is the space where Event Speakers come together, and speak. Speaker interface is built on top of [Jitsi React SDK](https://jitsi.github.io/handbook/docs/dev-guide/dev-guide-react-sdk/). 
+Jitsi provides a way to stream the call over RTMP, to setup we require a RTMP server URI (e.g., `rtmp://live.rconf.shop`), add this to the `app/.env` as:
 
+```
+NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP="rtmp url to broadcast the stream"
+```
+### <ins>Mainstage Setup</ins>
+On Mainstage page, during the conference, the attendees view the stream of Speakers talk from the Greenroom Page. Stream data from Jitsi is sent to the RTMP forest, and from there we can have multiple relays, for example, "Singapore Relay" and "North America Relay". To get the setup right, please enter this two relay links in the `app/.env` as
+```
+NEXT_PUBLIC_SERVER_STREAM_LINK0="Relay link"
+NEXT_PUBLIC_SERVER_STREAM_LINK1="Any other region relay link"
+```
 
-
-3. For Greenroom and Mainstage Page to work, there is a need to add some additional environment vars (`app/.env`), which are as followed.
+In order to provide a better stream to the attendees, based on their proximate distance to the relay region, the attendees are served the content based on their IP address. For locating users based on their IP address, __RC4Conferences__ makes use of [IPinfo](https://ipinfo.io/) API service, to get started, follow this [link](https://ipinfo.io/blog/getting-started-a-step-by-step-guide-for-ipinfo-users/) from the point number __3__, copy the "Access key"/"Token Number" and paste in the `app/.env` as,
 ```
 NEXT_PUBLIC_IPINFO_TOKEN="token from ipinfo"
-NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP="rtmp url to broadcast the stream"
-NEXT_PUBLIC_SERVER_STREAM_LINK0="Asia server broadcast link"
-NEXT_PUBLIC_SERVER_STREAM_LINK1="Any other region server broadcasr link"
-``` 
-For more detail on how to get ipinfo token and server links, please read [here](./docs/components/serverStreaming/README.md)
+```
+Congratulations! 🎉 You have successfully setup the Day of Event Components. 
 
-**Optional Ends
-
-Once all the environment variables are set run the following script to start the NextJS frontend.
+Once all the environment variables are set run the following script to start the Client-side NextJS.
 ```
 sh startNext.sh localhost
 
 sh startNextGp.sh localhost (Only for Gitpod Users)
 ```
->Note: Please replace the "localhost" with your static IP if you are doing environment setup on your VM.
+_Note: Please replace the "localhost" (127.0.0.1) with your static IP if you are doing environment setup on your VM. For e.g. `173.456.1.19`_
 
 4. Once the development server is launched create a dummy event by following the link in the top nav to `Admin>Create`.
 
