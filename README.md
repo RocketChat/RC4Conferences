@@ -11,7 +11,7 @@ Rocket Chat for Virtual Conferences a.k.a __RC4Confernces__ (in short) is a set 
     - [Gitpod Development Setup](#gitpod-development-setup)
         - [Server-Side](#server-side-setup-1)
         - [Client-side](#client-side-setup-1)
-    - [Day of Event Setup (Optional)](#day-of-event-setup)
+    - [Day of Event Setup (Optional)](#day-of-event-setup-optional)
         - [Embedded Rocket.Chat](#embedded-chat)
         - [GreenRoom Page](#greenroom-setup)
         - [Mainstage Page](#mainstage-setup)
