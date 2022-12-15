@@ -38,14 +38,14 @@ Rocket Chat for Virtual Conferences a.k.a __RC4Confernces__ (in short) is a set 
 
 ### <ins> Server Side Setup </ins>
 
-The server-side of RC4Conferences comprises of Eventyay's [Open Event Server](https://github.com/fossasia/open-event-server) Docker Image, [FaunaDB development Docker Image](https://docs.fauna.com/fauna/current/build/tools/dev), and [Strapi CMS](https://strapi.io/). To start both of the services simulataneously, please run the following, 
+The server-side of RC4Conferences comprises of Eventyay's [Open Event Server](https://github.com/fossasia/open-event-server) Docker Image, [FaunaDB development Docker Image](https://docs.fauna.com/fauna/current/build/tools/dev), and [Strapi CMS](https://strapi.io/). To start all of the services simulataneously, please run the following, 
  
 ```
 sh startdevenv.sh localhost
 ```
 _Note: Please replace the "localhost" (127.0.0.1) with your static IP if you are doing environment setup on your VM. For e.g. `173.456.1.19`_
 
-The above script shall successfully with starting 5 ports 
+The above script shall execute successfully and open up 5 ports 
 - 8080
 - 8443
 - 8444
@@ -67,6 +67,8 @@ _Note: Please replace the "localhost" (127.0.0.1) with your static IP if you are
 On a successful execution of script, the NextJS will start on port `3000` (default) or if it is occupied the next available port shall be used e.g., `3001`.
 
 Congratulations! 🎉 You have successfully setup both the Client-Side and Server-Side. 
+
+> fun-try: You can press period <kbd>.</kbd> key to open up VS code style code reader on any GitHub repository.
 
 ## Gitpod Development Setup
 
@@ -116,7 +118,9 @@ NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP="rtmp url to broadcast the stream"
 ```
 > To get the RTMP URI please follow the steps [here](#rtmp-server-link).
 ### <ins>Mainstage Setup</ins>
-On Mainstage page, during the conference, the attendees view the stream of Speakers talk from the Greenroom Page. Stream data from Jitsi is sent to the RTMP forest, and from there we can have multiple relays, for example, "Singapore Relay" and "North America Relay". To get the setup right, please enter this two relay links in the `app/.env` as
+>Note: Skip this setup in case of using Twitch or Vimeo RTMP URIs. Please stay tuned until [#65](https://github.com/RocketChat/RC4Conferences/issues/65) and [#64](https://github.com/RocketChat/RC4Conferences/issues/64) is done.
+
+On Mainstage page, during the conference, the attendees view the stream of Speakers talk received from the Greenroom Page. Stream data from Jitsi is sent to the RTMP forest, and from there we can have multiple relays, for example, "Singapore Relay" and "North America Relay". To get the setup right, please enter this two relay links in the `app/.env` as
 ```
 NEXT_PUBLIC_SERVER_STREAM_LINK0="Relay link"
 NEXT_PUBLIC_SERVER_STREAM_LINK1="Any other region relay link"
@@ -127,8 +131,12 @@ In order to provide a better stream to the attendees, based on their proximate d
 NEXT_PUBLIC_IPINFO_TOKEN="token from ipinfo"
 ```
 Congratulations! 🎉 You have successfully setup the Day of Event Components. 
+<hr />
 
-Once all the environment variables are set run the following script to start the Client-side NextJS.
+> fun-try: Visit [here](https://github.com/RocketChat/RC4Conferences/contribute) to find Good first issues. Or append a `/contribute` at the end of any GitHub repository to find'em anytime.
+<hr />
+
+Once all the environment variables are set stop the NextJS and re-run the following script to start the Client-side NextJS.
 ```
 sh startNext.sh localhost
 
