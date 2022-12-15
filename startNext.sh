@@ -1,4 +1,6 @@
 NEXTJS_PORT=3000
+watchdog=5
+counter=0
 
 check_and_set_next_port() {
     if lsof -Pi :$NEXTJS_PORT -sTCP:LISTEN -t >/dev/null && [ "$counter" -lt $watchdog ]; then
