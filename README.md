@@ -16,6 +16,8 @@ Rocket Chat for Virtual Conferences a.k.a __RC4Confernces__ (in short) is a set 
         - [GreenRoom Page](#greenroom-setup)
         - [Mainstage Page](#mainstage-setup)
         - [RTMP Server URI](#rtmp-server-uri)
+            - [Twitch RTMP URI](#twitch-rtmp-uri)
+            - [Vimeo RTMP URI](#vimeo-rtmp-uri)
 - [Usage](#usage)
     - [Create an Event](#create-an-event)
     - [Preview an Event](#preview-an-event)
@@ -69,6 +71,8 @@ Congratulations! 🎉 You have successfully setup both the Client-Side and Serve
 ## Gitpod Development Setup
 
 To start the development on Gitpod, click on the button "Open in Gitpod"
+
+
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/RocketChat/RC4Conferences)
 
 ### <ins>Server-side setup</ins>
@@ -134,12 +138,20 @@ _Note: Please replace the "localhost" (127.0.0.1) with your static IP if you are
 
 ### RTMP Server URI
 
-Steps to get a RTMP server URI:
+#### <ins>Twitch RTMP URI</ins>
+
+Steps to get a RTMP server URI on Twitch:
 1. Go [here](https://stream.twitch.tv/ingests/) and choose the best server, which would be at the top of the list of items which would be for me `rtmp://bom01.contribute.live-video.net/app/{stream_key}`
 2. Replace the `stream_key` with the key you get from [here](https://www.twitch.tv/broadcast/dashboard/streamkey) it would be a long string e.g., `live_782944617_qB6DwHtSgAMc5i9Vf2kuW21tJwIHZb`
 3. Now the stream URI becomes `rtmp://bom01.contribute.live-video.net/app/live_782944617_qB6DwHtSgAMc5i9Vf2kuW21tJwIHZb`, which you will use for `NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP`.
-4. Now, since this is a third-party service, any stream you do on the greenroom page will be visible on the Twitch dashboard.
-5. We are open to contributions for embedding this stream e.g., Twitch, Vimeo in RC4Conferences.
+
+
+#### <ins>Vimeo RTMP URI</ins>
+
+To get the RTMP URI on the Vimeo platform, follow the steps mentioned in their [article](https://help.livestream.com/hc/en-us/articles/360002069647-Finding-the-RTMP-URL-and-Stream-Key-for-My-Event) it is explained the best in there.
+
+>Now, since these custom RTMP URIs are provided by a third-party service, any stream you do on the greenroom page will be visible on the Twitch, Vimeo dashboard.
+We are open to contributions for embedding this stream e.g., Twitch, Vimeo in RC4Conferences.
 
 Thank you!
 
