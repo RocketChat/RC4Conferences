@@ -99,9 +99,6 @@ Furthermore, the Speakers and Attendees share their messages using the Embedded 
 https://user-images.githubusercontent.com/61188295/207707250-535c02a9-db6a-470a-afcd-8aed89e47d67.mp4
 
 
->Fun try: Try refreshing the `/conferences` page. (Hint: Background image)
-
-
 ### Additional Resources
 [Open Event Server custom deployment docs](./open-event-server/README.md)
 
