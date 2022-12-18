@@ -2,7 +2,7 @@
 
 Rocket Chat for Virtual Conferences a.k.a __RC4Confernces__ (in short) is a set of scalable components for communities to build, manage, and run virtual conferences of any size. RC4Conferences extends [RC4Community](https://github.com/RocketChat/RC4Community) which is a set of tools to build and grow massive online communities with Rocket.Chat.
 
-> TL;DR try-out project within minutes, check all the [Pre-requisites](#pre-requisites), and setup following [⚡Instant Setup ~1.5 minutes](#instant-setup-15-minutes-⚡).
+> TL;DR try-out project within minutes, check all the [Pre-requisites](#pre-requisites), and setup following [⚡Instant Setup ~1.5 minutes](#instant-setup-15-minutes).
 
 Got questions? Or want to discuss any idea for the project, feel free to drop by and say "Hi": [Rocket.Chat](https://open.rocket.chat/direct/evan.shu), [Gmail](mailto:sdevanshu90@gmail.com)
 
@@ -27,7 +27,7 @@ Got questions? Or want to discuss any idea for the project, feel free to drop by
 - Bash shell
 - we recommend: 8GB system memory (please use Gitpod for better resources)
 
-# Instant Setup ~1.5 minutes ⚡
+# Instant Setup ~1.5 minutes
 To try out the project within minutes, run the following two bash commands, and you will be good to go:
 ```bash
 sh startdevenv.sh localhost
