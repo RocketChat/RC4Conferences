@@ -2,10 +2,10 @@
 Rocket Chat for Virtual Conferences a.k.a __RC4Confernces__ (in short) is a set of scalable components for communities to build, manage, and run virtual conferences of any size. RC4Conferences extends [RC4Community](https://github.com/RocketChat/RC4Community) which is a set of tools to build and grow massive online communities with Rocket.Chat.
 
 ## Table of Contents
-
-- [Installation](#installation)
+- [ Installation](#installation)
     - [Pre-requisites](#pre-requisites)
-    - [Local Development Setup](#local-development-setup)
+    - [⚡Instant Setup ~1.5 minutes](#instant-setup-15-minutes)
+    - [🐌 Detailed Local Development Setup](#local-development-setup)
         - [Server-Side](#server-side-setup)
         - [Client-Side](#client-side-setup)
     - [Gitpod Development Setup](#gitpod-development-setup)
@@ -23,6 +23,7 @@ Rocket Chat for Virtual Conferences a.k.a __RC4Confernces__ (in short) is a set 
     - [Preview an Event](#preview-an-event)
     - [Day of Event Page](#greenroom-and-mainstage-page)
 
+
 # Installation
 
 
@@ -33,6 +34,39 @@ Rocket Chat for Virtual Conferences a.k.a __RC4Confernces__ (in short) is a set 
 - [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) 
 - Bash shell
 - we recommend: 8GB system memory (please use Gitpod for better resources)
+
+# Instant Setup ~1.5 minutes ⚡
+To try out the project within minutes, run the following two bash commands, and you will be good to go:
+```bash
+sh startdevenv.sh localhost
+```
+```unix
+// For local setup
+sh startNext.sh localhost
+
+// For Gitpod setup
+sh startNextGp.sh localhost
+```
+_Note: Please replace the "localhost" (127.0.0.1) with your static IP if you are doing environment setup on your VM. For e.g. `173.456.1.19`_
+
+Now you can try out the following:
+- [Preview an Event](#preview-an-event)
+- [Create an Event](#create-an-event)
+- [Explore Admin Dashboard](#admin-dashboard---manage-events)
+
+Tried all of the above? And want to explore the project further, then please refer to this [section](#day-of-event-setup-optional) for trying out the following:
+
+- [Role Based access](#role-based-access)
+- [Greenroom and Mainstage page](#greenroom-and-mainstage-page)
+
+Want more? Interested in learning in-depth installation/setup, then go ahead and read the below sections. 
+
+Thank you!
+
+
+
+🚧 Detailed instructions ahead 🚧
+<hr />
 
 ## Local Development Setup
 
@@ -93,6 +127,7 @@ On a successful execution of script, the NextJS will start on port `3000` (defau
 Congratulations! 🎉 You have successfully setup both the Client-Side and Server-Side. 
 
 ## Day of Event Setup (Optional)
+
 ** If you are not working on anything related to the Mainstage or Greenroom Page, please feel free to skip this setup.
 > Note: Please restart the client-side application after any of the following changes
 ### <ins>Embedded Chat</ins>
