@@ -4,7 +4,7 @@ Rocket Chat for Virtual Conferences a.k.a __RC4Confernces__ (in short) is a set 
 ## Table of Contents
 - [ Installation](#installation)
     - [Pre-requisites](#pre-requisites)
-    - [⚡Instant Setup ~1.5 minutes](#instant-setup-15-minutes)
+    - [⚡Instant Setup ~1.5 minutes](#instant-setup-15-minutes-⚡)
     - [🐌 Detailed Local Development Setup](#local-development-setup)
         - [Server-Side](#server-side-setup)
         - [Client-Side](#client-side-setup)
