@@ -2,7 +2,7 @@
 
 Rocket Chat for Virtual Conferences a.k.a __RC4Confernces__ (in short) is a set of scalable components for communities to build, manage, and run virtual conferences of any size. RC4Conferences extends [RC4Community](https://github.com/RocketChat/RC4Community) which is a set of tools to build and grow massive online communities with Rocket.Chat.
 
-> TL;DR try-out project within minutes, check all the [Pre-requisites](#pre-requisites), and setup following [⚡Instant Setup ~1.5 minutes](#instant-setup-15-minutes).
+> TL;DR try-out the project within minutes, check all the [Pre-requisites](#pre-requisites), and setup following [⚡Instant Setup ~1.5 minutes](#instant-setup-15-minutes).
 
 Got questions? Or want to discuss any idea for the project, feel free to drop by and say "Hi": [Rocket.Chat](https://open.rocket.chat/direct/evan.shu), [Gmail](mailto:sdevanshu90@gmail.com)
 
@@ -29,14 +29,15 @@ Got questions? Or want to discuss any idea for the project, feel free to drop by
 
 # Instant Setup ~1.5 minutes
 To try out the project within minutes, run the following two bash commands, and you will be good to go:
+
+<ins>Local Setup</ins>
 ```bash
 sh startdevenv.sh localhost
-```
-```unix
-// For local setup
 sh startNext.sh localhost
-
-// For Gitpod setup
+```
+<ins>Gitpod Setup</ins>
+```bash
+sh startdevenv.sh localhost
 sh startNextGp.sh localhost
 ```
 _Note: Please replace the "localhost" (127.0.0.1) with your static IP if you are doing environment setup on your VM. For e.g. `173.456.1.19`_
