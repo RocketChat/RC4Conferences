@@ -3,7 +3,7 @@ Rocket Chat for Virtual Conferences a.k.a __RC4Confernces__ (in short) is a set 
 
 > TL;DR try-out project within minutes, check all the [Pre-requisites](#pre-requisites), and setup following [⚡Instant Setup ~1.5 minutes](#instant-setup-15-minutes-⚡).
 
-Got questions? Or want to discuss any idea for project, feel free to drop by and say "Hi". [Rocket.Chat](https://open.rocket.chat/direct/evan.shu), [Gmail](mailto:sdevanshu90@gmail.com)
+Got questions? Or want to discuss any idea for project, feel free to drop by and say "Hi": [Rocket.Chat](https://open.rocket.chat/direct/evan.shu), [Gmail](mailto:sdevanshu90@gmail.com)
 ## Table of Contents
 - [ Installation](#installation)
     - [Pre-requisites](#pre-requisites)
