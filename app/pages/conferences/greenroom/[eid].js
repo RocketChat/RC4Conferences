@@ -3,15 +3,10 @@ import { useRouter } from "next/router";
 import {
   getAllEvents,
   getEventDeatils,
-  getEventSpeakers,
   unsignCook,
 } from "../../../lib/conferences/eventCall";
 import { EventSpeakerStage } from "../../../components/conferences/dayOfEvent/greenroom/EventSpeakerRoom";
-import { ssrVerifyAdmin } from "../../../components/conferences/auth/AuthSuperProfileHelper";
 import { fetchAPI } from "../../../lib/api";
-import { verifySpeaker } from "../../../components/conferences/dayOfEvent/helper";
-import Cookies from "js-cookie";
-import { useEffect } from "react";
 
 const Greenroom = ({ eventIdentifier, spkdata, eventdata }) => {
   

@@ -1,9 +1,6 @@
 import { gql, useLazyQuery } from "@apollo/client";
 import client from "../../../apollo-client";
-import {
-  signRole,
-  unsignCook,
-} from "../../../lib/conferences/eventCall";
+import { signRole, unsignCook } from "../../../lib/conferences/eventCall";
 
 export const FIND_USER_BY_MAIL = gql`
   query findUser($email: String!) {
@@ -56,17 +53,17 @@ export const ssrVerifySpeaker = async (prop, hcookie) => {
 
   if (hcookie !== "undefined") {
     try {
-    const dcryptStrRole = await unsignCook({ hash: hcookie });
-    const dcryptRole = JSON.parse(dcryptStrRole.mail);
+      const dcryptStrRole = await unsignCook({ hash: hcookie });
+      const dcryptRole = JSON.parse(dcryptStrRole.mail);
 
-    if (dcryptRole?.role === "speaker") {
-      return { hashRole, isSuperSpeaker: true };
-    } else {
-      return { hashRole, isSuperSpeaker: false };
+      if (dcryptRole?.role === "speaker") {
+        return { hashRole: { hash: hcookie }, isSuperSpeaker: true };
+      } else {
+        return { hashRole: { hash: hcookie }, isSuperSpeaker: false };
+      }
+    } catch (e) {
+      return { hashRole: { hash: hcookie }, isSuperSpeaker: false };
     }
-  } catch(e) {
-    return { hashRole, isSuperSpeaker: false };
-  }
   }
 
   const { data } = await client.query({
