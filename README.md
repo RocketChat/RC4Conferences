@@ -1,7 +1,7 @@
 # RC4Conferences
 Rocket Chat for Virtual Conferences a.k.a __RC4Confernces__ (in short) is a set of scalable components for communities to build, manage, and run virtual conferences of any size. RC4Conferences extends [RC4Community](https://github.com/RocketChat/RC4Community) which is a set of tools to build and grow massive online communities with Rocket.Chat.
 
-> TL;DR: Excited to try-out project within minutes, check all the [Pre-requisites](#pre-requisites), and setup following [⚡Instant Setup ~1.5 minutes](#instant-setup-15-minutes-⚡)
+> TL;DR try-out project within minutes, check all the [Pre-requisites](#pre-requisites), and setup following [⚡Instant Setup ~1.5 minutes](#instant-setup-15-minutes-⚡).
 
 ## Table of Contents
 - [ Installation](#installation)
