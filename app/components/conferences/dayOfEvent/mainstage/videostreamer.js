@@ -1,5 +1,5 @@
 import { Badge, Col, Row, Toast, ToastContainer } from "react-bootstrap";
-import styles from "../../styles/Videostreamer.module.css";
+import styles from "../../../../styles/Videostreamer.module.css";
 import Script from "next/script";
 import Head from "next/head";
 import { useEffect, useState } from "react";

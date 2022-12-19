@@ -14,10 +14,10 @@ import { MdCameraswitch, MdHeadset } from "react-icons/md";
 import { AiFillEye, AiFillSetting } from "react-icons/ai";
 import { BiUserPin } from "react-icons/bi";
 import { HiViewGridAdd } from "react-icons/hi";
-import styles from "../../styles/Jitsi.module.css";
+import styles from "../../../../styles/Jitsi.module.css";
 import { FaRocketchat } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
-import { GreenRoomTool, SpeakerMiscToolbar } from "../conferences/dayOfEvent/greenroom/SpeakerToolbar";
+import { GreenRoomTool, SpeakerMiscToolbar } from "./SpeakerToolbar";
 
 const JitsiMeeting = dynamic(
   () => import("@jitsi/react-sdk").then((mod) => mod.JitsiMeeting),

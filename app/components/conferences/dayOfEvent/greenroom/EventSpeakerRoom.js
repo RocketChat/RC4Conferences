@@ -1,4 +1,4 @@
-import Jitsibroadcaster from "../../../clientsideonly/jitsibroadcaster";
+import Jitsibroadcaster from "./jitsibroadcaster";
 import styles from "../../../../styles/event.module.css";
 import { DoEWrapper } from "../wrapperComponent";
 import { SpeakerChatToolbar } from "./SpeakerToolbar";
