@@ -1,92 +1,104 @@
-# Rocket Chat for Virtual Conferences - RC4Conferences
-A set of scalable components for communities to build, manage, and run virtual conferences of any size.
+# RC4Conferences
 
-<h2 align='center'>🚀 Developer lightning quick start 🚀</h2>
-<p align='center'> Development - Build - Production </p>
- 
+Rocket Chat for Virtual Conferences a.k.a __RC4Confernces__ (in short) is a set of scalable components for communities to build, manage, and run virtual conferences of any size. RC4Conferences extends [RC4Community](https://github.com/RocketChat/RC4Community) which is a set of tools to build and grow massive online communities with Rocket.Chat.
 
-1. To start the development environment first run the following, the script would handle all process and would output error if there are any.
-```
+> TL;DR try-out the project within minutes, check all the [Pre-requisites](#pre-requisites), and setup following [⚡Instant Setup ~1.5 minutes](#instant-setup-15-minutes).
+
+Got questions? Or want to discuss any idea for the project, feel free to drop by and say "Hi": [Rocket.Chat](https://open.rocket.chat/direct/evan.shu), [Gmail](mailto:sdevanshu90@gmail.com)
+
+## Table of Contents
+
+- [ Installation](#installation)
+    - [Pre-requisites](#pre-requisites)
+    - [⚡Instant Setup ~1.5 minutes](#instant-setup-15-minutes-⚡)
+- [Usage](#usage)
+    - [Create an Event](#create-an-event)
+    - [Preview an Event](#preview-an-event)
+    - [Day of Event Page](#greenroom-and-mainstage-page)
+
+
+# Installation
+
+## Pre-requisites
+- [Docker](https://docs.docker.com/desktop/install/linux-install/)
+- Docker Compose
+- [Node](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) ~16.x.x
+- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) 
+- Bash shell
+- we recommend: 8GB system memory (please use Gitpod for better resources)
+
+# Instant Setup ~1.5 minutes
+To try out the project within minutes, run the following two bash commands, and you will be good to go:
+
+<ins>Local Setup</ins>
+```bash
 sh startdevenv.sh localhost
-```
->Note: Please replace the "localhost" with your static IP if you are doing environment setup on your VM.
-
-2. Setup the Embedded Chat by first following the instructions [here](https://github.com/RocketChat/EmbeddedChat#setting-up-authentication) to get the Google Cloud Client ID and the Rocket Chat instance url. After getting both of them paste it in the `app/.env` with the following key name,
-```
-NEXT_PUBLIC_GOOGLE_CLIENT_ID="your google client id"
-NEXT_PUBLIC_RC_URL="your url of the RC instance"
-NEXT_PUBLIC_RC_ROOM_ID="public channel room id"
-```
-
-*The `NEXT_PUBLIC_RC_ROOM_ID` defaults to "GENERAL".
-
-**Optional Starts
-
-3. For Greenroom and Mainstage Page to work, there is a need to add some additional environment vars (`app/.env`), which are as followed.
-```
-NEXT_PUBLIC_IPINFO_TOKEN="token from ipinfo"
-NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP="rtmp url to broadcast the stream"
-NEXT_PUBLIC_SERVER_STREAM_LINK0="Asia server broadcast link"
-NEXT_PUBLIC_SERVER_STREAM_LINK1="Any other region server broadcasr link"
-``` 
-For more detail on how to get ipinfo token and server links, please read [here](./docs/components/serverStreaming/README.md)
-
-**Optional Ends
-
-Once all the environment variables are set run the following script to start the NextJS frontend.
-```
 sh startNext.sh localhost
-
-sh startNextGp.sh localhost (Only for Gitpod Users)
 ```
->Note: Please replace the "localhost" with your static IP if you are doing environment setup on your VM.
-
-4. Once the development server is launched create a dummy event by following the link in the top nav to `Admin>Create`.
-
-5. After the event is created, visit the Greenroom page since only one event is there, vist the url `/conferences/greenroom/1` and the subsequent event mainstage on `conferences/mainstage/1`
-
-(Note: In the following PR, the dummy event create would be implemented, please stay tuned.)
-
-Development Info:
-1. The Strapi admin portal would be opnened by default while starting the development setup.
-2. The NextJS url would be shown in the logs for reference
+<ins>Gitpod Setup</ins>
+```bash
+sh startdevenv.sh localhost
+sh startNextGp.sh localhost
 ```
-> rc4community@0.3.0 dev
-> next dev
+_Note: Please replace the "localhost" (127.0.0.1) with your static IP if you are doing environment setup on your VM. For e.g. `173.456.1.19`_
+
+Now you can try out the following:
+- [Preview an Event](#preview-an-event)
+- [Create an Event](#create-an-event)
+- [Explore Admin Dashboard](#admin-dashboard---manage-events)
+
+Tried all of the above? And want to explore the project further, then please refer to this [section](./docs/conferences/dayofevent/README.md) for trying out the following:
+
+- [Role Based access](#role-based-access)
+- [Greenroom and Mainstage page](#greenroom-and-mainstage-page)
+
+Want more? Interested in learning in-depth installation/setup, then go ahead and read the [detailed setup](./docs/conferences/README.md). 
+
+Thank you!
+
+# Usage
+
+## Create an Event
+To get started with creating a Event, on the homepage first login with "Admin" role. Once successfully logged in an additional top navbar item __Admin__ becomes available.
+Here is a demo walkthrough of creating a event:
+
+https://user-images.githubusercontent.com/61188295/207706981-d70725bd-e93e-4ac7-b926-eb32551b4b81.mp4
 
 
-> backend@0.1.0 build
-> strapi build
+## Preview an Event
 
-ready - started server on 0.0.0.0:3000, url: http://localhost:3000 <-- your NextJS locahost url
+Event details can be seen on the `conferenences/c/[eid]` page which includes the _Event poster, Event name, Event date, Event description, Event sessions, Event speakers_. Please refer to the below demo walkthrough.
 
-```
-3. On visiting the NextJS app localhost url first time, first login using the dummy login button, then do a refresh to load the admin menu.
-(Currently, for development purpose we are using defult secret values).
+https://user-images.githubusercontent.com/61188295/207707047-e5abb73d-f08e-47d7-9a29-fa64921b8333.mp4
 
-> For production deployments, please change the secret values in `open-event-server/.env.example` and ``open-event-server/.env.dev.app``
 
-### Route Details
+## Admin Dashboard - Manage Events
+On the Admin dashboard all the events created by the user would be listed along with some additional options to do:
+- Add Event speakers
+- Delete Event speakers
+- Delete an Event
 
-The preview components are displayed on the pages starting `/conferences`.
+Here is a walkthrough demo of Admin dashboard page.
 
-1. On the root `localhost:3000/conferences` page, there is a button **Create Event!** which redirects the users to the Event Create page.
+https://user-images.githubusercontent.com/61188295/207707100-a6d70089-74c9-4352-84e7-7512da505567.mp4
 
->Fun try: Try refreshing the `/conferences` page. (Hint: Background image)
 
-2. If a user is not signed in, they will be redirected to `/conferences/confAuth` page, which helps to get sign in or sign up.
-3. If a user is already signed in, then they will be redirected to `/conferences/create/basic-detail` page. 
-4. Currently, only the basic events data are used to publish the event which includes - Event name, Event start Date, Event end Date, Ticket name, Ticket Quantity, and Ticket Type.
 
-> Please Note: Currently, all the ticket types would be free by default.
+## Role based access
+Greenroom page is only accessible by users with a _Speaker_ and _Admin_ role, whereas Mainstage page is accessible by all the _Admin_, _Speaker_, and _Attendee_ role users.
+Below is a walkthrough of trying out the role based access on the Greenroom page.
 
-5. The `Next` button will save the Event as a Draft, and the `Publish` button will directly publish the event.
+https://user-images.githubusercontent.com/61188295/207707148-5ce39306-9e51-4dcf-a826-302fdc9738cb.mp4
 
-6. The other sections **Speakers** and **Other Details** will be soon implemented. Please look forward to trying out them.
 
-### Screenshots
-The screenshot of `/conferences` page.
-<img src="https://user-images.githubusercontent.com/61188295/175766978-24a765d4-3d53-4eb9-8107-bee0569de380.png" alt="event home page">
+## Greenroom and Mainstage Page
+On the Day of Event, Attendees and Speakers interact through the Greenroom and Mainstage page.
+
+Below is a walkthrough which shows how the _Event Admin_ starts a live stream on Greenroom page, and simulataneously the broadcast is shown on the Mainstage page.
+Furthermore, the Speakers and Attendees share their messages using the Embedded Chat window.
+
+https://user-images.githubusercontent.com/61188295/207707250-535c02a9-db6a-470a-afcd-8aed89e47d67.mp4
+
 
 ### Additional Resources
 [Open Event Server custom deployment docs](./open-event-server/README.md)
