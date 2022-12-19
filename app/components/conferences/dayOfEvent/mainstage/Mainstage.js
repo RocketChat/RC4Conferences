@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Collapse, Container } from "react-bootstrap";
-import Videostreamer from "../../../clientsideonly/videostreamer";
+import Videostreamer from "./videostreamer";
 import { SpeakerChatToolbar } from "../greenroom/SpeakerToolbar";
 import { DoEWrapper } from "../wrapperComponent";
 
