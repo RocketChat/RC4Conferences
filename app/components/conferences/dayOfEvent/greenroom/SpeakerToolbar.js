@@ -320,7 +320,7 @@ export const GreenRoomToolBar = ({ apiRef, isAdmin }) => {
     >
       <DeviceButtonSet apiRef={apiRef} />
       <SpeakerMiscSet apiRef={apiRef} isAdmin={isAdmin} />
-      <SpeakerChatSet />
+      {/* <SpeakerChatSet /> */}
     </div>
   );
 };

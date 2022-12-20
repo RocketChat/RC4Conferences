@@ -18,6 +18,7 @@ import styles from "../../../../styles/Jitsi.module.css";
 import { FaRocketchat } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
 import { GreenRoomToolBar } from "./SpeakerToolbar";
+import { EventHeader } from "./EventHeader";
 
 const JitsiMeeting = dynamic(
   () => import("@jitsi/react-sdk").then((mod) => mod.JitsiMeeting),
@@ -26,7 +27,7 @@ const JitsiMeeting = dynamic(
 
 const rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
-const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
+const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin, eventData }) => {
   const apiRef = useRef();
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
   const [speakers, setSpeakers] = useState(null);
@@ -240,9 +241,12 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
   return (
     <>
       {/* {rtmp ? renderStream(rtmp) : rtmpSrc && renderStream(rtmpSrc)} */}
+      <EventHeader eventData={eventData} />
+
       <div className={styles.jitsiContainer}>
         {/* {toggleDevice()} */}
-
+        <div>
+        </div>
         <JitsiMeeting
           domain="meet.jit.si"
           roomName={room}

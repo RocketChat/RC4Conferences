@@ -30,6 +30,7 @@ const EventSpeakerStage = ({ spkdata, eventdata, eventIdentifier, isAdmin }) => 
             }
             disName={"Speaker"}
             isAdmin={isAdmin}
+            eventData={eventdata}
           />
         </div>
       </DoEWrapper>

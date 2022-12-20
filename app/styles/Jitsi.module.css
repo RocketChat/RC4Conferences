@@ -21,11 +21,40 @@
 
 .jitsiContainer {
   display: flex;
-  margin-top: 1em;
-  height: 70vh;
+  margin-top: 0.7em;
+  height: 60vh;
   flex-direction: row;
   justify-content: center;
   width: 100%;
+}
+
+.event_header {
+  display: flex;
+  background-color: rgb(196, 196, 196);
+  width: 90%;
+  margin: auto;
+  margin-top: 0.7em;
+  align-items: baseline;
+  border-radius: 10px;
+}
+.event_header_content {
+  display: flex;
+  align-items: baseline;
+  margin-left: 1em;
+  flex-direction: column;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+}
+
+.event_header_name {
+  font-weight: bold;
+  font-size: large;
+}
+
+.event_header_org {
+  color: #0000009c;
+  font-weight: 500;
+  font-size: smaller;
 }
 
 @media (max-width: 790px) {
