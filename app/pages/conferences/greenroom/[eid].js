@@ -5,11 +5,35 @@ import {
   getEventDeatils,
   unsignCook,
 } from "../../../lib/conferences/eventCall";
-import { EventSpeakerStage } from "../../../components/conferences/dayOfEvent/greenroom/EventSpeakerRoom";
 import { fetchAPI } from "../../../lib/api";
+import EventSpeakerStage from "../../../components/conferences/dayOfEvent/greenroom/EventSpeakerRoom";
+import { ssrVerifyAdmin } from "../../../components/conferences/auth/AuthSuperProfileHelper";
+import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
 
 const Greenroom = ({ eventIdentifier, spkdata, eventdata }) => {
-  
+
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    const verifyAdminAccess = async () => {
+      try {
+        const hashmail = Cookies.get("hashmail");
+
+        const res = await unsignCook({ hash: hashmail });
+        const mail = res.mail;
+
+        if (mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
+          const isAdminRes = await ssrVerifyAdmin({ email: mail });
+          console.log("is admin", isAdminRes)
+          setIsAdmin(isAdminRes)
+        }
+      } catch (e) {
+        console.error("An error while verifying admin access", e);
+      }
+    };
+    verifyAdminAccess();
+  }, []);
   
   return (
     <>
@@ -21,6 +45,7 @@ const Greenroom = ({ eventIdentifier, spkdata, eventdata }) => {
         eventdata={eventdata}
         spkdata={spkdata}
         eventIdentifier={eventIdentifier}
+        isAdmin={isAdmin}
       />
     </>
   );
