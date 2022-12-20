@@ -137,8 +137,8 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
             placement="right"
             overlay={popoverStream}
           >
-            <Button title="Present Screen" variant="light">
-              <MdLiveTv />
+            <Button  title="Present Screen" variant="light">
+              <MdLiveTv  />
             </Button>
           </OverlayTrigger>
           <span style={{ fontSize: "65%" }}>Stream</span>
@@ -150,8 +150,8 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
           placement="right"
           overlay={popoverPeople}
         >
-          <Button variant="light" onClick={handlePeopleShow}>
-            <MdPeople />
+          <Button  variant="light" onClick={handlePeopleShow}>
+            <MdPeople  />
           </Button>
         </OverlayTrigger>
         <span style={{ fontSize: "65%" }}>Speakers</span>
@@ -161,9 +161,10 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
           onClick={async () =>
             await apiRef.current.executeCommand("toggleShareScreen")
           }
-          variant={"link"}
+          variant={"light"}
+          
         >
-          <MdScreenShare />
+          <MdScreenShare color={"#0d6efd"}  />
         </Button>
         <span style={{ fontSize: "65%" }}>Present</span>
       </div>
@@ -272,34 +273,35 @@ export const DeviceButtonSet = ({ apiRef }) => {
   return (
     <div className={styles.gtoolbar_button_set}>
       <div className={styles.gtoolbar_button_div}>
-        <Button variant="link" name={"videoInput"} onClick={toggleDevice}>
+        <Button  variant="light" name={"videoInput"} onClick={toggleDevice}>
           {cammute ? (
-            <BiCameraOff name={"videoInput"} />
+            <BiCameraOff  color={"#0d6efd"} name={"videoInput"} />
           ) : (
-            <BiCamera name={"videoInput"} />
+            <BiCamera  color={"#0d6efd"} name={"videoInput"} />
           )}
         </Button>
         <span style={{ fontSize: "65%" }}>Camera</span>
       </div>
       <div className={styles.gtoolbar_button_div}>
         <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-          <Button variant="light">
-            <FiSettings />
+          <Button  variant="light">
+            <FiSettings  />
           </Button>
         </OverlayTrigger>
         <span style={{ fontSize: "65%" }}>Setting</span>
       </div>
       <div className={styles.gtoolbar_button_div}>
         <Button
-          variant="link"
+          variant="light"
           title="Click to toogle audio"
           name={"audioInput"}
           onClick={toggleDevice}
+          
         >
           {mute ? (
-            <BiMicrophoneOff name={"audioInput"} />
+            <BiMicrophoneOff  name={"audioInput"} color={"#0d6efd"} />
           ) : (
-            <BiMicrophone name={"audioInput"} />
+            <BiMicrophone  name={"audioInput"} color={"#0d6efd"} />
           )}
         </Button>
         <span style={{ fontSize: "65%" }}>Mic</span>

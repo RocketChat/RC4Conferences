@@ -205,7 +205,7 @@
 .dayofevent_wrapper {
   display: flex;
   height: calc(110vh);
-  background-color: #3e3030;
+  background-color: #ffffff;
   margin-bottom: -3rem;
   flex-direction: column;
 }
