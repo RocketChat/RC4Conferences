@@ -15,7 +15,14 @@ const RCComponent = dynamic(
   { ssr: false }
 );
 
-const EventSpeakerStage = ({ spkdata, eventdata, eventIdentifier, isAdmin }) => {
+const EventSpeakerStage = ({
+  spkdata,
+  eventdata,
+  eventIdentifier,
+  isAdmin,
+  open,
+  setOpen,
+}) => {
   const isSmallScreen = useMediaQuery("(max-width: 790px)");
 
   return (
@@ -28,9 +35,11 @@ const EventSpeakerStage = ({ spkdata, eventdata, eventIdentifier, isAdmin }) => 
                 ? eventdata.data.attributes?.["chat-room-name"]
                 : `DemoDay-${eventIdentifier}`
             }
-            disName={"Speaker"}
+            disName={"Speakers"}
             isAdmin={isAdmin}
             eventData={eventdata}
+            open={open}
+            setOpen={setOpen}
           />
         </div>
       </DoEWrapper>

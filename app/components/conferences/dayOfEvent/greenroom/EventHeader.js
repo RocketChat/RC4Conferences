@@ -1,6 +1,8 @@
+import { Button } from "react-bootstrap";
+import { FaRocketchat } from "react-icons/fa";
 import styles from "../../../../styles/Jitsi.module.css";
 
-export const EventHeader = ({ eventData }) => {
+export const EventHeader = ({ eventData, open, setOpen }) => {
   const eventName = eventData?.data?.attributes?.name;
   const eventOrg = eventData?.data?.attributes?.["owner-name"];
   return (
@@ -13,6 +15,13 @@ export const EventHeader = ({ eventData }) => {
           {eventOrg ? eventOrg : "Org"}
         </span>
       </div>
+      <Button
+        style={{ marginRight: "1em" }}
+        variant="light"
+        onClick={() => setOpen(!open)}
+      >
+        <FaRocketchat color="red" size={20} />
+      </Button>
     </div>
   );
 };

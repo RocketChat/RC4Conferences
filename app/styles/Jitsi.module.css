@@ -34,8 +34,9 @@
   width: 90%;
   margin: auto;
   margin-top: 0.7em;
-  align-items: baseline;
   border-radius: 10px;
+  justify-content: space-between;
+  align-items: center;
 }
 .event_header_content {
   display: flex;

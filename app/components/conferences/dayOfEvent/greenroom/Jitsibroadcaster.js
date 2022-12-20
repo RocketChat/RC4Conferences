@@ -27,11 +27,17 @@ const JitsiMeeting = dynamic(
 
 const rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
-const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin, eventData }) => {
+const Jitsibroadcaster = ({
+  room,
+  disName,
+  isAdmin,
+  eventData,
+  open,
+  setOpen,
+}) => {
   const apiRef = useRef();
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
   const [speakers, setSpeakers] = useState(null);
-
 
   const handleChatUpdates = (payload, ref) => {
     if (payload.isOpen || !payload.unreadCount) {
@@ -63,7 +69,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin, eventDa
   const handleJitsiIFrameRef1 = (iframeRef) => {
     iframeRef.style.height = "inherit";
     iframeRef.style.width = "90%";
-    iframeRef.allow = "display-capture"
+    iframeRef.allow = "display-capture";
   };
 
   const showDevices = async (ref) => {
@@ -194,7 +200,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin, eventDa
   const showUsers = async (ref, which) => {
     try {
       const pinfo = await ref.current.getParticipantsInfo();
-      
+
       await ref.current.executeCommand("setTileView", false);
       await ref.current.setLargeVideoParticipant(pinfo[which].participantId);
     } catch (e) {
@@ -241,12 +247,11 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin, eventDa
   return (
     <>
       {/* {rtmp ? renderStream(rtmp) : rtmpSrc && renderStream(rtmpSrc)} */}
-      <EventHeader eventData={eventData} />
+      <EventHeader eventData={eventData} open={open} setOpen={setOpen} />
 
       <div className={styles.jitsiContainer}>
         {/* {toggleDevice()} */}
-        <div>
-        </div>
+        <div></div>
         <JitsiMeeting
           domain="meet.jit.si"
           roomName={room}
@@ -286,16 +291,16 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin, eventDa
             FILM_STRIP_MAX_HEIGHT: 0,
             TILE_VIEW_MAX_COLUMNS: 2,
             VIDEO_QUALITY_LABEL_DISABLED: true,
-            RECENT_LIST_ENABLED: false
+            RECENT_LIST_ENABLED: false,
           }}
           userInfo={{
             displayName: disName,
           }}
         />
       </div>
-      
+
       <div className={styles.dayofeventleft_button}>
-          <GreenRoomToolBar apiRef={apiRef} isAdmin={isAdmin} />
+        <GreenRoomToolBar apiRef={apiRef} isAdmin={isAdmin} />
       </div>
     </>
   );
