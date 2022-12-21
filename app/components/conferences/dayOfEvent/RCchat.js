@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { useState } from "react";
+import { verifyValidRCchat } from "./helper";
 
 const RCComponent = dynamic(
   () => import("rc-component-react").then((mod) => mod.RCComponent),
@@ -7,9 +8,13 @@ const RCComponent = dynamic(
 );
 
 export const RCdesktopChat = ({ open, setOpen }) => {
+  const validRCflag = verifyValidRCchat();
+
+  console.log("validRCflag.valid", validRCflag.valid);
+
   return (
     <>
-      {open ? (
+      {open && validRCflag.valid ? (
         <RCComponent
           moreOpts={true}
           isClosable={true}

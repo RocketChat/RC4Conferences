@@ -19,11 +19,32 @@ const EventSpeakerStage = ({
   spkdata,
   eventdata,
   eventIdentifier,
-  isAdmin,
   open,
   setOpen,
 }) => {
   const isSmallScreen = useMediaQuery("(max-width: 790px)");
+
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const verifyAdminAccess = async () => {
+      try {
+        const hashmail = Cookies.get("hashmail");
+
+        const res = await unsignCook({ hash: hashmail });
+        const mail = res.mail;
+
+        if (mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
+          const isAdminRes = await ssrVerifyAdmin({ email: mail });
+          console.log("readme 1", isAdminRes);
+          setIsAdmin(isAdminRes);
+        }
+      } catch (e) {
+        console.error("An error while verifying admin access", e);
+      }
+    };
+    verifyAdminAccess();
+  }, []);
 
   return (
     <div>

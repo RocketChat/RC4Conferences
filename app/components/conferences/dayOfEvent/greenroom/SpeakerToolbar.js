@@ -40,7 +40,9 @@ export const SpeakerChatSet = ({ setOpen, open }) => {
 export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
   const [speakers, setSpeakers] = useState(null);
   const [isopen, setIsopen] = useState(false);
+  const [join, setJoin] = useState(false);
   const feSpks = apiRef?.current?.getParticipantsInfo();
+
   useEffect(() => {
     const getCurrSpeakers = async () => {
       if (isopen && feSpks !== speakers) {
@@ -48,7 +50,7 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
       }
       if (apiRef.current) {
         await apiRef.current.addEventListeners({
-          videoConferenceJoined: handleJitsiParticipant,
+          videoConferenceJoined: handleJoin,
           videoConferenceLeft: handleJitsiParticipant,
           participantJoined: handleJitsiParticipant,
           participantKickedOut: handleJitsiParticipant,
@@ -57,11 +59,17 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
       }
     };
     getCurrSpeakers();
-  }, [apiRef.current]);
+  }, [apiRef.current, isopen]);
 
   const handleJitsiParticipant = () => {
     const feSpks = apiRef?.current?.getParticipantsInfo();
     setSpeakers(feSpks);
+  };
+
+  const handleJoin = () => {
+    setJoin(true);
+    // alert("joined")
+    handleJitsiParticipant;
   };
 
   const handleStartStream = async () => {
@@ -93,14 +101,18 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
     <Popover id="popover-basic">
       <Popover.Header as={"summary"}>Stream Control</Popover.Header>
       <Popover.Body>
-        <ListGroup as="ul">
-          <ListGroup.Item as={"button"} onClick={handleStartStream}>
-            Go Live!
-          </ListGroup.Item>
-          <ListGroup.Item as={"button"} onClick={handleStopStream}>
-            End Broadcast!
-          </ListGroup.Item>
-        </ListGroup>
+        {rtmpKey ? (
+          <ListGroup as="ul">
+            <ListGroup.Item as={"button"} onClick={handleStartStream}>
+              Go Live!
+            </ListGroup.Item>
+            <ListGroup.Item as={"button"} onClick={handleStopStream}>
+              End Broadcast!
+            </ListGroup.Item>
+          </ListGroup>
+        ) : (
+          "Please setup RTMP URI"
+        )}
       </Popover.Body>
     </Popover>
   );
@@ -128,7 +140,7 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
     </Popover>
   );
 
-  return apiRef.current ? (
+  return join ? (
     <div className={styles.gtoolbar_button_set}>
       {isAdmin && (
         <div className={styles.gtoolbar_button_div}>
@@ -137,8 +149,8 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
             placement="right"
             overlay={popoverStream}
           >
-            <Button  title="Present Screen" variant="light">
-              <MdLiveTv  />
+            <Button title="Present Screen" variant="light">
+              <MdLiveTv />
             </Button>
           </OverlayTrigger>
           <span style={{ fontSize: "65%" }}>Stream</span>
@@ -150,8 +162,8 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
           placement="right"
           overlay={popoverPeople}
         >
-          <Button  variant="light" onClick={handlePeopleShow}>
-            <MdPeople  />
+          <Button variant="light" onClick={handlePeopleShow}>
+            <MdPeople />
           </Button>
         </OverlayTrigger>
         <span style={{ fontSize: "65%" }}>Speakers</span>
@@ -162,9 +174,8 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
             await apiRef.current.executeCommand("toggleShareScreen")
           }
           variant={"light"}
-          
         >
-          <MdScreenShare color={"#0d6efd"}  />
+          <MdScreenShare color={"#0d6efd"} />
         </Button>
         <span style={{ fontSize: "65%" }}>Present</span>
       </div>
@@ -273,19 +284,19 @@ export const DeviceButtonSet = ({ apiRef }) => {
   return (
     <div className={styles.gtoolbar_button_set}>
       <div className={styles.gtoolbar_button_div}>
-        <Button  variant="light" name={"videoInput"} onClick={toggleDevice}>
+        <Button variant="light" name={"videoInput"} onClick={toggleDevice}>
           {cammute ? (
-            <BiCameraOff  color={"#0d6efd"} name={"videoInput"} />
+            <BiCameraOff color={"#0d6efd"} name={"videoInput"} />
           ) : (
-            <BiCamera  color={"#0d6efd"} name={"videoInput"} />
+            <BiCamera color={"#0d6efd"} name={"videoInput"} />
           )}
         </Button>
         <span style={{ fontSize: "65%" }}>Camera</span>
       </div>
       <div className={styles.gtoolbar_button_div}>
         <OverlayTrigger trigger="click" placement="right" overlay={popover}>
-          <Button  variant="light">
-            <FiSettings  />
+          <Button variant="light">
+            <FiSettings />
           </Button>
         </OverlayTrigger>
         <span style={{ fontSize: "65%" }}>Setting</span>
@@ -296,12 +307,11 @@ export const DeviceButtonSet = ({ apiRef }) => {
           title="Click to toogle audio"
           name={"audioInput"}
           onClick={toggleDevice}
-          
         >
           {mute ? (
-            <BiMicrophoneOff  name={"audioInput"} color={"#0d6efd"} />
+            <BiMicrophoneOff name={"audioInput"} color={"#0d6efd"} />
           ) : (
-            <BiMicrophone  name={"audioInput"} color={"#0d6efd"} />
+            <BiMicrophone name={"audioInput"} color={"#0d6efd"} />
           )}
         </Button>
         <span style={{ fontSize: "65%" }}>Mic</span>
