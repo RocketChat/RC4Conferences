@@ -36,7 +36,6 @@ const EventSpeakerStage = ({
 
         if (mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
           const isAdminRes = await ssrVerifyAdmin({ email: mail });
-          console.log("readme 1", isAdminRes);
           setIsAdmin(isAdminRes);
         }
       } catch (e) {

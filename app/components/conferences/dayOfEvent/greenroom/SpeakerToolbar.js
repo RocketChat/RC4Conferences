@@ -93,7 +93,6 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
   };
 
   const handlePeopleShow = () => {
-    console.log("nomnom");
     setIsopen(!isopen);
   };
 
@@ -146,7 +145,7 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
         <div className={styles.gtoolbar_button_div}>
           <OverlayTrigger
             trigger="click"
-            placement="right"
+            placement="top"
             overlay={popoverStream}
           >
             <Button title="Present Screen" variant="light">
@@ -159,7 +158,7 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
       <div className={styles.gtoolbar_button_div}>
         <OverlayTrigger
           trigger="click"
-          placement="right"
+          placement="top"
           overlay={popoverPeople}
         >
           <Button variant="light" onClick={handlePeopleShow}>
@@ -294,7 +293,7 @@ export const DeviceButtonSet = ({ apiRef }) => {
         <span style={{ fontSize: "65%" }}>Camera</span>
       </div>
       <div className={styles.gtoolbar_button_div}>
-        <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+        <OverlayTrigger trigger="click" placement="top" overlay={popover}>
           <Button variant="light">
             <FiSettings />
           </Button>

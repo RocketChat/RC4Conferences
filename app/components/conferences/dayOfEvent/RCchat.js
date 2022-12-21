@@ -10,8 +10,6 @@ const RCComponent = dynamic(
 export const RCdesktopChat = ({ open, setOpen }) => {
   const validRCflag = verifyValidRCchat();
 
-  console.log("validRCflag.valid", validRCflag.valid);
-
   return (
     <>
       {open && validRCflag.valid ? (
