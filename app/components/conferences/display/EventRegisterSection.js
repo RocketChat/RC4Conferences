@@ -163,6 +163,12 @@ const JoinModal = ({ open, handleClose, event, alertOp, setAlertOp, err }) => {
     checkSignedIn();
   });
 
+  const handleRedirect = (location) => {
+    if (typeof window != "undefined") {
+      window.open(location, "_blank");
+    }
+  };
+
   return (
     <Modal show={open} onHide={handleClose} backdrop="static">
       <Modal.Header>
@@ -170,17 +176,21 @@ const JoinModal = ({ open, handleClose, event, alertOp, setAlertOp, err }) => {
       </Modal.Header>
       <Modal.Body>
         <div className={styles.join_modal_button}>
-          <Link href={`/conferences/greenroom/${eventId}`}>
-            <Button name={"greenroom"} disabled={!isSignedIn}>
-              Join as a Speaker
-            </Button>
-          </Link>
+          <Button
+            name={"greenroom"}
+            onClick={() => handleRedirect(`/conferences/greenroom/${eventId}`)}
+            disabled={!isSignedIn}
+          >
+            Join as a Speaker
+          </Button>
           <br />
-          <Link href={`/conferences/mainstage/${eventId}`} replace>
-            <Button disabled={!isSignedIn} name={"mainstage"}>
-              Join as a Attendee
-            </Button>
-          </Link>
+          <Button
+            disabled={!isSignedIn}
+            onClick={() => handleRedirect(`/conferences/mainstage/${eventId}`)}
+            name={"mainstage"}
+          >
+            Join as a Attendee
+          </Button>
         </div>
         <Alert
           className="mt-3"
