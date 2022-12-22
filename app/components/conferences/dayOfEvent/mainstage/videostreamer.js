@@ -55,6 +55,7 @@ export default function Videostreamer(props) {
           controls
           preload="auto"
           poster={props.poster}
+          data-setup='{}'
         >
           <source src={props.src} type={props.type}></source>
           <p className="vjs-no-js">

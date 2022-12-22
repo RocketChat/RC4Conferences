@@ -9,6 +9,7 @@ import { EventMainstage } from "../../../components/conferences/dayOfEvent/mains
 import { fetchAPI } from "../../../lib/api";
 import { useState } from "react";
 import { RCdesktopChat } from "../../../components/conferences/dayOfEvent/RCchat";
+import styles from "../../../styles/Mainstage.module.css"
 
 const EventMainstagePage = ({ event }) => {
   const [open, setOpen] = useState(false);
@@ -22,17 +23,13 @@ const EventMainstagePage = ({ event }) => {
         />
       </Head>
       <div
-        style={{ display: "flex", flexDirection: "row" }}
+        className={styles.mainstage_page_wrapper}
       >
-        <div style={{ width: open ? "70%" : "100%" }}>
+        <div className={styles.mainstage_page_video} style={{ width: "100%" }}>
           <EventMainstage eventdetails={event} open={open} setOpen={setOpen} />
         </div>
         <div
-          style={{
-            width: open ? "33%" : "0",
-            marginRight: "1%",
-            marginTop: "0.7em",
-          }}
+          className={styles.mainstage_page_chat}
         >
           <RCdesktopChat open={open} setOpen={setOpen} />
         </div>
