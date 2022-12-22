@@ -89,6 +89,22 @@ export const publishEvent = async (data, auth) => {
 };
 // Event Create Call Ends
 
+// Edit Event Basic Details Call Begins
+
+export const editEvent = async (data, auth,identifier) => {
+  const headers = {
+    "Content-Type": "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
+  };
+
+  const res = await axios.patch(`${eventUrl}/v1/events/${identifier}`, data, {
+    headers: headers,
+  });
+  return res;
+};
+
+// Edit Event Basic Details Call Ends
+
 // Event Ticket Publish Call Begins
 
 export const publishEventTicket = async (data, auth) => {

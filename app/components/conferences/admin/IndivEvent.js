@@ -21,12 +21,14 @@ import {
   getEventSpeakers,
 } from "../../../lib/conferences/eventCall";
 import styles from "../../../styles/event.module.css";
+import { EditEvent, CustomToast } from "./editEvent";
 
 export const IndivEventDash = ({ eid, event }) => {
   const [speakerInfo, setSpeakerInfo] = useState(null);
   const [modalShow, setModalShow] = useState(false);
   const [editSpeaker, setEditSpeaker] = useState({});
   const [load, setLoad] = useState(false);
+  const [toast,setToast] = useState({show : false,msg : ''});
 
   let authCookie = Cookies.get("event_auth");
   if (authCookie) {
@@ -97,7 +99,13 @@ export const IndivEventDash = ({ eid, event }) => {
       console.error("An error occurred while deleting the Speaker", e);
     }
   };
+
+  const handleToast = (data) => {
+    setToast(data)
+  }
+
   return (
+    <>
     <Container>
       <Row>
         <h4>{event.data.attributes.name}</h4>
@@ -127,10 +135,15 @@ export const IndivEventDash = ({ eid, event }) => {
               handleDelete={handleDelete}
             />
           </Tab>
+          <Tab eventKey="edit_event" title="Edit Event Details">
+            <EditEvent event={event} handleToast={handleToast}/>
+          </Tab>
           <Tab eventKey="contact" title="Contact" disabled></Tab>
         </Tabs>
       </Row>
     </Container>
+    <CustomToast type={"success"} show={toast.show} msg={toast.msg} />
+    </>
   );
 };
 
