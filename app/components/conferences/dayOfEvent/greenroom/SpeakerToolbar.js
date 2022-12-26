@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {
   Button,
@@ -42,6 +43,7 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
   const [isopen, setIsopen] = useState(false);
   const [join, setJoin] = useState(false);
   const feSpks = apiRef?.current?.getParticipantsInfo();
+  const router = useRouter();
 
   useEffect(() => {
     const getCurrSpeakers = async () => {
@@ -51,7 +53,7 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
       if (apiRef.current) {
         await apiRef.current.addEventListeners({
           videoConferenceJoined: handleJoin,
-          videoConferenceLeft: handleJitsiParticipant,
+          videoConferenceLeft: handleMeetHangup,
           participantJoined: handleJitsiParticipant,
           participantKickedOut: handleJitsiParticipant,
           participantLeft: handleJitsiParticipant,
@@ -60,6 +62,11 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
     };
     getCurrSpeakers();
   }, [apiRef.current, isopen]);
+
+  const handleMeetHangup = () => {
+    handleJitsiParticipant();
+    router.push("/");
+  };
 
   const handleJitsiParticipant = () => {
     const feSpks = apiRef?.current?.getParticipantsInfo();
@@ -156,11 +163,7 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
         </div>
       )}
       <div className={styles.gtoolbar_button_div}>
-        <OverlayTrigger
-          trigger="click"
-          placement="top"
-          overlay={popoverPeople}
-        >
+        <OverlayTrigger trigger="click" placement="top" overlay={popoverPeople}>
           <Button variant="light" onClick={handlePeopleShow}>
             <MdPeople />
           </Button>
