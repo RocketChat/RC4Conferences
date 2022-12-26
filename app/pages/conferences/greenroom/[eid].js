@@ -3,30 +3,41 @@ import { useRouter } from "next/router";
 import {
   getAllEvents,
   getEventDeatils,
-  getEventSpeakers,
   unsignCook,
 } from "../../../lib/conferences/eventCall";
-import { EventSpeakerStage } from "../../../components/conferences/dayOfEvent/greenroom/EventSpeakerRoom";
-import { ssrVerifyAdmin } from "../../../components/conferences/auth/AuthSuperProfileHelper";
 import { fetchAPI } from "../../../lib/api";
-import { verifySpeaker } from "../../../components/conferences/dayOfEvent/helper";
+import EventSpeakerStage from "../../../components/conferences/dayOfEvent/greenroom/EventSpeakerRoom";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { useEffect } from "react";
+import { RCdesktopChat } from "../../../components/conferences/dayOfEvent/RCchat";
+import styles from "../../../styles/Greenroom.module.css"
+
 
 const Greenroom = ({ eventIdentifier, spkdata, eventdata }) => {
-  
-  
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <Head>
         <title>Conference Green Room</title>
         <link rel="icon" href="../../rocket_gsoc_0" />
       </Head>
-      <EventSpeakerStage
-        eventdata={eventdata}
-        spkdata={spkdata}
-        eventIdentifier={eventIdentifier}
-      />
+      <div className={styles.greenroom_page_wrapper}>
+        <div className={styles.greenroom_page_video}>
+          <EventSpeakerStage
+            eventdata={eventdata}
+            spkdata={spkdata}
+            eventIdentifier={eventIdentifier}
+            setOpen={setOpen}
+            open={open}
+          />
+        </div>
+        <div
+          className={styles.greenroom_page_chat}
+        >
+          <RCdesktopChat open={open} setOpen={setOpen} />
+        </div>
+      </div>
     </>
   );
 };
@@ -40,13 +51,13 @@ export async function getStaticPaths() {
     }));
     return {
       paths: paths,
-      fallback: "blocking", 
+      fallback: "blocking",
     };
   } catch (e) {
     console.error("An error while fetching list of events", e);
     return {
       paths: [{ params: { eid: 1 } }],
-      fallback: "blocking", 
+      fallback: "blocking",
     };
   }
 }

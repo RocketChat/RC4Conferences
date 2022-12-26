@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/Mainstage.module.css';
+import styles from '../styles/MainstageLegacy.module.css';
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
