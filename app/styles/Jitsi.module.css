@@ -21,11 +21,41 @@
 
 .jitsiContainer {
   display: flex;
-  margin-top: 1em;
-  height: 70vh;
+  margin-top: 0.7em;
+  height: 60vh;
   flex-direction: row;
   justify-content: center;
   width: 100%;
+}
+
+.event_header {
+  display: flex;
+  background-color: rgb(196, 196, 196);
+  width: 90%;
+  margin: auto;
+  margin-top: 0.7em;
+  border-radius: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+.event_header_content {
+  display: flex;
+  align-items: baseline;
+  margin-left: 1em;
+  flex-direction: column;
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+}
+
+.event_header_name {
+  font-weight: bold;
+  font-size: large;
+}
+
+.event_header_org {
+  color: #0000009c;
+  font-weight: 500;
+  font-size: smaller;
 }
 
 @media (max-width: 790px) {
@@ -43,18 +73,30 @@
 
 .dayofeventleft_button {
   margin: auto;
-  left: 25px;
-  bottom: 25px;
-  position: absolute;
+  /* left: 25px;
+  bottom: 25px; */
+  display: flex;
+  align-items: center;
+  width: 90%;
 }
 
-@media (max-width: 790px) { 
-  .dayofeventleft_button {
-    bottom: 75px;
-    position: fixed;
-    z-index: 10;
-  }
- }
+.gtoolbar_button {
+  margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.gtoolbar_button_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0px 10px 10px;
+}
+
+.gtoolbar_button_set {
+  display: flex;
+  flex-direction: row;
+}
 
 @media (min-width: 830px) {
   .device {
