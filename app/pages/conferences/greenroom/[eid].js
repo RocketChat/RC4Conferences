@@ -10,6 +10,8 @@ import EventSpeakerStage from "../../../components/conferences/dayOfEvent/greenr
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { RCdesktopChat } from "../../../components/conferences/dayOfEvent/RCchat";
+import styles from "../../../styles/Greenroom.module.css"
+
 
 const Greenroom = ({ eventIdentifier, spkdata, eventdata }) => {
   const [open, setOpen] = useState(false);
@@ -20,8 +22,8 @@ const Greenroom = ({ eventIdentifier, spkdata, eventdata }) => {
         <title>Conference Green Room</title>
         <link rel="icon" href="../../rocket_gsoc_0" />
       </Head>
-      <div style={{ display: "flex", flexDirection: "row" }}>
-        <div style={{ width: open ? "70%" : "100%" }}>
+      <div className={styles.greenroom_page_wrapper}>
+        <div className={styles.greenroom_page_video}>
           <EventSpeakerStage
             eventdata={eventdata}
             spkdata={spkdata}
@@ -31,11 +33,7 @@ const Greenroom = ({ eventIdentifier, spkdata, eventdata }) => {
           />
         </div>
         <div
-          style={{
-            width: open ? "33%" : "0",
-            marginRight: "1%",
-            marginTop: "0.7em",
-          }}
+          className={styles.greenroom_page_chat}
         >
           <RCdesktopChat open={open} setOpen={setOpen} />
         </div>

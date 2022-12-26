@@ -275,6 +275,7 @@ const Jitsibroadcaster = ({
             disableSelfViewSettings: true,
             disableShortcuts: true,
             disable1On1Mode: false,
+            disableDeepLinking: true,
             defaultRemoteDisplayName: "Fellow Rocketeer",
             subject: " ",
             p2p: {

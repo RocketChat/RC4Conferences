@@ -98,14 +98,6 @@
   flex-direction: row;
 }
 
-@media (max-width: 790px) { 
-  .dayofeventleft_button {
-    bottom: 75px;
-    position: fixed;
-    z-index: 10;
-  }
- }
-
 @media (min-width: 830px) {
   .device {
     margin: auto;

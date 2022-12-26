@@ -7,10 +7,6 @@
     width: 100%;
 }
 
-.mainstage_page_chat {
-
-}
-
 @media (max-width: 900px) {
     .mainstage_page_wrapper {
         flex-direction: column;

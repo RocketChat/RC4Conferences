@@ -47,7 +47,6 @@ const EventSpeakerStage = ({
 
   return (
     <div>
-      <DoEWrapper>
         <div className={styles.greenroom_jitsi}>
           <Jitsibroadcaster
             room={
@@ -62,7 +61,6 @@ const EventSpeakerStage = ({
             setOpen={setOpen}
           />
         </div>
-      </DoEWrapper>
     </div>
   );
 };
