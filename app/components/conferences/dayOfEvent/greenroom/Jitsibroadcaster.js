@@ -281,11 +281,14 @@ const Jitsibroadcaster = ({
             p2p: {
               enabled: false,
             },
-            // remoteVideoMenu: {
-            //   disableKick : !isAdmin,
-            //   disableGrantModerator : !isAdmin
-            // },
-            // disableRemoteMute: !isAdmin
+            recordingService: {
+              enabled: true
+            },
+            remoteVideoMenu: {
+              disableKick : !isAdmin,
+              disableGrantModerator : !isAdmin
+            },
+            disableRemoteMute: !isAdmin
           }}
           interfaceConfigOverwrite={{
             DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
