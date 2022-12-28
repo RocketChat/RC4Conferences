@@ -9,7 +9,7 @@
     - [Gitpod Development Setup](#gitpod-development-setup)
         - [Server-Side](#server-side-setup-1)
         - [Client-side](#client-side-setup-1)
-    - [Day of Event Setup (Optional)](./dayofevent/README.md)
+    - [Day of Event Setup (Optional)](#day-of-event-setup-optional)
 - [Usage](#usage)
     - [Create an Event](#create-an-event)
     - [Preview an Event](#preview-an-event)
@@ -82,6 +82,10 @@ _Note: Please replace the "localhost" (127.0.0.1) with your static IP if you are
 On a successful execution of script, the NextJS will start on port `3000` (default) or if it is occupied the next available port shall be used e.g., `3001`.
 
 Congratulations! 🎉 You have successfully setup both the Client-Side and Server-Side. 
+
+## Day of Event Setup (Optional)
+
+For setting up the Greenroom and Mainstage Page components, please read [this](./dayofevent/README.md).
 
 # Usage
 

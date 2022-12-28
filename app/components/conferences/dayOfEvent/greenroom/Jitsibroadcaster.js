@@ -14,10 +14,11 @@ import { MdCameraswitch, MdHeadset } from "react-icons/md";
 import { AiFillEye, AiFillSetting } from "react-icons/ai";
 import { BiUserPin } from "react-icons/bi";
 import { HiViewGridAdd } from "react-icons/hi";
-import styles from "../../styles/Jitsi.module.css";
+import styles from "../../../../styles/Jitsi.module.css";
 import { FaRocketchat } from "react-icons/fa";
 import { FiUsers } from "react-icons/fi";
-import { GreenRoomTool, SpeakerMiscToolbar } from "../conferences/dayOfEvent/greenroom/SpeakerToolbar";
+import { GreenRoomToolBar } from "./SpeakerToolbar";
+import { EventHeader } from "./EventHeader";
 
 const JitsiMeeting = dynamic(
   () => import("@jitsi/react-sdk").then((mod) => mod.JitsiMeeting),
@@ -26,37 +27,26 @@ const JitsiMeeting = dynamic(
 
 const rtmp = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
-const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
+const Jitsibroadcaster = ({
+  room,
+  disName,
+  isAdmin,
+  eventData,
+  open,
+  setOpen,
+}) => {
   const apiRef = useRef();
-  const [logItems, updateLog] = useState([]);
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
   const [speakers, setSpeakers] = useState(null);
-
-  const printEventOutput = (payload) => {
-    updateLog((items) => [...items, JSON.stringify(payload)]);
-  };
-
-  const handleAudioStatusChange = (payload, feature) => {
-    if (payload.muted) {
-      updateLog((items) => [...items, `${feature} off`]);
-    } else {
-      updateLog((items) => [...items, `${feature} on`]);
-    }
-  };
 
   const handleChatUpdates = (payload, ref) => {
     if (payload.isOpen || !payload.unreadCount) {
       return;
     }
     ref.current.executeCommand("toggleChat");
-    updateLog((items) => [
-      ...items,
-      `you have ${payload.unreadCount} unread messages`,
-    ]);
   };
 
   const handleKnockingParticipant = (payload) => {
-    updateLog((items) => [...items, JSON.stringify(payload)]);
     updateKnockingParticipants((participants) => [
       ...participants,
       payload?.participant,
@@ -79,7 +69,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
   const handleJitsiIFrameRef1 = (iframeRef) => {
     iframeRef.style.height = "inherit";
     iframeRef.style.width = "90%";
-    iframeRef.allow = "display-capture"
+    iframeRef.allow = "display-capture";
   };
 
   const showDevices = async (ref) => {
@@ -95,14 +85,12 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
       }
     }
     // log for debug
-    updateLog((items) => [...items, JSON.stringify(videoInputs)]);
 
     let nextDevice = "";
     let devs = await ref.current.getCurrentDevices();
 
     for (const [key, value] of Object.entries(devs)) {
       if (key == "videoInput") {
-        updateLog((items) => [...items, "found " + JSON.stringify(value)]);
         let devLabel = value.label;
         let idx = 0;
         videoInputs.forEach((vid) => {
@@ -112,14 +100,12 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
               nextDevice = videoInputs[0];
             } else {
               nextDevice = videoInputs[cur];
-              updateLog((items) => [...items, "next is " + nextDevice]);
             }
           }
           idx++;
         });
       }
     }
-    updateLog((items) => [...items, "switching to " + nextDevice]);
 
     await ref.current.setVideoInputDevice(nextDevice);
   };
@@ -137,14 +123,12 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
       }
     }
     // log for debug
-    updateLog((items) => [...items, JSON.stringify(audioOutputs)]);
 
     let nextDevice = "";
     let devs = await ref.current.getCurrentDevices();
 
     for (const [key, value] of Object.entries(devs)) {
       if (key == "audioOutput") {
-        updateLog((items) => [...items, "found " + JSON.stringify(value)]);
         let devLabel = value.label;
         let idx = 0;
         audioOutputs.forEach((vid) => {
@@ -154,14 +138,12 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
               nextDevice = audioOutputs[0];
             } else {
               nextDevice = audioOutputs[cur];
-              updateLog((items) => [...items, "next is " + nextDevice]);
             }
           }
           idx++;
         });
       }
     }
-    updateLog((items) => [...items, "switching to " + nextDevice]);
 
     await ref.current.setAudioOutputDevice(nextDevice);
   };
@@ -179,14 +161,12 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
       }
     }
     // log for debug
-    updateLog((items) => [...items, JSON.stringify(audioInputs)]);
 
     let nextDevice = "";
     let devs = await ref.current.getCurrentDevices();
 
     for (const [key, value] of Object.entries(devs)) {
       if (key == "audioInput") {
-        updateLog((items) => [...items, "found " + JSON.stringify(value)]);
         let devLabel = value.label;
         let idx = 0;
         audioInputs.forEach((vid) => {
@@ -196,14 +176,12 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
               nextDevice = audioInputs[0];
             } else {
               nextDevice = audioInputs[cur];
-              updateLog((items) => [...items, "next is " + nextDevice]);
             }
           }
           idx++;
         });
       }
     }
-    updateLog((items) => [...items, "switching to " + nextDevice]);
     await ref.current.setAudioInputDevice(nextDevice);
   };
 
@@ -211,12 +189,6 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
     ref.current = apiObj;
     await ref.current.addEventListeners({
       // Listening to events from the external API
-      audioMuteStatusChanged: (payload) =>
-        handleAudioStatusChange(payload, "audio"),
-      videoMuteStatusChanged: (payload) =>
-        handleAudioStatusChange(payload, "video"),
-      raiseHandUpdated: printEventOutput,
-      tileViewChanged: printEventOutput,
       chatUpdated: (payload) => handleChatUpdates(payload, ref),
       knockingParticipant: handleKnockingParticipant,
     });
@@ -228,10 +200,7 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
   const showUsers = async (ref, which) => {
     try {
       const pinfo = await ref.current.getParticipantsInfo();
-      updateLog((items) => [
-        ...items,
-        "participantes " + JSON.stringify(pinfo),
-      ]);
+
       await ref.current.executeCommand("setTileView", false);
       await ref.current.setLargeVideoParticipant(pinfo[which].participantId);
     } catch (e) {
@@ -278,9 +247,11 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
   return (
     <>
       {/* {rtmp ? renderStream(rtmp) : rtmpSrc && renderStream(rtmpSrc)} */}
+      <EventHeader eventData={eventData} open={open} setOpen={setOpen} />
+
       <div className={styles.jitsiContainer}>
         {/* {toggleDevice()} */}
-
+        <div></div>
         <JitsiMeeting
           domain="meet.jit.si"
           roomName={room}
@@ -304,10 +275,14 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
             disableSelfViewSettings: true,
             disableShortcuts: true,
             disable1On1Mode: false,
+            disableDeepLinking: true,
             defaultRemoteDisplayName: "Fellow Rocketeer",
             subject: " ",
             p2p: {
               enabled: false,
+            },
+            recordingService: {
+              enabled: true
             },
             remoteVideoMenu: {
               disableKick : !isAdmin,
@@ -320,18 +295,16 @@ const Jitsibroadcaster = ({ room, disName, rtmpSrc, handleChat, isAdmin }) => {
             FILM_STRIP_MAX_HEIGHT: 0,
             TILE_VIEW_MAX_COLUMNS: 2,
             VIDEO_QUALITY_LABEL_DISABLED: true,
-            RECENT_LIST_ENABLED: false
+            RECENT_LIST_ENABLED: false,
           }}
           userInfo={{
             displayName: disName,
           }}
         />
-        {apiRef.current && <GreenRoomTool apiRef={apiRef} />}
       </div>
-      
+
       <div className={styles.dayofeventleft_button}>
-      
-        <SpeakerMiscToolbar apiRef={apiRef} isAdmin={isAdmin} />
+        <GreenRoomToolBar apiRef={apiRef} isAdmin={isAdmin} />
       </div>
     </>
   );

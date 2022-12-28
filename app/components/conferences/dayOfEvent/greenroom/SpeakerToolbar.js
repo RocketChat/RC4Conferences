@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import {
   Button,
@@ -5,6 +6,10 @@ import {
   Container,
   Dropdown,
   DropdownButton,
+  ListGroup,
+  ListGroupItem,
+  OverlayTrigger,
+  Popover,
   Row,
 } from "react-bootstrap";
 import {
@@ -13,31 +18,33 @@ import {
   BiMicrophone,
   BiMicrophoneOff,
 } from "react-icons/bi";
-import { FaQuestionCircle, FaRocketchat } from "react-icons/fa";
+import { FaDumpster, FaQuestionCircle, FaRocketchat } from "react-icons/fa";
+import { FiSettings } from "react-icons/fi";
 import { MdLiveTv, MdPeople, MdScreenShare, MdSettings } from "react-icons/md";
-import styles from "../../../../styles/event.module.css";
+import styles from "../../../../styles/Jitsi.module.css";
 
 const rtmpKey = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
 
-export const SpeakerChatToolbar = ({ setOpen, open }) => {
+export const SpeakerChatSet = ({ setOpen, open }) => {
   return (
-    <ButtonGroup size={"sm"}>
-      <Button variant={"secondary"}>
+    <div>
+      <Button className={styles.gtoolbar_button} variant={"secondary"}>
         <FaQuestionCircle />
-        <div className={styles.greenroom_button_text}>Question</div>
       </Button>
-      <Button onClick={() => setOpen(!open)}>
+      <Button className={styles.gtoolbar_button} onClick={() => setOpen(!open)}>
         <FaRocketchat />
-        <div className={styles.greenroom_button_text}>Chat</div>
       </Button>
-    </ButtonGroup>
+    </div>
   );
 };
 
-export const SpeakerMiscToolbar = ({ apiRef, isAdmin }) => {
+export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
   const [speakers, setSpeakers] = useState(null);
   const [isopen, setIsopen] = useState(false);
+  const [join, setJoin] = useState(false);
   const feSpks = apiRef?.current?.getParticipantsInfo();
+  const router = useRouter();
+
   useEffect(() => {
     const getCurrSpeakers = async () => {
       if (isopen && feSpks !== speakers) {
@@ -45,8 +52,8 @@ export const SpeakerMiscToolbar = ({ apiRef, isAdmin }) => {
       }
       if (apiRef.current) {
         await apiRef.current.addEventListeners({
-          videoConferenceJoined: handleJitsiParticipant,
-          videoConferenceLeft: handleJitsiParticipant,
+          videoConferenceJoined: handleJoin,
+          videoConferenceLeft: handleMeetHangup,
           participantJoined: handleJitsiParticipant,
           participantKickedOut: handleJitsiParticipant,
           participantLeft: handleJitsiParticipant,
@@ -54,11 +61,22 @@ export const SpeakerMiscToolbar = ({ apiRef, isAdmin }) => {
       }
     };
     getCurrSpeakers();
-  }, [apiRef.current]);
+  }, [apiRef.current, isopen]);
+
+  const handleMeetHangup = () => {
+    handleJitsiParticipant();
+    router.push("/");
+  };
 
   const handleJitsiParticipant = () => {
     const feSpks = apiRef?.current?.getParticipantsInfo();
     setSpeakers(feSpks);
+  };
+
+  const handleJoin = () => {
+    setJoin(true);
+    // alert("joined")
+    handleJitsiParticipant;
   };
 
   const handleStartStream = async () => {
@@ -84,68 +102,97 @@ export const SpeakerMiscToolbar = ({ apiRef, isAdmin }) => {
   const handlePeopleShow = () => {
     setIsopen(!isopen);
   };
-  return apiRef.current ? (
-    <ButtonGroup size={"sm"}>
+
+  const popoverStream = (
+    <Popover id="popover-basic">
+      <Popover.Header as={"summary"}>Stream Control</Popover.Header>
+      <Popover.Body>
+        {rtmpKey ? (
+          <ListGroup as="ul">
+            <ListGroup.Item as={"button"} onClick={handleStartStream}>
+              Go Live!
+            </ListGroup.Item>
+            <ListGroup.Item as={"button"} onClick={handleStopStream}>
+              End Broadcast!
+            </ListGroup.Item>
+          </ListGroup>
+        ) : (
+          "Please setup RTMP URI"
+        )}
+      </Popover.Body>
+    </Popover>
+  );
+
+  const popoverPeople = (
+    <Popover>
+      <Popover.Header as={"summary"}>Speakers</Popover.Header>
+      <Popover.Body>
+        <ListGroup as="ul" variant={"flush"}>
+          {Array.isArray(speakers) && speakers.length ? (
+            speakers?.map((spk) => {
+              return (
+                <ListGroup.Item as={"small"} key={spk.participantId}>
+                  {spk.formattedDisplayName}
+                </ListGroup.Item>
+              );
+            })
+          ) : (
+            <ListGroup.Item disabled>
+              The room is lonely, no one here
+            </ListGroup.Item>
+          )}
+        </ListGroup>
+      </Popover.Body>
+    </Popover>
+  );
+
+  return join ? (
+    <div className={styles.gtoolbar_button_set}>
       {isAdmin && (
-        <DropdownButton
-          as={ButtonGroup}
-          title={<MdLiveTv size={20} />}
-          drop={"up"}
-        >
-          <Dropdown.Item as={"button"} onClick={handleStartStream}>
-            Go Live!
-          </Dropdown.Item>
-          <Dropdown.Item as={"button"} onClick={handleStopStream}>
-            End Broadcast
-          </Dropdown.Item>
-        </DropdownButton>
+        <div className={styles.gtoolbar_button_div}>
+          <OverlayTrigger
+            trigger="click"
+            placement="top"
+            overlay={popoverStream}
+          >
+            <Button title="Present Screen" variant="light">
+              <MdLiveTv />
+            </Button>
+          </OverlayTrigger>
+          <span style={{ fontSize: "65%" }}>Stream</span>
+        </div>
       )}
-      <DropdownButton
-        as={ButtonGroup}
-        title={<MdPeople size={20} />}
-        drop={"up"}
-        onClick={handlePeopleShow}
-      >
-        <Container
-          style={{ overflow: "auto", maxHeight: "50vh", maxWidth: "50vw" }}
+      <div className={styles.gtoolbar_button_div}>
+        <OverlayTrigger trigger="click" placement="top" overlay={popoverPeople}>
+          <Button variant="light" onClick={handlePeopleShow}>
+            <MdPeople />
+          </Button>
+        </OverlayTrigger>
+        <span style={{ fontSize: "65%" }}>Speakers</span>
+      </div>
+      <div className={styles.gtoolbar_button_div}>
+        <Button
+          onClick={async () =>
+            await apiRef.current.executeCommand("toggleShareScreen")
+          }
+          variant={"light"}
         >
-          <Row>
-            <Dropdown.Header>Speakers</Dropdown.Header>
-            {Array.isArray(speakers) && speakers.length ? (
-              speakers?.map((spk) => {
-                return (
-                  <Dropdown.ItemText key={spk.participantId}>
-                    {spk.formattedDisplayName}
-                  </Dropdown.ItemText>
-                );
-              })
-            ) : (
-              <Dropdown.Item disabled>
-                The room is lonely, no one here
-              </Dropdown.Item>
-            )}
-          </Row>
-        </Container>
-      </DropdownButton>
-      <Button
-        onClick={async () =>
-          await apiRef.current.executeCommand("toggleShareScreen")
-        }
-      >
-        <MdScreenShare size={20} />
-        <div className={styles.greenroom_button_text}>Present</div>
-      </Button>
-    </ButtonGroup>
+          <MdScreenShare color={"#0d6efd"} />
+        </Button>
+        <span style={{ fontSize: "65%" }}>Present</span>
+      </div>
+    </div>
   ) : (
     <></>
   );
 };
 
-export const GreenRoomTool = ({ apiRef }) => {
+export const DeviceButtonSet = ({ apiRef }) => {
   const [mute, setMute] = useState(false);
   const [cammute, setCammute] = useState(false);
   const [devices, setDevices] = useState(null);
   const [currDev, setCurrDev] = useState({});
+
   useEffect(() => {
     const getDevices = async () => {
       try {
@@ -186,21 +233,25 @@ export const GreenRoomTool = ({ apiRef }) => {
   };
 
   const showDevice = (deviceType) => {
-    return devices[deviceType].map((edev) => {
-      return (
-        <Dropdown.Item
-          as={"button"}
-          devicetype={deviceType}
-          key={edev.deviceId}
-          name={edev.label}
-          eventKey={edev.deviceId}
-          onClick={handleSelect}
-          active={edev.deviceId === currDev[deviceType]?.deviceId}
-        >
-          {edev.label}
-        </Dropdown.Item>
-      );
-    });
+    return (
+      <ListGroup as={"ul"}>
+        {devices[deviceType].map((edev) => {
+          return (
+            <ListGroup.Item
+              as={"button"}
+              devicetype={deviceType}
+              key={edev.deviceId}
+              name={edev.label}
+              eventKey={edev.deviceId}
+              onClick={handleSelect}
+              active={edev.deviceId === currDev[deviceType]?.deviceId}
+            >
+              {edev.label}
+            </ListGroup.Item>
+          );
+        })}
+      </ListGroup>
+    );
   };
 
   const toggleDevice = async (e) => {
@@ -214,45 +265,76 @@ export const GreenRoomTool = ({ apiRef }) => {
     }
   };
 
+  const popover = (
+    <Popover id="popover-basic">
+      <details>
+        <Popover.Header as={"summary"}>Microphone Device</Popover.Header>
+        <Popover.Body>
+          {devices ? showDevice("audioInput") : "No devices found"}
+        </Popover.Body>
+      </details>
+      <details>
+        <Popover.Header as={"summary"}>Camera Device</Popover.Header>
+
+        <Popover.Body>
+          {devices ? showDevice("videoInput") : "No devices found"}
+        </Popover.Body>
+      </details>
+    </Popover>
+  );
+
   return (
-    <div className={styles.deviceButton}>
-      <ButtonGroup size={"lg"} className="m-auto">
+    <div className={styles.gtoolbar_button_set}>
+      <div className={styles.gtoolbar_button_div}>
+        <Button variant="light" name={"videoInput"} onClick={toggleDevice}>
+          {cammute ? (
+            <BiCameraOff color={"#0d6efd"} name={"videoInput"} />
+          ) : (
+            <BiCamera color={"#0d6efd"} name={"videoInput"} />
+          )}
+        </Button>
+        <span style={{ fontSize: "65%" }}>Camera</span>
+      </div>
+      <div className={styles.gtoolbar_button_div}>
+        <OverlayTrigger trigger="click" placement="top" overlay={popover}>
+          <Button variant="light">
+            <FiSettings />
+          </Button>
+        </OverlayTrigger>
+        <span style={{ fontSize: "65%" }}>Setting</span>
+      </div>
+      <div className={styles.gtoolbar_button_div}>
         <Button
-          variant="success"
+          variant="light"
           title="Click to toogle audio"
           name={"audioInput"}
           onClick={toggleDevice}
         >
           {mute ? (
-            <BiMicrophoneOff name={"audioInput"} onClick={toggleDevice} />
+            <BiMicrophoneOff name={"audioInput"} color={"#0d6efd"} />
           ) : (
-            <BiMicrophone name={"audioInput"} onClick={() => toggleDevice} />
+            <BiMicrophone name={"audioInput"} color={"#0d6efd"} />
           )}
         </Button>
-        <Button color="#f5455c" name={"videoInput"} onClick={toggleDevice}>
-          {cammute ? (
-            <BiCameraOff name={"videoInput"} onClick={toggleDevice} />
-          ) : (
-            <BiCamera name={"videoInput"} onClick={() => toggleDevice} />
-          )}
-        </Button>
+        <span style={{ fontSize: "65%" }}>Mic</span>
+      </div>
+    </div>
+  );
+};
 
-        <DropdownButton
-          as={ButtonGroup}
-          title={<MdSettings />}
-          autoClose="outside"
-          variant={"secondary"}
-          id="bg-nested-dropdown"
-        >
-          <div style={{ overflowY: "scroll", height: "30vh" }}>
-            <Dropdown.Header>Microphone</Dropdown.Header>
-            {devices ? showDevice("audioInput") : "No devices found"}
-            <Dropdown.Divider></Dropdown.Divider>
-            <Dropdown.Header>Camera</Dropdown.Header>
-            {devices ? showDevice("videoInput") : "No devices found"}
-          </div>
-        </DropdownButton>
-      </ButtonGroup>
+export const GreenRoomToolBar = ({ apiRef, isAdmin }) => {
+  return (
+    <div
+      style={{
+        background: "white",
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <DeviceButtonSet apiRef={apiRef} />
+      <SpeakerMiscSet apiRef={apiRef} isAdmin={isAdmin} />
+      {/* <SpeakerChatSet /> */}
     </div>
   );
 };

@@ -9,13 +9,6 @@ export const signCook = async (mail) => {
   return res;
 };
 
-export const signRole = async (payload) => {
-  const res = await fetch(`${nextDeployUrl}/api/conf/signRole`, {
-    method: "POST",
-    body: JSON.stringify(payload)});
-  return res.json();
-};
-
 export const unsignCook = async (hash) => {
   const res = await fetch(`${nextDeployUrl}/api/conf/unsignCook`, {
     method: "POST",
