@@ -105,6 +105,32 @@ export const editEvent = async (data, auth,identifier) => {
 
 // Edit Event Basic Details Call Ends
 
+// Fetch Ticket Details
+
+export const getTicketDetails = async (eid , auth) => {
+  const headers = {
+    "Content-Type": "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
+  };
+  const res = await axios.get(`${eventUrl}/v1/tickets/${eid}`, {
+    headers: headers,
+  });
+  return res.data;
+}
+
+// Update the ticket details
+
+export const editEventTicket = async (eid,data, auth) => {
+  const headers = {
+    "Content-Type": "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
+  };
+  const res = await axios.patch(`${eventUrl}/v1/tickets/${eid}`, data, {
+    headers: headers,
+  });
+  return res;
+};
+
 // Event Ticket Publish Call Begins
 
 export const publishEventTicket = async (data, auth) => {

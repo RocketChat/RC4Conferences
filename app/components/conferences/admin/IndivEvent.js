@@ -21,7 +21,7 @@ import {
   getEventSpeakers,
 } from "../../../lib/conferences/eventCall";
 import styles from "../../../styles/event.module.css";
-import { EditEvent, CustomToast } from "./editEvent";
+import { EditEvent , CustomToast} from "./editEvent";
 
 export const IndivEventDash = ({ eid, event }) => {
   const [speakerInfo, setSpeakerInfo] = useState(null);
@@ -142,7 +142,7 @@ export const IndivEventDash = ({ eid, event }) => {
         </Tabs>
       </Row>
     </Container>
-    <CustomToast type={"success"} show={toast.show} msg={toast.msg} />
+    <CustomToast type="success" show={toast.show} msg={toast.msg} />
     </>
   );
 };

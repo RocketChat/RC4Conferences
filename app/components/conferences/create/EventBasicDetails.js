@@ -11,6 +11,7 @@ import Cookies from "js-cookie";
 import { publishEvent, publishEventTicket } from "../../../lib/conferences/eventCall";
 import { useRouter } from "next/router";
 import styles from "../../../styles/event.module.css";
+import { EventForm } from "../eventForm";
 
 
 export const EventBasicCreate = ({ setDraft, handleToast }) => {
@@ -22,16 +23,17 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
     "original-image-url": "https://lh3.googleusercontent.com/n6WF5Pv12ucRY8ObS74SY4coMuFs8ALtHmq7brwnMJVkBzNveiTQfj9sBygEt-KT6ykMMzDHZ3ifjY7jQkNx9Lbj7O7zhGTdMLUgkB8=w600",
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     online: true,
-    "is-sessions-speakers-enabled": true 
+    "is-sessions-speakers-enabled": true
   });
 
   const [publish, setPublish] = useState("draft");
 
   const [ticket, setTicket] = useState({
-    name: "Registration",
+    name: "",
     state: true,
-    quantity: 1,
+    quantity: '',
   });
+
   const router = useRouter();
 
   useEffect(() => {
@@ -99,7 +101,7 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
 
       const tres = await handleTicketPublish(res.data.data.id, token)
 
-      sessionStorage.setItem("draft", publish=="draft")
+      sessionStorage.setItem("draft", publish == "draft")
       sessionStorage.setItem("event", JSON.stringify(res.data))
       handleToast(res.data, publish)
       router.push("sessions")
@@ -125,144 +127,51 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
   const handleSwitch = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    CustomToast({type: "success"})
+    CustomToast({ type: "success" })
     name === "switch"
       ? setTicket((prev) => ({
-          ...prev,
-          state: !ticket.state,
-        }))
+        ...prev,
+        state: !ticket.state,
+      }))
       : setTicket((prev) => ({
-          ...prev,
-          [name]: value,
-        }));
+        ...prev,
+        [name]: value,
+      }));
   };
 
   return (
     <>
-    <Card>
-      <Card.Header>Creating Event {formState.name}!</Card.Header>
-      <Card.Body>
-        <Form onSubmit={handleFormSubmit}>
-          <Form.Group className="mb-3">
-            <Form.Label>Event name*</Form.Label>
-            <Form.Control
-              required
-              name="name"
-              type="text"
-              placeholder=""
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Event Description</Form.Label>
-            <Form.Control
-              as="textarea"
-              name="description"
-              type="text"
-              placeholder=""
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Event Banner Image URI</Form.Label>
-            <Form.Control
-              name="original-image-url"
-              type="url"
-              placeholder="https://via.placeholder.com/1920x960.png"
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Event Organizer logo</Form.Label>
-            <Form.Control
-              name="logo-url"
-              type="url"
-              placeholder="https://via.placeholder.com/100.png"
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Start Date*</Form.Label>
-            <Form.Control
-              required
-              name="starts-at"
-              type="datetime-local"
-              value={formState["starts-at"]}
-              min={formState["start-at"]}
-              onChange={handleChange}
-              placeholder=""
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>End Date*</Form.Label>
-            <Form.Control
-              required
-              name="ends-at"
-              type="datetime-local"
-              value={formState["ends-at"]}
-              min={formState["start-at"]}
-              onChange={handleChange}
-              placeholder=""
-            />
-          </Form.Group>
-          <InputGroup className="mb-3">
-            <InputGroup.Text>Ticketed Event</InputGroup.Text>
-            <InputGroup.Text aria-label="Switch-group">
-              <Form.Check
-                aria-label="Switch"
-                name="switch"
-                onChange={handleSwitch}
-                type="switch"
-                value={"on"}
-              />
-            </InputGroup.Text>
-            <InputGroup.Text>Registration</InputGroup.Text>
-            <Form.Control
-              required
-              name="name"
-              type="text"
-              onChange={handleSwitch}
-              placeholder={
-                ticket.state ? "Free Ticket Name" : "Free Registration Name"
-              }
-            />
-            <Form.Control
-              required
-              name="quantity"
-              type="number"
-              min={1}
-              onChange={handleSwitch}
-              placeholder="Quantity"
-            />
-          </InputGroup>
-
-          <ButtonGroup aria-label="Basic example">
-            <Button variant="primary" type="submit">
-              Next
-            </Button>
-            <Button
-              variant="success"
-              onClick={() => setPublish("published")}
-              type="submit"
-            >
-              Publish
-            </Button>
-          </ButtonGroup>
-        </Form>
-      </Card.Body>
-    </Card>
+      <Card>
+        <Card.Header>Creating Event {formState.name}!</Card.Header>
+        <Card.Body>
+          <Form onSubmit={handleFormSubmit}>
+            <EventForm intialValues={formState} handleChange={handleChange} ticket={ticket} handleSwitch={handleSwitch} />
+            <ButtonGroup aria-label="Basic example">
+              <Button variant="primary" type="submit">
+                Next
+              </Button>
+              <Button
+                variant="success"
+                onClick={() => setPublish("published")}
+                type="submit"
+              >
+                Publish
+              </Button>
+            </ButtonGroup>
+          </Form>
+        </Card.Body>
+      </Card>
     </>
-
   );
 };
 
-export const CustomToast = ({show, type, msg}) => {
-    return (
-        <Toast show={show} className={styles.toast} bg={type}>
+export const CustomToast = ({ show, type, msg }) => {
+  return (
+    <Toast show={show} className={styles.toast} bg={type}>
       <Toast.Header>
         <strong className="me-auto">Event Alert!</strong>
       </Toast.Header>
       <Toast.Body>{msg}</Toast.Body>
     </Toast>
-    )
+  )
 }
