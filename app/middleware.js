@@ -13,7 +13,7 @@ const verifySignedInUser = (mail) => {
     return;
 }
 
-const verifyGreenroomAccess = async (mail, eventIdentifier, rolecookie) => {
+const verifyGreenroomAccess = async (mail, eventIdentifier) => {
   let isAdmin = false
   if (mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
     isAdmin = await ssrVerifyAdmin({ email: mail });
@@ -25,12 +25,12 @@ const verifyGreenroomAccess = async (mail, eventIdentifier, rolecookie) => {
     mail
   );
 
-  const {hashRole, isSuperSpeaker} = await ssrVerifySpeaker({email: mail}, rolecookie)
+  const isSuperSpeaker = await ssrVerifySpeaker({email: mail})
 
   if (!isAdmin && !isSpeaker && !isSuperSpeaker) {
-    return {hashRole, hasAccess: false}
+    return {hasAccess: false}
   }
-  return {hashRole, hasAccess: true};
+  return {hasAccess: true};
 }
 
 const verifyAdminAccess = async (mail) => {
@@ -70,7 +70,6 @@ const params = (url) => {
 export async function middleware(request) {
   const umail = request.cookies.get("hashmail")
   const oesCookie = request.cookies.get("event_auth")
-  const rolecookie = request.cookies.get("hashrole")
 
   if (!umail) {
     return NextResponse.redirect(new URL("/", request.url))
@@ -118,12 +117,11 @@ export async function middleware(request) {
     let now = new Date()
     now.setHours(now.getHours()+1)
     
-    const {hashRole, hasAccess} = await verifyGreenroomAccess(decryptedMail, eventIdentifier, rolecookie)
+    const { hasAccess} = await verifyGreenroomAccess(decryptedMail, eventIdentifier)
     if (!hasAccess) {
       return NextResponse.redirect(new URL(`/conferences/c/${eventIdentifier}?error=0`, request.url))
     }
     
-    response.cookies.set("hashrole", hashRole?.hash, {expires: now})
     return response
   }
 

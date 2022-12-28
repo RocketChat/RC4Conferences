@@ -24,3 +24,24 @@ export const verifySpeaker = async (eid, acook, mailid) => {
     return { isSpeaker: null };
   }
 };
+
+export const verifyValidRCchat = () => {
+  if (!process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID) {
+    return {
+      valid: false,
+      msg: "Missing NEXT_PUBLIC_GOOGLE_CLIENT_ID, the google client id",
+    };
+  } else if (!process.env.NEXT_PUBLIC_RC_ROOM_ID) {
+    return {
+      valid: false,
+      msg: "Missing NEXT_PUBLIC_RC_ROOM_ID, the id of the event room in RC",
+    };
+  } else if (!process.env.NEXT_PUBLIC_RC_URL) {
+    return {
+      valid: false,
+      msg: "Missing NEXT_PUBLIC_RC_URL, the Rocket Chat instance URI",
+    };
+  } else {
+    return { valid: true, msg: "Open Chat" };
+  }
+};
