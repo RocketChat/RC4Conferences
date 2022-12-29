@@ -33,7 +33,7 @@ export default function Menubar(props) {
     process.env.ROCKETCHAT_CLIENT_SECRET &&
     process.env.ROCKETCHAT_URL;
     
-  if (!hasAllRequiredCreds) console.log("RC4Community is now using a dummy Auth Component! If you wish to use a robust Auth component, provide all the credentials first (https://github.com/RocketChat/RC4Community/tree/master/app/components/auth)")
+  if (!hasAllRequiredCreds) console.log("RC4Conferences is now using a dummy Auth Component! If you wish to use a robust Auth component, provide all the credentials first (https://github.com/RocketChat/RC4Community/tree/master/app/components/auth)")
   return (
     <Container fluid className="border-bottom ">
       <Navbar expand="lg" className=" bg-white mx-4 my-2">
@@ -107,7 +107,7 @@ export default function Menubar(props) {
             <Dropdown align="end" className={styles.dropdown_menu}>
               <Dropdown.Toggle as={CustomToggle} />
               <Dropdown.Menu size="sm" title="">
-                <Dropdown.Header>RC4Community Profile</Dropdown.Header>
+                <Dropdown.Header>RC4Conferences Profile</Dropdown.Header>
                 <Dropdown.Item>
                   <Link href={`/profile/${userCookie}`}>
                     <a className={styles.dropdown_menu_item}>Profile</a>
