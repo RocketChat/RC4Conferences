@@ -59,7 +59,7 @@ export const EventShow = ({ event, error, speaker, prsession }) => {
               <div className={styles.event_logo}>
                 <Image src={event.data.attributes["logo-url"]} width={100} />
               </div>
-              <div className={styles.event_organizer_header}><h6> Organizer </h6></div>
+              <div className={styles.event_organizer_header}><h6> {event.data.attributes["owner-name"]} </h6></div>
             </Stack>
           </Tab>
           <Tab eventKey="sessions" title="Sessions">
