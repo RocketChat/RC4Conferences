@@ -36,6 +36,7 @@ export const EventForm = ({ handleChange, intialValues, ticket , handleSwitch })
           name="original-image-url"
           type="url"
           placeholder="https://via.placeholder.com/1920x960.png"
+          value={intialValues["original-image-url"]}
           onChange={handleChange}
         />
       </Form.Group>
@@ -45,6 +46,7 @@ export const EventForm = ({ handleChange, intialValues, ticket , handleSwitch })
           name="logo-url"
           type="url"
           placeholder="https://via.placeholder.com/100.png"
+          value={intialValues["logo-url"]}
           onChange={handleChange}
         />
       </Form.Group>

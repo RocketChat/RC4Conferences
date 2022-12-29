@@ -20,7 +20,8 @@ export const EditEvent = ({ event, handleToast }) => {
     description: event.data.attributes.description,
     "starts-at": event.data.attributes["starts-at"].slice(0, 16),
     "ends-at": event.data.attributes["ends-at"].slice(0, 16),
-    "original-image-url": "https://lh3.googleusercontent.com/n6WF5Pv12ucRY8ObS74SY4coMuFs8ALtHmq7brwnMJVkBzNveiTQfj9sBygEt-KT6ykMMzDHZ3ifjY7jQkNx9Lbj7O7zhGTdMLUgkB8=w600",
+    "original-image-url": event.data.attributes["original-image-url"],
+    "logo-url" : event.data.attributes["logo-url"],
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     online: true,
     "is-sessions-speakers-enabled": true
@@ -82,6 +83,11 @@ export const EditEvent = ({ event, handleToast }) => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+
+    if(formState['logo-url'] === ""){
+      delete formState['logo-url'];
+    }
+
     const data = {
       data: {
         attributes: { ...formState, state: publish },

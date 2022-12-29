@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import { useEffect, useState } from "react";
 import {
   Button,
+  Card,
   Col,
   Container,
   Form,
@@ -21,7 +22,7 @@ import {
   getEventSpeakers,
 } from "../../../lib/conferences/eventCall";
 import styles from "../../../styles/event.module.css";
-import { EditEvent , CustomToast} from "./editEvent";
+import { EditEvent , CustomToast} from "./EditEvent";
 
 export const IndivEventDash = ({ eid, event }) => {
   const [speakerInfo, setSpeakerInfo] = useState(null);
@@ -108,15 +109,19 @@ export const IndivEventDash = ({ eid, event }) => {
     <>
     <Container>
       <Row>
-        <h4>{event.data.attributes.name}</h4>
+        <h4 className="text-center my-2">Editing Event {event.data.attributes.name}</h4>
       </Row>
       <Row>
+        <Card className="p-3">
         <Tabs
-          defaultActiveKey="speaker"
+          defaultActiveKey="edit_event"
           id="uncontrolled-tab-example"
           className="mb-3"
           fill
-        >
+          >
+          <Tab eventKey="edit_event" title="Edit Event Details">
+            <EditEvent event={event} handleToast={handleToast}/>
+          </Tab>
           <Tab eventKey="speaker" title="Speaker">
             <Stack className={styles.speaker_add_btn}>
               <Button onClick={() => setModalShow(true)}>Add Speaker</Button>
@@ -135,11 +140,9 @@ export const IndivEventDash = ({ eid, event }) => {
               handleDelete={handleDelete}
             />
           </Tab>
-          <Tab eventKey="edit_event" title="Edit Event Details">
-            <EditEvent event={event} handleToast={handleToast}/>
-          </Tab>
           <Tab eventKey="contact" title="Contact" disabled></Tab>
         </Tabs>
+        </Card>
       </Row>
     </Container>
     <CustomToast type="success" show={toast.show} msg={toast.msg} />
