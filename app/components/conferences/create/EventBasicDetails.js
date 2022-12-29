@@ -173,6 +173,16 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
             />
           </Form.Group>
           <Form.Group className="mb-3">
+            <Form.Label>Event Organization*</Form.Label>
+            <Form.Control
+              required
+              name="owner-name"
+              type="text"
+              placeholder="ABC Corp."
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3">
             <Form.Label>Event Organizer logo</Form.Label>
             <Form.Control
               name="logo-url"
