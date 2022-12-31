@@ -1,0 +1,59 @@
+tasks:
+  - name: Initialize Backend
+    init: |
+      docker pull fauna/faunadb:4.15.0 &
+      docker pull eventyay/open-event-server:master &
+      docker pull postgis/postgis:12-3.0-alpine &
+      docker pull redis:3-alpine
+    command: |
+      sh gitpod-scripts/startCloudDevBackend.sh
+      gp sync-done Initialization_of_Backend
+  - name: Initialize Next.js App
+    init: |
+      cd app
+      npm i
+      cd ..
+    command: |
+      gp sync-done Initialization_of_NextJS_Packages
+  
+  - name: Initialize Strapi App
+    init: |
+      cd cms
+      npm i
+      npm run build
+      cd ..
+    command: sh gitpod-scripts/startCloudDevStrapi.sh
+  
+  - name: Start build
+    command: |
+      printf "⚡️ Please wait while we're initializing these tasks for you... ⚡️\n"
+      gp tasks list
+      printf "\n"
+      gp sync-await Initialization_of_NextJS_Packages && 
+      sh gitpod-scripts/startCloudDevEnv.sh
+
+ports:
+  - port: 3000
+    onOpen: open-preview
+    name: RC4Conferences
+    description: Next.js app for RC4Conferences
+  - port: 1337
+    onOpen: notify
+    name: Strapi
+    description: Strapi Dashboard
+  - port: 8084
+    onOpen: ignore
+  - port: 8444
+    onOpen: ignore
+  - port: 8443
+    onOpen: ignore
+
+github:
+  prebuilds:
+    master: true
+    branches: true
+    pullRequests: true
+    pullRequestsFromForks: true
+    addCheck: true
+    addComment: true
+    addBadge: true
