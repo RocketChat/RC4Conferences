@@ -40,4 +40,4 @@ else
     exit 1
 fi
 
-sh startNextGp.sh
+sh startCloudNext.sh

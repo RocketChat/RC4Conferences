@@ -1,7 +1,7 @@
 #!/bin/sh
 watchtimer=0
 
-sh startContainers.sh $1 $2
+sh startCloudContainers.sh $1 $2
 
 while [ $? -ne 0 ] && [ $watchtimer -lt 5 ]
 do
