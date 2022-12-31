@@ -6,8 +6,10 @@ tasks:
       docker pull postgis/postgis:12-3.0-alpine &
       docker pull redis:3-alpine
     command: |
-      sh gitpod-scripts/startCloudDevBackend.sh
+      cd gitpod-scripts
+      sh startCloudDevBackend.sh
       gp sync-done Initialization_of_Backend
+      cd ..
   - name: Initialize Next.js App
     init: |
       cd app
