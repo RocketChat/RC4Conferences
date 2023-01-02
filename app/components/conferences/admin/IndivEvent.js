@@ -112,17 +112,20 @@ export const IndivEventDash = ({ eid, event }) => {
         <h4 className="text-center my-2">Editing Event {event.data.attributes.name}</h4>
       </Row>
       <Row>
-        <Card className="p-3">
+        <Card className = "p-0">
         <Tabs
           defaultActiveKey="edit_event"
           id="uncontrolled-tab-example"
-          className="mb-3"
+          className={styles.edit_event_tabs}
           fill
           >
           <Tab eventKey="edit_event" title="Edit Event Details">
+            <div className="m-3">
             <EditEvent event={event} handleToast={handleToast}/>
+            </div>
           </Tab>
           <Tab eventKey="speaker" title="Speaker">
+            <div className="m-3">
             <Stack className={styles.speaker_add_btn}>
               <Button onClick={() => setModalShow(true)}>Add Speaker</Button>
             </Stack>
@@ -139,6 +142,7 @@ export const IndivEventDash = ({ eid, event }) => {
               fetchSpeaker={fetchSpeaker}
               handleDelete={handleDelete}
             />
+            </div>
           </Tab>
           <Tab eventKey="contact" title="Contact" disabled></Tab>
         </Tabs>

@@ -146,7 +146,6 @@ export const EditEvent = ({ event, handleToast }) => {
   return (
     <>
       <Card>
-        <Card.Header>Editing Event {formState.name}!</Card.Header>
         <Card.Body>
           <Form onSubmit={handleFormSubmit}>
             <EventForm intialValues={formState} handleChange={handleChange} ticket={ticket} handleSwitch={handleSwitch} />
