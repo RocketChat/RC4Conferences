@@ -198,6 +198,11 @@
   justify-content: flex-end;
 }
 
+.edit_event_tabs {
+  background-color: rgba(247,247,247,255);
+  padding : 10px 10px 0px 10px;
+}
+
 /* Admin Dashboard style ends */
 
 /* Conference Greenroom Style Begins */

@@ -10,7 +10,7 @@ function EventEditPage({ event }) {
   return (
     <div>
       <Head>
-        <title>Event Create</title>
+        <title>Event Edit</title>
         <meta name="description" content="Rocket.Chat form tool demo" />
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
