@@ -58,7 +58,7 @@ export const MdEventHeader = ({ event, error }) => {
           <Col fluid="true">
             {/* <Image src={event.data.attributes["original-image-url"]} fluid /> */}
           </Col>
-          <Col className="mt-1" md={5} sm={5} style={{backdropFilter: "blur(45px)"}}>
+          <Col md={5} sm={5} style={{backdropFilter: "blur(45px)"}}>
             <Row>
               <h5>{event.data.attributes.name}</h5>
               <p>

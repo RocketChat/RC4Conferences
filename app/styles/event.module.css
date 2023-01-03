@@ -141,7 +141,14 @@
   }
 }
 
-@media (min-width: 576px) and (max-width: 992px) {
+@media (min-width: 576px) and (max-width: 768px) {
+  .event_custom_container{
+    max-width: 100vw;
+  }
+  .event_banner{
+    padding: 0;
+    min-width: 79vw;
+  }
   .speaker_intro {
     display: flex;
     flex-direction: row;

@@ -36,7 +36,7 @@ export const EventShow = ({ event, error, speaker, prsession }) => {
 
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
 
-  const isMdScreen = useMediaQuery("(min-width: 768px)");
+  const isMdScreen = useMediaQuery("(max-width: 768px)");
 
   return (
     <Card className={styles.event_show_root}>
