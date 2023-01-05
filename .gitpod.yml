@@ -31,7 +31,8 @@ tasks:
       printf "⚡️ Please wait while we're initializing these tasks for you... ⚡️\n"
       gp tasks list
       printf "\n"
-      sh gitpod-scripts/startCloudDevEnv.sh
+      cd gitpod-scripts
+      sh startCloudDevEnv.sh
 
 ports:
   - port: 3000
