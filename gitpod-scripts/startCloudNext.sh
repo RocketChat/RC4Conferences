@@ -4,6 +4,8 @@ NEXTJS_PORT=3000
 counter=0
 watchdog=5
 
+cd ..
+
 check_and_set_next_port() {
     if lsof -Pi :$NEXTJS_PORT -sTCP:LISTEN -t >/dev/null && [ "$counter" -lt $watchdog ]; then
         echo "NextJS port $NEXTJS_PORT already occupied, changing to the next consecutive port"
