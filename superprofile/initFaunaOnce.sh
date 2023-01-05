@@ -3,6 +3,9 @@
 waittime=30
 ALREADY_INITIALIZED="log/init_key_flag"
 
+counter=0
+watchdog=6
+
 FAUNA_CONTAINER_ID=$( docker ps -q -f name=faunadb )
 
 if [ -e $ALREADY_INITIALIZED ] && [ ! -z $FAUNA_CONTAINER_ID ]; then
