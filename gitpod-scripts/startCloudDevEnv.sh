@@ -40,4 +40,6 @@ else
     exit 1
 fi
 
+gp sync-done Dependencies_Check
+
 sh startCloudNext.sh

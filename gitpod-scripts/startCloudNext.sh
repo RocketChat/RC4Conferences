@@ -35,4 +35,5 @@ printf "\nPlease wait while we initialize strapi for development....🚀\n"
 gp ports await 1337 
 
 printf "\nPlease wait while we initialize the backend....🚀\n"
+cd app
 gp sync-await Initialization_of_Backend && npm run dev

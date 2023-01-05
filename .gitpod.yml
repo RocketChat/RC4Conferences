@@ -7,7 +7,7 @@ tasks:
       docker pull redis:3-alpine
     command: |
       cd gitpod-scripts
-      sh startCloudDevBackend.sh
+      gp sync-await Dependencies_Check && sh startCloudDevBackend.sh
       gp sync-done Initialization_of_Backend
       cd ..
   - name: Initialize Next.js App
@@ -16,7 +16,7 @@ tasks:
       npm i
       cd ..
     command: |
-      gp sync-done Initialization_of_NextJS_Packages
+      gp sync-await Dependencies_Check && gp sync-done Initialization_of_NextJS_Packages
 
   - name: Initialize Strapi App
     init: |
@@ -24,7 +24,7 @@ tasks:
       npm i
       npm run build
       cd ..
-    command: sh gitpod-scripts/startCloudDevStrapi.sh
+    command: gp sync-await Dependencies_Check && sh gitpod-scripts/startCloudDevStrapi.sh
 
   - name: Start build
     command: |
@@ -32,9 +32,7 @@ tasks:
       gp tasks list
       printf "\n"
       gp sync-await Initialization_of_NextJS_Packages &&
-      cd gitpod-scripts
-      sh startCloudDevEnv.sh
-      cd ..
+      sh gitpod-scripts/startCloudDevEnv.sh
 
 ports:
   - port: 3000
