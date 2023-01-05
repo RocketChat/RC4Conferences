@@ -24,6 +24,9 @@ check_and_set_next_port() {
 
 check_and_set_next_port
 
+gp ports await 1337 
+gp sync-await Initialization_of_Backend && 
+
 export NEXT_PUBLIC_API_URL=$(gp url 3000)
 export NEXT_PUBLIC_FAUNA_DOMAIN=$(gp url 8084)/graphql
 gp ports visibility 8084:public
@@ -34,8 +37,7 @@ export NEXT_PUBLIC_PORT=$NEXTJS_PORT
 printf '\nNEXT_PUBLIC_API_URL'="http://$1:$NEXTJS_PORT" >> app/.env
 
 printf "\nPlease wait while we initialize strapi for development....🚀\n"
-gp ports await 1337 
 
 printf "\nPlease wait while we initialize the backend....🚀\n"
 cd app
-gp sync-await Initialization_of_Backend && gp sync-await Initialization_of_NextJS_Packages && npm run dev
+gp sync-await Initialization_of_NextJS_Packages && npm run dev
