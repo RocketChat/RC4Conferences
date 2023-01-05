@@ -143,8 +143,10 @@ export const getEventDeatils = async (eid) => {
   const headers = {
     Accept: "application/vnd.api+json",
   };
-  const res = await axios.get(`${eventUrl}/v1/events/${eid}?include=tickets`);
-  return res;
+  const res = await fetch(`${eventUrl}/v1/events/${eid}?include=tickets`, {
+    headers: headers
+  });
+  return res.json();
 };
 
 export const getAllEvents = async (eid) => {
