@@ -36,6 +36,7 @@ tasks:
 
 ports:
   - port: 3000
+    visibility : public
     onOpen: open-preview
     name: RC4Conferences
     description: Next.js app for RC4Conferences
