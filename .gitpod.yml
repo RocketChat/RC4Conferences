@@ -16,9 +16,9 @@ tasks:
       cd app
       npm i
       cd ..
-      exit
     command: |
       gp sync-await Dependencies_Check && gp sync-done Initialization_of_NextJS_Packages
+      exit
 
   - name: Initialize Strapi App
     init: |
