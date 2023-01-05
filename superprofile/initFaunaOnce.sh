@@ -6,6 +6,9 @@ ALREADY_INITIALIZED="log/init_key_flag"
 counter=0
 watchdog=6
 
+DOMAIN="localhost"
+if [ ! -z "$1" ]; then DOMAIN="$1"; fi
+
 FAUNA_CONTAINER_ID=$( docker ps -q -f name=faunadb )
 
 if [ -e $ALREADY_INITIALIZED ] && [ ! -z $FAUNA_CONTAINER_ID ]; then
@@ -22,7 +25,7 @@ else
     docker-compose -f docker-compose-dev.yml up -d
     echo "--Starting the development build of Superprofile--"
     echo "--Copying default environment variables to app/.env--"
-    printf '\nNEXT_PUBLIC_FAUNA_DOMAIN'="http://$1:8084/graphql" >> ../app/.env
+    printf '\nNEXT_PUBLIC_FAUNA_DOMAIN'="http://$DOMAIN:8084/graphql" >> ../app/.env
 fi
 
 echo "Waiting $waittime seconds for container to get shipped..."

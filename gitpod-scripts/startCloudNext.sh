@@ -4,6 +4,9 @@ NEXTJS_PORT=3000
 counter=0
 watchdog=5
 
+DOMAIN="localhost"
+if [ ! -z "$1" ]; then DOMAIN="$1"; fi
+
 cd ..
 
 check_and_set_next_port() {
