@@ -27,6 +27,7 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
   });
 
   const [publish, setPublish] = useState("draft");
+  const [isPublic, setIsPublic] = useState(false)
 
   const [ticket, setTicket] = useState({
     name: "",
@@ -87,7 +88,7 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
     e.preventDefault();
     const data = {
       data: {
-        attributes: { ...formState, state: publish },
+        attributes: { ...formState, state: publish, privacy: isPublic ? "public" : "private" },
         type: "event",
       },
     };
@@ -99,7 +100,7 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
 
       const res = await publishEvent(data, token);
 
-      const tres = await handleTicketPublish(res.data.data.id, token)
+      await handleTicketPublish(res.data.data.id, token)
 
       sessionStorage.setItem("draft", publish == "draft")
       sessionStorage.setItem("event", JSON.stringify(res.data))
@@ -139,13 +140,18 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
       }));
   };
 
+  const handlePublicSwitch = (e) => {
+    const checked = e.target.checked
+    setIsPublic(checked)
+  }
+
   return (
     <>
       <Card>
         <Card.Header>Creating Event {formState.name}!</Card.Header>
         <Card.Body>
           <Form onSubmit={handleFormSubmit}>
-            <EventForm intialValues={formState} handleChange={handleChange} ticket={ticket} handleSwitch={handleSwitch} />
+            <EventForm intialValues={formState} handleChange={handleChange} ticket={ticket} handleSwitch={handleSwitch} handlePublicSwitch={handlePublicSwitch} />
             <ButtonGroup aria-label="Basic example">
               <Button variant="primary" type="submit">
                 Next

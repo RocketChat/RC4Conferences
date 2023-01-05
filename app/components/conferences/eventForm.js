@@ -4,7 +4,7 @@ import {
   Toast,
 } from "react-bootstrap";
 
-export const EventForm = ({ handleChange, intialValues, ticket , handleSwitch }) => {
+export const EventForm = ({ handleChange, intialValues, ticket , handleSwitch, handlePublicSwitch }) => {
   
   return (
     <>
@@ -107,6 +107,9 @@ export const EventForm = ({ handleChange, intialValues, ticket , handleSwitch })
           placeholder="Quantity"
         />
       </InputGroup>
+      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check onChange={handlePublicSwitch} type="checkbox" label="Make this event public (Role-based access not required)" />
+      </Form.Group>
     </>
 
   );
