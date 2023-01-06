@@ -24,7 +24,8 @@ export const EditEvent = ({ event, handleToast }) => {
     "logo-url" : event.data.attributes["logo-url"],
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     online: true,
-    "is-sessions-speakers-enabled": true
+    "is-sessions-speakers-enabled": true,
+    privacy: event.data.attributes.privacy
   });
 
   const [publish, setPublish] = useState("published");

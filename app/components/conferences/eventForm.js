@@ -108,7 +108,7 @@ export const EventForm = ({ handleChange, intialValues, ticket , handleSwitch, h
         />
       </InputGroup>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check onChange={handlePublicSwitch} type="checkbox" label="Make this event public (Role-based access not required)" />
+        <Form.Check onChange={handlePublicSwitch} checked={intialValues?.privacy === "public" ? true : false} type="checkbox" label="Make this event public (Role-based access not required)" />
       </Form.Group>
     </>
 
