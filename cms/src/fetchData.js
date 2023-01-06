@@ -8,7 +8,8 @@ const {
   topNavItem,
   speakers,
   forms,
-  sessions
+  sessions,
+  eventSessions
 } = require("../config/initialData");
 
 module.exports = async () => {
@@ -32,6 +33,7 @@ module.exports = async () => {
     //   .count({});
     var speakersCount = await strapi.db.query("api::speaker.speaker").count({});
     var sessionCount = await strapi.db.query("api::session.session").count({});
+    var eventSessionsCount = await strapi.db.query("api::event-session.event-session").count({});
 
     // initial fetch
     speakers.map(async (speaker, index) => {
@@ -95,6 +97,27 @@ module.exports = async () => {
             mentor: session.mentors,
             description: session.description,
             youtube: session.youtube
+          },
+        });
+      }
+    });
+
+    eventSessions.map(async (session, index) => {
+      if (index <= eventSessionsCount - 1) {
+        await strapi.db.query("api::event-session.event-session").update({
+          where: { id: session.id },
+          data: {
+            event_name: session.event_name,
+            event_id: session.event_id,
+            session_items: session.session_items
+          },
+        });
+      } else {
+        await strapi.db.query("api::event-session.event-session").create({
+          data: {
+            event_name: session.event_name,
+            event_id: session.event_id,
+            session_items: session.session_items
           },
         });
       }

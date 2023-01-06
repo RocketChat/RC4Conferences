@@ -1,24 +1,18 @@
 'use strict';
 
 /**
- *  top-nav-item controller
+ *  event-session controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::top-nav-item.top-nav-item', ({ strapi }) =>  ({
+module.exports = createCoreController('api::event-session.event-session', ({ strapi }) =>  ({
     
     async find(ctx) {
       // some custom logic here
       
       // Calling the default core action
-      const entity = await strapi.entityService.findMany('api::top-nav-item.top-nav-item', {
-        populate: {
-          body: {
-            populate: '*'
-          }
-        },
-      })
+      const entity = await strapi.db.query('api::event-session.event-session').findMany({populate: ['session_items']})
       const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
   
       // some more custom logic
