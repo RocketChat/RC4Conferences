@@ -12,7 +12,12 @@ module.exports = createCoreController('api::event-session.event-session', ({ str
       // some custom logic here
       
       // Calling the default core action
-      const entity = await strapi.db.query('api::event-session.event-session').findMany({populate: ['session_items']})
+      const entity = await strapi.db.query('api::event-session.event-session').findMany({ populate: {
+        session_items: {
+            orderBy: ['start_time']
+        } 
+      }
+    })
       const sanitizedEntity = await this.sanitizeOutput(entity, ctx);
   
       // some more custom logic
