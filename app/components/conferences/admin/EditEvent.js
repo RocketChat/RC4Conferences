@@ -29,7 +29,7 @@ export const EditEvent = ({ event, handleToast }) => {
   });
 
   const [publish, setPublish] = useState("published");
-  const [isPublic, setIsPublic] = useState(false)
+  const [isPublic, setIsPublic] = useState(event.data.attributes.privacy === "public" ? true : false)
 
   const [ticket, setTicket] = useState({
     name: "Registration",
@@ -155,7 +155,7 @@ export const EditEvent = ({ event, handleToast }) => {
       <Card>
         <Card.Body>
           <Form onSubmit={handleFormSubmit}>
-            <EventForm intialValues={formState} handleChange={handleChange} ticket={ticket} handleSwitch={handleSwitch} handlePublicSwitch={handlePublicSwitch} />
+            <EventForm isPublic={isPublic} intialValues={formState} handleChange={handleChange} ticket={ticket} handleSwitch={handleSwitch} handlePublicSwitch={handlePublicSwitch} />
             <ButtonGroup aria-label="Basic example">
               <Button variant="primary" type="submit">
                 Save
