@@ -93,8 +93,8 @@ export const IndivEventDash = ({ eid, event }) => {
         setModalShow(false);
       }
     } catch (e) {
-      console.error("An error occurred while publishing speaker", e);
-      throw new Error("An error occurred while publishing speaker", e);
+      console.error("An error occurred while publishing speaker", e.response.data.errors[0].detail);
+      throw new Error(`An error occurred while publishing speaker: ${e.response.data.errors[0].detail}`);
     } finally {
       setLoad(false);
     }
@@ -112,7 +112,7 @@ export const IndivEventDash = ({ eid, event }) => {
       setSpeakerInfo((oarr) => oarr.filter((spk) => spk.id !== e.target.id));
     } catch (e) {
       console.error("An error occurred while deleting the Speaker", e);
-      throw new Error("An error occurred while deleting the Speaker", e);
+      throw new Error(`An error occurred while deleting the Speaker: ${e.response?.data?.errors?.[0]?.detail}`);
     }
   };
 

@@ -120,7 +120,7 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
         Cookies.remove("event_auth");
         router.push("/conferences");
       }
-      throw new Error("Event create failed",e);
+      throw new Error(`Event create failed: ${e.response.data.error}`);
     }
   };
 

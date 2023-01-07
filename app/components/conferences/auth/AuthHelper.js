@@ -93,6 +93,6 @@ export const autoLogin = async (mail, passcode) => {
     }
   } catch (error) {
     console.error("An error occurred while authorizing", error);
-    throw new Error("An error occurred while authorizing", error);
+    throw new Error(`An error occurred while authorizing: ${error}`);
   }
 };
