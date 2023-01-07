@@ -160,7 +160,18 @@ const JoinModal = ({ open, handleClose, event, alertOp, setAlertOp, err }) => {
         console.error("An error while verifying admin access", e);
       }
     };
-    checkSignedIn();
+    try {
+      if (event.data.attributes.privacy === "private") {
+        checkSignedIn();
+      } else {
+        setIsSignedIn(true);
+      }
+    } catch (e) {
+      console.error(
+        "An error occurred while whitelisting the event as public",
+        e
+      );
+    }
   });
 
   const handleRedirect = (location) => {

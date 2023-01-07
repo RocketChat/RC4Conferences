@@ -12,7 +12,7 @@ module.exports = createCoreController('api::top-nav-item.top-nav-item', ({ strap
       // some custom logic here
       
       // Calling the default core action
-      const entity = await await strapi.entityService.findMany('api::top-nav-item.top-nav-item', {
+      const entity = await strapi.entityService.findMany('api::top-nav-item.top-nav-item', {
         populate: {
           body: {
             populate: '*'

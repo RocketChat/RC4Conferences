@@ -22,17 +22,17 @@ import { MdEventHeader, SmEventHeader } from "./EventHeader";
 import { BsYoutube } from "react-icons/bs";
 
 export const EventShow = ({ event, error, speaker, prsession }) => {
-  let urlHash = ""
+  let urlHash = "";
 
   const [key, setKey] = useState("home");
   const [toOpen, setToOpen] = useState({});
 
-  const helperTabOptions = ["home", "sessions", "speakers"]
+  const helperTabOptions = ["home", "sessions", "speakers"];
   useEffect(() => {
-    const rawHash = window.location.hash
-    urlHash = rawHash.substring(1)
-    if (helperTabOptions.includes(urlHash)) setKey(urlHash)
-  }, [])
+    const rawHash = window.location.hash;
+    urlHash = rawHash.substring(1);
+    if (helperTabOptions.includes(urlHash)) setKey(urlHash);
+  }, []);
 
   const isSmallScreen = useMediaQuery("(max-width: 576px)");
 
@@ -59,16 +59,20 @@ export const EventShow = ({ event, error, speaker, prsession }) => {
               <div className={styles.event_logo}>
                 <Image src={event.data.attributes["logo-url"]} width={100} />
               </div>
-              <div className={styles.event_organizer_header}><h6> Organizer </h6></div>
+              <div className={styles.event_organizer_header}>
+                <h6> Organizer </h6>
+              </div>
             </Stack>
           </Tab>
-          <Tab eventKey="sessions" title="Sessions">
-            <EventSession
-              session={prsession}
-              toOpen={toOpen}
-              setToOpen={setToOpen}
-            />
-          </Tab>
+          {prsession && (
+            <Tab eventKey="sessions" title="Sessions">
+              <EventSession
+                session={prsession}
+                toOpen={toOpen}
+                setToOpen={setToOpen}
+              />
+            </Tab>
+          )}
           <Tab eventKey="speakers" title="Speakers">
             {key == "speakers" &&
               (isSmallScreen ? (
@@ -99,7 +103,7 @@ const EventDesc = ({ eventData }) => {
         <Col>
           <div>
             <h6>About the Event</h6>
-            <div dangerouslySetInnerHTML={{__html: eventDesc}} />
+            <div dangerouslySetInnerHTML={{ __html: eventDesc }} />
           </div>
         </Col>
       </Row>
@@ -116,6 +120,22 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
     duration_minutes: "Duration Minutes",
   };
 
+  const excludedFields = [
+    "createdAt",
+    "updatedAt",
+    "Description",
+    "Event",
+    "Mentor",
+  ];
+
+  let headerItems = [];
+
+  if (Array.isArray(session.attributes.session_items.data)) {
+    headerItems = Object.keys(
+      session.attributes.session_items.data[0].attributes
+    ).filter((it) => !excludedFields.includes(it));
+  }
+
   const retHours = (tm) => {
     const tmToDate = new Date(tm);
     return tmToDate.toLocaleTimeString([], {
@@ -131,61 +151,69 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
       [tmod]: !toOpen[tmod],
     }));
   };
+
   return (
-    <Container style={{maxWidth: "99vw"}}>
+    <Container style={{ maxWidth: "99vw" }}>
       <Table responsive striped hover>
         <thead>
           <tr>
             <th>#</th>
-            <th>View</th>
-            {Object.values(helperHead).map((hitem, ind) => {
-              return <th key={ind}>{hitem}</th>;
-            })}
+            {headerItems.length > 0
+              ? headerItems.map((hitem, ind) => {
+                  return <th key={ind}>{hitem}</th>;
+                })
+              : "No Sessions Header"}
           </tr>
         </thead>
-        <tbody>
-          {Array.isArray(session) ? (
-            session.map((sess) => {
-              return (
-                <>
-                  <tr key={sess.id}>
-                    <td>
-                      <Badge
-                        size="sm"
-                        id={sess.id}
-                        onClick={handleSessionExpand}
-                        bg="light" text="dark"
-                        className={styles.session_expand}
-                      >
-                        {">"}
-                      </Badge>
-                    </td>
-                    <td>
-                      <Button variant="link" target="_blank" href={`${sess.attributes.youtube}`}>
-                        <BsYoutube color="red" size={"25"} href={`${sess.attributes.youtube}`}/>
-                      </Button>
-                    </td>
-                    <td>
-                      {retHours(sess.attributes.start_time)} -{" "}
-                      {retHours(sess.attributes.end_time)}
-                    </td>
-                    <td>{sess.attributes.presenter}</td>
-                    <td>{sess.attributes.mentor}</td>
-                    <td>{sess.attributes.presentation_title}</td>
-                    <td>{sess.attributes.duration_minutes}</td>
-                  </tr>
-                  <tr>
-                    <Collapse in={toOpen[sess.id]}>
-                      <td colSpan="12">{`Descsription: ${sess.attributes.description}`}</td>
-                    </Collapse>
-                  </tr>
-                </>
-              );
-            })
-          ) : (
+        {Array.isArray(session.attributes.session_items.data) ? (
+          session.attributes.session_items.data.map((sess) => {
+            return (
+              <tbody key={sess.id}>
+                <tr>
+                  <td>
+                    <Badge
+                      size="sm"
+                      id={sess.id}
+                      onClick={handleSessionExpand}
+                      bg="light"
+                      text="dark"
+                      className={styles.session_expand}
+                    >
+                      {">"}
+                    </Badge>
+                  </td>
+                  <td>{retHours(sess.attributes.Start)}</td>
+                  <td>{retHours(sess.attributes.End)}</td>
+                  <td>{sess.attributes.Speaker}</td>
+                  <td>{sess.attributes.Title}</td>
+                  <td>{sess.attributes.Duration}</td>
+                  <td>
+                    <Button
+                      variant="link"
+                      target="_blank"
+                      href={`${sess.attributes.Youtube}`}
+                    >
+                      <BsYoutube
+                        color="red"
+                        size={"25"}
+                        href={`${sess.attributes.Youtube}`}
+                      />
+                    </Button>
+                  </td>
+                </tr>
+                <tr>
+                  <Collapse in={toOpen[sess.id]}>
+                    <td colSpan="12">{`Descsription: ${sess.attributes.Description}`}</td>
+                  </Collapse>
+                </tr>
+              </tbody>
+            );
+          })
+        ) : (
+          <tbody>
             <tr></tr>
-          )}
-        </tbody>
+          </tbody>
+        )}
       </Table>
     </Container>
   );

@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "event_sessions",
+  "info": {
+    "singularName": "event-session",
+    "pluralName": "event-sessions",
+    "displayName": "EventSession",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "session_items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::session.session"
+    },
+    "event_name": {
+      "type": "string"
+    },
+    "event_id": {
+      "type": "uid",
+      "targetField": "event_name"
+    }
+  }
+}
