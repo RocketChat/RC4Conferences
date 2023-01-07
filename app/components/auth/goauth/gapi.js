@@ -36,8 +36,6 @@ export default class RocketChatInstance {
       acsPayload=acsCode
     }
 
-    console.log("checoldscm....", acsCode)
-
     const payload = acsCode
       ? JSON.stringify({
           serviceName: "google",
