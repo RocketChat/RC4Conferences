@@ -103,6 +103,10 @@ https://user-images.githubusercontent.com/61188295/207707250-535c02a9-db6a-470a-
 # Production Deployment
 
 For deploying the RC4Conferences, you will need to create a Fauna SaaS account, please follow the instruction [here](./superprofile/cloud/README.md) for getting the Fauna (Superprofile) ready for real world usage.
+And add the following inside `open-event-server/.env.prod.app`, and replace the `EVENT_USER_PASSPHRASE` value to be more secure.
+```
+NEXT_PUBLIC_EVENT_ADMIN_MAIL="website admin email"
+```
 Once done, run the following commands:
 ```
 sh dockernetwork.sh
