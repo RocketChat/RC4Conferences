@@ -56,6 +56,7 @@ export const EditEvent = ({ event, handleToast }) => {
         })
       } catch (e) {
         console.error("An error occurred while fetching tickets", e);
+        throw new Error("An error occurred while fetching tickets", e);
       }
     };
     ticketInfo();
@@ -117,7 +118,7 @@ export const EditEvent = ({ event, handleToast }) => {
         Cookies.remove("event_auth");
         router.push("/conferences");
       }
-      throw new Error(e);
+      throw new Error("Event Update failed", e.response.data.error);
     }
   };
 

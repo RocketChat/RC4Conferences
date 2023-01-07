@@ -27,6 +27,7 @@ export const EventDashBoard = () => {
       }
     } catch (e) {
       console.error("An error while fetching event details", e);
+      throw new Error("An error while fetching event details", e);
     }
   }
   fetchEventDeatils()
@@ -42,6 +43,7 @@ export const EventDashBoard = () => {
       setEventData(eventres.data);
     } catch (e) {
       console.error("An error occurred while deleting the Event", e);
+      throw new Error("An error occurred while deleting the Event", e);
     }
   };
 
