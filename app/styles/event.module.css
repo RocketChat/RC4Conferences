@@ -156,6 +156,7 @@
 @media (min-width: 990px) {
   .event_show_root {
     margin: 1em auto;
+    min-width: 900px;
   }
   .speaker_intro {
     display: flex;

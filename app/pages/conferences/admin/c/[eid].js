@@ -37,8 +37,7 @@ export async function getServerSideProps(context) {
     };
   }
   //temp 9ddffcbb
-  const res = await getEventDeatils(eventIdentifier);
-  const event = res.data;
+  const event = await getEventDeatils(eventIdentifier);
 
   return {
     props: { event },

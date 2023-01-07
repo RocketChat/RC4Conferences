@@ -24,10 +24,12 @@ export const EditEvent = ({ event, handleToast }) => {
     "logo-url" : event.data.attributes["logo-url"],
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     online: true,
-    "is-sessions-speakers-enabled": true
+    "is-sessions-speakers-enabled": true,
+    privacy: event.data.attributes.privacy
   });
 
   const [publish, setPublish] = useState("published");
+  const [isPublic, setIsPublic] = useState(event.data.attributes.privacy === "public" ? true : false)
 
   const [ticket, setTicket] = useState({
     name: "Registration",
@@ -54,6 +56,7 @@ export const EditEvent = ({ event, handleToast }) => {
         })
       } catch (e) {
         console.error("An error occurred while fetching tickets", e);
+        throw new Error(`An error occurred while fetching tickets: ${e.response?.data?.errors?.[0]?.detail}`);
       }
     };
     ticketInfo();
@@ -90,7 +93,7 @@ export const EditEvent = ({ event, handleToast }) => {
 
     const data = {
       data: {
-        attributes: { ...formState, state: publish },
+        attributes: { ...formState, state: publish, privacy: isPublic ? "public" : "private"  },
         id: event.data.id,
         type: "event",
       },
@@ -115,7 +118,7 @@ export const EditEvent = ({ event, handleToast }) => {
         Cookies.remove("event_auth");
         router.push("/conferences");
       }
-      throw new Error(e);
+      throw new Error(`Event Update failed ${e.response.data.error}`);
     }
   };
 
@@ -143,12 +146,17 @@ export const EditEvent = ({ event, handleToast }) => {
     }));
   };
 
+  const handlePublicSwitch = (e) => {
+    const checked = e.target.checked
+    setIsPublic(checked)
+  }
+
   return (
     <>
       <Card>
         <Card.Body>
           <Form onSubmit={handleFormSubmit}>
-            <EventForm intialValues={formState} handleChange={handleChange} ticket={ticket} handleSwitch={handleSwitch} />
+            <EventForm isPublic={isPublic} intialValues={formState} handleChange={handleChange} ticket={ticket} handleSwitch={handleSwitch} handlePublicSwitch={handlePublicSwitch} />
             <ButtonGroup aria-label="Basic example">
               <Button variant="primary" type="submit">
                 Save

@@ -27,14 +27,15 @@ if [ "$2" = 'production' ]; then
     docker-compose up -d
     echo "--Copying default environment variables to app/.env--"
     printf '\nNEXT_PUBLIC_EVENT_BACKEND_URL'="http://opev-web:8080" >> ../app/.env
+    cat .env.prod.app >> ../app/.env
 else
     echo "--Starting the development build of Open Event Server--"
     docker-compose -f docker-compose-dev.yml up -d
     echo "--Copying default environment variables to app/.env--"
     printf '\nNEXT_PUBLIC_EVENT_BACKEND_URL'="http://$1:8080" >> ../app/.env
+    cat .env.dev.app >> ../app/.env
 fi
 
-cat .env.dev.app >> ../app/.env
 
 if [ ! -s $ERR_FILE ]; then
     touch $INIT_FLAG

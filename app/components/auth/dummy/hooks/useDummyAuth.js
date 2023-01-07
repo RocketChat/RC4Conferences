@@ -39,6 +39,7 @@ export const useDummyAuth = () => {
       Router.reload();
     } catch (e) {
       console.error("An error occurred while setting up user", e);
+      throw new Error(`An error occurred while setting up user: ${e.response?.data?.errors?.[0]?.detail}`);
     }
   };
 

@@ -15,6 +15,7 @@ Got questions? Or want to discuss any idea for the project, feel free to drop by
     - [Create an Event](#create-an-event)
     - [Preview an Event](#preview-an-event)
     - [Day of Event Page](#greenroom-and-mainstage-page)
+- [Production Deployment]()
 
 
 # Installation
@@ -98,6 +99,24 @@ Below is a walkthrough which shows how the _Event Admin_ starts a live stream on
 Furthermore, the Speakers and Attendees share their messages using the Embedded Chat window.
 
 https://user-images.githubusercontent.com/61188295/207707250-535c02a9-db6a-470a-afcd-8aed89e47d67.mp4
+
+# Production Deployment
+
+For deploying the RC4Conferences, you will need to create a Fauna SaaS account, please follow the instruction [here](./superprofile/cloud/README.md) for getting the Fauna (Superprofile) ready for real world usage.
+And add the following inside `open-event-server/.env.prod.app`, and replace the `EVENT_USER_PASSPHRASE` value to be more secure.
+```
+NEXT_PUBLIC_EVENT_ADMIN_MAIL="website admin email"
+```
+Once done, run the following commands:
+```
+sh dockernetwork.sh
+
+sh startdevenv.sh localhost production
+
+sh startNext.sh localhost production
+```
+
+_Note: Please replace the "localhost" (127.0.0.1) with your static IP if you are doing environment setup on your VM. For e.g. `173.456.1.19`_
 
 
 ### Additional Resources
