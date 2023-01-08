@@ -5,7 +5,7 @@ import SSRProvider from 'react-bootstrap/SSRProvider';
 import {SessionProvider} from 'next-auth/react';
 import { ApolloProvider } from '@apollo/client';
 import client from '../apollo-client';
-import ErrorBoundary from './error';
+import ErrorBoundary from '../components/error';
 
 function MyApp({ Component, pageProps: {session, ...pageProps}}) {
   return (

@@ -71,6 +71,7 @@ export async function getStaticProps(context) {
 
   return {
     props: { eventIdentifier, topNavItems, eventdata },
+    revalidate: 10,
   };
 }
 
