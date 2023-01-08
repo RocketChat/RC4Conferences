@@ -90,7 +90,6 @@ export async function middleware(request) {
   // const eventIdentifier = request.page?.params?.eid
   const { locale, slug } = params(request.url);
   const eventIdentifier = slug;
-  console.log("------------slufg----------", slug);
 
   // Event Create Page
   if (
@@ -126,7 +125,6 @@ export async function middleware(request) {
   if (request.nextUrl.pathname.startsWith("/conferences/mainstage")) {
     const eventData = await getEventDeatils(eventIdentifier);
     const isPublic = eventData.data?.attributes?.privacy;
-    console.log("..........isPublic...............", isPublic);
 
     if (isPublic === "public") return NextResponse.next();
 

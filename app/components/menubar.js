@@ -28,10 +28,8 @@ export default function Menubar(props) {
   const [collapsed, setCollapsed] = useState(true);
   const userCookie = Cookies.get("user");
   const hasAllRequiredCreds =
-    process.env.NEXTAUTH_URL &&
-    process.env.ROCKETCHAT_CLIENT_ID &&
-    process.env.ROCKETCHAT_CLIENT_SECRET &&
-    process.env.ROCKETCHAT_URL;
+    process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID &&
+    process.env.NEXT_PUBLIC_RC_URL;
     
   if (!hasAllRequiredCreds) console.log("RC4Community is now using a dummy Auth Component! If you wish to use a robust Auth component, provide all the credentials first (https://github.com/RocketChat/RC4Community/tree/master/app/components/auth)")
   return (
@@ -119,11 +117,11 @@ export default function Menubar(props) {
         </div>
         <div className="mx-2">
           {hasAllRequiredCreds ? (
-            <RocketChatAuthMenuButton />
+            <RCGoogleLoginButton />
           ) : (
             <DummyLoginButton />
           )}
-          {/* <RCGoogleLoginButton /> */}
+          
         </div>
       </Navbar>
     </Container>

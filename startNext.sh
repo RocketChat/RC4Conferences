@@ -21,13 +21,14 @@ check_and_set_next_port
 
 
 export NEXT_PUBLIC_PORT=$NEXTJS_PORT
-printf '\nNEXT_PUBLIC_API_URL'="http://$1:$NEXTJS_PORT" >> app/.env
 
 if [ "$2" = 'production' ]; then
+    printf '\nNEXT_PUBLIC_API_URL'="https://$1:$NEXTJS_PORT" >> app/.env
     echo "--Starting NextJS Production Client--"
     cd app
     docker-compose up -d
 else
+    printf '\nNEXT_PUBLIC_API_URL'="http://$1:$NEXTJS_PORT" >> app/.env
     echo "--Starting NextJS Development Client--"
     cd app
     npm i
