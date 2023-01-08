@@ -74,7 +74,7 @@ export async function getStaticProps(context) {
 
   return {
     props: { topNavItems, event, spkdata, prsession },
-    revalidate: 60,
+    revalidate: 10,
   };
 }
 
