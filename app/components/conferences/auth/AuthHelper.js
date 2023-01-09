@@ -9,9 +9,10 @@ import {
 } from "../../../lib/conferences/eventCall";
 
 export const generatePassword = async (mail) => {
-  const passcode = crypto.HmacSHA256(mail, process.env.EVENT_USER_PASSPHRASE);
+  // concatenate mail and passphrase string
+  const passcode = mail + process.env.EVENT_USER_PASSPHRASE;
 
-  return passcode.toString(crypto.enc.Base64);
+  return passcode;
 };
 
 export const setCookie = (res) => {
@@ -93,5 +94,6 @@ export const autoLogin = async (mail, passcode) => {
     }
   } catch (error) {
     console.error("An error occurred while authorizing", error);
+    throw new Error(`An error occurred while authorizing: ${error}`);
   }
 };

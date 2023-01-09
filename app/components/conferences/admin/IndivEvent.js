@@ -7,6 +7,7 @@ import {
   Container,
   Form,
   Image,
+  InputGroup,
   ListGroup,
   ListGroupItem,
   Modal,
@@ -41,7 +42,19 @@ export const IndivEventDash = ({ eid, event }) => {
     return res;
   };
 
+  // function to replace empty strings in the editSpeaker object
+  const replaceEmpty = (obj) => { 
+    for (const key in obj) {
+      if (obj[key] === "") {
+        obj[key] = null;
+      }
+    }
+    return obj;
+   }
+
   const publishSpeaker = async () => {
+    const sanitizedSpeaker = replaceEmpty(editSpeaker);
+
     const toPublish = {
       data: {
         type: "speaker",
@@ -60,7 +73,7 @@ export const IndivEventDash = ({ eid, event }) => {
           },
         },
         attributes: {
-          ...editSpeaker,
+          ...sanitizedSpeaker,
         },
       },
     };
@@ -80,7 +93,8 @@ export const IndivEventDash = ({ eid, event }) => {
         setModalShow(false);
       }
     } catch (e) {
-      console.error("An error occurred while publishing speaker", e);
+      console.error("An error occurred while publishing speaker", e.response.data.errors[0].detail);
+      throw new Error(`An error occurred while publishing speaker: ${e.response.data.errors[0].detail}`);
     } finally {
       setLoad(false);
     }
@@ -98,6 +112,7 @@ export const IndivEventDash = ({ eid, event }) => {
       setSpeakerInfo((oarr) => oarr.filter((spk) => spk.id !== e.target.id));
     } catch (e) {
       console.error("An error occurred while deleting the Speaker", e);
+      throw new Error(`An error occurred while deleting the Speaker: ${e.response?.data?.errors?.[0]?.detail}`);
     }
   };
 
@@ -168,6 +183,7 @@ const SpeakerList = ({
           setSpeakerInfo(res.data);
         } catch (e) {
           console.error("An error occurred while loading speakers", e);
+          throw new Error("An error occurred while loading speakers", e);
         }
       }
     };
@@ -246,16 +262,28 @@ const SpeakerModal = (props) => {
               placeholder="https://link-to.image"
             />
           </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
+          <InputGroup className="mb-3">
+      <InputGroup.Text>Social links</InputGroup.Text>
+      <Form.Control
               required
               onChange={handleChange}
               name="email"
               type="email"
-              placeholder="name@example.com"
+              placeholder="Email*"
             />
-          </Form.Group>
+            <Form.Control
+              onChange={handleChange}
+              name="linkedin"
+              type="url"
+              placeholder="LinkedIn"
+            />
+            <Form.Control
+              onChange={handleChange}
+              name="github"
+              type="url"
+              placeholder="GitHub"
+            />
+    </InputGroup>
           <Form.Group className="mb-3">
             <Form.Label>Short Biography</Form.Label>
             <Form.Control

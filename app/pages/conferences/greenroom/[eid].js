@@ -65,13 +65,13 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const eventIdentifier = context.params.eid;
   //temp 9ddffcbb
-  const res = await getEventDeatils(eventIdentifier);
-  const eventdata = res.data;
+  const eventdata = await getEventDeatils(eventIdentifier);
 
   const topNavItems = await fetchAPI("/top-nav-item");
 
   return {
     props: { eventIdentifier, topNavItems, eventdata },
+    revalidate: 10,
   };
 }
 

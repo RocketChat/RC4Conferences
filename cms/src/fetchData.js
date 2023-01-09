@@ -8,7 +8,8 @@ const {
   topNavItem,
   speakers,
   forms,
-  sessions
+  sessions,
+  eventSessions,
 } = require("../config/initialData");
 
 module.exports = async () => {
@@ -32,6 +33,9 @@ module.exports = async () => {
     //   .count({});
     var speakersCount = await strapi.db.query("api::speaker.speaker").count({});
     var sessionCount = await strapi.db.query("api::session.session").count({});
+    var eventSessionsCount = await strapi.db
+      .query("api::event-session.event-session")
+      .count({});
 
     // initial fetch
     speakers.map(async (speaker, index) => {
@@ -69,36 +73,65 @@ module.exports = async () => {
       }
     });
 
-    sessions.map(async (session, index) => {
-      if (index <= sessionCount - 1) {
-        await strapi.db.query("api::session.session").update({
-          where: { id: session.id },
-          data: {
-            start_time: session.start_time,
-            end_time: session.end_time,
-            presenter: session.presenter,
-            presentation_title: session.presentation_title,
-            duration_minutes: session.duration_minutes,
-            mentor: session.mentors,
-            description: session.description,
-            youtube: session.youtube
-          },
-        });
-      } else {
-        await strapi.db.query("api::session.session").create({
-          data: {
-            start_time: session.start_time,
-            end_time: session.end_time,
-            presenter: session.presenter,
-            presentation_title: session.presentation_title,
-            duration_minutes: session.duration_minutes,
-            mentor: session.mentors,
-            description: session.description,
-            youtube: session.youtube
-          },
-        });
-      }
-    });
+    try {
+      sessions.map(async (session, index) => {
+        if (index <= sessionCount - 1) {
+          await strapi.db.query("api::session.session").update({
+            where: { id: session.id },
+            data: {
+              Start: session.Start,
+              End: session.End,
+              Speaker: session.Speaker,
+              Title: session.Title,
+              Duration: session.Duration,
+              Mentor: session.Mentors,
+              Description: session.Description,
+              Youtube: session.Youtube,
+            },
+          });
+        } else {
+          await strapi.db.query("api::session.session").create({
+            data: {
+              Start: session.Start,
+              End: session.End,
+              Speaker: session.Speaker,
+              Title: session.Title,
+              Duration: session.Duration,
+              Mentor: session.Mentors,
+              Description: session.Description,
+              Youtube: session.Youtube,
+            },
+          });
+        }
+      });
+    } catch (e) {
+      console.error("Session error", e);
+    }
+
+    try {
+      eventSessions.map(async (sessionit, index) => {
+        if (index <= eventSessionsCount - 1) {
+          await strapi.db.query("api::event-session.event-session").update({
+            where: { id: sessionit.id },
+            data: {
+              event_name: sessionit.event_name,
+              event_id: sessionit.event_id,
+              session_items: sessionit.session_items,
+            },
+          });
+        } else {
+          await strapi.db.query("api::event-session.event-session").create({
+            data: {
+              event_name: sessionit.event_name,
+              event_id: sessionit.event_id,
+              session_items: sessionit.session_items,
+            },
+          });
+        }
+      });
+    } catch (e) {
+      console.error("event error", e);
+    }
 
     forms.map(async (form, index) => {
       if (index <= formCount - 1) {
@@ -199,7 +232,7 @@ module.exports = async () => {
           data: {
             label: subMenu.label,
             url: subMenu.url,
-            style: subMenu?.style
+            style: subMenu?.style,
           },
         });
       } else {
@@ -207,7 +240,7 @@ module.exports = async () => {
           data: {
             label: subMenu.label,
             url: subMenu.url,
-            style: subMenu?.style
+            style: subMenu?.style,
           },
         });
       }
@@ -226,7 +259,7 @@ module.exports = async () => {
         data: {
           label: releaseNotes.label,
           location: releaseNotes.location,
-          publishedAt: new Date()
+          publishedAt: new Date(),
         },
       });
     }
@@ -244,7 +277,7 @@ module.exports = async () => {
         data: {
           label: guides.label,
           location: guides.location,
-          publishedAt: new Date()
+          publishedAt: new Date(),
         },
       });
     }
@@ -253,8 +286,8 @@ module.exports = async () => {
       await strapi.entityService.update("api::top-nav-item.top-nav-item", 1, {
         populate: {
           body: {
-            populate: '*'
-          }
+            populate: "*",
+          },
         },
         data: {
           body: topNavItem.body.map((topNavItem, index) => {
@@ -263,7 +296,7 @@ module.exports = async () => {
                 __component: "menu.links",
                 label: topNavItem.label,
                 url: topNavItem.url,
-                publishedAt: new Date()
+                publishedAt: new Date(),
               };
             } else {
               return {
@@ -274,7 +307,7 @@ module.exports = async () => {
                     id: subMenu.id,
                     label: subMenu.label,
                     url: subMenu.url,
-                    publishedAt: new Date()
+                    publishedAt: new Date(),
                   };
                 }),
               };
@@ -306,7 +339,7 @@ module.exports = async () => {
               };
             }
           }),
-          publishedAt: new Date() 
+          publishedAt: new Date(),
         },
       });
     }

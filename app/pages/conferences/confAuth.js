@@ -41,6 +41,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: { topNavItems },
+    revalidate: 10,
   };
 }
 
