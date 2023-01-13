@@ -12,11 +12,10 @@ export const EventHeader = ({ eventData, open, setOpen }) => {
   const handleOpen = () => {
     const hashmail = Cookies.get("hashmail");
     if (hashmail) {
-      validRCflag={ valid: true, msg: "Open Chat" };
+      validRCflag = { valid: true, msg: "Open Chat" };
       setOpen(!open);
     } else {
-      validRCflag={ valid: false, msg: "Please login to open chat" };
-      console.log("Please login to open chat");
+      alert("Please login to open chat, at the top right corner");
     }
   };
 
