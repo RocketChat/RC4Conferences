@@ -10,6 +10,7 @@ import ErrorBoundary from '../components/error';
 function MyApp({ Component, pageProps: {session, ...pageProps}}) {
   return (
     <SSRProvider>
+      <ErrorBoundary>
       <ApolloProvider client={client}>
       <SessionProvider session={session}>
         <Layout menu={pageProps}>
@@ -17,6 +18,7 @@ function MyApp({ Component, pageProps: {session, ...pageProps}}) {
         </Layout>
         </SessionProvider>
       </ApolloProvider>
+      </ErrorBoundary>
     </SSRProvider>
   );
 }
