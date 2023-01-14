@@ -9,7 +9,8 @@ import { EventMainstage } from "../../../components/conferences/dayOfEvent/mains
 import { fetchAPI } from "../../../lib/api";
 import { useState } from "react";
 import { RCdesktopChat } from "../../../components/conferences/dayOfEvent/RCchat";
-import styles from "../../../styles/Mainstage.module.css"
+import styles from "../../../styles/Mainstage.module.css";
+import { AdvtButtons } from "../../../components/conferences/dayOfEvent/AdvtTool";
 
 const EventMainstagePage = ({ event }) => {
   const [open, setOpen] = useState(false);
@@ -22,18 +23,15 @@ const EventMainstagePage = ({ event }) => {
           content="Demonstration main stage for a virtual conference"
         />
       </Head>
-      <div
-        className={styles.mainstage_page_wrapper}
-      >
+      <div className={styles.mainstage_page_wrapper}>
         <div className={styles.mainstage_page_video} style={{ width: "100%" }}>
           <EventMainstage eventdetails={event} open={open} setOpen={setOpen} />
         </div>
-        <div
-          className={styles.mainstage_page_chat}
-        >
+        <div className={styles.mainstage_page_chat}>
           <RCdesktopChat open={open} setOpen={setOpen} />
         </div>
       </div>
+      <AdvtButtons repoUrl={"https://github.com/RocketChat/RC4Conferences"} />
     </div>
   );
 };
