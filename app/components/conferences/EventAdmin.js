@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import Menubar from "../menubar";
+// import Menubar from "../menubar";
+import NewMenubar from "../menubar/newMenuBar";
 import _ from "lodash";
 import Cookies from "js-cookie";
 import { verifyAdmin } from "./auth/AuthSuperProfileHelper";
@@ -16,8 +17,8 @@ export const VerifyUserRole = ({ menuprops }) => {
     const decipherEmail = async () => {
       try {
         if (hashmail) {
-        const res = await unsignCook({ hash: hashmail });
-        getCurrentUser({ email: res.mail });
+          const res = await unsignCook({ hash: hashmail });
+          getCurrentUser({ email: res.mail });
         }
       } catch {
         console.error("Error while deciphering");
@@ -53,16 +54,18 @@ export const VerifyUserRole = ({ menuprops }) => {
       "An error ocurred while getting user details on Superprofile",
       error
     );
-    throw new Error(`An error ocurred while getting user details on Superprofile: ${e.response?.data?.errors?.[0]?.detail}`);
+    throw new Error(`An error ocurred while getting user details on Superprofile: ${error?.response?.data?.errors?.[0]?.detail}`);
   }
 
   return (
     <>
       {abortAdmin()}
       {verified ? (
-        <Menubar menu={menuprops.menu.topNavItems} />
+        // <Menubar menu={menuprops.menu.topNavItems} />
+        <NewMenubar menu={menuprops.menu.topNavItems} />
       ) : (
-        <Menubar menu={menuCache.menu.topNavItems} />
+        // <Menubar menu={menuCache.menu.topNavItems} />
+        <NewMenubar menu={menuCache.menu.topNavItems} />
       )}
     </>
   );
