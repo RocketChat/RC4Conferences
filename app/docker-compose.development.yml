@@ -10,16 +10,15 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - stagingnetwork
+      - spnet
+      - oesnet
     volumes:
       - ./pages:/app/pages
       - ./public:/app/public
       - ./styles:/app/styles
 
 networks:
-  stagingnetwork:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.28.0.0/16
-          gateway: 172.28.0.1
+  spnet:
+    external: true
+  oesnet:
+    external: true
