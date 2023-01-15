@@ -23,3 +23,9 @@
         margin-top: 0.7em
     }
 }
+/* css to align the side_button in the center in the leftmost of screen */
+.side_button {
+    top: 40%;
+    left: 0;
+    position: absolute;
+}

@@ -16,12 +16,11 @@ export const VerifyUserRole = ({ menuprops }) => {
     const decipherEmail = async () => {
       try {
         if (hashmail) {
-        const res = await unsignCook({ hash: hashmail });
-        getCurrentUser({ email: res.mail });
+          const res = await unsignCook({ hash: hashmail });
+          getCurrentUser({ email: res.mail });
         }
       } catch {
         console.error("Error while deciphering");
-        throw new Error("Error while deciphering");
       }
     };
     decipherEmail();
@@ -53,7 +52,6 @@ export const VerifyUserRole = ({ menuprops }) => {
       "An error ocurred while getting user details on Superprofile",
       error
     );
-    throw new Error(`An error ocurred while getting user details on Superprofile: ${e.response?.data?.errors?.[0]?.detail}`);
   }
 
   return (
