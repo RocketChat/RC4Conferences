@@ -34,6 +34,7 @@ function Home(props) {
               <a
                 className={styles.redText}
                 href="https://github.com/RocketChat/RC4Conferences"
+                rel="noopener noreferrer"
               >
                 RC4Conferences
               </a>
@@ -49,11 +50,19 @@ function Home(props) {
         <Col className="mb-5 d-flex flex-column align-items-center">
           <h6 className="py-2 fs-6">
             {" "}
-            <a href={props?.guides?.data?.location} target="_blank">
+            <a
+              href={props?.guides?.data?.location}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Read the Guides
             </a>{" "}
             |{" "}
-            <a href={props?.releaseNotes?.data?.location} target="_blank">
+            <a
+              href={props?.releaseNotes?.data?.location}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Read Release Notes
             </a>{" "}
           </h6>
