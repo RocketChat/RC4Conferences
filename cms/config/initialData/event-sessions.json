@@ -197,5 +197,24 @@
         "Youtube": "https://youtu.be/Bgz2bfxot8w"
       }
     ]
+  },
+  {
+    "id": 2,
+    "event_name": "Community Open Call",
+    "event_id": 2,
+    "session_items": [
+      {
+        "id": 17,
+        "Event": "Community Open Call",
+        "Start": "2022-08-31T14:30:00.000Z",
+        "End": "2022-08-31T14:40:00.000Z",
+        "Title": "Welcome to Rocket.Chat Community Open Call 2023!",
+        "Mentor": null, 
+        "Description": "Let's welcome all participants, contributors and community members!",
+        "Speaker": "Duda Nogueira",
+        "Duration": 10,
+        "Youtube": null
+      }
+    ]
   }
 ]

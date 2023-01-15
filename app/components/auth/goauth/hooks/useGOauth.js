@@ -47,7 +47,6 @@ export const useRCGoogleAuth = () => {
       }
     } catch (e) {
       console.error("A error occurred while setting up user", e);
-      throw new Error(`A error occurred while setting up user: ${e.response?.data?.errors?.[0]?.detail}`);
     }
   };
 
