@@ -21,7 +21,6 @@ export const VerifyUserRole = ({ menuprops }) => {
         }
       } catch {
         console.error("Error while deciphering");
-        throw new Error("Error while deciphering");
       }
     };
     decipherEmail();
@@ -52,9 +51,6 @@ export const VerifyUserRole = ({ menuprops }) => {
     console.error(
       "An error ocurred while getting user details on Superprofile",
       error
-    );
-    throw new Error(
-      `An error ocurred while getting user details on Superprofile: ${error.response?.data?.errors?.[0]?.detail}`
     );
   }
 
