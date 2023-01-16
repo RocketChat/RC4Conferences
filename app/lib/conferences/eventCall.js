@@ -19,50 +19,27 @@ export const unsignCook = async (hash) => {
 
 // Auth calls begins
 export const checkEmail = async (emailData) => {
-  const res = await axios.post(`${eventUrl}/v1/users/check_email`, emailData);
+  const res = await axios.post(`${nextDeployUrl}/api/conf/auth/verifyMail`, emailData);
   return res;
 };
 
 export const eventAuthSignIn = async (signInf) => {
-  const headers = {
-    "Content-Type": "application/json",
-  };
-  const res = await axios.post(`${eventUrl}/v1/auth/login`, signInf, {
-    headers: headers,
-  });
+  const res = await axios.post(`${nextDeployUrl}/api/conf/auth/signIn`, signInf);
   return res;
 };
 
 export const eventAuthSignUp = async (signUpf) => {
-  const headers = {
-    "Content-Type": "application/vnd.api+json",
-  };
-  const res = await axios.post(`${eventUrl}/v1/users`, signUpf, {
-    headers: headers,
-  });
+  const res = await axios.post(`${nextDeployUrl}/api/conf/auth/signUp`, signUpf);
   return res;
 };
 
 export const userAdminPatch = async (uid, data, auth) => {
-  const headers = {
-    "Content-Type": "application/vnd.api+json",
-    Authorization: `JWT ${auth}`,
-  };
-  const res = await axios.patch(`${eventUrl}/v1/users/${uid}`, data, {
-    headers: headers,
-  });
+  const res = await axios.patch(`${nextDeployUrl}/api/conf/auth/updateUser`, {uid, data, auth});
   return res;
 };
 
 export const userSetVerified = async (uid, data, auth) => {
-  const headers = {
-    "Content-Type": "application/vnd.api+json",
-    Authorization: `JWT ${auth}`,
-  };
-
-  const res = await axios.patch(`${eventUrl}/v1/users/${uid}`, data, {
-    headers: headers,
-  });
+  const res = await axios.patch(`${nextDeployUrl}/api/conf/auth/verifyUser`, {uid, data, auth});
   return res;
 };
 
