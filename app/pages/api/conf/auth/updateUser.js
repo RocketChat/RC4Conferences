@@ -20,7 +20,7 @@ export default async function handler(req, res) {
       );
       res.status(200).send(result.data);
     } catch (error) {
-      res.status(400).send({ error: error.response.data.errors });
+      res.status(error.response.status).send({ error: error.response.data.errors });
     }
     // Process a PUT request
   } else {
