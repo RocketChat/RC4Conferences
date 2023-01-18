@@ -1,31 +1,66 @@
 .mainstage_page_wrapper {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .mainstage_page_video {
-    width: 100%;
+  width: 100%;
 }
 
 @media (max-width: 900px) {
-    .mainstage_page_wrapper {
-        flex-direction: column;
-    }
-    .mainstage_page_chat {
-        margin: auto;
-        width: 90%;
-    }
+  .mainstage_page_wrapper {
+    flex-direction: column;
+  }
+  .mainstage_page_chat {
+    margin: auto;
+    width: 90%;
+  }
 }
 
 @media (min-width: 900px) {
-    .mainstage_page_chat {
-        margin-right: 1%;
-        margin-top: 0.7em
-    }
+  .mainstage_page_chat {
+    margin-right: 1%;
+    margin-top: 0.7em;
+  }
 }
 /* css to align the side_button in the center in the leftmost of screen */
 .side_button {
-    top: 40%;
-    left: 0;
-    position: absolute;
+  top: 40%;
+  left: 0;
+  position: absolute;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .advt_button {
+    font-size: 0.65rem;
+    padding: 1rem 0.25rem;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .advt_button {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.5rem;
+  }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .advt_button {
+    font-size: 1rem;
+  }
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 900px) {
+  .advt_button {
+    font-size: 0.75rem;
+    padding: 0.75rem 0.5rem;
+  }
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .advt_button {
+    font-size: 1rem;
+    padding: 0.5rem 0.5rem;
+  }
 }
