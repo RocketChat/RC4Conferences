@@ -16,7 +16,7 @@ export const AdvtButtons = ({ repoUrl }) => {
 
   return (
     <div className={styles.side_button}>
-      <ButtonGroup vertical size="sm">
+      <ButtonGroup vertical>
         <OverlayTrigger
           placement="right"
           delay={{ show: 250, hide: 400 }}
@@ -26,6 +26,7 @@ export const AdvtButtons = ({ repoUrl }) => {
             variant="outline-warning"
             href={`${repoUrl}/stargazers`}
             target="_blank"
+            className={styles.advt_button}
           >
             <FaStar />
           </Button>
@@ -39,6 +40,7 @@ export const AdvtButtons = ({ repoUrl }) => {
             variant="outline-info"
             href={`${repoUrl}/blob/main/README.md`}
             target="_blank"
+            className={styles.advt_button}
           >
             <FaInfo />
           </Button>
@@ -53,6 +55,7 @@ export const AdvtButtons = ({ repoUrl }) => {
             target="_blank"
             variant="outline-danger"
             href={`${repoUrl}/issues/new`}
+            className={styles.advt_button}
           >
             <FaBug />
           </Button>
