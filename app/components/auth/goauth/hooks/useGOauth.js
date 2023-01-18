@@ -21,6 +21,22 @@ export const useRCGoogleAuth = () => {
 
   useEffect(() => {
     const isStoredInSession = JSON.parse(sessionStorage.getItem("grc_user"));
+    const rc_uid = Cookies.get("rc_uid");
+    const rc_token = Cookies.get("rc_token");
+
+    const fetchUserDetails = async () => {
+      const res = await RCInstance.getUserInfo();
+
+      if (res?.success) {
+        setUser(res);
+        sessionStorage.setItem("grc_user", JSON.stringify(res));
+      }
+    };
+
+    if (rc_uid && rc_token) {
+      fetchUserDetails();
+    }
+
     if (isStoredInSession) {
       setUser(isStoredInSession);
     }
@@ -57,14 +73,14 @@ export const useRCGoogleAuth = () => {
     sessionStorage.removeItem("grc_user");
     Cookies.remove("hashmail");
     Cookies.remove("event_auth");
-    Cookies.remove("hashrole")
+    Cookies.remove("hashrole");
     Router.reload();
   };
 
   const handleResend = async () => {
-    const res = await RCInstance.resend2FA(userOrEmail)
-    return res
-  }
+    const res = await RCInstance.resend2FA(userOrEmail);
+    return res;
+  };
 
   return {
     user,
@@ -74,6 +90,6 @@ export const useRCGoogleAuth = () => {
     isModalOpen,
     setIsModalOpen,
     method,
-    userOrEmail
+    userOrEmail,
   };
 };

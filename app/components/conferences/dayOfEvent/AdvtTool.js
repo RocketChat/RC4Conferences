@@ -16,18 +16,16 @@ export const AdvtButtons = ({ repoUrl }) => {
 
   return (
     <div className={styles.side_button}>
-      <ButtonGroup vertical>
+      <ButtonGroup vertical size="sm">
         <OverlayTrigger
           placement="right"
           delay={{ show: 250, hide: 400 }}
           overlay={renderTooltip({ message: "Star this Project" })}
-          target="_blank"
         >
           <Button
             variant="outline-warning"
-            onClick={() =>
-              window.open(repoUrl, "_blank", "noopener,noreferrer")
-            }
+            href={`${repoUrl}/stargazers`}
+            target="_blank"
           >
             <FaStar />
           </Button>
@@ -39,13 +37,7 @@ export const AdvtButtons = ({ repoUrl }) => {
         >
           <Button
             variant="outline-info"
-            onClick={() =>
-              window.open(
-                `${repoUrl}/blob/main/README.md`,
-                "_blank",
-                "noopener,noreferrer"
-              )
-            }
+            href={`${repoUrl}/blob/main/README.md`}
             target="_blank"
           >
             <FaInfo />
@@ -55,17 +47,12 @@ export const AdvtButtons = ({ repoUrl }) => {
           placement="right"
           delay={{ show: 250, hide: 400 }}
           overlay={renderTooltip({ message: "Report a bug" })}
+          href={`${repoUrl}/issues/new`}
         >
           <Button
             target="_blank"
             variant="outline-danger"
-            onClick={() =>
-              window.open(
-                `${repoUrl}/issues/new`,
-                "_blank",
-                "noopener,noreferrer"
-              )
-            }
+            href={`${repoUrl}/issues/new`}
           >
             <FaBug />
           </Button>
