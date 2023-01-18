@@ -11,6 +11,7 @@ import {
   OverlayTrigger,
   Popover,
   Row,
+  Tooltip,
 } from "react-bootstrap";
 import {
   BiCamera,
@@ -21,6 +22,7 @@ import {
 import { FaDumpster, FaQuestionCircle, FaRocketchat } from "react-icons/fa";
 import { FiSettings } from "react-icons/fi";
 import { MdLiveTv, MdPeople, MdScreenShare, MdSettings } from "react-icons/md";
+import { CiStreamOff, CiStreamOn } from "react-icons/ci";
 import styles from "../../../../styles/Jitsi.module.css";
 
 const rtmpKey = process.env.NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP;
@@ -41,7 +43,8 @@ export const SpeakerChatSet = ({ setOpen, open }) => {
 export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
   const [speakers, setSpeakers] = useState(null);
   const [isopen, setIsopen] = useState(false);
-  const [join, setJoin] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const feSpks = apiRef?.current?.getParticipantsInfo();
   const router = useRouter();
 
@@ -52,16 +55,24 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
       }
       if (apiRef.current) {
         await apiRef.current.addEventListeners({
-          videoConferenceJoined: handleJoin,
           videoConferenceLeft: handleMeetHangup,
           participantJoined: handleJitsiParticipant,
           participantKickedOut: handleJitsiParticipant,
           participantLeft: handleJitsiParticipant,
+          recordingStatusChanged: handleCheckStream,
         });
       }
     };
     getCurrSpeakers();
   }, [apiRef.current, isopen]);
+
+  const handleCheckStream = (payload) => {
+    if (payload?.on) {
+      setIsStreaming(true);
+    } else {
+      setIsStreaming(false);
+    }
+  };
 
   const handleMeetHangup = () => {
     handleJitsiParticipant();
@@ -69,14 +80,9 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
   };
 
   const handleJitsiParticipant = () => {
+    console.log("pikapi join");
     const feSpks = apiRef?.current?.getParticipantsInfo();
     setSpeakers(feSpks);
-  };
-
-  const handleJoin = () => {
-    setJoin(true);
-    // alert("joined")
-    handleJitsiParticipant;
   };
 
   const handleStartStream = async () => {
@@ -103,25 +109,21 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
     setIsopen(!isopen);
   };
 
-  const popoverStream = (
-    <Popover id="popover-basic">
-      <Popover.Header as={"summary"}>Stream Control</Popover.Header>
-      <Popover.Body>
-        {rtmpKey ? (
-          <ListGroup as="ul">
-            <ListGroup.Item as={"button"} onClick={handleStartStream}>
-              Go Live!
-            </ListGroup.Item>
-            <ListGroup.Item as={"button"} onClick={handleStopStream}>
-              End Broadcast!
-            </ListGroup.Item>
-          </ListGroup>
-        ) : (
-          "Please setup RTMP URI"
-        )}
-      </Popover.Body>
-    </Popover>
-  );
+  const popoverStream = (props) => {
+    if (!rtmpKey) {
+      return (
+        <Tooltip id="button-tooltip" {...props}>
+          No stream key provided
+        </Tooltip>
+      );
+    } else {
+      return (
+        <Tooltip id="tooltip" {...props}>
+          {isStreaming ? "Stop Stream" : "Start Stream"}
+        </Tooltip>
+      );
+    }
+  };
 
   const popoverPeople = (
     <Popover>
@@ -146,19 +148,31 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
     </Popover>
   );
 
-  return join ? (
+  return (
     <div className={styles.gtoolbar_button_set}>
       {isAdmin && (
         <div className={styles.gtoolbar_button_div}>
-          <OverlayTrigger
-            trigger="click"
-            placement="top"
-            overlay={popoverStream}
-          >
-            <Button title="Present Screen" variant="light">
-              <MdLiveTv />
-            </Button>
-          </OverlayTrigger>
+          {isStreaming ? (
+            <OverlayTrigger placement="top" overlay={popoverStream}>
+              <Button
+                disabled={!rtmpKey}
+                variant="light"
+                onClick={handleStopStream}
+              >
+                <CiStreamOff />
+              </Button>
+            </OverlayTrigger>
+          ) : (
+            <OverlayTrigger placement="top" overlay={popoverStream}>
+              <Button
+                disabled={!rtmpKey}
+                variant="light"
+                onClick={handleStartStream}
+              >
+                <CiStreamOn color={"#0d6efd"} />
+              </Button>
+            </OverlayTrigger>
+          )}
           <span style={{ fontSize: "65%" }}>Stream</span>
         </div>
       )}
@@ -182,8 +196,6 @@ export const SpeakerMiscSet = ({ apiRef, isAdmin }) => {
         <span style={{ fontSize: "65%" }}>Present</span>
       </div>
     </div>
-  ) : (
-    <></>
   );
 };
 
@@ -201,6 +213,8 @@ export const DeviceButtonSet = ({ apiRef }) => {
 
         setDevices(devList);
         setCurrDev(currdevList);
+        setCammute(await apiRef.current.isVideoMuted());
+        setMute(await apiRef.current.isAudioMuted());
       } catch (e) {
         console.error("Error while updating device list", e);
       }
@@ -257,11 +271,11 @@ export const DeviceButtonSet = ({ apiRef }) => {
   const toggleDevice = async (e) => {
     if (e.target.getAttribute("name") === "audioInput") {
       await apiRef.current.executeCommand("toggleAudio");
-      setMute(!mute);
+      setMute(await apiRef.current.isAudioMuted());
     }
     if (e.target.getAttribute("name") === "videoInput") {
       await apiRef.current.executeCommand("toggleVideo");
-      setCammute(!cammute);
+      setCammute(await apiRef.current.isVideoMuted());
     }
   };
 
@@ -322,7 +336,7 @@ export const DeviceButtonSet = ({ apiRef }) => {
   );
 };
 
-export const GreenRoomToolBar = ({ apiRef, isAdmin }) => {
+export const GreenRoomToolBar = ({ apiRef, isAdmin, join }) => {
   return (
     <div
       style={{
@@ -333,7 +347,7 @@ export const GreenRoomToolBar = ({ apiRef, isAdmin }) => {
       }}
     >
       <DeviceButtonSet apiRef={apiRef} />
-      <SpeakerMiscSet apiRef={apiRef} isAdmin={isAdmin} />
+      {join && <SpeakerMiscSet apiRef={apiRef} isAdmin={isAdmin} />}
       {/* <SpeakerChatSet /> */}
     </div>
   );

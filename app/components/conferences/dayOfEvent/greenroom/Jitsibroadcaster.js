@@ -1,22 +1,7 @@
 import dynamic from "next/dynamic";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Button,
-  ButtonGroup,
-  Dropdown,
-  DropdownButton,
-  OverlayTrigger,
-  Tooltip,
-} from "react-bootstrap";
-import { BiMicrophone, BiMicrophoneOff } from "react-icons/bi";
-import { RiMic2Line } from "react-icons/ri";
-import { MdCameraswitch, MdHeadset } from "react-icons/md";
-import { AiFillEye, AiFillSetting } from "react-icons/ai";
-import { BiUserPin } from "react-icons/bi";
-import { HiViewGridAdd } from "react-icons/hi";
+import { Button, ButtonGroup } from "react-bootstrap";
 import styles from "../../../../styles/Jitsi.module.css";
-import { FaRocketchat } from "react-icons/fa";
-import { FiUsers } from "react-icons/fi";
 import { GreenRoomToolBar } from "./SpeakerToolbar";
 import { EventHeader } from "./EventHeader";
 
@@ -37,7 +22,7 @@ const Jitsibroadcaster = ({
 }) => {
   const apiRef = useRef();
   const [knockingParticipants, updateKnockingParticipants] = useState([]);
-  const [speakers, setSpeakers] = useState(null);
+  const [join, setJoin] = useState(null);
 
   const handleChatUpdates = (payload, ref) => {
     if (payload.isOpen || !payload.unreadCount) {
@@ -191,6 +176,10 @@ const Jitsibroadcaster = ({
       // Listening to events from the external API
       chatUpdated: (payload) => handleChatUpdates(payload, ref),
       knockingParticipant: handleKnockingParticipant,
+      videoConferenceJoined: (payload) => {
+        console.log(`${payload?.displayName} joined the room !`);
+        setJoin(true);
+      },
     });
 
     await ref.current.executeCommand("toggleFilmStrip");
@@ -263,7 +252,7 @@ const Jitsibroadcaster = ({
             disableModeratorIndicator: true,
             startScreenSharing: false,
             enableEmailInStats: false,
-            toolbarButtons: ["select-background", "hangup"],
+            toolbarButtons: ["select-background", "hangup", "filmstrip"],
             enableWelcomePage: true,
             enableNoAudioDetection: true,
             hideConferenceSubject: true,
@@ -271,7 +260,7 @@ const Jitsibroadcaster = ({
             prejoinPageEnabled: true,
             startWithVideoMuted: false,
             liveStreamingEnabled: true,
-            disableSelfView: true,
+            disableSelfView: false,
             disableSelfViewSettings: true,
             disableShortcuts: true,
             disable1On1Mode: false,
@@ -282,19 +271,19 @@ const Jitsibroadcaster = ({
               enabled: false,
             },
             recordingService: {
-              enabled: true
+              enabled: true,
             },
             remoteVideoMenu: {
-              disableKick : !isAdmin,
-              disableGrantModerator : !isAdmin
+              disableKick: !isAdmin,
+              disableGrantModerator: !isAdmin,
             },
-            disableRemoteMute: !isAdmin
+            disableRemoteMute: !isAdmin,
           }}
           interfaceConfigOverwrite={{
-            DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
-            FILM_STRIP_MAX_HEIGHT: 0,
-            TILE_VIEW_MAX_COLUMNS: 2,
-            VIDEO_QUALITY_LABEL_DISABLED: true,
+            // DISABLE_JOIN_LEAVE_NOTIFICATIONS: true,
+            // FILM_STRIP_MAX_HEIGHT: 0,
+            // TILE_VIEW_MAX_COLUMNS: 2,
+            // VIDEO_QUALITY_LABEL_DISABLED: true,
             RECENT_LIST_ENABLED: false,
           }}
           userInfo={{
@@ -304,7 +293,7 @@ const Jitsibroadcaster = ({
       </div>
 
       <div className={styles.dayofeventleft_button}>
-        <GreenRoomToolBar apiRef={apiRef} isAdmin={isAdmin} />
+        <GreenRoomToolBar apiRef={apiRef} isAdmin={isAdmin} join={join} />
       </div>
     </>
   );
