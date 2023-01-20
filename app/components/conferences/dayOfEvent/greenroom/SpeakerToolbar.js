@@ -204,6 +204,10 @@ export const DeviceButtonSet = ({ apiRef }) => {
   const [cammute, setCammute] = useState(false);
   const [devices, setDevices] = useState(null);
   const [currDev, setCurrDev] = useState({});
+  const [toggling, setToggling] = useState({
+    audio: false,
+    video: false,
+  });
 
   useEffect(() => {
     const getDevices = async () => {
@@ -270,12 +274,32 @@ export const DeviceButtonSet = ({ apiRef }) => {
 
   const toggleDevice = async (e) => {
     if (e.target.getAttribute("name") === "audioInput") {
-      await apiRef.current.executeCommand("toggleAudio");
-      setMute(await apiRef.current.isAudioMuted());
+      try {
+        setToggling({ ...toggling, audio: true });
+        await apiRef.current.executeCommand("toggleAudio");
+
+        setTimeout(async () => {
+          setMute(await apiRef.current.isAudioMuted());
+          setToggling({ ...toggling, audio: false });
+        }, 1000);
+      } catch (e) {
+        console.log("error", e);
+        setToggling({ ...toggling, audio: false });
+      }
     }
     if (e.target.getAttribute("name") === "videoInput") {
-      await apiRef.current.executeCommand("toggleVideo");
-      setCammute(await apiRef.current.isVideoMuted());
+      try {
+        setToggling({ ...toggling, video: true });
+        await apiRef.current.executeCommand("toggleVideo");
+
+        setTimeout(async () => {
+          setCammute(await apiRef.current.isVideoMuted());
+          setToggling({ ...toggling, video: false });
+        }, 1000);
+      } catch (e) {
+        setToggling({ ...toggling, video: false });
+        console.log("error", e);
+      }
     }
   };
 
@@ -300,7 +324,12 @@ export const DeviceButtonSet = ({ apiRef }) => {
   return (
     <div className={styles.gtoolbar_button_set}>
       <div className={styles.gtoolbar_button_div}>
-        <Button variant="light" name={"videoInput"} onClick={toggleDevice}>
+        <Button
+          variant="light"
+          name={"videoInput"}
+          onClick={toggleDevice}
+          disabled={toggling.video}
+        >
           {cammute ? (
             <BiCameraOff color={"#0d6efd"} name={"videoInput"} />
           ) : (
@@ -323,6 +352,7 @@ export const DeviceButtonSet = ({ apiRef }) => {
           title="Click to toogle audio"
           name={"audioInput"}
           onClick={toggleDevice}
+          disabled={toggling.audio}
         >
           {mute ? (
             <BiMicrophoneOff name={"audioInput"} color={"#0d6efd"} />
