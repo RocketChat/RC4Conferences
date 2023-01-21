@@ -14,6 +14,10 @@ if [ ! -e $INIT_FLAG ];then
     psql -U open_event_user open_event -f var/log/seed/tmp/seed_open_speaker.sql
     psql -U open_event_user open_event -f var/log/seed/tmp/seed_open_ticket.sql
 
+    psql -U open_event_user open_event -f var/log/seed/tmp/seed_coffee_meet.sql
+    psql -U open_event_user open_event -f var/log/seed/tmp/seed_coffee_meet_speaker.sql
+    psql -U open_event_user open_event -f var/log/seed/tmp/seed_coffee_meet_ticket.sql
+
     echo "--Removing dangling SQL files--"
     rm -f var/log/seed/tmp/*.sql
     touch $INIT_FLAG
