@@ -9,17 +9,18 @@
 
 @media (max-width: 900px) {
   .greenroom_page_wrapper {
-      flex-direction: column;
+    flex-direction: column;
   }
   .greenroom_page_chat {
-      margin: auto;
-      width: 90%;
+    margin: auto;
+    width: 90%;
   }
 }
 
 @media (min-width: 900px) {
   .greenroom_page_chat {
-      margin-right: 1%;
-      margin-top: 0.7em
+    margin-right: 1%;
+    margin-top: 0.7em;
+    max-width: 30%;
   }
 }

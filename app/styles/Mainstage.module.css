@@ -21,6 +21,7 @@
   .mainstage_page_chat {
     margin-right: 1%;
     margin-top: 0.7em;
+    max-width: 30%;
   }
 }
 /* css to align the side_button in the center in the leftmost of screen */
