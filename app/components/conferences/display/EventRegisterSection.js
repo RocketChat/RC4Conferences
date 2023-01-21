@@ -68,9 +68,6 @@ export const EventTicket = ({ tktDetail, event, error }) => {
     setOpen(!open);
   };
 
-  const showMainstage = event?.data?.attributes.is_videoroom_enabled;
-  const eid = event?.data?.attributes.identifier;
-
   return (
     <>
       <InNav
@@ -78,17 +75,9 @@ export const EventTicket = ({ tktDetail, event, error }) => {
         price={tktPrice}
         handleJoin={handleJoin}
         containerRef={containerRef}
-        showMainstage={showMainstage}
-        eid={eid}
       />
       {!inView && (
-        <TopNav
-          brand={tktName}
-          price={tktPrice}
-          handleJoin={handleJoin}
-          showMainstage={showMainstage}
-          eid={eid}
-        />
+        <TopNav brand={tktName} price={tktPrice} handleJoin={handleJoin} />
       )}
       <JoinModal
         open={open}
@@ -102,14 +91,7 @@ export const EventTicket = ({ tktDetail, event, error }) => {
   );
 };
 
-const InNav = ({
-  brand,
-  price,
-  handleJoin,
-  containerRef,
-  showMainstage,
-  eid,
-}) => {
+const InNav = ({ brand, price, handleJoin, containerRef }) => {
   return (
     <Navbar
       ref={containerRef}
@@ -124,19 +106,16 @@ const InNav = ({
           </Badge>
         </Navbar.Brand>
         <Nav className="me-auto"></Nav>
-        {showMainstage ? (
-          <Button onClick={handleJoin}>Join</Button>
-        ) : (
-          <Button href={`/conferences/greenroom/${eid}`} target="_blank">
-            Join
-          </Button>
-        )}
+        {/* <Link href={"https://bbb.rocket.chat/b/deb-ped-v5x-mp5"}>
+        <Button>Join</Button>
+        </Link> */}
+        <Button onClick={handleJoin}>Join</Button>
       </Container>
     </Navbar>
   );
 };
 
-const TopNav = ({ brand, price, handleJoin, showMainstage, eid }) => {
+const TopNav = ({ brand, price, handleJoin }) => {
   return (
     <Navbar fixed={"top"} className={styles.event_ticket_nav} variant="dark">
       <Container>
@@ -150,13 +129,7 @@ const TopNav = ({ brand, price, handleJoin, showMainstage, eid }) => {
         {/* <Link href={"https://bbb.rocket.chat/b/deb-ped-v5x-mp5"}>
         <Button>Join</Button>
         </Link> */}
-        {showMainstage ? (
-          <Button onClick={handleJoin}>Join</Button>
-        ) : (
-          <Button href={`/conferences/greenroom/${eid}`} target="_blank">
-            Join
-          </Button>
-        )}{" "}
+        <Button onClick={handleJoin}>Join</Button>
       </Container>
     </Navbar>
   );
