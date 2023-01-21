@@ -1,24 +1,45 @@
 import { useState } from "react";
 import { NoUserAvatar } from "../../NoUserAvatar";
-import { Button, Dropdown, DropdownButton, Form, InputGroup, Modal } from "react-bootstrap";
+import {
+  Button,
+  Dropdown,
+  DropdownButton,
+  Form,
+  InputGroup,
+  Modal,
+} from "react-bootstrap";
 import styles from "../styles/DummyLoginButton.module.css";
 import { useRCGoogleAuth } from "../hooks/useGOauth";
+import useComponentVisible from "../hooks/outsideClick";
 
 export default function RCGoogleLoginButton() {
   const [isLoginUiOpen, setIsLoginUiOpen] = useState(false);
-  const { user, handleLogin, handleLogout, handleResend, isModalOpen, setIsModalOpen, method } = useRCGoogleAuth();
-  const [accessCode, setAccessCode] = useState(null)
+
+  const { ref } = useComponentVisible(isLoginUiOpen, setIsLoginUiOpen);
+
+  const {
+    user,
+    handleLogin,
+    handleLogout,
+    handleResend,
+    isModalOpen,
+    setIsModalOpen,
+    method,
+  } = useRCGoogleAuth();
+  const [accessCode, setAccessCode] = useState(null);
+
+  const handleClick = () => {
+    setIsLoginUiOpen(!isLoginUiOpen);
+  };
 
   return (
     <div className={styles.authDialogWrapper}>
       <div className={styles.avatar}>
-        <button className={styles.avatarButton}>
-          <span
-            className="d-flex align-items-center"
-            onClick={() => setIsLoginUiOpen((prev) => !prev)}
-          >
+        <button className={styles.avatarButton} onClick={() => handleClick()}>
+          <span className="d-flex align-items-center">
             {user?.avatarUrl ? (
               <img
+                id="avatar"
                 src={user.avatarUrl}
                 alt={user.name}
                 className="rounded-circle"
@@ -32,7 +53,7 @@ export default function RCGoogleLoginButton() {
         </button>
       </div>
       {isLoginUiOpen && (
-        <div className={styles.authContainer}>
+        <div ref={ref} className={styles.authContainer}>
           {user._id ? (
             <>
               <div className="d-flex flex-column align-items-center mt-4 mb-3 ml-3 mr-3 border-bottom">
@@ -69,26 +90,42 @@ export default function RCGoogleLoginButton() {
           )}
         </div>
       )}
-      <AccessModal handleResend={handleResend} handleLogin={handleLogin} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} accessCode={accessCode} setAccessCode={setAccessCode} method={method} />
+      <AccessModal
+        handleResend={handleResend}
+        handleLogin={handleLogin}
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+        accessCode={accessCode}
+        setAccessCode={setAccessCode}
+        method={method}
+      />
     </div>
   );
 }
 
-const AccessModal = ({handleLogin, handleResend, isModalOpen, setIsModalOpen ,accessCode, setAccessCode, method}) => {
+const AccessModal = ({
+  handleLogin,
+  handleResend,
+  isModalOpen,
+  setIsModalOpen,
+  accessCode,
+  setAccessCode,
+  method,
+}) => {
   const handleModalToggle = () => {
-    setIsModalOpen(!isModalOpen)
-  }
+    setIsModalOpen(!isModalOpen);
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    setAccessCode(undefined)
-    handleLogin(accessCode)
-    handleModalToggle()
-  }
+    e.preventDefault();
+    setAccessCode(undefined);
+    handleLogin(accessCode);
+    handleModalToggle();
+  };
 
   const handleEdit = (e) => {
-    setAccessCode(e.target.value)
-  }
+    setAccessCode(e.target.value);
+  };
 
   return (
     <>
@@ -99,19 +136,28 @@ const AccessModal = ({handleLogin, handleResend, isModalOpen, setIsModalOpen ,ac
         <Modal.Body>
           <Form id="access_form" onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              {method==="totp" ? <Form.Label>Open your authentication app and enter the code. You can also use one of your backup codes.</Form.Label> : <Form.Label>Verify your email for the code we sent.</Form.Label>}
+              {method === "totp" ? (
+                <Form.Label>
+                  Open your authentication app and enter the code. You can also
+                  use one of your backup codes.
+                </Form.Label>
+              ) : (
+                <Form.Label>Verify your email for the code we sent.</Form.Label>
+              )}
               <InputGroup className="mb-3">
                 <Form.Control
-                type="text"
-                required
-                placeholder="123456"
-                autoFocus
-                onChange={handleEdit}
-              />
-              {method==="email" && <Button onClick={handleResend} variant="outline-secondary">Resend</Button>}
-
+                  type="text"
+                  required
+                  placeholder="123456"
+                  autoFocus
+                  onChange={handleEdit}
+                />
+                {method === "email" && (
+                  <Button onClick={handleResend} variant="outline-secondary">
+                    Resend
+                  </Button>
+                )}
               </InputGroup>
-              
             </Form.Group>
           </Form>
         </Modal.Body>
@@ -126,4 +172,4 @@ const AccessModal = ({handleLogin, handleResend, isModalOpen, setIsModalOpen ,ac
       </Modal>
     </>
   );
-}
+};

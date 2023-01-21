@@ -25,7 +25,7 @@ const verifySignedInUser = (umail, request) => {
 
 const verifyGreenroomAccess = async (mail, eventIdentifier) => {
   let isAdmin = false;
-  if (mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
+  if (mail) {
     isAdmin = await ssrVerifyAdmin({ email: mail });
   }
 
@@ -41,7 +41,7 @@ const verifyGreenroomAccess = async (mail, eventIdentifier) => {
 
 const verifyAdminAccess = async (mail) => {
   let isAdmin = false;
-  if (mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
+  if (mail) {
     isAdmin = await ssrVerifyAdmin({ email: mail });
   }
 

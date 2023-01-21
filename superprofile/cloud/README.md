@@ -61,7 +61,7 @@ mutation {
     displayName: "YOUR_NAME"
     email: "NEXT_PUBLIC_EVENT_ADMIN_MAIL"
     uid: "ANY_UNIQUE_NUMBER"
-    events: {
+    rc4conf: {
       create: {
         role: "Admin"
         email: "NEXT_PUBLIC_EVENT_ADMIN_MAIL"
