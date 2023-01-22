@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, forwardRef } from 'react';
+import { useEffect, useRef, useState, forwardRef, useLayoutEffect, Fragment } from 'react';
 import { Navbar, Nav, Container, Col, Row, Offcanvas, Dropdown } from 'react-bootstrap';
 import styles from '../../styles/Menubar.module.css';
 import BrandLogo from "../brandlogo";
@@ -9,7 +9,8 @@ import { DummyLoginButton } from "../auth/dummy";
 import RCGoogleLoginButton from "../auth/goauth/ui/GoogleRCLogin";
 
 const userCookie = Cookies.get("user");
-const isUserLoggedIn = Cookies.get("hashmail") ? true : false;
+
+let isUserLoggedIn;
 const hasAllRequiredCreds =
   process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID &&
   process.env.NEXT_PUBLIC_RC_URL;
@@ -85,9 +86,9 @@ const MobileNav = ({ nav_Items }) => {
             </Navbar.Brand>
           </Offcanvas.Header>
           <Offcanvas.Body>
-            {nav_Items?.map((nav_Item) =>
+            {nav_Items?.map((nav_Item, key) =>
               nav_Item.url ? (
-                <div key={nav_Item.id}>
+                <div key={key}>
                   <Row
                     className={`${styles.dropdown} d-flex flex-row justify-content-between align-items-center mt-3 `}
                     onClick={() => {
@@ -96,6 +97,7 @@ const MobileNav = ({ nav_Items }) => {
                   >
                     <Col>
                       <a
+                        key={nav_Item.id}
                         href={nav_Item.url}
                         className='text-decoration-none fs-4 fw-light text-dark'
                       >
@@ -105,7 +107,7 @@ const MobileNav = ({ nav_Items }) => {
                   </Row>
                 </div>
               ) : (
-                <div key={nav_Item.id}>
+                <div key={key}>
                   <Row
                     className={`${styles.dropdown} d-flex flex-row justify-content-between align-items-center mt-3 `}
                     onClick={() => {
@@ -141,37 +143,35 @@ const MobileNav = ({ nav_Items }) => {
                   </Row>
                   {dropDown._id === nav_Item.id && dropDown.show ? (
                     <div>
-                      <div>
-                        {nav_Item.sub_menus.data.map(
-                          (item, key) =>
-                          (
-                            <>
-                              <div key={key} className={'p-2 fw-medium' + ` ${item.attributes.style === 'disable' ? styles.disabled : ''}`}>
-                                <a
-                                  href={item.attributes.url}
-                                  className={styles.subItemLinks}
-                                >
-                                  {item.attributes.label}
-                                </a>
-                              </div>
-                              {nav_Item.attributes?.parent_id && nav_Item.sub_menus.data.map(
-                                (subItem, key) =>
-                                  subItem.attributes.parent_id === item.attributes.id && (
-                                    <div className='px-4 py-1 fw-light'>
-                                      <a
-                                        key={key}
-                                        href={subItem.attributes.url}
-                                        className={styles.subItemLinks}
-                                      >
-                                        {subItem.attributes.label}
-                                      </a>
-                                    </div>
-                                  )
-                              )}
-                            </>
-                          )
-                        )}
-                      </div>
+                      {nav_Item.sub_menus.data.map(
+                        (item, key) =>
+                        (
+                          <Fragment key={key}>
+                            <div key={key} className={'p-2 fw-medium' + ` ${item.attributes.style === 'disable' ? styles.link_heading_mobile : 'fw-light link-primary'}`}>
+                              <a
+                                href={item.attributes.url}
+                                className={styles.subItemLinks}
+                              >
+                                {item.attributes.label}
+                              </a>
+                            </div>
+                            {nav_Item.attributes?.parent_id && nav_Item.sub_menus.data.map(
+                              (subItem, key) =>
+                                subItem.attributes.parent_id === item.attributes.id && (
+                                  <div className='px-4 py-1 fw-light'>
+                                    <a
+                                      key={key}
+                                      href={subItem.attributes.url}
+                                      className={styles.subItemLinks}
+                                    >
+                                      {subItem.attributes.label}
+                                    </a>
+                                  </div>
+                                )
+                            )}
+                          </Fragment>
+                        )
+                      )}
                     </div>
                   ) : (
                     ''
@@ -207,16 +207,17 @@ const DesktopNav = ({ nav_Items }) => {
 
   return (
     <Navbar className='d-none d-lg-flex justify-content-between px-4 py-3'>
-      <BrandLogo
-        logoLink={
-          "https://global-uploads.webflow.com/611a19b9853b7414a0f6b3f6/611bbb87319adfd903b90f24_logoRC.svg"
-        }
-        imageTitle={"Rocket.Chat"}
-        brandName={"Rocket.Chat Community"}
-        height={21}
-        width={124}
-      />
+
       <Nav className='w-full ' ref={clickRef}>
+        <BrandLogo
+          logoLink={
+            "https://global-uploads.webflow.com/611a19b9853b7414a0f6b3f6/611bbb87319adfd903b90f24_logoRC.svg"
+          }
+          imageTitle={"Rocket.Chat"}
+          brandName={"Rocket.Chat Community"}
+          height={21}
+          width={124}
+        />
         {nav_Items?.map((nav_item, key) =>
           nav_item.sub_menus?.data?.length > 1 ? (
             <span
@@ -254,7 +255,7 @@ const DesktopNav = ({ nav_Items }) => {
                       (item, key) =>
                       (
                         <div className={`${styles.navbar_subitems_items} `} key={key}>
-                          <div className={item.attributes.style === 'disable' ? styles.disabled : ''}>
+                          <div className={item.attributes.style === 'disable' ? styles.link_heading : ''}>
                             <a
                               href={item.attributes.url}
                               className={styles.subItemLinks}
@@ -300,6 +301,12 @@ const DesktopNav = ({ nav_Items }) => {
 };
 
 const SidebarItem = () => {
+
+
+  useEffect(() => {
+    isUserLoggedIn = Cookies.get("hashmail") ? true : false;
+  }, [])
+
   return (
 
     <div className="d-inline-flex">
