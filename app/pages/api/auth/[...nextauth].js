@@ -2,6 +2,8 @@ import NextAuth from 'next-auth';
 import KeyCloakProvider from 'next-auth/providers/keycloak';
 import { RocketChatOAuthProvider } from '../../../lib/auth/RocketChatOAuthProvider';
 import { signCook } from '../../../lib/conferences/eventCall';
+import GitHubProvider from 'next-auth/providers/github';
+import GoogleProvider from 'next-auth/providers/google';
 
 export default async function handleAuth(req, res) {
   return await NextAuth({
@@ -30,8 +32,8 @@ export default async function handleAuth(req, res) {
         clientSecret: process.env.NEXT_PUBLIC_GITHUB_SECRET,
       }),
       GoogleProvider({
-        clientId: process.env.NEXT_PUBLIC_GOOGLE_ID,
-        clientSecret: process.env.NEXT_PUBLIC_GOOGLE_SECRET,
+        clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
+        clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
       }),
     ],
     callbacks: {
@@ -73,5 +75,7 @@ export default async function handleAuth(req, res) {
         return token;
       },
     },
+    // secret: process.env.NEXTAUTH_SECRET,
+    debug: true,
   })(req, res);
 }

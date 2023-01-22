@@ -65,6 +65,7 @@ const OauthComponent = (props) => {
             </>
           ) : (
             <div className="d-flex flex-column align-items-center my-3">
+              <Button onClick={() => signIn()}>Choose</Button>
               <Button onClick={() => signIn('github')}>Github</Button>
               <Button onClick={() => signIn('google')}>Google</Button>
             </div>
