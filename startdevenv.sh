@@ -1,6 +1,6 @@
 #!/bin/sh
 
-STRAPI_PORT=1337
+STRAPI_PORT=1338
 counter=0
 watchdog=5
 watchtimer=0

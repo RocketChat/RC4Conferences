@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import { Navbar, Nav, NavDropdown, Container, Dropdown } from "react-bootstrap";
-import styles from "../styles/Menubar.module.css";
-import { RocketChatAuthMenuButton } from "./auth/rocketchat";
-import BrandLogo from "./brandlogo";
-import RocketChatLinkButton from "./rocketchatlinkbutton";
-import Cookies from "js-cookie";
-import Link from "next/link";
-import { DummyLoginButton } from "./auth/dummy";
-import RCGoogleLoginButton from "./auth/goauth/ui/GoogleRCLogin";
+import React, { useState } from 'react';
+import { Navbar, Nav, NavDropdown, Container, Dropdown } from 'react-bootstrap';
+import styles from '../styles/Menubar.module.css';
+import { RocketChatAuthMenuButton } from './auth/rocketchat';
+import BrandLogo from './brandlogo';
+import RocketChatLinkButton from './rocketchatlinkbutton';
+import Cookies from 'js-cookie';
+import Link from 'next/link';
+import { DummyLoginButton } from './auth/dummy';
+import RCGoogleLoginButton from './auth/goauth/ui/GoogleRCLogin';
+import OauthComponent from './auth/oauth/ui';
+import { useSession } from 'next-auth/react';
 
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
@@ -26,29 +28,34 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
 
 export default function Menubar(props) {
   const [collapsed, setCollapsed] = useState(true);
-  const userCookie = Cookies.get("user");
+  const userCookie = Cookies.get('user');
+  const { data: session } = useSession();
   const hasAllRequiredCreds =
-    process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID &&
-    process.env.NEXT_PUBLIC_RC_URL;
-    
-  if (!hasAllRequiredCreds) console.log("RC4Community is now using a dummy Auth Component! If you wish to use a robust Auth component, provide all the credentials first (https://github.com/RocketChat/RC4Community/tree/master/app/components/auth)")
+    process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID && process.env.NEXT_PUBLIC_RC_URL;
+
+  console.log(hasAllRequiredCreds);
+
+  if (!hasAllRequiredCreds)
+    console.log(
+      'RC4Community is now using a dummy Auth Component! If you wish to use a robust Auth component, provide all the credentials first (https://github.com/RocketChat/RC4Community/tree/master/app/components/auth)'
+    );
   return (
     <Container fluid className="border-bottom ">
       <Navbar expand="lg" className=" bg-white mx-4 my-2">
         <Navbar.Brand>
-        <BrandLogo
-          logoLink={
-            "https://global-uploads.webflow.com/611a19b9853b7414a0f6b3f6/611bbb87319adfd903b90f24_logoRC.svg"
-          }
-          imageTitle={"Rocket.Chat"}
-          brandName={"Rocket.Chat Community"}
-          height={21}
-          width={124}
-        />
+          <BrandLogo
+            logoLink={
+              'https://global-uploads.webflow.com/611a19b9853b7414a0f6b3f6/611bbb87319adfd903b90f24_logoRC.svg'
+            }
+            imageTitle={'Rocket.Chat'}
+            brandName={'Rocket.Chat Community'}
+            height={21}
+            width={124}
+          />
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="basic-navbar-nav"
-          className={styles.default_toggler + " ms-auto"}
+          className={styles.default_toggler + ' ms-auto'}
           onClick={() => {
             setCollapsed(!collapsed);
           }}
@@ -77,7 +84,7 @@ export default function Menubar(props) {
                     <NavDropdown.Item
                       key={sub.id || sub._id || `NavDropDownItem_${index}`}
                       href={sub.attributes.url}
-                      disabled={sub.attributes.style == "disable"}
+                      disabled={sub.attributes.style == 'disable'}
                     >
                       {sub.attributes.label}
                     </NavDropdown.Item>
@@ -116,12 +123,7 @@ export default function Menubar(props) {
           )}
         </div>
         <div className="mx-2">
-          {hasAllRequiredCreds ? (
-            <RCGoogleLoginButton />
-          ) : (
-            <DummyLoginButton />
-          )}
-          
+          {hasAllRequiredCreds ? <OauthComponent /> : <DummyLoginButton />}
         </div>
       </Navbar>
     </Container>

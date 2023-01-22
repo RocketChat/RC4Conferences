@@ -1,13 +1,13 @@
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import Infotiles from "../components/infotiles";
-import Newscarousel from "../components/newscarousel";
-import Personacircle from "../components/personalcircle";
-import Searchbox from "../components/searchbox";
-import Growthcounters from "../components/growthcounters";
-import { Container, Col } from "react-bootstrap";
-import { fetchAPI } from "../lib/api";
-import { INFOTILES_DATA } from "../lib/const/infotiles";
+import Head from 'next/head';
+import styles from '../styles/Home.module.css';
+import Infotiles from '../components/infotiles';
+import Newscarousel from '../components/newscarousel';
+import Personacircle from '../components/personalcircle';
+import Searchbox from '../components/searchbox';
+import Growthcounters from '../components/growthcounters';
+import { Container, Col } from 'react-bootstrap';
+import { fetchAPI } from '../lib/api';
+import { INFOTILES_DATA } from '../lib/const/infotiles';
 
 function Home(props) {
   return (
@@ -29,7 +29,7 @@ function Home(props) {
           <h1
             className={`display-4 fw-bold text-center ${styles.hero_heading}`}
           >
-            Welcome to our{" "}
+            Welcome to our{' '}
             <span>
               <a
                 className={styles.redText}
@@ -49,22 +49,22 @@ function Home(props) {
         </Col>
         <Col className="mb-5 d-flex flex-column align-items-center">
           <h6 className="py-2 fs-6">
-            {" "}
+            {' '}
             <a
               href={props?.guides?.data?.location}
               target="_blank"
               rel="noopener noreferrer"
             >
               Read the Guides
-            </a>{" "}
-            |{" "}
+            </a>{' '}
+            |{' '}
             <a
               href={props?.releaseNotes?.data?.location}
               target="_blank"
               rel="noopener noreferrer"
             >
               Read Release Notes
-            </a>{" "}
+            </a>{' '}
           </h6>
           <Searchbox></Searchbox>
         </Col>
@@ -95,11 +95,11 @@ function Home(props) {
 export default Home;
 
 export async function getStaticProps({ params }) {
-  const carousels = await fetchAPI("/carousels");
-  const personas = await fetchAPI("/personas");
-  const guides = await fetchAPI("/guide");
-  const releaseNotes = await fetchAPI("/release-note");
-  const topNavItems = await fetchAPI("/top-nav-item");
+  const carousels = await fetchAPI('/carousels');
+  const personas = await fetchAPI('/personas');
+  const guides = await fetchAPI('/guide');
+  const releaseNotes = await fetchAPI('/release-note');
+  const topNavItems = await fetchAPI('/top-nav-item');
 
   return {
     props: { carousels, personas, guides, releaseNotes, topNavItems },

@@ -1,7 +1,7 @@
-import NextAuth from "next-auth";
-import KeyCloakProvider from "next-auth/providers/keycloak";
-import { RocketChatOAuthProvider } from "../../../lib/auth/RocketChatOAuthProvider";
-import { signCook } from "../../../lib/conferences/eventCall";
+import NextAuth from 'next-auth';
+import KeyCloakProvider from 'next-auth/providers/keycloak';
+import { RocketChatOAuthProvider } from '../../../lib/auth/RocketChatOAuthProvider';
+import { signCook } from '../../../lib/conferences/eventCall';
 
 export default async function handleAuth(req, res) {
   return await NextAuth({
@@ -25,6 +25,14 @@ export default async function handleAuth(req, res) {
         clientSecret: process.env.ROCKETCHAT_CLIENT_SECRET,
         rocketChatUrl: process.env.ROCKETCHAT_URL,
       }),
+      GitHubProvider({
+        clientId: process.env.NEXT_PUBLIC_GITHUB_ID,
+        clientSecret: process.env.NEXT_PUBLIC_GITHUB_SECRET,
+      }),
+      GoogleProvider({
+        clientId: process.env.NEXT_PUBLIC_GOOGLE_ID,
+        clientSecret: process.env.NEXT_PUBLIC_GOOGLE_SECRET,
+      }),
     ],
     callbacks: {
       async jwt({ token, account, profile, session }) {
@@ -44,12 +52,12 @@ export default async function handleAuth(req, res) {
         if (session.user?.email) {
           const hashmail = await signCook({ mail: session.user.email });
           const expTime = new Date(session.expires).toUTCString();
-          res.setHeader("Set-Cookie", [
-            "hashmail=" +
+          res.setHeader('Set-Cookie', [
+            'hashmail=' +
               hashmail.data.hash +
-              "; expires=" +
+              '; expires=' +
               expTime +
-              "; path=/",
+              '; path=/',
           ]);
         }
         return session;
@@ -57,10 +65,10 @@ export default async function handleAuth(req, res) {
     },
     events: {
       async signOut({ token }) {
-        res.setHeader("Set-Cookie", [
-          "hashmail=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT",
-          "rc_uid=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT",
-          "rc_token=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT",
+        res.setHeader('Set-Cookie', [
+          'hashmail=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT',
+          'rc_uid=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT',
+          'rc_token=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT',
         ]);
         return token;
       },
