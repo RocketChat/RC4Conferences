@@ -35,9 +35,9 @@ NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP="rtmp url to broadcast the stream"
 ```
 > To get the RTMP URI please follow the steps [here](#rtmp-server-link).
 ### <ins>Mainstage Setup</ins>
->Note: Skip this setup in case of using Twitch or Vimeo RTMP URIs. Please stay tuned until [#65](https://github.com/RocketChat/RC4Conferences/issues/65) and [#64](https://github.com/RocketChat/RC4Conferences/issues/64) is done.
 
-On Mainstage page, during the conference, the attendees view the stream of Speakers talk received from the Greenroom Page. Stream data from Jitsi is sent to the RTMP forest, and from there we can have multiple relays, for example, "Singapore Relay" and "North America Relay". To get the setup right, please enter this two relay links in the `app/.env` as
+On Mainstage page, during the conference, the attendees view the stream of Speakers talk received from the Greenroom Page.
+If you are using a RTMP forest the, Stream data from Jitsi is sent to the RTMP forest, and from there we can have multiple relays, for example, "Singapore Relay" and "North America Relay". To get the setup right, please enter this two relay links in the `app/.env` as
 ```
 NEXT_PUBLIC_SERVER_STREAM_LINK0="Relay link"
 NEXT_PUBLIC_SERVER_STREAM_LINK1="Any other region relay link"
@@ -47,6 +47,11 @@ In order to provide a better stream to the attendees, based on their proximate d
 ```
 NEXT_PUBLIC_IPINFO_TOKEN="token from ipinfo"
 ```
+
+If you are using __Twitch__ RTMP URI then in order to view the stream you need to add specify your Twitch username in the `src` prop of the Videostream tag in the Mainstage component `/app/components/conferences/dayOfEvent/mainstage/Mainstage.js`.
+
+Else if you are using __Vimeo__ RTMP URI then then in order to view the stream you need to add specify your Vimeo live event link in the `src` prop of the Videostream tag in the Mainstage component `/app/components/conferences/dayOfEvent/mainstage/Mainstage.js`. It will be in the format of `https://vimeo.com/event/{id}/embed`
+
 Congratulations! 🎉 You have successfully setup the Day of Event Components. 
 <hr />
 
