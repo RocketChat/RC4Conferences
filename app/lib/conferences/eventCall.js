@@ -1,7 +1,8 @@
-import axios from "axios";
+import axios from 'axios';
 
 const eventUrl = process.env.NEXT_PUBLIC_EVENT_BACKEND_URL;
-const nextDeployUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+const nextDeployUrl =
+  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
 //NextJS local API route call begins
 export const signCook = async (mail) => {
@@ -11,8 +12,9 @@ export const signCook = async (mail) => {
 
 export const unsignCook = async (hash) => {
   const res = await fetch(`${nextDeployUrl}/api/conf/unsignCook`, {
-    method: "POST",
-    body: JSON.stringify(hash)});
+    method: 'POST',
+    body: JSON.stringify(hash),
+  });
   return res.json();
 };
 //NextJS local API route call ends
@@ -25,7 +27,7 @@ export const checkEmail = async (emailData) => {
 
 export const eventAuthSignIn = async (signInf) => {
   const headers = {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   };
   const res = await axios.post(`${eventUrl}/v1/auth/login`, signInf, {
     headers: headers,
@@ -35,7 +37,7 @@ export const eventAuthSignIn = async (signInf) => {
 
 export const eventAuthSignUp = async (signUpf) => {
   const headers = {
-    "Content-Type": "application/vnd.api+json",
+    'Content-Type': 'application/vnd.api+json',
   };
   const res = await axios.post(`${eventUrl}/v1/users`, signUpf, {
     headers: headers,
@@ -45,7 +47,7 @@ export const eventAuthSignUp = async (signUpf) => {
 
 export const userAdminPatch = async (uid, data, auth) => {
   const headers = {
-    "Content-Type": "application/vnd.api+json",
+    'Content-Type': 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
   };
   const res = await axios.patch(`${eventUrl}/v1/users/${uid}`, data, {
@@ -56,7 +58,7 @@ export const userAdminPatch = async (uid, data, auth) => {
 
 export const userSetVerified = async (uid, data, auth) => {
   const headers = {
-    "Content-Type": "application/vnd.api+json",
+    'Content-Type': 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
   };
 
@@ -72,7 +74,7 @@ export const userSetVerified = async (uid, data, auth) => {
 
 export const publishEvent = async (data, auth) => {
   const headers = {
-    "Content-Type": "application/vnd.api+json",
+    'Content-Type': 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
   };
   const res = await axios.post(`${eventUrl}/v1/events`, data, {
@@ -84,9 +86,9 @@ export const publishEvent = async (data, auth) => {
 
 // Edit Event Basic Details Call Begins
 
-export const editEvent = async (data, auth,identifier) => {
+export const editEvent = async (data, auth, identifier) => {
   const headers = {
-    "Content-Type": "application/vnd.api+json",
+    'Content-Type': 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
   };
 
@@ -100,22 +102,22 @@ export const editEvent = async (data, auth,identifier) => {
 
 // Fetch Ticket Details
 
-export const getTicketDetails = async (eid , auth) => {
+export const getTicketDetails = async (eid, auth) => {
   const headers = {
-    "Content-Type": "application/vnd.api+json",
+    'Content-Type': 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
   };
   const res = await axios.get(`${eventUrl}/v1/tickets/${eid}`, {
     headers: headers,
   });
   return res.data;
-}
+};
 
 // Update the ticket details
 
-export const editEventTicket = async (eid,data, auth) => {
+export const editEventTicket = async (eid, data, auth) => {
   const headers = {
-    "Content-Type": "application/vnd.api+json",
+    'Content-Type': 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
   };
   const res = await axios.patch(`${eventUrl}/v1/tickets/${eid}`, data, {
@@ -128,7 +130,7 @@ export const editEventTicket = async (eid,data, auth) => {
 
 export const publishEventTicket = async (data, auth) => {
   const headers = {
-    "Content-Type": "application/vnd.api+json",
+    'Content-Type': 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
   };
   const res = await axios.post(`${eventUrl}/v1/tickets`, data, {
@@ -141,17 +143,17 @@ export const publishEventTicket = async (data, auth) => {
 ////// Event Fetch Call Begins
 export const getEventDeatils = async (eid) => {
   const headers = {
-    Accept: "application/vnd.api+json",
+    Accept: 'application/vnd.api+json',
   };
   const res = await fetch(`${eventUrl}/v1/events/${eid}?include=tickets`, {
-    headers: headers
+    headers: headers,
   });
   return res.json();
 };
 
 export const getAllEvents = async (eid) => {
   const headers = {
-    Accept: "application/vnd.api+json",
+    Accept: 'application/vnd.api+json',
   };
   const res = await axios.get(`${eventUrl}/v1/events`);
   return res;
@@ -159,7 +161,7 @@ export const getAllEvents = async (eid) => {
 
 export const getUserEventDeatils = async (uid, auth) => {
   const headers = {
-    Accept: "application/vnd.api+json",
+    Accept: 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
   };
   const res = await axios.get(`${eventUrl}/v1/users/${uid}/events`, {
@@ -171,7 +173,7 @@ export const getUserEventDeatils = async (uid, auth) => {
 // Event Speaker call
 export const getEventSpeakers = async (eid, auth) => {
   const headers = {
-    Accept: "application/vnd.api+json",
+    Accept: 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
   };
   const res = await fetch(`${eventUrl}/v1/events/${eid}/speakers?sort=id`, {
@@ -182,9 +184,9 @@ export const getEventSpeakers = async (eid, auth) => {
 
 export const addEventSpeakers = async (data, auth) => {
   const headers = {
-    Accept: "application/vnd.api+json",
+    Accept: 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
-    "Content-Type": "application/vnd.api+json",
+    'Content-Type': 'application/vnd.api+json',
   };
   const res = await axios.post(`${eventUrl}/v1/speakers`, data, {
     headers: headers,
@@ -194,7 +196,7 @@ export const addEventSpeakers = async (data, auth) => {
 
 export const deleteEventSpeaker = async (sid, auth) => {
   const headers = {
-    Accept: "application/vnd.api+json",
+    Accept: 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
   };
   const res = await axios.delete(`${eventUrl}/v1/speakers/${sid}`, {
@@ -205,7 +207,7 @@ export const deleteEventSpeaker = async (sid, auth) => {
 
 export const deleteEvent = async (sid, auth) => {
   const headers = {
-    Accept: "application/vnd.api+json",
+    Accept: 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
   };
   const res = await axios.delete(`${eventUrl}/v1/events/${sid}`, {

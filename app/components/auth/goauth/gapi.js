@@ -30,6 +30,7 @@ export default class RocketChatInstance {
 
   async googleSSOLogin(signIn, acsCode) {
     const tokens = await signIn();
+    console.log('this is token', tokens, acsCode);
     let acsPayload = null;
 
     if (typeof acsCode === 'string') {

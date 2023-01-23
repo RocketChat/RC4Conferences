@@ -35,7 +35,7 @@ export const useRCGoogleAuth = () => {
 
     if (rc_uid && rc_token) {
       fetchUserDetails();
-    }
+    } 
 
     if (isStoredInSession) {
       setUser(isStoredInSession);

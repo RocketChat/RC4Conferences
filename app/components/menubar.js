@@ -122,7 +122,10 @@ export default function Menubar(props) {
         </div>
         <div className="mx-2">
           {hasAllRequiredCreds ? (
-            <OauthComponent user={session?.user} />
+            <>
+              <OauthComponent user={session?.user} />
+              <RCGoogleLoginButton />
+            </>
           ) : (
             <DummyLoginButton />
           )}

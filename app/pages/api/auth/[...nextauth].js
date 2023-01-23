@@ -40,6 +40,31 @@ export default async function handleAuth(req, res) {
       async jwt({ token, account, profile, session }) {
         // Called when generating our custom token
         // Persist the OAuth access_token to the token right after signin
+        const { provider, access_token, id_token } = account || {};
+        if (provider === 'google') {
+          try {
+            const req = await fetch(
+              `${process.env.NEXT_PUBLIC_RC_URL}/api/v1/login`,
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  serviceName: 'google',
+                  accessToken: access_token,
+                  idToken: id_token,
+                  expiresIn: 3600,
+                }),
+              }
+            );
+
+            const res = await req.json();
+            console.log('this is ress', res);
+          } catch (error) {
+            console.log(error);
+          }
+        }
 
         if (account) {
           token.accessToken = account.access_token;
