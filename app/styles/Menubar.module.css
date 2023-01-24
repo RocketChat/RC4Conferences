@@ -19,7 +19,7 @@
   background-color: #ff5050;
   color: transparent;
   width: 0%;
-  content: '.';
+  content: ".";
   height: 2px;
 }
 
@@ -84,7 +84,7 @@
 
 .toggler_icon::before,
 .toggler_icon::after {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   width: inherit;
@@ -131,7 +131,7 @@
   z-index: 10;
 }
 
-.navbar_subitems_items .link_heading  {
+.navbar_subitems_items .link_heading {
   padding: 1rem 1rem 0rem 2;
   font-weight: 700;
   color: #87898d;
@@ -149,13 +149,15 @@
   color: black;
 }
 
-
-
 .subItemLinks {
   cursor: pointer;
 
   text-decoration: none;
   color: black;
+}
+
+.subItemLinks:hover {
+  color: #3300ff;
 }
 
 .color {
@@ -185,7 +187,7 @@
 }
 
 .threedots:after {
-  content: '\2807';
+  content: "\2807";
   font-size: 30px;
   height: 100%;
   padding-left: 7px;
