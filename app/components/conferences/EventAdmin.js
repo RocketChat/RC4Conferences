@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import NewMenubar from "../menubar/newMenuBar";
 import Menubar from "../menubar";
 import _ from "lodash";
 import Cookies from "js-cookie";
@@ -58,9 +59,11 @@ export const VerifyUserRole = ({ menuprops }) => {
     <>
       {abortAdmin()}
       {verified ? (
-        <Menubar menu={menuprops.menu.topNavItems} />
+        // <Menubar menu={menuprops.menu.topNavItems} />
+        <NewMenubar menu={menuprops.menu.topNavItems} />
       ) : (
-        <Menubar menu={menuCache.menu.topNavItems} />
+        // <Menubar menu={menuCache.menu.topNavItems} />
+        <NewMenubar menu={menuCache.menu.topNavItems} />
       )}
     </>
   );
