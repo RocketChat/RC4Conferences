@@ -10,7 +10,6 @@ import RCGoogleLoginButton from "../auth/goauth/ui/GoogleRCLogin";
 
 const userCookie = Cookies.get("user");
 
-let isUserLoggedIn;
 const hasAllRequiredCreds =
   process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID &&
   process.env.NEXT_PUBLIC_RC_URL;
@@ -301,16 +300,15 @@ const DesktopNav = ({ nav_Items }) => {
 };
 
 const SidebarItem = () => {
-
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   useEffect(() => {
-    isUserLoggedIn = Cookies.get("hashmail") ? true : false;
+    Cookies.get("hashmail") ? setIsUserLoggedIn(true) : setIsUserLoggedIn(false);
   }, [])
 
   return (
 
     <div className="d-inline-flex">
-
       <>
         {isUserLoggedIn && (
           <RocketChatLinkButton
