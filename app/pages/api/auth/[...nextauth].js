@@ -5,7 +5,6 @@ import { signCook } from '../../../lib/conferences/eventCall';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import axios from 'axios';
 
 export default async function handleAuth(req, res) {
   return await NextAuth({
@@ -22,7 +21,6 @@ export default async function handleAuth(req, res) {
           let user;
           const { username, password, code } = credentials;
           console.log(credentials);
-          // try {
           const request = await fetch(
             `${process.env.NEXT_PUBLIC_RC_URL}/api/v1/login`,
             {
@@ -64,7 +62,6 @@ export default async function handleAuth(req, res) {
         clientSecret: process.env.KEYCLOAK_SECRET,
         issuer: process.env.KEYCLOAK_ISSUER,
         profile(profile) {
-          // profile -> returned from keycloak server.
           return {
             id: profile.sub,
             name: profile.name ?? profile.preferred_username,
@@ -87,23 +84,19 @@ export default async function handleAuth(req, res) {
         clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET,
       }),
     ],
+    pages: {
+      signIn: '/auth/signin',
+    },
     callbacks: {
       async signIn({ user, account, profile, email, credentials }) {
-        // async signIn(params) {
-        console.log('this is params', user, account, profile, credentials);
         const isAllowedToSignIn = true;
         if (isAllowedToSignIn) {
           return true;
         } else {
-          // Return false to display a default error message
           return false;
-          // Or you can return a URL to redirect to:
-          // return '/unauthorized'
         }
       },
       async jwt({ token, account, profile, session }) {
-        // Called when generating our custom token
-        // Persist the OAuth access_token to the token right after signin
         const { provider, access_token, id_token } = account || {};
         if (provider === 'google') {
           try {
@@ -130,20 +123,7 @@ export default async function handleAuth(req, res) {
                 `rc_id=${response.data.userId}; path=/`,
               ]);
               if (!response.data.me.username) {
-                // await this.updateUserUsername(
-                //   response.data.userId,
-                //   response.data.me.name
-                // );
               }
-              // console.log('lmaooooo', Cookies.get('rc_token'));
-              // console.log(
-              //   'laskjdflksadjfkl',
-              //   req.headers.cookie,
-              //   req.cookies['rc_token'],
-              //   req.cookies['rc_id']
-              // );
-
-              // return { status: response.status, me: response.data.me };
             }
 
             if (response.error == 'totp-required') {

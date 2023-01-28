@@ -3,10 +3,6 @@ import { useState } from 'react';
 
 export default function SignIn({ csrfToken }) {
   const [totpRequired, setTotpRequired] = useState(false);
-  const [credentials, setCredentials] = useState({
-    username: '',
-    password: '',
-  });
 
   const handleVerify = async (e) => {
     e.preventDefault();
@@ -27,11 +23,14 @@ export default function SignIn({ csrfToken }) {
       console.log('resss', res);
 
       if (res?.error === 'totp-required') {
-        setCredentials({ username, password });
         setTotpRequired(true);
         console.log(res.error);
       } else {
-        setCredentials({ username, password });
+        await signIn('credentials', {
+          username,
+          password,
+          callbackUrl: '/',
+        });
       }
     } catch (error) {
       console.log('error', error);
@@ -43,12 +42,11 @@ export default function SignIn({ csrfToken }) {
     const username = e.target.username.value;
     const password = e.target.password.value;
     const code = e.target.code.value;
-    const res = await signIn('credentials', {
-      username,
-      password,
-      code,
-      callbackUrl: '/',
-    });
+    const payload = totpRequired
+      ? { username, password, code, callbackUrl: '/' }
+      : { username, password, callbackUrl: '/' };
+
+    const res = await signIn('credentials', payload);
     console.log(res);
 
     if (res?.error) {
