@@ -45,11 +45,11 @@ export const EventMainstage = ({ eventdetails, open, setOpen }) => {
     <div className={styles.mainstage_root}>
       <EventHeader eventData={eventdetails} open={open} setOpen={setOpen} />
       <Videostreamer
-          poster={evePoster ? evePoster : "/gsocsmall.jpg"}
-          src={streamLink}
-          service="local"
-          type="application/vnd.apple.mpegurl"
-          region={region}
+        poster={evePoster ? evePoster : "/gsocsmall.jpg"}
+        src={"streamURL"}
+        service="local"
+        type="application/vnd.apple.mpegurl"
+        region={region}
       />
     </div>
   );

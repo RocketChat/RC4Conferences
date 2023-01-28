@@ -96,8 +96,18 @@ export default function Videostreamer(props) {
       )}
       {props.service === "twitch" && (
         <>
-          <div className="vidoestreamer-container" style={{ margin: 30 }}>
-            <div id="twitch-embed"></div>
+          <div
+            className="twitch-container"
+            style={{ margin: 20, width: "78%" }}
+          >
+            <div
+              id="twitch-embed"
+              style={{
+                position: "relative",
+                paddingTop: "56.25%",
+                overflow: "hidden",
+              }}
+            ></div>
           </div>
           <Script
             src="https://embed.twitch.tv/embed/v1.js"
@@ -105,14 +115,19 @@ export default function Videostreamer(props) {
             onLoad={() => {
               console.log("succesfully loaded twitch.tv script");
               const embed = new Twitch.Embed("twitch-embed", {
-                width: 1300,
-                height: 700,
+                width: "100%",
+                height: "100%",
                 channel: props.src,
                 layout: "video",
                 autoplay: false,
                 parent: ["127.0.0.1", "localhost"],
               });
-
+              embed.setVolume(0.5);
+              var iframe = document
+                .getElementById("twitch-embed")
+                .getElementsByTagName("iframe")[0];
+              iframe.style.cssText =
+                "top: 0; left: 0; border: none; position: absolute; width: 100%; height: 100%;";
               embed.addEventListener(Twitch.Embed.VIDEO_READY, () => {
                 const player = embed.getPlayer();
                 player.play();
@@ -123,15 +138,27 @@ export default function Videostreamer(props) {
       )}
       {props.service === "vimeo" && (
         <>
-          <div id="vimeo-embed" style={{ margin: 30 }}>
-            <iframe
-              src={props.src}
-              width="1300"
-              height="700"
-              frameborder="0"
-              allow="autoplay; fullscreen"
-              allowfullscreen
-            ></iframe>
+          <div className="vimeo-container" style={{ margin: 20, width: "78%" }}>
+            <div
+              id="vimeo-embed"
+              style={{
+                position: "relative",
+                paddingTop: "56.25%",
+                overflow: "hidden",
+              }}
+            >
+              <iframe
+                src={props.src}
+                width="1300"
+                height="700"
+                frameborder="0"
+                style={
+                  "top: 0; left: 0; border: none; position: absolute; width: 100%; height: 100%;"
+                }
+                allow="autoplay; fullscreen"
+                allowfullscreen
+              ></iframe>
+            </div>
           </div>
         </>
       )}
