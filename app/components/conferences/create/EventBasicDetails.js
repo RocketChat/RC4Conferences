@@ -138,13 +138,13 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
     CustomToast({ type: "success" });
     name === "switch"
       ? setTicket((prev) => ({
-          ...prev,
-          state: !ticket.state,
-        }))
+        ...prev,
+        state: !ticket.state,
+      }))
       : setTicket((prev) => ({
-          ...prev,
-          [name]: value,
-        }));
+        ...prev,
+        [name]: value,
+      }));
   };
 
   const handlePublicSwitch = (e) => {
@@ -185,9 +185,9 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
   );
 };
 
-export const CustomToast = ({ show, type, msg }) => {
+export const CustomToast = ({ show, type, msg, close }) => {
   return (
-    <Toast show={show} className={styles.toast} bg={type}>
+    <Toast show={show} className={styles.toast} onClose={close} bg={type}>
       <Toast.Header>
         <strong className="me-auto">Event Alert!</strong>
       </Toast.Header>

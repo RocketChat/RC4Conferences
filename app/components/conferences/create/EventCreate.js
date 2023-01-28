@@ -10,7 +10,10 @@ export const EventCreate = ({ active }) => {
     show: false,
     msg: ""
   })
+  const closeToast = () => setToast(() => ({ show: false }));
+
   const router = useRouter();
+
 
 
   const pageRoute = {
@@ -29,36 +32,36 @@ export const EventCreate = ({ active }) => {
   const handleToast = (data, publish) => {
     const msgText = `The Event (${data.data.attributes.identifier}) was successfully created & ${publish}`
     setToast((prev) => ({
-        ...prev,
-        show: true,
-        msg: msgText
+      ...prev,
+      show: true,
+      msg: msgText
     }))
   }
 
   return (
     <>
-    <Card className={styles.create_event_root}>
-      <Card.Header>
-        <Nav variant="tabs" defaultActiveKey="basic-detail" activeKey={active}>
-          <Nav.Item>
-            <Nav.Link href="basic-detail">Basic Details</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="sessions">Speakers & Session</Nav.Link>
-          </Nav.Item>
-          <Nav.Item>
-            <Nav.Link href="other-details">Other Details</Nav.Link>
-          </Nav.Item>
-        </Nav>
-      </Card.Header>
-      <Card.Body>
-        {pageRoute[active] == 0 && <EventBasicCreate handleToast={handleToast} />}
-        {pageRoute[active] == 1 && "Coming Soon"}
-        {pageRoute[active] == undefined &&
-          "Hey! You got yourself on an fabled isle."}
-      </Card.Body>
-    </Card>
-        <CustomToast type={"success"} show={toast.show} msg={toast.msg} />
-</>
+      <Card className={styles.create_event_root}>
+        <Card.Header>
+          <Nav variant="tabs" defaultActiveKey="basic-detail" activeKey={active}>
+            <Nav.Item>
+              <Nav.Link href="basic-detail">Basic Details</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="sessions">Speakers & Session</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="other-details">Other Details</Nav.Link>
+            </Nav.Item>
+          </Nav>
+        </Card.Header>
+        <Card.Body>
+          {pageRoute[active] == 0 && <EventBasicCreate handleToast={handleToast} />}
+          {pageRoute[active] == 1 && "Coming Soon"}
+          {pageRoute[active] == undefined &&
+            "Hey! You got yourself on an fabled isle."}
+        </Card.Body>
+      </Card>
+      <CustomToast type={"success"} show={toast.show} msg={toast.msg} close={closeToast} />
+    </>
   );
 };
