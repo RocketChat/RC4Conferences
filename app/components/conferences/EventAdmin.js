@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import NewMenubar from "../menubar/newMenuBar";
-import Menubar from "../menubar";
 import _ from "lodash";
 import Cookies from "js-cookie";
 import { verifyAdmin } from "./auth/AuthSuperProfileHelper";
@@ -8,7 +7,7 @@ import { unsignCook } from "../../lib/conferences/eventCall";
 
 export const VerifyUserRole = ({ menuprops }) => {
   if (!menuprops.menu?.topNavItems) {
-    return <Menubar menu={menuprops.menu.topNavItems} />;
+    return <NewMenubar menu={menuprops.menu.topNavItems} />;
   }
   const [getCurrentUser, { data, error, loading }] = verifyAdmin();
   const [verified, setVerified] = useState(false);
@@ -29,7 +28,7 @@ export const VerifyUserRole = ({ menuprops }) => {
   let menuCache = null;
 
   if (!menuprops.menu?.topNavItems) {
-    return <Menubar menu={menuprops.menu.topNavItems} />;
+    return <NewMenubar menu={menuprops.menu.topNavItems} />;
   }
 
   const abortAdmin = () => {
