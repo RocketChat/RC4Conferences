@@ -6,6 +6,13 @@ import { VerifyUserRole } from './conferences/EventAdmin';
 
 function Layout(props) {
   const { pathname } = useRouter();
+
+  const disableLayout = ['/auth/signin', '/auth/signup'];
+
+  if (disableLayout.includes(pathname)) {
+    return props.children;
+  }
+
   return (
     <>
       <VerifyUserRole menuprops={props} />

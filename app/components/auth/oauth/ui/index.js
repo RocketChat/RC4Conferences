@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import styles from '../styles/Oauth.module.css';
 import Image from 'next/image';
-import { Button, Form, InputGroup, Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { NoUserAvatar } from '../../NoUserAvatar';
-import { getProviders } from 'next-auth/react';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
 
 const OauthComponent = (props) => {
   const { user, method } = props;
@@ -65,9 +64,7 @@ const OauthComponent = (props) => {
             </>
           ) : (
             <div className="d-flex flex-column align-items-center my-3">
-              <Button onClick={() => signIn()}>Choose</Button>
-              <Button onClick={() => signIn('github')}>Github</Button>
-              <Button onClick={() => signIn('google')}>Google</Button>
+              <Button onClick={() => signIn()}>Sign In</Button>
             </div>
           )}
         </div>

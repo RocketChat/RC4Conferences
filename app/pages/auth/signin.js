@@ -1,5 +1,7 @@
 import { getCsrfToken, signIn } from 'next-auth/react';
 import { useState } from 'react';
+import { Button, Col, Container, Form, Row, Stack } from 'react-bootstrap';
+import styles from '../../styles/Signin.module.css';
 
 export default function SignIn({ csrfToken }) {
   const [totpRequired, setTotpRequired] = useState(false);
@@ -20,11 +22,9 @@ export default function SignIn({ csrfToken }) {
         }),
       });
       const res = await req.json();
-      console.log('resss', res);
 
       if (res?.error === 'totp-required') {
         setTotpRequired(true);
-        console.log(res.error);
       } else {
         await signIn('credentials', {
           username,
@@ -47,7 +47,6 @@ export default function SignIn({ csrfToken }) {
       : { username, password, callbackUrl: '/' };
 
     const res = await signIn('credentials', payload);
-    console.log(res);
 
     if (res?.error) {
       console.log(res.error);
@@ -55,24 +54,58 @@ export default function SignIn({ csrfToken }) {
   };
 
   return (
-    <form method="post" onSubmit={totpRequired ? handleLogin : handleVerify}>
-      <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
-      <label>
-        Username
-        <input name="username" type="text" />
-      </label>
-      <label>
-        Password
-        <input name="password" type="password" />
-      </label>
-      {totpRequired && (
-        <label>
-          2FA
-          <input name="code" type="text" />
-        </label>
-      )}
-      <button type="submit">Sign in</button>
-    </form>
+    <div className={styles.container}>
+      <div className={styles.signin}>
+        <div className={styles.authOptions}>
+          <Button
+            className={styles.authOption}
+            onClick={() => signIn('google')}
+          >
+            Sign in with google
+          </Button>
+          <Button
+            className={styles.authOption}
+            onClick={() => signIn('github')}
+          >
+            Sign in with github
+          </Button>
+        </div>
+        or
+        <div className={styles.form}>
+          <Form
+            method="post"
+            onSubmit={totpRequired ? handleLogin : handleVerify}
+          >
+            <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+            <Form.Group className={styles.inputGroup}>
+              <label>Username</label>
+              <Form.Control
+                name="username"
+                type="text"
+                className={styles.input}
+              />
+            </Form.Group>
+            <Form.Group className={styles.inputGroup}>
+              <label>Password</label>
+              <Form.Control
+                name="password"
+                type="password"
+                className={styles.input}
+              />
+            </Form.Group>
+            {totpRequired && (
+              <div className={styles.inputGroup}>
+                <label>2FA</label>
+                <input name="code" type="text" className={styles.input} />
+              </div>
+            )}
+            <Button type="submit" className={styles.submit}>
+              Sign in
+            </Button>
+          </Form>
+        </div>
+      </div>
+    </div>
   );
 }
 
