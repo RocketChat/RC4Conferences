@@ -59,18 +59,22 @@ export default function SignIn({ csrfToken }) {
         <div className={styles.authOptions}>
           <Button
             className={styles.authOption}
-            onClick={() => signIn('google')}
+            onClick={() => signIn('google', {
+              callbackUrl: '/',
+            })}
           >
             Sign in with google
           </Button>
           <Button
             className={styles.authOption}
-            onClick={() => signIn('github')}
+            onClick={() => signIn('github', {
+              callbackUrl: '/',
+            })}
           >
             Sign in with github
           </Button>
         </div>
-        or
+        OR
         <div className={styles.form}>
           <Form
             method="post"
