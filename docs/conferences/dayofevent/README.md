@@ -37,7 +37,8 @@ NEXT_PUBLIC_ROCKET_CHAT_GREENROOM_RTMP="rtmp url to broadcast the stream"
 ### <ins>Mainstage Setup</ins>
 
 On Mainstage page, during the conference, the attendees view the stream of Speakers talk received from the Greenroom Page.
-If you are using a RTMP forest the, Stream data from Jitsi is sent to the RTMP forest, and from there we can have multiple relays, for example, "Singapore Relay" and "North America Relay". To get the setup right, please enter this two relay links in the `app/.env` as
+
+If you are using a RTMP forest then, first you need to add the `service` prop as `service={"local"}` in the Vidoestream tag in the Mainstage component `/app/components/conferences/dayOfEvent/mainstage/Mainstage.js`, Stream data from Jitsi is sent to the RTMP forest, and from there we can have multiple relays, for example, "Singapore Relay" and "North America Relay". To get the setup right, please enter this two relay links in the `app/.env` as
 ```
 NEXT_PUBLIC_SERVER_STREAM_LINK0="Relay link"
 NEXT_PUBLIC_SERVER_STREAM_LINK1="Any other region relay link"
@@ -48,9 +49,12 @@ In order to provide a better stream to the attendees, based on their proximate d
 NEXT_PUBLIC_IPINFO_TOKEN="token from ipinfo"
 ```
 
-If you are using __Twitch__ RTMP URI then in order to view the stream you need to add specify your Twitch username in the `src` prop of the Videostream tag in the Mainstage component `/app/components/conferences/dayOfEvent/mainstage/Mainstage.js`.
+If you are using __Twitch__ RTMP URI then in order to view the stream you need to add the `service` prop as `service={"twitch"}` your Twitch username in the `src` prop of the Videostream tag in the Mainstage component `/app/components/conferences/dayOfEvent/mainstage/Mainstage.js`.
 
-Else if you are using __Vimeo__ RTMP URI then then in order to view the stream you need to add specify your Vimeo live event link in the `src` prop of the Videostream tag in the Mainstage component `/app/components/conferences/dayOfEvent/mainstage/Mainstage.js`. It will be in the format of `https://vimeo.com/event/{id}/embed`
+Else if you are using __Vimeo__ RTMP URI then then in order to view the stream you need to add the `service` prop as `service={"vimeo"}` your Vimeo live event link in the `src` prop of the Videostream tag in the Mainstage component `/app/components/conferences/dayOfEvent/mainstage/Mainstage.js`. It will be in the format of `https://vimeo.com/webinars/events/{Random-String}/embed`
+
+> Note: The embedded player will not load when using the Vimeo RTMP URI (Start Free Demo), as the viewing of that event is private and is limited to your viewing only. In order to broadcast using Vimeo and have that stream be visible to the public, you must subscribe to their premium service. As a result, using the Vimeo Free Demo won't function because the event's viewership is not public. 
+
 
 Congratulations! 🎉 You have successfully setup the Day of Event Components. 
 <hr />

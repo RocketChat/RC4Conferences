@@ -98,13 +98,13 @@ export default function Videostreamer(props) {
         <>
           <div
             className="twitch-container"
-            style={{ margin: 20, width: "78%" }}
+            style={{ margin: 20, width: "90%" }}
           >
             <div
               id="twitch-embed"
               style={{
                 position: "relative",
-                paddingTop: "56.25%",
+                paddingTop: "50%",
                 overflow: "hidden",
               }}
             ></div>
@@ -138,23 +138,28 @@ export default function Videostreamer(props) {
       )}
       {props.service === "vimeo" && (
         <>
-          <div className="vimeo-container" style={{ margin: 20, width: "78%" }}>
+          <div className="vimeo-container" style={{ margin: 20, width: "90%" }}>
             <div
               id="vimeo-embed"
               style={{
                 position: "relative",
-                paddingTop: "56.25%",
+                paddingTop: "50%",
                 overflow: "hidden",
               }}
             >
               <iframe
                 src={props.src}
-                width="1300"
-                height="700"
-                frameborder="0"
-                style={
-                  "top: 0; left: 0; border: none; position: absolute; width: 100%; height: 100%;"
-                }
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                style={{
+                  top: 0,
+                  left: 0,
+                  border: "none",
+                  position: "absolute",
+                  width: "100%",
+                  height: "100%",
+                }}
                 allow="autoplay; fullscreen"
                 allowfullscreen
               ></iframe>
