@@ -6,18 +6,18 @@ The Day-of-Event Components of RC4Conferences enable efficient virtual conferenc
 
 The `Videostreamer` component is a React component that allows you to play either a local video stream, streamed through a local RTMP forest or a Twitch/Vimeo stream, by embedding their respective players onto the website, depending on the value of `service` prop.
 
-## Features
+### Features
 
 - The component supports video streaming from both local source and Twitch/Vimeo.
 - The component has various error and success handling functions.
 - The component uses [`video.js`](https://videojs.com/getting-started/) for local video streaming and [Twitch.Embed](https://dev.twitch.tv/docs/embed/everything/)/Iframe for Twitch/Vimeo video streaming.
 
-## State Variables
+### State Variables
 
 - `ping`: a boolean state variable that indicates the loading state of the video.
 - `message`: a string state variable that contains the message to be displayed in the Toast component.
 
-## Props
+### Props
 
 - `service`: type string, (either local / twitch or vimeo).
 - `src`: type string, the source of the video stream, it can be either the local video source (.m3u8 file) / Twitch username or Vimeo webinar link (See `How to use` for sample formats).
@@ -25,7 +25,7 @@ The `Videostreamer` component is a React component that allows you to play eithe
 - `type`: type string, the type of the video (required for `service={"local"}` type).
 - `region`: type string, the region of the local video server (required for `service={"local"}` type).
 
-## Error and Success Handling
+### Error and Success Handling
 
 - If the video stream cannot be fetched, the function `handleError` is called.
 - If the video stream has to wait for data, the function `handleWait` is called.
@@ -33,7 +33,7 @@ The `Videostreamer` component is a React component that allows you to play eithe
 - If the video stream is successfully loaded, the function `handleLoad` is called.
 - If the video stream is in progress, the function `handleProgress` is called.
 
-## How to use
+### How to use
 
 ```jsx
 import { Videostreamer } from "../../../components/conferences/dayOfEvent/mainstage/Videostreamer";
@@ -64,16 +64,24 @@ Note: The embedded player will not load when using the Vimeo RTMP URI (Start Fre
 ### Preview
 
 <figure align="center" width="100%">
+  <figcaption>A screenshot of videostream component when using local video stream </figcaption>. 
   <img alt="form creation tool" src="./videostream-local.png" width="100%" align="center">
-  <figcaption>A screenshot of videostream component when using local video stream </figcaption>
 </figure>
 
+<br />
+
 <figure align="center" width="100%">
-  <img alt="form creation tool" src="./videostream-vimeo.png" width="100%" align="center">
   <figcaption>A screenshot of videostream component when using vimeo embedded player </figcaption>
+  <img alt="form creation tool" src="./videostream-vimeo.png" width="100%" align="center">
 </figure>
 
+<br />
+
 <figure align="center" width="100%">
-  
   <figcaption>A demo of videostream component when using twitch embedded player </figcaption>
+  
+  https://user-images.githubusercontent.com/98731471/215461328-b2d0e1ee-0b23-451a-9ed6-1059dd1cf3d9.mp4
+  
 </figure>
+
+<br />
