@@ -10,6 +10,9 @@ export default function Videostreamer(props) {
     "Thanks for joining in! Please start the stream."
   );
 
+  const parentDevelopement = ["127.0.0.1", "localhost"];
+  const parentProduction = ["https://conf.rceng.shop"];
+
   const handleToast = () => {
     setPing(true);
   };
@@ -120,7 +123,10 @@ export default function Videostreamer(props) {
                 channel: props.src,
                 layout: "video",
                 autoplay: false,
-                parent: ["127.0.0.1", "localhost"],
+                parent:
+                  process.env.NODE_ENV === "production"
+                    ? parentProduction
+                    : parentDevelopement,
               });
               embed.setVolume(0.5);
               var iframe = document
