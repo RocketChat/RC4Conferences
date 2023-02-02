@@ -23,6 +23,7 @@ COPY public ./public
 COPY styles ./styles
 COPY components ./components
 COPY lib ./lib
+COPY assets ./assets
 
 # Ensure port 3000 is accessible to our system
 EXPOSE 3000
