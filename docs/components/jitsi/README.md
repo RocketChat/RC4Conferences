@@ -1,4 +1,7 @@
+
 # Jitsi Component
+
+Jitsi is a collection of free and open-source multiplatform voice, video conferencing and instant messaging applications for the web platform, Windows, Linux, macOS, iOS and Android. The Jitsi project began with the Jitsi Desktop.
 
 The Jitsi component exports an component `Jitsi`, which could be used to render a Jitsi meet frame.
 
