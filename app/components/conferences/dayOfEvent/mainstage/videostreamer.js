@@ -10,9 +10,6 @@ export default function Videostreamer(props) {
     "Thanks for joining in! Please start the stream."
   );
 
-  const parentDevelopement = ["127.0.0.1", "localhost"];
-  const parentProduction = ["https://conf.rceng.shop"];
-
   const handleToast = () => {
     setPing(true);
   };
@@ -41,6 +38,11 @@ export default function Videostreamer(props) {
   const handleLoad = () => {
     setPing(true);
   };
+
+  let parentKey = [];
+  if (process.env.NEXT_PUBLIC_TWITCH_PARENT_KEY !== undefined) {
+    parentKey = process.env.NEXT_PUBLIC_TWITCH_PARENT_KEY.split(",");
+  }
 
   return (
     <>
@@ -125,8 +127,10 @@ export default function Videostreamer(props) {
                 autoplay: false,
                 parent:
                   process.env.NODE_ENV === "production"
-                    ? parentProduction
-                    : parentDevelopement,
+                    ? process.env.NEXT_PUBLIC_TWITCH_PARENT_KEY.split(",")
+                    : parentKey.length > 0
+                    ? parentKey
+                    : ["localhost", "127.0.0.1"],
               });
               embed.setVolume(0.5);
               var iframe = document
