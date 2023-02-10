@@ -6,8 +6,8 @@ export default function ShowToast(props) {
   const [show, setShow] = useState(true);
   return (
     <div className={styles.alert}>
-     {show && <Alert variant={props.status === 'error' ? 'danger' : 'success'} onClose={() => setShow(false)} dismissible>
-      {props.msg}
+     {show && <Alert variant={props.type === 'error' ? 'danger' : 'success'} onClose={() => setShow(false)} dismissible>
+      {props.message}
      </Alert>}
     </div>
   );
