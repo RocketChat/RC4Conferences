@@ -6,6 +6,14 @@
   height: 100vh;
 }
 
+.totpContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+}
+
 .signin {
   display: flex;
   flex-direction: column;

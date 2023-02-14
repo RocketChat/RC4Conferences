@@ -3,10 +3,20 @@ import styles from '../styles/Oauth.module.css';
 import Image from 'next/image';
 import { Button } from 'react-bootstrap';
 import { NoUserAvatar } from '../../NoUserAvatar';
+import Cookies from 'js-cookie';
 import { signIn, signOut } from 'next-auth/react';
 
 const OauthComponent = (props) => {
   const { user, method } = props;
+
+  const handleSignOut = () => {
+    signOut();
+    Cookies.remove('hashmail');
+    Cookies.remove('event_auth');
+    Cookies.remove('hashrole');
+    Cookies.remove('rc_uid');
+    Cookies.remove('rc_token');
+  };
 
   const [isLoginUiOpen, setIsLoginUiOpen] = useState(false);
   return (
@@ -57,7 +67,7 @@ const OauthComponent = (props) => {
                 </div>
               </div>
               <div className="d-flex justify-content-center mb-4 mt-3 ml-3 mr-3">
-                <Button variant="secondary" onClick={() => signOut()}>
+                <Button variant="secondary" onClick={handleSignOut}>
                   Sign Out
                 </Button>
               </div>
@@ -69,8 +79,81 @@ const OauthComponent = (props) => {
           )}
         </div>
       )}
+      
     </div>
   );
 };
 
+const AccessModal = ({
+  handleLogin,
+  handleResend,
+  isModalOpen,
+  setIsModalOpen,
+  accessCode,
+  setAccessCode,
+  method,
+}) => {
+  const handleModalToggle = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setAccessCode(undefined);
+    handleLogin(accessCode);
+    handleModalToggle();
+  };
+
+  const handleEdit = (e) => {
+    setAccessCode(e.target.value);
+  };
+
+  return (
+    <>
+      <Modal show={isModalOpen} onHide={handleModalToggle}>
+        <Modal.Header closeButton>
+          <Modal.Title>Two-factor authentication via {method}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form id="access_form" onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              {method === 'totp' ? (
+                <Form.Label>
+                  Open your authentication app and enter the code. You can also
+                  use one of your backup codes.
+                </Form.Label>
+              ) : (
+                <Form.Label>Verify your email for the code we sent.</Form.Label>
+              )}
+              <InputGroup className="mb-3">
+                <Form.Control
+                  type="text"
+                  required
+                  placeholder="123456"
+                  autoFocus
+                  onChange={handleEdit}
+                />
+                {method === 'email' && (
+                  <Button onClick={handleResend} variant="outline-secondary">
+                    Resend
+                  </Button>
+                )}
+              </InputGroup>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleModalToggle}>
+            Close
+          </Button>
+          <Button form="access_form" variant="primary" type="submit">
+            Verify
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
+};
+
 export default OauthComponent;
+
