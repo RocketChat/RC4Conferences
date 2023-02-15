@@ -15,9 +15,11 @@ import {
 import { useRouter } from "next/router";
 import styles from "../../../styles/event.module.css";
 import { EventForm } from "../eventForm";
+import {useToastMsgDispatch} from '../../toast/hook/useToastMsgDispatch'
 
 export const EventBasicCreate = ({ setDraft, handleToast }) => {
   const [isPublic, setIsPublic] = useState(false);
+  const toast = useToastMsgDispatch()
 
   const [formState, setFormState] = useState({
     name: "",
@@ -112,7 +114,7 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
 
       sessionStorage.setItem("draft", publish == "draft");
       sessionStorage.setItem("event", JSON.stringify(res.data));
-      handleToast(res.data, publish);
+      toast('success','Event Created successfully')
       router.push("sessions");
     } catch (e) {
       console.error("Event create failed", e.response.data.error);
