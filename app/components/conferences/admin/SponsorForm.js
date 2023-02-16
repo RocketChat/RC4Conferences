@@ -52,7 +52,6 @@ export const SponsorForm = ({ event, handleToast }) => {
 
             await deleteSponsor(sponsors[index].id,token);
             const newSponsorList = sponsors.filter((val,id) => {return id !== index});
-            console.log(newSponsorList)
             setSponsors(newSponsorList)
         } catch (error) {
             console.log("Error in deleting in the sponsor",error)
@@ -139,7 +138,6 @@ export const SponsorForm = ({ event, handleToast }) => {
                     : new Error("Please, Sign in again");
 
                 const res = await getSponsorsDetails(event.data.id, token)
-                console.log(res.data.data)
                 setSponsors(res.data.data)
             } catch (e) {
                 console.error("An error occurred while fetching Sponsors", e);
