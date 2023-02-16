@@ -16,6 +16,7 @@ import {
   Stack,
   Tab,
   Tabs,
+  Nav
 } from "react-bootstrap";
 import {
   addEventSpeakers,
@@ -23,19 +24,26 @@ import {
   getEventSpeakers,
 } from "../../../lib/conferences/eventCall";
 import styles from "../../../styles/event.module.css";
-import { EditEvent , CustomToast} from "./EditEvent";
+import { EditEvent, CustomToast } from "./EditEvent";
+import { SponsorForm } from "./SponsorForm";
 
-export const IndivEventDash = ({ eid, event }) => {
+export const IndivEventDash = ({ eid, event, active }) => {
   const [speakerInfo, setSpeakerInfo] = useState(null);
   const [modalShow, setModalShow] = useState(false);
   const [editSpeaker, setEditSpeaker] = useState({});
   const [load, setLoad] = useState(false);
-  const [toast,setToast] = useState({show : false,msg : ''});
+  const [toast, setToast] = useState({ show: false, msg: '' });
 
   let authCookie = Cookies.get("event_auth");
   if (authCookie) {
     authCookie = JSON.parse(authCookie);
   }
+
+  const pageRoute = {
+    "basic-detail": 0,
+    sponsors: 1,
+    sessions: 2,
+  };
 
   const fetchSpeaker = async () => {
     const res = await getEventSpeakers(eid, authCookie?.access_token);
@@ -43,14 +51,14 @@ export const IndivEventDash = ({ eid, event }) => {
   };
 
   // function to replace empty strings in the editSpeaker object
-  const replaceEmpty = (obj) => { 
+  const replaceEmpty = (obj) => {
     for (const key in obj) {
       if (obj[key] === "") {
         obj[key] = null;
       }
     }
     return obj;
-   }
+  }
 
   const publishSpeaker = async () => {
     const sanitizedSpeaker = replaceEmpty(editSpeaker);
@@ -120,49 +128,50 @@ export const IndivEventDash = ({ eid, event }) => {
 
   return (
     <>
-    <Container>
-      <Row>
-        <h4 className="text-center my-2">Editing Event {event.data.attributes.name}</h4>
-      </Row>
-      <Row>
-        <Card className = "p-0">
-        <Tabs
-          defaultActiveKey="edit_event"
-          id="uncontrolled-tab-example"
-          className={styles.edit_event_tabs}
-          fill
-          >
-          <Tab eventKey="edit_event" title="Edit Event Details">
-            <div className="m-3">
-            <EditEvent event={event} handleToast={handleToast}/>
-            </div>
-          </Tab>
-          <Tab eventKey="speaker" title="Speaker">
-            <div className="m-3">
-            <Stack className={styles.speaker_add_btn}>
-              <Button onClick={() => setModalShow(true)}>Add Speaker</Button>
-            </Stack>
-            <SpeakerModal
-              show={modalShow}
-              onHide={() => setModalShow(false)}
-              handleAddSpeaker={handleAddSpeaker}
-              handleChange={handleChange}
-              load={load}
-            />
-            <SpeakerList
-              setSpeakerInfo={setSpeakerInfo}
-              speakerInfo={speakerInfo}
-              fetchSpeaker={fetchSpeaker}
-              handleDelete={handleDelete}
-            />
-            </div>
-          </Tab>
-          <Tab eventKey="contact" title="Contact" disabled></Tab>
-        </Tabs>
-        </Card>
-      </Row>
-    </Container>
-    <CustomToast type="success" show={toast.show} msg={toast.msg} />
+      <h4 className="text-center my-2">Editing Event {event.data.attributes.name}</h4>
+          <Card className={styles.create_event_root}>
+            <Card.Header>
+              <Nav variant="tabs" defaultActiveKey="basic-detail" activeKey={active}>
+                <Nav.Item>
+                  <Nav.Link href="basic-detail">Basic Details</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link href="sponsors">Sponsors</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link href="sessions">Speakers & Session</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link href="other-details">Contact</Nav.Link>
+                </Nav.Item>
+              </Nav>
+            </Card.Header>
+            <Card.Body>
+              {pageRoute[active] == 0 && <EditEvent event={event} handleToast={handleToast} />}
+              {pageRoute[active] == 1 && <SponsorForm event={event} handleToast={handleToast} />}
+              {pageRoute[active] == 2 && (<div className="m-3">
+                <Stack className={styles.speaker_add_btn}>
+                  <Button onClick={() => setModalShow(true)}>Add Speaker</Button>
+                </Stack>
+                <SpeakerModal
+                  show={modalShow}
+                  onHide={() => setModalShow(false)}
+                  handleAddSpeaker={handleAddSpeaker}
+                  handleChange={handleChange}
+                  load={load}
+                />
+                <SpeakerList
+                  setSpeakerInfo={setSpeakerInfo}
+                  speakerInfo={speakerInfo}
+                  fetchSpeaker={fetchSpeaker}
+                  handleDelete={handleDelete}
+                />
+              </div>)}
+              {pageRoute[active] == undefined &&
+                "Hey! You got yourself on an fabled isle."}
+            </Card.Body>
+          </Card>
+      <CustomToast type="success" show={toast.show} msg={toast.msg} />
     </>
   );
 };
@@ -190,35 +199,35 @@ const SpeakerList = ({
     <ListGroup>
       {Array.isArray(speakerInfo) && speakerInfo.length
         ? speakerInfo.map((spk) => {
-            return (
-              <ListGroupItem key={spk.id}>
-                <Container>
-                  <Row className="align-items-baseline">
-                    <Col xs sm md={1}>
-                      <Image
-                        width={"50em"}
-                        height={"50em"}
-                        roundedCircle
-                        src={spk.attributes["photo-url"]}
-                      />
-                    </Col>
-                    <Col>
-                      <span>{spk.attributes.name}</span>
-                    </Col>
-                    <Col className={styles.event_speaker_delete}>
-                      <Button
-                        variant={"danger"}
-                        id={spk.id}
-                        onClick={handleDelete}
-                      >
-                        Delete
-                      </Button>
-                    </Col>
-                  </Row>
-                </Container>
-              </ListGroupItem>
-            );
-          })
+          return (
+            <ListGroupItem key={spk.id}>
+              <Container>
+                <Row className="align-items-baseline">
+                  <Col xs sm md={1}>
+                    <Image
+                      width={"50em"}
+                      height={"50em"}
+                      roundedCircle
+                      src={spk.attributes["photo-url"]}
+                    />
+                  </Col>
+                  <Col>
+                    <span>{spk.attributes.name}</span>
+                  </Col>
+                  <Col className={styles.event_speaker_delete}>
+                    <Button
+                      variant={"danger"}
+                      id={spk.id}
+                      onClick={handleDelete}
+                    >
+                      Delete
+                    </Button>
+                  </Col>
+                </Row>
+              </Container>
+            </ListGroupItem>
+          );
+        })
         : "No Speaker found"}
     </ListGroup>
   );
@@ -260,8 +269,8 @@ const SpeakerModal = (props) => {
             />
           </Form.Group>
           <InputGroup className="mb-3">
-      <InputGroup.Text>Social links</InputGroup.Text>
-      <Form.Control
+            <InputGroup.Text>Social links</InputGroup.Text>
+            <Form.Control
               required
               onChange={handleChange}
               name="email"
@@ -280,7 +289,7 @@ const SpeakerModal = (props) => {
               type="url"
               placeholder="GitHub"
             />
-    </InputGroup>
+          </InputGroup>
           <Form.Group className="mb-3">
             <Form.Label>Short Biography</Form.Label>
             <Form.Control

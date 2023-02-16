@@ -113,7 +113,7 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
       sessionStorage.setItem("draft", publish == "draft");
       sessionStorage.setItem("event", JSON.stringify(res.data));
       handleToast(res.data, publish);
-      router.push("sessions");
+      router.push(`/conferences/admin/c/${res.data.data.id}/sponsors`);
     } catch (e) {
       console.error("Event create failed", e.response.data.error);
       if (e.response.status == 401) {

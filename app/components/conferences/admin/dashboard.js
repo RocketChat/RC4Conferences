@@ -60,7 +60,7 @@ export const EventDashBoard = () => {
                 >
                   Preview
                 </Button>
-                <Button href={`/conferences/admin/c/${event.id}`}>{<BiEdit />}</Button>
+                <Button href={`/conferences/admin/c/${event.id}/basic-detail`}>{<BiEdit />}</Button>
                 <Button variant={"danger"} id={event.id} onClick={handleDelete}>
                   {<MdDelete id={event.id} onClick={(e) => handleDelete(e)} />}
                 </Button>

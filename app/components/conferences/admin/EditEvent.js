@@ -110,7 +110,7 @@ export const EditEvent = ({ event, handleToast }) => {
 
       sessionStorage.setItem("event", JSON.stringify(res.data))
       handleToast({ show: true, msg: "Event Updated Successfully" })
-      router.push("/conferences/admin/dashboard")
+      router.push(`/conferences/admin/c/${res.data.data.id}/sponsors`)
     } catch (e) {
       console.error("Event Update failed", e.response.data.error);
       if (e.response.status == 401) {

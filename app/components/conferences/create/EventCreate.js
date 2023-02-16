@@ -15,7 +15,6 @@ export const EventCreate = ({ active }) => {
 
   const pageRoute = {
     "basic-detail": 0,
-    sessions: 1,
   };
 
   useEffect(() => {
@@ -44,18 +43,18 @@ export const EventCreate = ({ active }) => {
             <Nav.Link href="basic-detail">Basic Details</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="sessions">Speakers & Session</Nav.Link>
+            <Nav.Link href="sponsors" disabled>Sponsors</Nav.Link>
           </Nav.Item>
           <Nav.Item>
-            <Nav.Link href="other-details">Other Details</Nav.Link>
+            <Nav.Link href="sessions" disabled>Speakers & Session</Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link href="other-details" disabled>Other Details</Nav.Link>
           </Nav.Item>
         </Nav>
       </Card.Header>
       <Card.Body>
         {pageRoute[active] == 0 && <EventBasicCreate handleToast={handleToast} />}
-        {pageRoute[active] == 1 && "Coming Soon"}
-        {pageRoute[active] == undefined &&
-          "Hey! You got yourself on an fabled isle."}
       </Card.Body>
     </Card>
         <CustomToast type={"success"} show={toast.show} msg={toast.msg} />

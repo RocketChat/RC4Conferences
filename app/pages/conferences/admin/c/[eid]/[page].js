@@ -1,12 +1,13 @@
 import Head from "next/head";
 import { Stack } from "react-bootstrap";
 import { useRouter } from "next/router";
-import { IndivEventDash } from "../../../../components/conferences/admin/IndivEvent";
-import { getEventDeatils } from "../../../../lib/conferences/eventCall";
+import { IndivEventDash } from "../../../../../components/conferences/admin/IndivEvent";
+import { getEventDeatils } from "../../../../../lib/conferences/eventCall";
 
 function EventEditPage({ event }) {
   const router = useRouter();
-  const { eid } = router.query;
+  const { eid , page } = router.query;
+
   return (
     <div>
       <Head>
@@ -17,7 +18,7 @@ function EventEditPage({ event }) {
       </Head>
       <div className="mx-auto">
         <Stack direction="vertical">
-          <IndivEventDash eid={eid} event={event} />
+          <IndivEventDash eid={eid} event={event} active={page}/>
         </Stack>
       </div>
     </div>
@@ -37,7 +38,9 @@ export async function getServerSideProps(context) {
     };
   }
   //temp 9ddffcbb
-  const event = await getEventDeatils(eventIdentifier);
+  const authToken = JSON.parse(authCookie).access_token
+
+  const event = await getEventDeatils(eventIdentifier,authToken);
 
   return {
     props: { event },

@@ -139,9 +139,10 @@ export const publishEventTicket = async (data, auth) => {
 // Event Ticket Publish Call Ends
 
 ////// Event Fetch Call Begins
-export const getEventDeatils = async (eid) => {
+export const getEventDeatils = async (eid, auth) => {
   const headers = {
     Accept: "application/vnd.api+json",
+    Authorization: `JWT ${auth}`
   };
   const res = await fetch(`${eventUrl}/v1/events/${eid}?include=tickets`, {
     headers: headers
@@ -154,6 +155,53 @@ export const getAllEvents = async (eid) => {
     Accept: "application/vnd.api+json",
   };
   const res = await axios.get(`${eventUrl}/v1/events`);
+  return res;
+};
+
+export const getSponsorsDetails = async (eid,auth) => {
+  const headers = {
+    Accept: "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
+  };
+  const res = await axios.get(`${eventUrl}/v1/events/${eid}/sponsors`, {
+    headers: headers,
+  });
+  return res;
+}
+
+export const publishSponsor = async (data, auth) => {
+  const headers = {
+    Accept: "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
+    "Content-Type": "application/vnd.api+json",
+  };
+  const res = await axios.post(`${eventUrl}/v1/sponsors`, data, {
+    headers: headers,
+  });
+  return res;
+};
+
+export const deleteSponsor = async (sponsorId, auth) => {
+  const headers = {
+    Accept: "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
+    "Content-Type": "application/vnd.api+json",
+  };
+  const res = await axios.delete(`${eventUrl}/v1/sponsors/${sponsorId}`,{
+    headers: headers,
+  });
+  return res;
+};
+
+export const updateSponsor = async (data, auth) => {
+  const headers = {
+    Accept: "application/vnd.api+json",
+    Authorization: `JWT ${auth}`,
+    "Content-Type": "application/vnd.api+json",
+  };
+  const res = await axios.patch(`${eventUrl}/v1/sponsors/${data.data.id}`,data,{
+    headers: headers,
+  });
   return res;
 };
 
