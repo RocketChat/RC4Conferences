@@ -4,10 +4,13 @@ import {
   Toast,
 } from "react-bootstrap";
 
+import Editor from "../../components/textEditor/editor";
+
 export const EventForm = ({ handleChange, intialValues, ticket , handleSwitch, handlePublicSwitch, isPublic }) => {
   
   return (
     <>
+    <Editor name="orgDetails" onChange={handleChange} />
       <Form.Group className="mb-3">
         <Form.Label>Event name*</Form.Label>
         <Form.Control
