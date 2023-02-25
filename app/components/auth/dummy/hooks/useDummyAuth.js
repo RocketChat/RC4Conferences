@@ -2,6 +2,7 @@ import Cookies from "js-cookie";
 import Router from "next/router";
 import { useEffect, useState } from "react";
 import { signCook } from "../../../../lib/conferences/eventCall";
+import toast, { Toaster } from 'react-hot-toast';
 
 const createDummyUser = (role) => {
   let email = process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL;
@@ -37,8 +38,9 @@ export const useDummyAuth = () => {
       sessionStorage.setItem("dummy_user", JSON.stringify(dummy_user));
       Cookies.set("hashmail", hashmail.data.hash);
       Router.reload();
+      toast.success('Login successfull')
     } catch (e) {
-      console.error("An error occurred while setting up user", e);
+      toast.error("Invalid credentials");
     }
   };
 

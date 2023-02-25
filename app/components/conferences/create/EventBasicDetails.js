@@ -15,11 +15,11 @@ import {
 import { useRouter } from "next/router";
 import styles from "../../../styles/event.module.css";
 import { EventForm } from "../eventForm";
-import {useToastMsgDispatch} from '../../toast/hook/useToastMsgDispatch'
+import toast, { Toaster } from 'react-hot-toast';
 
 export const EventBasicCreate = ({ setDraft, handleToast }) => {
   const [isPublic, setIsPublic] = useState(false);
-  const toast = useToastMsgDispatch()
+
 
   const [formState, setFormState] = useState({
     name: "",
@@ -114,10 +114,14 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
 
       sessionStorage.setItem("draft", publish == "draft");
       sessionStorage.setItem("event", JSON.stringify(res.data));
-      toast('success','Event Created successfully')
+      toast.success('Event Created successfully',{
+        duration:2000
+      })
       router.push("sessions");
     } catch (e) {
-      console.error("Event create failed", e.response.data.error);
+      toast.error("Event creation failed" ,{
+        duration:2000
+      });
       if (e.response.status == 401) {
         Cookies.remove("event_auth");
         router.push("/conferences");
@@ -137,7 +141,6 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
   const handleSwitch = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    CustomToast({ type: "success" });
     name === "switch"
       ? setTicket((prev) => ({
           ...prev,
@@ -187,13 +190,4 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
   );
 };
 
-export const CustomToast = ({ show, type, msg }) => {
-  return (
-    <Toast show={show} className={styles.toast} bg={type}>
-      <Toast.Header>
-        <strong className="me-auto">Event Alert!</strong>
-      </Toast.Header>
-      <Toast.Body>{msg}</Toast.Body>
-    </Toast>
-  );
-};
+
