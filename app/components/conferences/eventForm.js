@@ -1,16 +1,22 @@
 import {
   Form,
   InputGroup,
-  Toast,
 } from "react-bootstrap";
 
 import Editor from "../../components/textEditor/editor";
+import styles from "../../styles/Editor.module.css"
+
+const Placeholder = () => {
+  return <div className={styles.editor_placeholder}>Enter text...</div>;
+}
+
+
 
 export const EventForm = ({ handleChange, intialValues, ticket , handleSwitch, handlePublicSwitch, isPublic }) => {
   
   return (
     <>
-    <Editor name="orgDetails" onChange={handleChange} />
+    <Editor name="orgDetails" onChange={handleChange} value='<p dir="ltr" style="text-align: left;"><span>asd</span></p><p dir="ltr"><b><strong>asd</strong></b></p>'  placeholder={Placeholder} />
       <Form.Group className="mb-3">
         <Form.Label>Event name*</Form.Label>
         <Form.Control

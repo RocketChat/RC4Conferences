@@ -21,7 +21,10 @@ import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
 import styles from "../../styles/Editor.module.css"
 import { $generateHtmlFromNodes } from '@lexical/html';
-import { useState } from "react";
+import {$generateNodesFromDOM} from '@lexical/html';
+import { useEffect, } from "react";
+import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
+import {$insertNodes} from 'lexical'
 
 function Placeholder() {
   return <div className={styles.editor_placeholder}>Enter some rich text...</div>;
@@ -51,14 +54,26 @@ const editorConfig = {
     AutoLinkNode,
     LinkNode
   ],
-  
-  // NOde to html
-  generateHtmlFromNodes: $generateHtmlFromNodes,
+
 
 };
 
 
+function SetInitValue(props) {
+  const [editor] = useLexicalComposerContext();
 
+  useEffect(() => {
+    editor.update(() => {
+      if(!props.value) return;
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(props.value, "text/html");
+      const nodes = $generateNodesFromDOM(editor , doc);
+     $insertNodes(nodes);
+    });
+  }, [props.value]);
+
+  return null;
+}
 
 export default function Editor(props) {
 
@@ -73,7 +88,7 @@ export default function Editor(props) {
      props.onChange(customFormData);
    });
   }
-
+  
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className={styles.editor_container}>
@@ -81,7 +96,8 @@ export default function Editor(props) {
         <div className={styles.editor_inner}>
           <RichTextPlugin
             contentEditable={<ContentEditable className={styles.editor_input} />}
-            placeholder={<Placeholder />}
+            placeholder={ 
+              props.placeholder ? props.placeholder : <Placeholder />}
             ErrorBoundary={LexicalErrorBoundary}
           />
     
@@ -95,6 +111,7 @@ export default function Editor(props) {
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
           <OnChangePlugin onChange={onChange} ignoreSelectionChange/>
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+          <SetInitValue value={props.value} />
         </div>
       </div>
     </LexicalComposer>

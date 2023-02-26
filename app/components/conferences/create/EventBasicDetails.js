@@ -130,6 +130,7 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
       ...prev,
       [name]: value,
     }));
+    console.log(formState);
   };
 
   const handleSwitch = (e) => {
