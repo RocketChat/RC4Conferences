@@ -24,13 +24,13 @@ import {
 } from "../../../lib/conferences/eventCall";
 import styles from "../../../styles/event.module.css";
 import { EditEvent , CustomToast} from "./EditEvent";
+import toast, { Toaster } from 'react-hot-toast';
 
 export const IndivEventDash = ({ eid, event }) => {
   const [speakerInfo, setSpeakerInfo] = useState(null);
   const [modalShow, setModalShow] = useState(false);
   const [editSpeaker, setEditSpeaker] = useState({});
   const [load, setLoad] = useState(false);
-  const [toast,setToast] = useState({show : false,msg : ''});
 
   let authCookie = Cookies.get("event_auth");
   if (authCookie) {
@@ -90,10 +90,15 @@ export const IndivEventDash = ({ eid, event }) => {
         setLoad(true);
         const res = await publishSpeaker();
         setSpeakerInfo((oarr) => [...oarr, res.data.data]);
+        toast.success('Speaker added successfully', {
+          duration : 20000
+        })
         setModalShow(false);
       }
     } catch (e) {
-      console.error("An error occurred while publishing speaker", e.response.data.errors[0].detail);
+      toast.error("An error occurred while publishing speaker", {
+        duration : 20000
+      });
     } finally {
       setLoad(false);
     }
@@ -108,15 +113,17 @@ export const IndivEventDash = ({ eid, event }) => {
   const handleDelete = async (e) => {
     try {
       await deleteEventSpeaker(e.target.id, authCookie?.access_token);
+      toast.success('Speaker deleted successfully',{
+        duration : 2000,
+      });
       setSpeakerInfo((oarr) => oarr.filter((spk) => spk.id !== e.target.id));
     } catch (e) {
-      console.error("An error occurred while deleting the Speaker", e);
+      toast.error("An error occurred while deleting the Speaker",{
+        duration : 2000,
+      });
     }
   };
 
-  const handleToast = (data) => {
-    setToast(data)
-  }
 
   return (
     <>
@@ -134,7 +141,7 @@ export const IndivEventDash = ({ eid, event }) => {
           >
           <Tab eventKey="edit_event" title="Edit Event Details">
             <div className="m-3">
-            <EditEvent event={event} handleToast={handleToast}/>
+            <EditEvent event={event} />
             </div>
           </Tab>
           <Tab eventKey="speaker" title="Speaker">
@@ -162,7 +169,7 @@ export const IndivEventDash = ({ eid, event }) => {
         </Card>
       </Row>
     </Container>
-    <CustomToast type="success" show={toast.show} msg={toast.msg} />
+    {/* <CustomToast type="success" show={toast.show} msg={toast.msg} /> */}
     </>
   );
 };
@@ -180,7 +187,9 @@ const SpeakerList = ({
           const res = await fetchSpeaker();
           setSpeakerInfo(res.data);
         } catch (e) {
-          console.error("An error occurred while loading speakers", e);
+          toast.error("An error occurred while loading speakers", {
+            duration : 2000
+          });
         }
       }
     };
@@ -227,6 +236,11 @@ const SpeakerList = ({
 const SpeakerModal = (props) => {
   const { handleAddSpeaker, handleChange } = props;
   return (
+    <>
+    <Toaster
+     position="top-right"
+     reverseOrder={false}
+    />
     <Modal
       {...props}
       size="lg"
@@ -320,5 +334,6 @@ const SpeakerModal = (props) => {
         </Modal.Footer>
       </Form>
     </Modal>
+    </>
   );
 };
