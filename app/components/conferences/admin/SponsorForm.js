@@ -10,7 +10,8 @@ import {
     Stack,
     ListGroup,
     ListGroupItem,
-    Modal
+    Modal,
+    ButtonGroup
 } from "react-bootstrap";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
@@ -129,6 +130,39 @@ export const SponsorForm = ({ event, handleToast }) => {
         }
     }
 
+    const publishEvent = async () => {
+        try {
+            let token = Cookies.get("event_auth");
+            token
+                ? (token = JSON.parse(token).access_token)
+                : new Error("Please, Sign in again");
+            
+            const eventData = {
+                data: {
+                    attributes: {
+                        name: event.data.attributes.name,
+                        description: event.data.attributes.description,
+                        "starts-at": event.data.attributes["starts-at"],
+                        "ends-at": event.data.attributes["ends-at"],
+                        "original-image-url": event.data.attributes["original-image-url"],
+                        "logo-url": event.data.attributes["logo-url"],
+                        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                        "is-sponsors-enabled": true,
+                        state : "published"
+                    },
+                    id: event.data.id,
+                    type: "event"
+                }
+            }
+
+            await editEvent(eventData, token, event.data.id)
+
+            handleSubmit();
+        } catch (error) {
+            console.log("Error in publishing event",error)
+        }
+    }
+
     useEffect(() => {
         const sponsorInfo = async () => {
             try {
@@ -163,9 +197,20 @@ export const SponsorForm = ({ event, handleToast }) => {
                 handleChange={handleChange}
                 handleDelete={handleDelete}
             />
-            <Button variant="primary" type="submit" onClick={handleSubmit} className="my-2">
+            <ButtonGroup aria-label="Basic example">
+              <Button variant="primary" type="submit" onClick={handleSubmit}>
                 Next
-            </Button>
+              </Button>
+              {
+                event.data.attributes.state === "draft" && <Button
+                variant="success"
+                onClick={publishEvent}
+                type="submit"
+              >
+                Publish
+              </Button>
+              }
+            </ButtonGroup>
         </div>
     );
 };
@@ -241,6 +286,7 @@ const SponsorList = (props) => {
                                         name="level"
                                         placeholder="0"
                                         defaultValue={spon.attributes.level}
+                                        min="0"
                                     />
                                     <InputGroup.Text>Type</InputGroup.Text>
                                     <Form.Control
@@ -256,7 +302,7 @@ const SponsorList = (props) => {
                         </div>
                         );
                     })
-                    : "No Sponsor found"}
+                    : <i className="text-center text-secondary">No Sponsor found</i>}
             </ListGroup>
     )
 }
@@ -322,6 +368,7 @@ const SponsorModal = (props) => {
                             onChange={modalHandleChange}
                             name="level"
                             placeholder="0"
+                            min="0"
                         />
                         <InputGroup.Text>Type</InputGroup.Text>
                         <Form.Control
