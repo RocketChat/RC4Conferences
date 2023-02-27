@@ -139,7 +139,17 @@ export const publishEventTicket = async (data, auth) => {
 // Event Ticket Publish Call Ends
 
 ////// Event Fetch Call Begins
-export const getEventDeatils = async (eid, auth) => {
+export const getEventDeatils = async (eid) => {
+  const headers = {
+    Accept: "application/vnd.api+json",
+  };
+  const res = await fetch(`${eventUrl}/v1/events/${eid}?include=tickets`, {
+    headers: headers
+  });
+  return res.json();
+};
+
+export const getEventDeatilsWithAuth = async (eid, auth) => {
   const headers = {
     Accept: "application/vnd.api+json",
     Authorization: `JWT ${auth}`

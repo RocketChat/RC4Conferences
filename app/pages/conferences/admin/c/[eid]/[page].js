@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Stack } from "react-bootstrap";
 import { useRouter } from "next/router";
 import { IndivEventDash } from "../../../../../components/conferences/admin/IndivEvent";
-import { getEventDeatils } from "../../../../../lib/conferences/eventCall";
+import { getEventDeatilsWithAuth } from "../../../../../lib/conferences/eventCall";
 
 function EventEditPage({ event }) {
   const router = useRouter();
@@ -40,7 +40,7 @@ export async function getServerSideProps(context) {
   //temp 9ddffcbb
   const authToken = JSON.parse(authCookie).access_token
 
-  const event = await getEventDeatils(eventIdentifier,authToken);
+  const event = await getEventDeatilsWithAuth(eventIdentifier,authToken);
 
   return {
     props: { event },
