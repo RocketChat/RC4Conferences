@@ -12,6 +12,7 @@ import { EventForm } from "../eventForm";
 import { useRouter } from "next/router";
 import { editEvent, getTicketDetails, editEventTicket } from "../../../lib/conferences/eventCall";
 import styles from "../../../styles/event.module.css";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 export const EditEvent = ({ event, handleToast }) => {
@@ -105,11 +106,11 @@ export const EditEvent = ({ event, handleToast }) => {
         : new Error("Please, Sign in again");
 
       const res = await editEvent(data, token, event.data.attributes.identifier);
-
+      toast.success('Event updated')
       const tres = handleTicketUpdate(event.data.relationships.tickets.data[0].id, token)
-
+      
       sessionStorage.setItem("event", JSON.stringify(res.data))
-      handleToast({ show: true, msg: "Event Updated Successfully" })
+      
       router.push("/conferences/admin/dashboard")
     } catch (e) {
       console.error("Event Update failed", e.response.data.error);
@@ -123,7 +124,6 @@ export const EditEvent = ({ event, handleToast }) => {
   const handleSwitch = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    CustomToast({ type: "success" })
     name === "switch"
       ? setTicket((prev) => ({
         ...prev,
@@ -151,6 +151,10 @@ export const EditEvent = ({ event, handleToast }) => {
 
   return (
     <>
+      <Toaster
+             position="top-right"
+             reverseOrder={false}
+             />
       <Card>
         <Card.Body>
           <Form onSubmit={handleFormSubmit}>
