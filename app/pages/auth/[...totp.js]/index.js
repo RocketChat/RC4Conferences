@@ -1,9 +1,7 @@
 import { getCsrfToken, signIn } from 'next-auth/react';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
 import { Button, Form } from 'react-bootstrap';
 import styles from '../../../styles/Signin.module.css';
-import axios from 'axios';
-import { useRouter } from 'next/router';
 
 const index = ({ csrf }) => {
   const router = useRouter();
@@ -12,30 +10,14 @@ const index = ({ csrf }) => {
     decodeURIComponent(router.asPath.split('&')[1].slice(6))
   );
 
-  console.log(access_token, id_token);
-
   const submitTotp = async (e) => {
     e.preventDefault();
-    // const req = await axios.post(`/api/auth/signin/google`, {
-    //   code: e.target.code.value,
-    //   access_token,
-    //   id_token,
-    // });
-
-    // console.log(req);
-    const req = await signIn(
-      'google',
-      {
-        callbackUrl: 'http://localhost:3000',
-      },
-      {
-        state: encodeURIComponent(
-          JSON.stringify({ access_token, id_token, code: e.target.code.value })
-        ),
-      }
-    );
-
-    console.log(req);
+    const req = signIn('totp', {
+      access_token,
+      id_token,
+      code: e.target.code.value,
+      callbackUrl: '/',
+    });
   };
 
   return (
@@ -44,7 +26,6 @@ const index = ({ csrf }) => {
         <div className={styles.form}>
           <Form method="post" onSubmit={submitTotp}>
             <input name="csrfToken" type="hidden" defaultValue={csrf} />
-            gae
             <div className={styles.inputGroup}>
               <label>2FA</label>
               <input name="code" type="text" className={styles.input} />

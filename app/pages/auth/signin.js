@@ -1,6 +1,6 @@
 import { getCsrfToken, signIn } from 'next-auth/react';
 import { useState } from 'react';
-import { Button, Col, Container, Form, Row, Stack } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import styles from '../../styles/Signin.module.css';
 
 export default function SignIn({ csrfToken }) {
@@ -59,17 +59,21 @@ export default function SignIn({ csrfToken }) {
         <div className={styles.authOptions}>
           <Button
             className={styles.authOption}
-            onClick={() => signIn('google', {
-              callbackUrl: '/',
-            })}
+            onClick={() =>
+              signIn('google', {
+                callbackUrl: '/',
+              })
+            }
           >
             Sign in with google
           </Button>
           <Button
             className={styles.authOption}
-            onClick={() => signIn('github', {
-              callbackUrl: '/',
-            })}
+            onClick={() =>
+              signIn('github', {
+                callbackUrl: '/',
+              })
+            }
           >
             Sign in with github
           </Button>
