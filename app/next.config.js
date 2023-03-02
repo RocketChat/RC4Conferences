@@ -13,6 +13,7 @@ module.exports = {
       'avatars.githubusercontent.com',
       'open.rocket.chat',
       'media-exp1.licdn.com',
+      '192.168.1.4',
     ],
   },
   webpack: (config, { isServer }) => {
