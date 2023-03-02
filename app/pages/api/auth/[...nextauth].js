@@ -46,8 +46,6 @@ const createOptions = (req, res) => ({
         const response = await request.json();
 
         if (response?.status === 'success') {
-          console.log(response);
-
           const { data } = response;
           const { userId, authToken, me } = data;
           const { name, username, emails } = me;
@@ -165,7 +163,6 @@ const createOptions = (req, res) => ({
           const response = await login.json();
           if (response.status === 'success') {
             const { data } = response;
-            console.log(data);
             res.setHeader('Set-Cookie', [
               `rc_token=${response.data.authToken}; path=/`,
               `rc_id=${response.data.userId}; path=/`,
@@ -192,7 +189,6 @@ const createOptions = (req, res) => ({
       return token;
     },
     async session({ session, token }) {
-      console.log('sessh', session);
       session.user.id = token.sub;
       session.user.sub = token.sub;
       session.user.image = token.picture;
