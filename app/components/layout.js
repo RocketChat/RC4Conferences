@@ -1,13 +1,11 @@
-import '../styles/Layout.module.css';
-import Footer from './footer';
-import Menubar from './menubar';
 import { useRouter } from 'next/router';
+import '../styles/Layout.module.css';
 import { VerifyUserRole } from './conferences/EventAdmin';
+import Footer from './footer';
 
 function Layout(props) {
   const { pathname } = useRouter();
-
-  const disableLayout = ['/auth/signin', '/auth/signup'];
+  const disableLayout = ['/auth/signin', '/auth/signup', '/auth/[...totp.js]'];
 
   if (disableLayout.includes(pathname)) {
     return props.children;

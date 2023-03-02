@@ -11,10 +11,22 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 85vh;
+  height: 100vh;
 }
 
 .signin {
+  min-width: 550px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(195, 195, 195, 0.781);
+  border-radius: 8px;
+  padding: 2rem 3rem;
+}
+
+.totp {
+  min-width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -29,11 +41,19 @@
   justify-content: space-between;
   margin: 1rem;
   text-align: center;
+  width: 100%;
 }
 
 .authOption {
-  padding: 0.5rem 2rem;
+  padding: 0.5rem 2rem 0.75rem 2rem;
   margin-right: 1rem;
+  width: 100% !important;
+}
+
+.icon {
+  vertical-align: middle !important;
+  height: 20px;
+  width: 20px;
 }
 
 .authOption:last-child {
@@ -41,7 +61,7 @@
 }
 
 .form {
-  padding: 1rem;
+  margin-top: 1rem;
   width: 100%;
 }
 
@@ -49,16 +69,21 @@
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 500;
 }
 
 .input {
   padding: 0.5rem;
   border: 1px solid rgba(195, 195, 195, 0.781);
   border-radius: 4px;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
 }
 
 .submit {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  padding: 10px;
   width: 100%;
+  font-size: 16px;
 }

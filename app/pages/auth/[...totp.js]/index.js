@@ -22,16 +22,16 @@ const index = ({ csrf }) => {
 
   return (
     <div className={styles.totpContainer}>
-      <div className={styles.signin}>
+      <div className={styles.totp}>
         <div className={styles.form}>
           <Form method="post" onSubmit={submitTotp}>
             <input name="csrfToken" type="hidden" defaultValue={csrf} />
             <div className={styles.inputGroup}>
-              <label>2FA</label>
+              <label>Enter 2FA Code</label>
               <input name="code" type="text" className={styles.input} />
             </div>
             <Button type="submit" className={styles.submit}>
-              Sign in
+              Submit
             </Button>
           </Form>
         </div>

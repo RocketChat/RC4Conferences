@@ -46,6 +46,8 @@ const createOptions = (req, res) => ({
         const response = await request.json();
 
         if (response?.status === 'success') {
+          console.log(response);
+
           const { data } = response;
           const { userId, authToken, me } = data;
           const { name, username, emails } = me;
@@ -72,10 +74,8 @@ const createOptions = (req, res) => ({
         code: { label: '2FA', type: 'numbers' },
       },
       async authorize(credentials, req) {
-        console.log(credentials);
         let user;
         const { username, password, code } = credentials;
-        console.log(credentials);
         const request = await fetch(
           `${process.env.NEXT_PUBLIC_RC_URL}/api/v1/login`,
           {
@@ -192,6 +192,7 @@ const createOptions = (req, res) => ({
       return token;
     },
     async session({ session, token }) {
+      console.log('sessh', session);
       session.user.id = token.sub;
       session.user.sub = token.sub;
       session.user.image = token.picture;
