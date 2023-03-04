@@ -1,0 +1,135 @@
+/* EventHeader.js */
+.event_banner_title {
+  font-weight: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  border: solid 1px #00000030;
+}
+
+@media (min-width: 768px) {
+  .event_custom_container {
+    max-width: 100%;
+  }
+}
+
+.date_icon {
+  align-items: baseline;
+}
+
+.event_date {
+  display: flex;
+  flex-direction: column;
+}
+
+/* EventRegisterSection.module.css */
+
+.event_ticket_nav {
+  background-color: #f5455c;
+  max-width: 900px;
+  margin: auto;
+}
+
+.join_modal_button {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+/* EventShow.js */
+
+.event_show_root {
+  max-width: 900px;
+  margin: 0em auto;
+}
+
+@media (min-width: 990px) {
+  .event_show_root {
+    margin: 1em auto;
+    min-width: 900px;
+  }
+  /* EventSpeaker.js */
+  .speaker_intro {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+  }
+  .event_speaker_name {
+    font-size: xx-large;
+  }
+}
+
+.event_nav_header {
+  margin-bottom: 1em;
+}
+
+.event_logo {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1em;
+}
+
+.event_organizer_header {
+  text-align: center;
+}
+
+.event_desc {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.session_expand {
+  cursor: pointer;
+}
+
+/* EventSpeaker.js */
+
+.event_speaker_avatar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px;
+}
+
+@media (max-width: 576px) {
+  .speaker_intro {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 992px) {
+  .speaker_intro {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+  }
+  .event_speaker_name {
+    font-size: x-large;
+  }
+}
+
+.event_speaker_name {
+  font-weight: lighter;
+  font-size: x-large;
+}
+
+.event_speaker_title {
+  color: #696a6a;
+  font-size: x-small;
+}
+
+.event_speaker_bio {
+  font-size: smaller;
+}
+
+.event_speaker_row {
+  align-items: center;
+}
+
+.speaker_bio_expand {
+  font-size: smaller;
+}

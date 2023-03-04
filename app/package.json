@@ -8,7 +8,8 @@
     "preexport": "npm run build",
     "export": "next export",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prettier": "prettier --write \"src/**/*.{js,jsx}\""
   },
   "dependencies": {
     "@apollo/client": "^3.5.9",
@@ -50,7 +51,8 @@
   },
   "devDependencies": {
     "eslint": "8.6.0",
-    "eslint-config-next": "12.0.7"
+    "eslint-config-next": "12.0.7",
+    "prettier": "^2.8.4"
   },
   "volta": {
     "node": "16.4.0"
