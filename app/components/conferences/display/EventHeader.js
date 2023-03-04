@@ -54,11 +54,12 @@ export const MdEventHeader = ({ event, error }) => {
   return (
     <div className={styles.event_banner}>
       <Container className={styles.event_custom_container}>
-        <Row style={{background: `url(${event.data.attributes["original-image-url"]})`, backgroundSize: "67%"}}>
+        <Row>
+        <Image className={styles.image_cover} style={{ left: '-10%' }} loading='lazy' src={event.data.attributes["original-image-url"]} />
           <Col fluid="true">
             {/* <Image src={event.data.attributes["original-image-url"]} fluid /> */}
           </Col>
-          <Col className="mt-1" md={5} sm={5} style={{backdropFilter: "blur(45px)"}}>
+          <Col className="pt-2" md={5} sm={5} style={{backdropFilter: "blur(45px)"}}>
             <Row>
               <h5>{event.data.attributes.name}</h5>
               <p>
