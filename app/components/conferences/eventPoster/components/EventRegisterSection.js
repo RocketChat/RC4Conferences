@@ -11,6 +11,7 @@ import {
 import styles from '../styles/index.module.css';
 import { BiError } from 'react-icons/bi';
 import { useRouter } from 'next/router';
+import EventStrip from './EventStrip';
 
 const detectElement = (options) => {
   const containerRef = useRef(null);
@@ -68,14 +69,15 @@ export const EventTicket = ({ tktDetail, event, error }) => {
 
   return (
     <>
-      <InNav
+      {/* <InNav
         brand={tktName}
         price={tktPrice}
         handleJoin={handleJoin}
         containerRef={containerRef}
         showMainstage={showMainstage}
         eid={eid}
-      />
+      /> */}
+      <EventStrip event={event.data} ticket={tktDetail} containerRef={containerRef} />
       {!inView && (
         <TopNav
           brand={tktName}

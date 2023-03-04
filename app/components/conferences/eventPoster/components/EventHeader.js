@@ -43,7 +43,27 @@ export const SmEventHeader = ({ event, error }) => {
 export const MdEventHeader = ({ event, error }) => {
   return (
     <div className={styles.event_banner}>
-      <Container className={styles.event_custom_container}>
+      <div
+        style={{
+          background: `url(${event.data.attributes['original-image-url']})`,
+          backgroundRepeat: 'round',
+          borderRadius: '15px',
+          margin: 'auto',
+          maxWidth: '900px',
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <div style={{ backdropFilter: 'blur(10px)', borderRadius: 'inherit' }}>
+          <Image
+            src={event.data.attributes['original-image-url']}
+            style={{ scale: '70%' }}
+            fluid
+          />
+        </div>
+      </div>
+
+      {/* <Container className={styles.event_custom_container}>
         <Row
           style={{
             background: `url(${event.data.attributes['original-image-url']})`,
@@ -51,7 +71,6 @@ export const MdEventHeader = ({ event, error }) => {
           }}
         >
           <Col fluid="true">
-            {/* <Image src={event.data.attributes["original-image-url"]} fluid /> */}
           </Col>
           <Col
             className="mt-1"
@@ -75,7 +94,7 @@ export const MdEventHeader = ({ event, error }) => {
             </Stack>
           </Col>
         </Row>
-      </Container>
+      </Container> */}
 
       <EventTicket tktDetail={event.included[0]} event={event} error={error} />
     </div>

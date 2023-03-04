@@ -39,12 +39,9 @@ const EventShow = ({ event, error, speaker, prsession }) => {
   const isMdScreen = useMediaQuery('(min-width: 768px)');
 
   return (
+    <>
+    <MdEventHeader event={event} error={error} />
     <Card className={styles.event_show_root}>
-      {isMdScreen ? (
-        <MdEventHeader event={event} error={error} />
-      ) : (
-        <SmEventHeader event={event} error={error} />
-      )}
       <div className={styles.event_nav}>
         <Tabs
           id="controlled-tab-example"
@@ -90,6 +87,7 @@ const EventShow = ({ event, error, speaker, prsession }) => {
         </Tabs>
       </div>
     </Card>
+    </>
   );
 };
 
