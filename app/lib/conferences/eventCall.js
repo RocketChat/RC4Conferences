@@ -129,13 +129,23 @@ export const publishEventTicket = async (data, auth) => {
 
 ////// Event Fetch Call Begins
 export const getEventDeatils = async (eid) => {
-  const res = await fetch(`${nextDeployUrl}/api/conf/events/${eid}`);
+  const headers = {
+    Accept: "application/vnd.api+json",
+  };
+  const res = await fetch(`${eventUrl}/v1/events/${eid}?include=tickets`, {
+    headers: headers
+  });  
   return res.json();
 };
 
 export const getAllEvents = async (eid) => {
-  const res = await fetch(`${nextDeployUrl}/api/conf/events/all`);
-  return res.json();
+  const headers = {
+    Accept: "application/vnd.api+json",
+  };
+  const res = await axios.get(`${eventUrl}/v1/events`, {
+    headers: headers,
+    });
+  return res;
 };
 
 export const getUserEventDeatils = async (uid, auth) => {

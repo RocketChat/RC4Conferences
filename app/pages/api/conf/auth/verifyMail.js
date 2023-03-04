@@ -12,6 +12,7 @@ export default async function handler(req, res) {
 
       res.status(200).send(result.data);
     } catch (error) {
+      console.log(error)
       res.status(error.response.status).send({ error: error.response.data.errors });
     }
     // Process a POST request
