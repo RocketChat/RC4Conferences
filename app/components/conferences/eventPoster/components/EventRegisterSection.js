@@ -69,18 +69,14 @@ export const EventTicket = ({ tktDetail, event, error, customLink }) => {
 
   return (
     <>
-      {/* <InNav
-        brand={tktName}
-        price={tktPrice}
-        handleJoin={handleJoin}
-        containerRef={containerRef}
-        showMainstage={showMainstage}
-        eid={eid}
-      /> */}
       <EventStrip
         event={event.data}
         ticket={tktDetail}
         containerRef={containerRef}
+        handleJoin={handleJoin}
+        showMainstage={showMainstage}
+        eid={eid}
+        customLink={customLink}
       />
       {!inView && (
         <TopNav
@@ -130,7 +126,10 @@ const InNav = ({
         {showMainstage ? (
           <Button onClick={handleJoin}>Join</Button>
         ) : (
-          <Button href={customLink || `/conferences/greenroom/${eid}`} target="_blank">
+          <Button
+            href={customLink || `/conferences/greenroom/${eid}`}
+            target="_blank"
+          >
             Join
           </Button>
         )}
@@ -139,7 +138,14 @@ const InNav = ({
   );
 };
 
-const TopNav = ({ brand, price, handleJoin, showMainstage, eid, customLink }) => {
+const TopNav = ({
+  brand,
+  price,
+  handleJoin,
+  showMainstage,
+  eid,
+  customLink,
+}) => {
   return (
     <Navbar fixed={'bottom'} className={styles.event_ticket_nav} variant="dark">
       <Container>

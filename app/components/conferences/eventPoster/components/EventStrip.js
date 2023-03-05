@@ -3,7 +3,15 @@ import { Badge, Button, Col, Container, Row } from 'react-bootstrap';
 import { GoLocation } from 'react-icons/go';
 import styles from '../styles/index.module.css';
 
-function EventStrip({ event, ticket, containerRef }) {
+function EventStrip({
+  event,
+  ticket,
+  containerRef,
+  customLink,
+  handleJoin,
+  eid,
+  showMainstage,
+}) {
   const [timezone, setTimezone] = useState('');
   const [startDate, setStartDate] = useState(event.attributes['starts-at']);
   const [endDate, setEndDate] = useState(event.attributes['ends-at']);
@@ -36,14 +44,32 @@ function EventStrip({ event, ticket, containerRef }) {
       fluid
     >
       <Row className={styles.event_strip_name}>
-        <Col style={{overflow: 'auto'}}>{event.attributes.name}</Col>
-          <Col xs={2} md={1} xl={1} sm={1.5} xxl={1} className="event-join-button">
-          <Button className="join-button" size={'sm'}>Join</Button>
+        <Col style={{ overflow: 'auto' }}>{event.attributes.name}</Col>
+        <Col
+          xs={2}
+          md={1}
+          xl={1}
+          sm={1.5}
+          xxl={1}
+          className="event-join-button"
+        >
+          {showMainstage ? (
+            <Button size="sm" onClick={handleJoin}>
+              Join
+            </Button>
+          ) : (
+            <Button
+              size="sm"
+              href={customLink || `/conferences/greenroom/${eid}`}
+              target="_blank"
+            >
+              Join
+            </Button>
+          )}
         </Col>
-        </Row>
-        <hr />
-      <Row className={styles.event_strip_bottom} >
-        
+      </Row>
+      <hr />
+      <Row className={styles.event_strip_bottom}>
         <Col className="event-datetime">
           <Row>Time and Date ({timezone})</Row>
           <Row>
@@ -58,13 +84,9 @@ function EventStrip({ event, ticket, containerRef }) {
             <Col>Location</Col>
           </Row>
           <Row>
-          <Col xs={1} md={1} xl={1} sm={1} xxl={1}>
-              
-            </Col>
-            <Col>
-            {event.attributes['location-name'] || 'Online'}
-            </Col>
-            </Row>
+            <Col xs={1} md={1} xl={1} sm={1} xxl={1}></Col>
+            <Col>{event.attributes['location-name'] || 'Online'}</Col>
+          </Row>
         </Col>
         <Col className="event-ticket-details">
           <Row>
@@ -80,7 +102,6 @@ function EventStrip({ event, ticket, containerRef }) {
             {ticket ? ticket.attributes.price : 'Free'}
           </div>
         </Col>
-        
       </Row>
     </Container>
   );

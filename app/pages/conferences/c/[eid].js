@@ -9,6 +9,7 @@ import {
 } from '../../../lib/conferences/eventCall';
 import { fetchAPI } from '../../../lib/api';
 import { EventPoster } from '../../../components/conferences/eventPoster/components';
+import { AdvtButtons } from "../../../components/conferences/dayOfEvent/AdvtTool";
 
 function EventDisplayPage({ event, spkdata, prsession }) {
   const router = useRouter();
@@ -31,6 +32,8 @@ function EventDisplayPage({ event, spkdata, prsession }) {
             prsession={prsession}
           />
         </Stack>
+        <AdvtButtons repoUrl={"https://github.com/RocketChat/RC4Conferences"} />
+
       </div>
     </div>
   );

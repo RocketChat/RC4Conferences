@@ -48,14 +48,13 @@
 /* EventShow.js */
 
 .event_show_root {
-  max-width: 900px;
-  margin: 0em auto;
+  margin: 1em;
 }
 
 @media (min-width: 990px) {
   .event_show_root {
     margin: 1em auto;
-    min-width: 900px;
+    max-width: 900px;
   }
   /* EventSpeaker.js */
   .speaker_intro {
