@@ -70,7 +70,7 @@ function EventStrip({
       </Row>
       <hr />
       <Row className={styles.event_strip_bottom}>
-        <Col className="event-datetime">
+        <Col sm={4} md={5} className="event-datetime">
           <Row>Time and Date ({timezone})</Row>
           <Row>
             {startDate} - {endDate}
