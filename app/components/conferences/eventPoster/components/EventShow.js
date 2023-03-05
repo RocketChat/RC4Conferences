@@ -191,12 +191,14 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
                       variant="link"
                       target="_blank"
                       href={`${sess.attributes.Youtube}`}
+                      disabled={!sess.attributes.Youtube}
                     >
                       <BsYoutube
                         color="red"
                         size={'25'}
                         href={`${sess.attributes.Youtube}`}
                       />
+                      Coming...
                     </Button>
                   </td>
                 </tr>
