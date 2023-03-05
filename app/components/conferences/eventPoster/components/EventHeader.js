@@ -4,15 +4,15 @@ import styles from '../styles/index.module.css';
 import { EventTicket } from './EventRegisterSection';
 import { BsCalendar2Event, BsInfoCircle } from 'react-icons/bs';
 import { GoLocation } from 'react-icons/go';
+import EventStrip from './EventStrip';
 
-export const SmEventHeader = ({ event, error }) => {
+export const SmEventHeader = ({ event, error, customLink }) => {
   const isSmallScreen = useMediaQuery('(max-width: 576px)');
 
   return (
-    <div className={styles.event_banner}>
+    <div className={styles.event_small_banner}>
       <Image src={event.data.attributes['original-image-url']} fluid />
-      <EventTicket tktDetail={event.included[0]} event={event} error={error} />
-
+      <EventTicket tktDetail={event.included[0]} event={event} error={error} customLink={customLink} />
       <div className={styles.event_banner_title}>
         <Container>
           <Row>
@@ -40,9 +40,9 @@ export const SmEventHeader = ({ event, error }) => {
   );
 };
 
-export const MdEventHeader = ({ event, error }) => {
+export const MdEventHeader = ({ event, error, customLink }) => {
   return (
-    <div className={styles.event_banner}>
+    <div className={styles.event_big_banner}>
       <div
         style={{
           background: `url(${event.data.attributes['original-image-url']})`,
@@ -62,6 +62,7 @@ export const MdEventHeader = ({ event, error }) => {
           />
         </div>
       </div>
+      {/* <EventStrip event={event.data} ticket={event.included[0]} /> */}
 
       {/* <Container className={styles.event_custom_container}>
         <Row
@@ -96,7 +97,7 @@ export const MdEventHeader = ({ event, error }) => {
         </Row>
       </Container> */}
 
-      <EventTicket tktDetail={event.included[0]} event={event} error={error} />
+      <EventTicket tktDetail={event.included[0]} event={event} error={error} customLink={customLink} />
     </div>
   );
 };

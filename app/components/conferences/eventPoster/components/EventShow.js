@@ -21,7 +21,7 @@ import { MdEventHeader, SmEventHeader } from './EventHeader';
 
 import { BsYoutube } from 'react-icons/bs';
 
-const EventShow = ({ event, error, speaker, prsession }) => {
+const EventShow = ({ event, error, speaker, prsession, customLink }) => {
   let urlHash = '';
 
   const [key, setKey] = useState('home');
@@ -40,7 +40,8 @@ const EventShow = ({ event, error, speaker, prsession }) => {
 
   return (
     <>
-    <MdEventHeader event={event} error={error} />
+    <MdEventHeader event={event} error={error} customLink={customLink} />
+    <SmEventHeader event={event} error={error} customLink={customLink} />
     <Card className={styles.event_show_root}>
       <div className={styles.event_nav}>
         <Tabs

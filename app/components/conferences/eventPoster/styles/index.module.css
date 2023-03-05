@@ -7,7 +7,16 @@
   border: solid 1px #00000030;
 }
 
-@media (min-width: 768px) {
+.event_small_banner {
+  display: none;
+}
+
+.event_big_banner {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 650px) {
   .event_custom_container {
     max-width: 100%;
   }
@@ -132,4 +141,68 @@
 
 .speaker_bio_expand {
   font-size: smaller;
+}
+
+/* EventStrip.js */
+
+.event_strip_container {
+  background: #ff6a71;
+  max-width: 750px;
+  border-radius: 15px;
+  color: #ffffff;
+  margin-top: -65px;
+  z-index: 1;
+  position: relative;
+}
+
+.event_strip_name {
+  font-family: monospace;
+  font-size: large;
+  padding: 15px 15px 0px 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.event_strip_bottom {
+  display: flex;
+  align-items: center;
+  padding: 0px 15px 15px 15px;
+  font-size: small;
+}
+
+.event_strip_location_row {
+  display: flex;
+  align-items: center;
+}
+
+/* change the .event_strip_container max-width to 650px for screen size less than 770 px */
+@media (max-width: 770px) {
+  .event_strip_container {
+    max-width: 650px;
+  }
+}
+
+.event_ticket_innav {
+  display: none;
+}
+
+@media (max-width: 570px) {
+  .event_strip_container {
+    display: none;
+  }
+  .event_ticket_innav {
+    display: flex;
+  }
+  .event_small_banner {
+    display: block;
+  }
+  .event_big_banner {
+    display: none;
+  }
+}
+
+@media (min-width: 570px) and (max-width: 670px) {
+  .event_strip_container {
+    max-width: 550px;
+  }
 }

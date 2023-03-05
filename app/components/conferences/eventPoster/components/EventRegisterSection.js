@@ -34,11 +34,11 @@ const detectElement = (options) => {
   return [containerRef, inView];
 };
 
-export const EventTicket = ({ tktDetail, event, error }) => {
+export const EventTicket = ({ tktDetail, event, error, customLink }) => {
   const [containerRef, inView] = detectElement({
     root: null,
     rootMargin: '0px 0px 100% 0px',
-    threshold: 0.7,
+    threshold: 0.1,
   });
 
   const [open, setOpen] = useState(false);
@@ -77,7 +77,11 @@ export const EventTicket = ({ tktDetail, event, error }) => {
         showMainstage={showMainstage}
         eid={eid}
       /> */}
-      <EventStrip event={event.data} ticket={tktDetail} containerRef={containerRef} />
+      <EventStrip
+        event={event.data}
+        ticket={tktDetail}
+        containerRef={containerRef}
+      />
       {!inView && (
         <TopNav
           brand={tktName}
@@ -85,6 +89,7 @@ export const EventTicket = ({ tktDetail, event, error }) => {
           handleJoin={handleJoin}
           showMainstage={showMainstage}
           eid={eid}
+          customLink={customLink}
         />
       )}
       <JoinModal
@@ -106,11 +111,12 @@ const InNav = ({
   containerRef,
   showMainstage,
   eid,
+  customLink,
 }) => {
   return (
     <Navbar
       ref={containerRef}
-      className={styles.event_ticket_nav}
+      className={styles.event_ticket_innav}
       variant="dark"
     >
       <Container>
@@ -124,7 +130,7 @@ const InNav = ({
         {showMainstage ? (
           <Button onClick={handleJoin}>Join</Button>
         ) : (
-          <Button href={`/conferences/greenroom/${eid}`} target="_blank">
+          <Button href={customLink || `/conferences/greenroom/${eid}`} target="_blank">
             Join
           </Button>
         )}
@@ -133,11 +139,11 @@ const InNav = ({
   );
 };
 
-const TopNav = ({ brand, price, handleJoin, showMainstage, eid }) => {
+const TopNav = ({ brand, price, handleJoin, showMainstage, eid, customLink }) => {
   return (
-    <Navbar fixed={'top'} className={styles.event_ticket_nav} variant="dark">
+    <Navbar fixed={'bottom'} className={styles.event_ticket_nav} variant="dark">
       <Container>
-        <Navbar.Brand>
+        <Navbar.Brand style={{ fontSize: 'inherit', fontFamily: 'monospace' }}>
           {brand}{' '}
           <Badge as={'span'} pill bg="light" text="secondary">
             {price ? price : 'Free'}
@@ -148,9 +154,15 @@ const TopNav = ({ brand, price, handleJoin, showMainstage, eid }) => {
         <Button>Join</Button>
         </Link> */}
         {showMainstage ? (
-          <Button onClick={handleJoin}>Join</Button>
+          <Button size="sm" onClick={handleJoin}>
+            Join
+          </Button>
         ) : (
-          <Button href={`/conferences/greenroom/${eid}`} target="_blank">
+          <Button
+            size="sm"
+            href={customLink || `/conferences/greenroom/${eid}`}
+            target="_blank"
+          >
             Join
           </Button>
         )}{' '}
