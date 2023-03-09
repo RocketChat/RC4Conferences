@@ -15,7 +15,6 @@ export default async function (req, res) {
     }
   );
   const response = await request.json();
-  console.log('this is api response', response);
 
   if (response?.error === 'totp-required') {
     return res

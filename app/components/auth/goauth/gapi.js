@@ -24,8 +24,8 @@ export default class RocketChatInstance {
   }
 
   setCookies(cookies) {
-    Cookies.set('rc_token', cookies.rc_token || '');
-    Cookies.set('rc_uid', cookies.rc_uid || '');
+    Cookies.set('rc_token', cookies.rc_token || '', { secure: true });
+    Cookies.set('rc_uid', cookies.rc_uid || '', { secure: true });
   }
 
   async googleSSOLogin(signIn, acsCode) {

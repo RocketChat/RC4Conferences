@@ -1,7 +1,9 @@
-import Cookies from 'js-cookie';
 import { useSession } from 'next-auth/react';
-import Link from 'next/link';
 import { forwardRef, Fragment, useEffect, useRef, useState } from 'react';
+import OauthComponent from '../auth/oauth/ui';
+
+import Cookies from 'js-cookie';
+import Link from 'next/link';
 import {
   Col,
   Container,
@@ -13,7 +15,6 @@ import {
 } from 'react-bootstrap';
 import styles from '../../styles/Menubar.module.css';
 import { DummyLoginButton } from '../auth/dummy';
-import OauthComponent from '../auth/oauth/ui';
 import BrandLogo from '../brandlogo';
 import RocketChatLinkButton from '../rocketchatlinkbutton';
 
@@ -104,13 +105,10 @@ const MobileNav = ({ nav_Items }) => {
                     }}
                   >
                     <Col>
-                    <Link 
-                        key={nav_Item.id}
-                        href={nav_Item.url}
-                      >
-                      <a className='text-decoration-none fs-4 fw-light text-dark' >
-                        {nav_Item.label}
-                      </a>
+                      <Link key={nav_Item.id} href={nav_Item.url}>
+                        <a className="text-decoration-none fs-4 fw-light text-dark">
+                          {nav_Item.label}
+                        </a>
                       </Link>
                     </Col>
                   </Row>
@@ -152,30 +150,46 @@ const MobileNav = ({ nav_Items }) => {
                   </Row>
                   {dropDown._id === nav_Item.id && dropDown.show ? (
                     <div>
-
-                      {nav_Item.sub_menus.data.map(
-                        (item, key) =>
-                        (
-                          <Fragment key={key}>
-                            <div key={key} className={'p-2 fw-medium' + ` ${item.attributes.style === 'disable' ? styles.link_heading_mobile : 'fw-light link-primary'}`}>
-                              <Link
-                                href={item.attributes.url ? item.attributes.url : '#'}
-                              >
-                                <a   className={styles.subItemLinks} >{item.attributes.label}</a>
-                              </Link>
-                            </div>
-                            {nav_Item.attributes?.parent_id && nav_Item.sub_menus.data.map(
+                      {nav_Item.sub_menus.data.map((item, key) => (
+                        <Fragment key={key}>
+                          <div
+                            key={key}
+                            className={
+                              'p-2 fw-medium' +
+                              ` ${
+                                item.attributes.style === 'disable'
+                                  ? styles.link_heading_mobile
+                                  : 'fw-light link-primary'
+                              }`
+                            }
+                          >
+                            <Link
+                              href={
+                                item.attributes.url ? item.attributes.url : '#'
+                              }
+                            >
+                              <a className={styles.subItemLinks}>
+                                {item.attributes.label}
+                              </a>
+                            </Link>
+                          </div>
+                          {nav_Item.attributes?.parent_id &&
+                            nav_Item.sub_menus.data.map(
                               (subItem, key) =>
-                                subItem.attributes.parent_id === item.attributes.id && (
-                                  <div className='px-4 py-1 fw-light'>
-                                    <Link 
+                                subItem.attributes.parent_id ===
+                                  item.attributes.id && (
+                                  <div className="px-4 py-1 fw-light">
+                                    <Link
                                       key={key}
-                                      href={subItem.attributes.url ? subItem.attributes.url : '#' }>
-                                    <a
-                                      className={styles.subItemLinks}
+                                      href={
+                                        subItem.attributes.url
+                                          ? subItem.attributes.url
+                                          : '#'
+                                      }
                                     >
-                                      {subItem.attributes.label}
-                                    </a>
+                                      <a className={styles.subItemLinks}>
+                                        {subItem.attributes.label}
+                                      </a>
                                     </Link>
                                   </div>
                                 )
@@ -241,7 +255,10 @@ const DesktopNav = ({ nav_Items }) => {
             >
               <span className={`${styles.navbar_item_hover} text-muted`}>
                 {nav_item.url ? (
-                  <Link href={ nav_item ? this.nav-item.url : '#' } className='text-decoration-none'>
+                  <Link
+                    href={nav_item ? this.nav - item.url : '#'}
+                    className="text-decoration-none"
+                  >
                     {nav_item.label}
                   </Link>
                 ) : (
@@ -259,33 +276,27 @@ const DesktopNav = ({ nav_Items }) => {
                     }
                   >
                     {/* iterate over sub menus like omnichannels, devops, GSoC, GSoD */}
-
-                    {nav_item.sub_menus.data.map(
-                      (item, key) =>
-                      (
-                        <div className={`${styles.navbar_subitems_items} `} key={key}>
-                          <div className={item.attributes.style === 'disable' ? styles.link_heading : ''}>
-                            <Link
-                              href={item.attributes.url ? item.attributes.url : '#' }
-                           
-                            >
-                              <a className={styles.subItemLinks} >{item.attributes.label} </a>
-                            </Link>
-                          </div>
-                          {/*if submenus contain more sub menus */}
-                          {item.sub_menus?.data.map(
-                            (subItem) =>
-                              subItem.attributes.parent_id === item.attributes.id && (
-                                <div className='px-4 pt-3 fw-light'>
-                                  <Link
-                                    href={subItem.attributes.url ? subItem.attributes.url : '#'}
-                                    className={styles.subItemLinks}
-                                  >
-                                    {subItem.attributes.label}
-                                  </Link>
-                                </div>
-                              )
-                          )}
+                    {nav_item.sub_menus.data.map((item, key) => (
+                      <div
+                        className={`${styles.navbar_subitems_items} `}
+                        key={key}
+                      >
+                        <div
+                          className={
+                            item.attributes.style === 'disable'
+                              ? styles.link_heading
+                              : ''
+                          }
+                        >
+                          <Link
+                            href={
+                              item.attributes.url ? item.attributes.url : '#'
+                            }
+                          >
+                            <a className={styles.subItemLinks}>
+                              {item.attributes.label}{' '}
+                            </a>
+                          </Link>
                         </div>
                         {/*if submenus contain more sub menus */}
                         {item.sub_menus?.data.map(
@@ -293,12 +304,16 @@ const DesktopNav = ({ nav_Items }) => {
                             subItem.attributes.parent_id ===
                               item.attributes.id && (
                               <div className="px-4 pt-3 fw-light">
-                                <a
-                                  href={subItem.attributes.url}
+                                <Link
+                                  href={
+                                    subItem.attributes.url
+                                      ? subItem.attributes.url
+                                      : '#'
+                                  }
                                   className={styles.subItemLinks}
                                 >
                                   {subItem.attributes.label}
-                                </a>
+                                </Link>
                               </div>
                             )
                         )}
@@ -366,7 +381,6 @@ const SidebarItem = () => {
           // <RCGoogleLoginButton />
           <OauthComponent user={session?.user} />
         ) : (
-          // <></>
           <DummyLoginButton />
         )}
       </div>
