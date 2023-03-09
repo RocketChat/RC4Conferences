@@ -1,14 +1,15 @@
-import Head from "next/head";
-import { Stack } from "react-bootstrap";
-import { useRouter } from "next/router";
+import Head from 'next/head';
+import { Stack } from 'react-bootstrap';
+import { useRouter } from 'next/router';
 import {
   getAllEvents,
   getEventDeatils,
   getEventSpeakers,
   unsignCook,
-} from "../../../lib/conferences/eventCall";
-import { EventShow } from "../../../components/conferences/display/EventShow";
-import { fetchAPI } from "../../../lib/api";
+} from '../../../lib/conferences/eventCall';
+import { fetchAPI } from '../../../lib/api';
+import { EventPoster } from '../../../components/conferences/eventPoster/components';
+import { AdvtButtons } from "../../../components/conferences/dayOfEvent/AdvtTool";
 
 function EventDisplayPage({ event, spkdata, prsession }) {
   const router = useRouter();
@@ -17,20 +18,22 @@ function EventDisplayPage({ event, spkdata, prsession }) {
   return (
     <div>
       <Head>
-        <title>{eventname ? eventname : "Event Poster"}</title>
+        <title>{eventname ? eventname : 'Event Poster'}</title>
         <meta name="description" content="Rocket.Chat form tool demo" />
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <div className="mx-auto">
         <Stack direction="vertical">
-          <EventShow
+          <EventPoster
             event={event}
             error={error}
             speaker={spkdata}
             prsession={prsession}
           />
         </Stack>
+        <AdvtButtons repoUrl={"https://github.com/RocketChat/RC4Conferences"} />
+
       </div>
     </div>
   );
@@ -45,13 +48,13 @@ export async function getStaticPaths() {
     }));
     return {
       paths: paths,
-      fallback: "blocking",
+      fallback: 'blocking',
     };
   } catch (e) {
-    console.error("An error while fetching list of events", e);
+    console.error('An error while fetching list of events', e);
     return {
       paths: [{ params: { eid: 1 } }],
-      fallback: "blocking",
+      fallback: 'blocking',
     };
   }
 }
@@ -63,7 +66,7 @@ export async function getStaticProps(context) {
 
   const spkdata = await getEventSpeakers(eventIdentifier);
 
-  const topNavItems = await fetchAPI("/top-nav-item");
+  const topNavItems = await fetchAPI('/top-nav-item');
 
   const sessionRes = await fetchAPI(
     `/event-sessions?populate=session_items&filters[event_id][$eq]=${eventIdentifier}`
