@@ -1,9 +1,16 @@
-import { useRouter } from 'next/router';
-import '../styles/Layout.module.css';
-import { VerifyUserRole } from './conferences/EventAdmin';
-import Footer from './footer';
+import "../styles/Layout.module.css";
+import Footer from "./footer";
+import { useRouter, Router } from "next/router";
+import { VerifyUserRole } from "./conferences/EventAdmin";
+import { useState } from "react";
 
 function Layout(props) {
+  const [loading, setLoading] = useState(false);
+
+  Router.events.on('routeChangeStart', () => setLoading(true))
+  Router.events.on('routeChangeComplete', () => setLoading(false))
+
+
   const { pathname } = useRouter();
   const disableLayout = ['/auth/signin', '/auth/signup', '/auth/[...totp.js]'];
 
@@ -16,6 +23,7 @@ function Layout(props) {
       <VerifyUserRole menuprops={props} />
       {props.children}
       <Footer></Footer>
+      {loading && <span className='loader'></span>}
     </>
   );
 }
