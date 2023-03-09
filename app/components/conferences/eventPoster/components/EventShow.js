@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   Badge,
   Button,
@@ -12,39 +12,37 @@ import {
   Tab,
   Table,
   Tabs,
-} from "react-bootstrap";
-import styles from "../../../styles/event.module.css";
+} from 'react-bootstrap';
+import styles from '../styles/index.module.css';
 
-import { MdEventSpeaker, SmEventSpeaker } from "./EventSpeaker";
-import { useMediaQuery } from "@rocket.chat/fuselage-hooks";
-import { MdEventHeader, SmEventHeader } from "./EventHeader";
+import { MdEventSpeaker, SmEventSpeaker } from './EventSpeaker';
+import { useMediaQuery } from '@rocket.chat/fuselage-hooks';
+import { MdEventHeader, SmEventHeader } from './EventHeader';
 
-import { BsYoutube } from "react-icons/bs";
+import { BsYoutube } from 'react-icons/bs';
 
-export const EventShow = ({ event, error, speaker, prsession }) => {
-  let urlHash = "";
+const EventShow = ({ event, error, speaker, prsession, customLink }) => {
+  let urlHash = '';
 
-  const [key, setKey] = useState("home");
+  const [key, setKey] = useState('home');
   const [toOpen, setToOpen] = useState({});
 
-  const helperTabOptions = ["home", "sessions", "speakers"];
+  const helperTabOptions = ['home', 'sessions', 'speakers'];
   useEffect(() => {
     const rawHash = window.location.hash;
     urlHash = rawHash.substring(1);
     if (helperTabOptions.includes(urlHash)) setKey(urlHash);
   }, []);
 
-  const isSmallScreen = useMediaQuery("(max-width: 576px)");
+  const isSmallScreen = useMediaQuery('(max-width: 576px)');
 
-  const isMdScreen = useMediaQuery("(min-width: 768px)");
+  const isMdScreen = useMediaQuery('(min-width: 768px)');
 
   return (
+    <>
+    <MdEventHeader event={event} error={error} customLink={customLink} />
+    <SmEventHeader event={event} error={error} customLink={customLink} />
     <Card className={styles.event_show_root}>
-      {isMdScreen ? (
-        <MdEventHeader event={event} error={error} />
-      ) : (
-        <SmEventHeader event={event} error={error} />
-      )}
       <div className={styles.event_nav}>
         <Tabs
           id="controlled-tab-example"
@@ -57,7 +55,7 @@ export const EventShow = ({ event, error, speaker, prsession }) => {
             <Stack>
               <EventDesc eventData={event.data} />
               <div className={styles.event_logo}>
-                <Image src={event.data.attributes["logo-url"]} width={100} />
+                <Image src={event.data.attributes['logo-url']} width={100} />
               </div>
               <div className={styles.event_organizer_header}>
                 <h6> Organizer </h6>
@@ -74,7 +72,7 @@ export const EventShow = ({ event, error, speaker, prsession }) => {
             </Tab>
           )}
           <Tab eventKey="speakers" title="Speakers">
-            {key == "speakers" &&
+            {key == 'speakers' &&
               (isSmallScreen ? (
                 <SmEventSpeaker
                   eid={event.data.attributes.identifier}
@@ -90,6 +88,7 @@ export const EventShow = ({ event, error, speaker, prsession }) => {
         </Tabs>
       </div>
     </Card>
+    </>
   );
 };
 
@@ -113,19 +112,19 @@ const EventDesc = ({ eventData }) => {
 
 const EventSession = ({ session, toOpen, setToOpen }) => {
   const helperHead = {
-    start_time: "Time",
-    presenter: "Presenter",
-    mentor: "Mentor",
-    presentation_title: "Presentation Title",
-    duration_minutes: "Duration Minutes",
+    start_time: 'Time',
+    presenter: 'Presenter',
+    mentor: 'Mentor',
+    presentation_title: 'Presentation Title',
+    duration_minutes: 'Duration Minutes',
   };
 
   const excludedFields = [
-    "createdAt",
-    "updatedAt",
-    "Description",
-    "Event",
-    "Mentor",
+    'createdAt',
+    'updatedAt',
+    'Description',
+    'Event',
+    'Mentor',
   ];
 
   let headerItems = [];
@@ -139,8 +138,8 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
   const retHours = (tm) => {
     const tmToDate = new Date(tm);
     return tmToDate.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
+      hour: '2-digit',
+      minute: '2-digit',
     });
   };
 
@@ -153,7 +152,7 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
   };
 
   return (
-    <Container style={{ maxWidth: "99vw" }}>
+    <Container style={{ maxWidth: '99vw' }}>
       <Table responsive striped hover>
         <thead>
           <tr>
@@ -162,7 +161,7 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
               ? headerItems.map((hitem, ind) => {
                   return <th key={ind}>{hitem}</th>;
                 })
-              : "No Sessions Header"}
+              : 'No Sessions Header'}
           </tr>
         </thead>
         {Array.isArray(session.attributes.session_items.data) ? (
@@ -179,7 +178,7 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
                       text="dark"
                       className={styles.session_expand}
                     >
-                      {">"}
+                      {'>'}
                     </Badge>
                   </td>
                   <td>{retHours(sess.attributes.Start)}</td>
@@ -192,12 +191,14 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
                       variant="link"
                       target="_blank"
                       href={`${sess.attributes.Youtube}`}
+                      disabled={!sess.attributes.Youtube}
                     >
                       <BsYoutube
                         color="red"
-                        size={"25"}
+                        size={'25'}
                         href={`${sess.attributes.Youtube}`}
                       />
+                      Coming...
                     </Button>
                   </td>
                 </tr>
@@ -218,3 +219,5 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
     </Container>
   );
 };
+
+export default EventShow;

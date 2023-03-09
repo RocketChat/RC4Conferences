@@ -1,0 +1,207 @@
+/* EventHeader.js */
+.event_banner_title {
+  font-weight: 100;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  border: solid 1px #00000030;
+}
+
+.event_small_banner {
+  display: none;
+}
+
+.event_big_banner {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 650px) {
+  .event_custom_container {
+    max-width: 100%;
+  }
+}
+
+.date_icon {
+  align-items: baseline;
+}
+
+.event_date {
+  display: flex;
+  flex-direction: column;
+}
+
+/* EventRegisterSection.module.css */
+
+.event_ticket_nav {
+  background-color: #f5455c;
+  max-width: 900px;
+  margin: auto;
+}
+
+.join_modal_button {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+/* EventShow.js */
+
+.event_show_root {
+  margin: 1em;
+}
+
+@media (min-width: 990px) {
+  .event_show_root {
+    margin: 1em auto;
+    max-width: 900px;
+  }
+  /* EventSpeaker.js */
+  .speaker_intro {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+  }
+  .event_speaker_name {
+    font-size: xx-large;
+  }
+}
+
+.event_nav_header {
+  margin-bottom: 1em;
+}
+
+.event_logo {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1em;
+}
+
+.event_organizer_header {
+  text-align: center;
+}
+
+.event_desc {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.session_expand {
+  cursor: pointer;
+}
+
+/* EventSpeaker.js */
+
+.event_speaker_avatar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px;
+}
+
+@media (max-width: 576px) {
+  .speaker_intro {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 992px) {
+  .speaker_intro {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: baseline;
+  }
+  .event_speaker_name {
+    font-size: x-large;
+  }
+}
+
+.event_speaker_name {
+  font-weight: lighter;
+  font-size: x-large;
+}
+
+.event_speaker_title {
+  color: #696a6a;
+  font-size: x-small;
+}
+
+.event_speaker_bio {
+  font-size: smaller;
+}
+
+.event_speaker_row {
+  align-items: center;
+}
+
+.speaker_bio_expand {
+  font-size: smaller;
+}
+
+/* EventStrip.js */
+
+.event_strip_container {
+  background: #ff6a71;
+  max-width: 750px;
+  border-radius: 15px;
+  color: #ffffff;
+  margin-top: -65px;
+  z-index: 1;
+  position: relative;
+}
+
+.event_strip_name {
+  font-family: monospace;
+  font-size: large;
+  padding: 15px 15px 0px 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.event_strip_bottom {
+  display: flex;
+  align-items: center;
+  padding: 0px 15px 15px 15px;
+  font-size: small;
+}
+
+.event_strip_location_row {
+  display: flex;
+  align-items: center;
+}
+
+/* change the .event_strip_container max-width to 650px for screen size less than 770 px */
+@media (max-width: 770px) {
+  .event_strip_container {
+    max-width: 650px;
+  }
+}
+
+.event_ticket_innav {
+  display: none;
+}
+
+@media (max-width: 570px) {
+  .event_strip_container {
+    display: none;
+  }
+  .event_ticket_innav {
+    display: flex;
+  }
+  .event_small_banner {
+    display: block;
+  }
+  .event_big_banner {
+    display: none;
+  }
+}
+
+@media (min-width: 570px) and (max-width: 670px) {
+  .event_strip_container {
+    max-width: 550px;
+  }
+}

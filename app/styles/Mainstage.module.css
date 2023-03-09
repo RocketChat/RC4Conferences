@@ -28,7 +28,7 @@
 .side_button {
   top: 40%;
   left: 0;
-  position: absolute;
+  position: fixed;
 }
 
 /* Extra small devices (phones, 600px and down) */
