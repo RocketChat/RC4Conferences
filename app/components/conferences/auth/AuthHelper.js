@@ -79,6 +79,7 @@ export const autoLogin = async (mail, passcode) => {
       email: mail,
     };
     const signedIn = await checkEmail(emailData);
+
     if (signedIn.data.exists) {
       const ressignin = await signIn(mail, passcode);
       return ressignin;
