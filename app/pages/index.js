@@ -1,13 +1,14 @@
-import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import Infotiles from "../components/infotiles";
-import Newscarousel from "../components/newscarousel";
-import Personacircle from "../components/personalcircle";
-import Searchbox from "../components/searchbox";
-import Growthcounters from "../components/growthcounters";
-import { Container, Col } from "react-bootstrap";
-import { fetchAPI } from "../lib/api";
-import { INFOTILES_DATA } from "../lib/const/infotiles";
+import Head from 'next/head';
+import styles from '../styles/Home.module.css';
+import Infotiles from '../components/infotiles';
+import Newscarousel from '../components/newscarousel';
+import Personacircle from '../components/personalcircle';
+import Searchbox from '../components/searchbox';
+import Growthcounters from '../components/growthcounters';
+import { Container, Col } from 'react-bootstrap';
+import { fetchAPI } from '../lib/api';
+import { INFOTILES_DATA } from '../lib/const/infotiles';
+import Link from 'next/link';
 
 function Home(props) {
   return (
@@ -29,42 +30,40 @@ function Home(props) {
           <h1
             className={`display-4 fw-bold text-center ${styles.hero_heading}`}
           >
-            Welcome to our{" "}
+            📢Join us at{'   '}
             <span>
-              <a
+              <Link
                 className={styles.redText}
-                href="https://github.com/RocketChat/RC4Conferences"
-                rel="noopener noreferrer"
+                href="conferences/c/GSoC-Alumni-Summit-2023"
               >
-                RC4Conferences
-              </a>
+                Alumni Summit
+              </Link>
             </span>
           </h1>
           <p
             className={`fw-regular col-10 col-md-8 text-center ${styles.hero_subheading}`}
           >
-            Let's dream, share, and collaborate in shaping the future of the
-            Rocket.Chat ecosystem together
+            Live @ 25 March, 2023! This will be our 7th year participating in GSoC
           </p>
         </Col>
         <Col className="mb-5 d-flex flex-column align-items-center">
           <h6 className="py-2 fs-6">
-            {" "}
+            {' '}
             <a
               href={props?.guides?.data?.location}
               target="_blank"
               rel="noopener noreferrer"
             >
               Read the Guides
-            </a>{" "}
-            |{" "}
+            </a>{' '}
+            |{' '}
             <a
               href={props?.releaseNotes?.data?.location}
               target="_blank"
               rel="noopener noreferrer"
             >
               Read Release Notes
-            </a>{" "}
+            </a>{' '}
           </h6>
           <Searchbox></Searchbox>
         </Col>
@@ -95,11 +94,11 @@ function Home(props) {
 export default Home;
 
 export async function getStaticProps({ params }) {
-  const carousels = await fetchAPI("/carousels");
-  const personas = await fetchAPI("/personas");
-  const guides = await fetchAPI("/guide");
-  const releaseNotes = await fetchAPI("/release-note");
-  const topNavItems = await fetchAPI("/top-nav-item");
+  const carousels = await fetchAPI('/carousels');
+  const personas = await fetchAPI('/personas');
+  const guides = await fetchAPI('/guide');
+  const releaseNotes = await fetchAPI('/release-note');
+  const topNavItems = await fetchAPI('/top-nav-item');
 
   return {
     props: { carousels, personas, guides, releaseNotes, topNavItems },
