@@ -30,6 +30,7 @@ function EventDisplayPage({ event, spkdata, prsession }) {
             error={error}
             speaker={spkdata}
             prsession={prsession}
+            customLink={'/conferences/c/' + eid}
           />
         </Stack>
         <AdvtButtons repoUrl={"https://github.com/RocketChat/RC4Conferences"} />
