@@ -117,7 +117,7 @@ sh startdevenv.sh localhost production
 sh startNext.sh localhost production
 ```
 
-_Note: Please replace the "localhost" (127.0.0.1) with your static IP if you are doing environment setup on your VM. For e.g. `173.456.1.19`_
+_Note: Please replace the 'localhost' (127.0.0.1) with your static IP if you are doing environment setup on your VM. For e.g. `173.456.1.19`_
 
 
 ### Additional Resources
