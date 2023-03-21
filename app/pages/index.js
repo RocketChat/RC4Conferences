@@ -30,20 +30,13 @@ function Home(props) {
           <h1
             className={`display-4 fw-bold text-center ${styles.hero_heading}`}
           >
-            📢Join us at{'   '}
-            <span>
-              <Link
-                className={styles.redText}
-                href="conferences/c/GSoC-Alumni-Summit-2023"
-              >
-                Alumni Summit
-              </Link>
-            </span>
+            Welcome to our <span className={styles.redText}>community</span>
           </h1>
           <p
             className={`fw-regular col-10 col-md-8 text-center ${styles.hero_subheading}`}
           >
-            Live @ 25 March, 2023! This will be our 7th year participating in GSoC
+            Let&apos;s dream, share, and collaborate in shaping the future of
+            the Rocket.Chat ecosystem together
           </p>
         </Col>
         <Col className="mb-5 d-flex flex-column align-items-center">
