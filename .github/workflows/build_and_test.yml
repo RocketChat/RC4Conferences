@@ -166,7 +166,7 @@ jobs:
         run: |
           pkill -9 -F /tmp/app.pid
           cd app; npm run build
-        env: { NEXT_PUBLIC_STRAPI_API_URL: "http://localhost:1337" }
+        env: { NEXT_PUBLIC_STRAPI_API_URL: "http://localhost:1337", NEXT_PUBLIC_EVENT_BACKEND_URL: "http://localhost:8080" }
 
       - name: Generate archive
         if: ${{ github.event_name == 'push' }}
