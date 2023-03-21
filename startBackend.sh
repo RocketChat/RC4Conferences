@@ -28,7 +28,7 @@ if [ -z $OES_CONTAINER_ID ]; then
     exit 1
 else
     cd open-event-server
-    docker exec -T opev-postgres /bin/sh /var/log/seed/seed.sh
+    docker exec -t opev-postgres /bin/sh /var/log/seed/seed.sh
     cd ..
     if [ ! -e $INIT_DB ];then
         echo "\033[31m***Open-event-server DB was not seeded with demo event, please check pg logs***\e[0m"
