@@ -2,7 +2,7 @@ name: "Build, Test, Deploy"
 
 on:
   pull_request: #{ types: [ready_for_review] }
-  push: { branches: [master] }
+  push: { branches: [main] }
   #release: { types: [published] }
 
 concurrency:
