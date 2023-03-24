@@ -11,20 +11,18 @@ function Layout(props) {
   Router.events.on('routeChangeStart', () => setLoading(true));
   Router.events.on('routeChangeComplete', () => setLoading(false));
 
-  const { pathname } = useRouter();
   return (
     <>
       <div
         className="announcement_strip"
-        href="onferences/c/http://localhost:3000/conferences/c/GSoC-Alumni-Summit-2023"
       >
         <a
           href={'/conferences/c/GSoC-Alumni-Summit-2023'}
-          style={{ textDecoration: 'none' }}
+          style={{ textDecoration: 'none', color: 'white' }}
         >
           <h6>
             📢 Join our GSoC'23 Alumni Summit at{' '}
-            {new Date('2023-03-25T06:00:00-04:00').toLocaleString('en-GB', {
+            {new Date('2023-03-30T06:00:00-04:00').toLocaleString('en-GB', {
               day: '2-digit',
               month: '2-digit',
               year: 'numeric',
