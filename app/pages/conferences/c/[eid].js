@@ -30,6 +30,7 @@ function EventDisplayPage({ event, spkdata, prsession }) {
             error={error}
             speaker={spkdata}
             prsession={prsession}
+            customLink={'/conferences/c/' + eid}
           />
         </Stack>
         <AdvtButtons repoUrl={"https://github.com/RocketChat/RC4Conferences"} />
@@ -44,7 +45,7 @@ export async function getStaticPaths() {
   try {
     const res = await getAllEvents();
     paths = res.data.data.map((event) => ({
-      params: { eid: event.id },
+      params: { eid: event.attributes.identifier },
     }));
     return {
       paths: paths,
@@ -77,7 +78,6 @@ export async function getStaticProps(context) {
 
   return {
     props: { topNavItems, event, spkdata, prsession },
-    revalidate: 10,
   };
 }
 

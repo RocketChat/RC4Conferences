@@ -3,11 +3,11 @@ import { NavLink } from "react-bootstrap";
 
 const channelLink = process.env.NEXT_PUBLIC_ROCKETCHAT_URl
   ? `${process.env.NEXT_PUBLIC_ROCKETCHAT_URl}/channel/${process.env.NEXT_PUBLIC_RC_ROOM_ID}`
-  : "https://open.rocket.chat/channel/GENERAL";
+  : "https://open.rocket.chat/channel/events-and-meet-ups";
 
 const RocketChatLinkButton = ({
   children,
-  href = "https://open.rocket.chat/channel/DemoDay2022",
+  href = channelLink,
   ...props
 }) => {
   return (
