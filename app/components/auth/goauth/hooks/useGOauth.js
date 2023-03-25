@@ -1,9 +1,9 @@
-import Cookies from "js-cookie";
-import Router from "next/router";
-import { useContext, useEffect, useState } from "react";
-import { signCook } from "../../../../lib/conferences/eventCall";
-import RocketChatInstance from "../gapi";
-import { useGoogleLogin } from "../useGoogleLogin";
+import Cookies from 'js-cookie';
+import Router from 'next/router';
+import { useContext, useEffect, useState } from 'react';
+import { signCook } from '../../../../lib/conferences/eventCall';
+import RocketChatInstance from '../gapi';
+import { useGoogleLogin } from '../useGoogleLogin';
 
 export const useRCGoogleAuth = () => {
   const [user, setUser] = useState({});
@@ -20,16 +20,16 @@ export const useRCGoogleAuth = () => {
   );
 
   useEffect(() => {
-    const isStoredInSession = JSON.parse(sessionStorage.getItem("grc_user"));
-    const rc_uid = Cookies.get("rc_uid");
-    const rc_token = Cookies.get("rc_token");
+    const isStoredInSession = JSON.parse(sessionStorage.getItem('grc_user'));
+    const rc_uid = Cookies.get('rc_uid');
+    const rc_token = Cookies.get('rc_token');
 
     const fetchUserDetails = async () => {
       const res = await RCInstance.getUserInfo();
 
       if (res?.success) {
         setUser(res);
-        sessionStorage.setItem("grc_user", JSON.stringify(res));
+        sessionStorage.setItem('grc_user', JSON.stringify(res));
       }
     };
 
@@ -47,22 +47,22 @@ export const useRCGoogleAuth = () => {
       const res = await RCInstance.googleSSOLogin(signIn, acsCode);
       if (res?.me) {
         const hashmail = await signCook({ mail: res.me.email });
-        sessionStorage.setItem("grc_user", JSON.stringify(res.me));
+        sessionStorage.setItem('grc_user', JSON.stringify(res.me));
         setUser(res.me);
 
-        Cookies.set("hashmail", hashmail.data.hash);
+        Cookies.set('hashmail', hashmail.data.hash);
       }
-      if (res.error === "totp-required") {
+      if (res.error === 'totp-required') {
         setUserOrEmail(res.details.emailOrUsername);
         setIsModalOpen(true);
         if (res.details.availableMethods.length > 1) {
-          setMethod("totp");
+          setMethod('totp');
         } else {
           setMethod(res.details.availableMethods[0]);
         }
       }
     } catch (e) {
-      console.error("A error occurred while setting up user", e);
+      console.error('A error occurred while setting up user', e);
     }
   };
 
@@ -70,10 +70,10 @@ export const useRCGoogleAuth = () => {
     setUser({});
     await RCInstance.logout(signOut);
 
-    sessionStorage.removeItem("grc_user");
-    Cookies.remove("hashmail");
-    Cookies.remove("event_auth");
-    Cookies.remove("hashrole");
+    sessionStorage.removeItem('grc_user');
+    Cookies.remove('hashmail');
+    Cookies.remove('event_auth');
+    Cookies.remove('hashrole');
     Router.reload();
   };
 

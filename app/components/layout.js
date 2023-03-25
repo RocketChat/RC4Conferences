@@ -11,6 +11,14 @@ function Layout(props) {
   Router.events.on('routeChangeStart', () => setLoading(true));
   Router.events.on('routeChangeComplete', () => setLoading(false));
 
+
+  const { pathname } = useRouter();
+  const disableLayout = ['/auth/signin', '/auth/signup', '/auth/[...totp.js]'];
+
+  if (disableLayout.includes(pathname)) {
+    return props.children;
+  }
+
   return (
     <>
       <div

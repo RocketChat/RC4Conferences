@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { NoUserAvatar } from "../../NoUserAvatar";
+import { useState } from 'react';
+import { NoUserAvatar } from '../../NoUserAvatar';
 import {
   Button,
   Dropdown,
@@ -7,10 +7,10 @@ import {
   Form,
   InputGroup,
   Modal,
-} from "react-bootstrap";
-import styles from "../styles/DummyLoginButton.module.css";
-import { useRCGoogleAuth } from "../hooks/useGOauth";
-import useComponentVisible from "../hooks/outsideClick";
+} from 'react-bootstrap';
+import styles from '../styles/DummyLoginButton.module.css';
+import { useRCGoogleAuth } from '../hooks/useGOauth';
+import useComponentVisible from '../hooks/outsideClick';
 
 export default function RCGoogleLoginButton() {
   const [isLoginUiOpen, setIsLoginUiOpen] = useState(false);
@@ -63,7 +63,7 @@ export default function RCGoogleLoginButton() {
                       src={user.avatarUrl}
                       alt={user.name}
                       style={{
-                        borderRadius: "50%",
+                        borderRadius: '50%',
                       }}
                       height="64px"
                       width="64px"
@@ -73,7 +73,7 @@ export default function RCGoogleLoginButton() {
                   )}
                 </div>
                 <div className="font-weight-bold mb-1">{user.name}</div>
-                <div className="mb-1" style={{ color: "var(--bs-gray-700)" }}>
+                <div className="mb-1" style={{ color: 'var(--bs-gray-700)' }}>
                   {user.email}
                 </div>
               </div>
@@ -136,7 +136,7 @@ const AccessModal = ({
         <Modal.Body>
           <Form id="access_form" onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              {method === "totp" ? (
+              {method === 'totp' ? (
                 <Form.Label>
                   Open your authentication app and enter the code. You can also
                   use one of your backup codes.
@@ -152,7 +152,7 @@ const AccessModal = ({
                   autoFocus
                   onChange={handleEdit}
                 />
-                {method === "email" && (
+                {method === 'email' && (
                   <Button onClick={handleResend} variant="outline-secondary">
                     Resend
                   </Button>
