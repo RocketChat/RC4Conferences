@@ -177,7 +177,7 @@ jobs:
           }
 
       - name: Generate archive
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' || github.event_name == 'schedule' }}
         run: |
           cd app
           echo $GITHUB_SHA > /tmp/.github_sha
@@ -192,7 +192,7 @@ jobs:
             /tmp/.github_ref
 
       - name: Upload archive
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ github.event_name == 'push' || github.event_name == 'schedule' }}
         uses: actions/upload-artifact@v3
         with:
           name: build
