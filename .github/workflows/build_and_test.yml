@@ -4,7 +4,7 @@ on:
   pull_request: #{ types: [ready_for_review] }
   push: { branches: [main] }
   schedule:
-    - cron: "0 */5 * * *"
+    - cron: "36 */5 * * *"
   #release: { types: [published] }
 
 concurrency:
