@@ -3,6 +3,8 @@ name: "Build, Test, Deploy"
 on:
   pull_request: #{ types: [ready_for_review] }
   push: { branches: [main] }
+  schedule:
+    - cron: "0 */5 * * *"
   #release: { types: [published] }
 
 concurrency:
@@ -166,7 +168,13 @@ jobs:
         run: |
           pkill -9 -F /tmp/app.pid
           cd app; npm run build
-        env: { NEXT_PUBLIC_STRAPI_API_URL: "http://localhost:1337", NEXT_PUBLIC_EVENT_BACKEND_URL: "http://conf.rceng.shop:8090" }
+        env:
+          {
+            NEXT_PUBLIC_STRAPI_API_URL: "http://localhost:1337",
+            NEXT_PUBLIC_EVENT_BACKEND_URL: "http://conf.rceng.shop:8090",
+            NEXT_PUBLIC_DISCOURSE_HOST: "https://forums.rocket.chat",
+            DISCOURSE_HOST: "https://forums.rocket.chat",
+          }
 
       - name: Generate archive
         if: ${{ github.event_name == 'push' }}
