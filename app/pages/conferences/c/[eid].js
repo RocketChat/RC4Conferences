@@ -19,7 +19,7 @@ function EventDisplayPage({ event, spkdata, prsession }) {
     <div>
       <Head>
         <title>{eventname ? eventname : 'Event Poster'}</title>
-        <meta name="description" content="Rocket.Chat form tool demo" />
+        <meta name="description" content="Rocket.Chat GSoC 2023 Alumni Summit, March 30th" />
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
