@@ -22,6 +22,7 @@ function EventDisplayPage({ event, spkdata, prsession }) {
         <meta name="description" content="Rocket.Chat GSoC 2023 Alumni Summit, March 30th" />
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta property="og:image" content="https://github.com/RocketChat/RC4Conferences/blob/main/app/assets/gsoc_alumni_2023.png?raw=true" />
       </Head>
       <div className="mx-auto">
         <Stack direction="vertical">
