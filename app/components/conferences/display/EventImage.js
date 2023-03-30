@@ -5,7 +5,6 @@ import {
   Button,
   Card,
 } from "react-bootstrap";
-import { Slider } from '@material-ui/core';
 import AvatarEditor from 'react-avatar-editor';
 import styles from '../../../styles/EventImage.module.css';
 import { useRef, useState } from "react";
@@ -37,11 +36,13 @@ export const EventImage = ({ handleImageChange }) => {
     width: null,
   });
 
-  const handleSlider = (event, value) => {
+  const [showEventUplaod, setShowEventUpload] = useState(false);
+
+  const handleSlider = (event) => {
     setPicture((picture) => {
       return {
         ...picture,
-        zoom: value
+        zoom: parseInt(event.target.value)
       }
     });
   };
@@ -102,6 +103,10 @@ export const EventImage = ({ handleImageChange }) => {
     })
   }
 
+  const toggleUploadImage = () => {
+    setShowEventUpload(prev => !prev)
+  }
+
   return (
     <>
       {picture.cropperOpen && (
@@ -128,18 +133,7 @@ export const EventImage = ({ handleImageChange }) => {
               }}
               scale={picture.zoom}
             />
-            <Slider
-              style={{
-                width: '50%',
-                margin: 'auto'
-              }}
-              aria-label="raceSlider"
-              value={picture.zoom}
-              min={1}
-              max={10}
-              step={0.1}
-              onChange={handleSlider}
-            />
+            <input type="range" min="1" max="10" value={picture.zoom} onChange={handleSlider} className={styles.slider} />
             <div className={styles.buttonClass}>
               <Button variant="success" onClick={handleSave}>Looks good</Button>{' '}
               <Button style={{ marginRight: '10px'}} variant="dark" onClick={resetSize}>Reset</Button>{' '}
@@ -147,9 +141,10 @@ export const EventImage = ({ handleImageChange }) => {
           </Card>
         </>
       )}
+      <Button variant="outline-dark" onClick={toggleUploadImage}>Add/Upload event header</Button>{' '}
       <Form.Group className="mb-3">
         <Row className={styles.eventUpload}>
-          <Col className={styles.eventUploadOptions} lg={8}>
+          <Col className={`${showEventUplaod ? styles.showDiv : styles.hideDiv} ${styles.eventUploadOptions}`} lg={8}>
             <Form.Label style={headerLabelStyle} className={styles.eventUploadLabel}>
               <Form.Control
                 className={styles.eventUploadInput}
@@ -160,7 +155,7 @@ export const EventImage = ({ handleImageChange }) => {
               />
             </Form.Label>
           </Col>
-          <Col className={styles.logoUploadOptions} >
+          <Col className={`${showEventUplaod ? styles.showDiv : styles.hideDiv} ${styles.logoUploadOptions}`} >
             <Form.Label style={logoLabelStyle} className={styles.eventUploadLogo}>
                 <Form.Control
                   className={styles.eventUploadInput}

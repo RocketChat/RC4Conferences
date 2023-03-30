@@ -4,6 +4,19 @@
   padding: 0 12px;
 }
 
+.showDiv {
+  display: block;
+}
+
+.hideDiv {
+  display: none;
+}
+
+.slider {
+  width: 50%;
+  margin: 2% auto;
+}
+
 .eventUploadOptions {
   padding: 0px;
   position: relative;
@@ -130,6 +143,14 @@
   color: rgb(13, 10, 10);
   cursor: pointer;
   border-radius: 50%;
+}
+
+.showEventImage {
+  opacity: 1;
+}
+
+.eventImage {
+  transition: all 1s;
 }
 
 @media (max-width: 768px) {
