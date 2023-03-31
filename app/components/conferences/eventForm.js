@@ -1,11 +1,11 @@
 import {
   Form,
   InputGroup,
-  Toast,
 } from "react-bootstrap";
+import { useState, Fragment, useEffect } from "react";
 
-export const EventForm = ({ handleChange, intialValues, ticket , handleSwitch, handlePublicSwitch, isPublic }) => {
-  
+export const EventForm = ({ handleChange, intialValues, ticket, handleSwitch, handlePublicSwitch, isPublic }) => {
+
   return (
     <>
       <Form.Group className="mb-3">
@@ -50,6 +50,9 @@ export const EventForm = ({ handleChange, intialValues, ticket , handleSwitch, h
           onChange={handleChange}
         />
       </Form.Group>
+
+      <OrganizerForm handleChange={handleChange} intialValues={intialValues} ></OrganizerForm>
+
       <Form.Group className="mb-3">
         <Form.Label>Start Date*</Form.Label>
         <Form.Control
@@ -92,7 +95,7 @@ export const EventForm = ({ handleChange, intialValues, ticket , handleSwitch, h
           name="name"
           type="text"
           onChange={handleSwitch}
-          value = {ticket.name}
+          value={ticket.name}
           placeholder={
             ticket.state ? "Free Ticket Name" : "Free Registration Name"
           }
@@ -101,7 +104,7 @@ export const EventForm = ({ handleChange, intialValues, ticket , handleSwitch, h
           required
           name="quantity"
           type="number"
-          value = {ticket.quantity}
+          value={ticket.quantity}
           min={1}
           onChange={handleSwitch}
           placeholder="Quantity"
@@ -114,4 +117,61 @@ export const EventForm = ({ handleChange, intialValues, ticket , handleSwitch, h
 
   );
 };
+
+const OrganizerForm = ({ handleChange, intialValues }) => {
+
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    console.log(intialValues);
+    if (intialValues["owner-name"] || intialValues["owner-description"]) {
+      setShow(true);
+    }
+  }, [intialValues])
+
+
+  return (
+    <Fragment>
+      {!(intialValues["owner-name"] || intialValues["owner-description"]) ? <InputGroup className="mb-3">
+        <InputGroup.Text>Add Organizer Or Group Information</InputGroup.Text>
+        <InputGroup.Text aria-label="Switch-group">
+          <Form.Check
+            aria-label="Switch"
+            name="switch"
+            onChange={() => setShow(!show)}
+            type="switch"
+            value={"on"}
+            defaultChecked={show}
+          />
+        </InputGroup.Text>
+      </InputGroup> : null
+      }
+      {show && (
+        <><Form.Group className="mb-3">
+          <Form.Label>Organizer or Group Name</Form.Label>
+          <Form.Control
+            required
+            name="owner-name"
+            type="text"
+            placeholder=""
+            value={intialValues["owner-name"]}
+            onChange={handleChange} />
+        </Form.Group>
+          {/* About the organization or Group */}
+          <Form.Group className="mb-3">
+            <Form.Label>About the Organizer or Group </Form.Label>
+            <Form.Control
+              as="textarea"
+              rows={5}
+              name="owner-description"
+              type="text"
+              placeholder=""
+              value={intialValues["owner-description"]}
+              onChange={handleChange} />
+          </Form.Group>
+        </>
+      )}
+    </Fragment>
+  );
+}
 

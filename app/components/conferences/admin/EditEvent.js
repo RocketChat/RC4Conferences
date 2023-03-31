@@ -22,11 +22,13 @@ export const EditEvent = ({ event, handleToast }) => {
     "starts-at": event.data.attributes["starts-at"].slice(0, 16),
     "ends-at": event.data.attributes["ends-at"].slice(0, 16),
     "original-image-url": event.data.attributes["original-image-url"],
-    "logo-url" : event.data.attributes["logo-url"],
+    "logo-url": event.data.attributes["logo-url"],
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     online: true,
     "is-sessions-speakers-enabled": true,
-    privacy: event.data.attributes.privacy
+    privacy: event.data.attributes.privacy,
+    "owner-name": event.data.attributes["owner-name"],
+    "owner-description": event.data.attributes["owner-description"],
   });
 
   const [publish, setPublish] = useState("published");
@@ -87,13 +89,13 @@ export const EditEvent = ({ event, handleToast }) => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    if(formState['logo-url'] === ""){
+    if (formState['logo-url'] === "") {
       delete formState['logo-url'];
     }
 
     const data = {
       data: {
-        attributes: { ...formState, state: publish, privacy: isPublic ? "public" : "private"  },
+        attributes: { ...formState, state: publish, privacy: isPublic ? "public" : "private" },
         id: event.data.id,
         type: "event",
       },

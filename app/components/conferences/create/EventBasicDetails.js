@@ -31,6 +31,8 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     online: true,
     "is-sessions-speakers-enabled": true,
+    "owner-name": "",
+    "owner-description": "",
   });
 
   const [publish, setPublish] = useState("draft");
@@ -143,13 +145,13 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
     const value = e.target.value;
     name === "switch"
       ? setTicket((prev) => ({
-          ...prev,
-          state: !ticket.state,
-        }))
+        ...prev,
+        state: !ticket.state,
+      }))
       : setTicket((prev) => ({
-          ...prev,
-          [name]: value,
-        }));
+        ...prev,
+        [name]: value,
+      }));
   };
 
   const handlePublicSwitch = (e) => {
