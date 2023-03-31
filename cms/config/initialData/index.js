@@ -8,6 +8,7 @@ const topNavItem = require("./top-nav-item.json");
 const forms = require("./forms.json")
 const speakers = require("./speakers.json")
 const sessions = require("./session.json")
+const eventSessions = require("./event-sessions.json")
 
 module.exports = {
     carousels,
@@ -19,5 +20,6 @@ module.exports = {
     topNavItem,
     forms,
     speakers,
-    sessions
+    sessions,
+    eventSessions
 };

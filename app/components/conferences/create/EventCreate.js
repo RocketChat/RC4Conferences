@@ -1,15 +1,11 @@
 import { Card, Nav, Tab, Tabs } from "react-bootstrap";
-import { CustomToast, EventBasicCreate } from "./EventBasicDetails";
+import { EventBasicCreate } from "./EventBasicDetails";
 import styles from "../../../styles/event.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 export const EventCreate = ({ active }) => {
   const [draft, setDraft] = useState(false);
-  const [toast, setToast] = useState({
-    show: false,
-    msg: ""
-  })
   const router = useRouter();
 
 
@@ -26,14 +22,7 @@ export const EventCreate = ({ active }) => {
     }
   }, []);
 
-  const handleToast = (data, publish) => {
-    const msgText = `The Event (${data.data.attributes.identifier}) was successfully created & ${publish}`
-    setToast((prev) => ({
-        ...prev,
-        show: true,
-        msg: msgText
-    }))
-  }
+  
 
   return (
     <>
@@ -52,13 +41,12 @@ export const EventCreate = ({ active }) => {
         </Nav>
       </Card.Header>
       <Card.Body>
-        {pageRoute[active] == 0 && <EventBasicCreate handleToast={handleToast} />}
+        {pageRoute[active] == 0 && <EventBasicCreate  />}
         {pageRoute[active] == 1 && "Coming Soon"}
         {pageRoute[active] == undefined &&
           "Hey! You got yourself on an fabled isle."}
       </Card.Body>
     </Card>
-        <CustomToast type={"success"} show={toast.show} msg={toast.msg} />
 </>
   );
 };

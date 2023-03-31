@@ -42,14 +42,15 @@ export const EventMainstage = ({ eventdetails, open, setOpen }) => {
   }, []);
 
   return (
-      <div className={styles.mainstage_root}>
-        <EventHeader eventData={eventdetails} open={open} setOpen={setOpen} />
-        <Videostreamer
-          poster={evePoster ? evePoster : "/gsocsmall.jpg"}
-          src={streamLink}
-          type="application/vnd.apple.mpegurl"
-          region={region}
-        />
-      </div>
+    <div className={styles.mainstage_root}>
+      <EventHeader eventData={eventdetails} open={open} setOpen={setOpen} />
+      <Videostreamer
+        poster={evePoster ? evePoster : "/gsocsmall.jpg"}
+        src={"streamURL"}
+        service="local"
+        type="application/vnd.apple.mpegurl"
+        region={region}
+      />
+    </div>
   );
 };

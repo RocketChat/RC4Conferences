@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Menubar from "../menubar";
+import NewMenubar from "../menubar/newMenuBar";
 import _ from "lodash";
 import Cookies from "js-cookie";
 import { verifyAdmin } from "./auth/AuthSuperProfileHelper";
@@ -7,7 +7,7 @@ import { unsignCook } from "../../lib/conferences/eventCall";
 
 export const VerifyUserRole = ({ menuprops }) => {
   if (!menuprops.menu?.topNavItems) {
-    return <Menubar menu={menuprops.menu.topNavItems} />;
+    return <NewMenubar menu={menuprops.menu.topNavItems} />;
   }
   const [getCurrentUser, { data, error, loading }] = verifyAdmin();
   const [verified, setVerified] = useState(false);
@@ -16,8 +16,8 @@ export const VerifyUserRole = ({ menuprops }) => {
     const decipherEmail = async () => {
       try {
         if (hashmail) {
-        const res = await unsignCook({ hash: hashmail });
-        getCurrentUser({ email: res.mail });
+          const res = await unsignCook({ hash: hashmail });
+          getCurrentUser({ email: res.mail });
         }
       } catch {
         console.error("Error while deciphering");
@@ -28,7 +28,7 @@ export const VerifyUserRole = ({ menuprops }) => {
   let menuCache = null;
 
   if (!menuprops.menu?.topNavItems) {
-    return <Menubar menu={menuprops.menu.topNavItems} />;
+    return <NewMenubar menu={menuprops.menu.topNavItems} />;
   }
 
   const abortAdmin = () => {
@@ -58,9 +58,11 @@ export const VerifyUserRole = ({ menuprops }) => {
     <>
       {abortAdmin()}
       {verified ? (
-        <Menubar menu={menuprops.menu.topNavItems} />
+        // <Menubar menu={menuprops.menu.topNavItems} />
+        <NewMenubar menu={menuprops.menu.topNavItems} />
       ) : (
-        <Menubar menu={menuCache.menu.topNavItems} />
+        // <Menubar menu={menuCache.menu.topNavItems} />
+        <NewMenubar menu={menuCache.menu.topNavItems} />
       )}
     </>
   );

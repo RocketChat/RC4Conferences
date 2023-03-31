@@ -1,0 +1,1 @@
+EVENT_USER_PASSPHRASE="yourSecretGoesHere"

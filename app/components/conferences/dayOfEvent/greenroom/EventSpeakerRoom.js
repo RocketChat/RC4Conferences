@@ -34,7 +34,7 @@ const EventSpeakerStage = ({
         const res = await unsignCook({ hash: hashmail });
         const mail = res.mail;
 
-        if (mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
+        if (mail) {
           const isAdminRes = await ssrVerifyAdmin({ email: mail });
           setIsAdmin(isAdminRes);
         }

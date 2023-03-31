@@ -12,38 +12,42 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "start_time": {
+    "Start": {
       "type": "datetime",
       "required": true,
       "default": "2022-08-30T18:30:00.000Z"
     },
-    "end_time": {
+    "End": {
       "type": "datetime"
     },
-    "presenter": {
+    "Speaker": {
       "type": "string",
       "default": "RGSoC'er",
-      "required": true
+      "required": false
     },
-    "presentation_title": {
+    "Title": {
       "type": "text",
       "default": "Please look forward to my talk."
     },
-    "duration_minutes": {
+    "Duration": {
       "type": "integer",
       "required": true,
       "default": 20,
       "min": 0
     },
-    "mentor": {
+    "Mentor": {
       "type": "string"
     },
-    "description": {
+    "Description": {
       "type": "text"
     },
-    "youtube": {
+    "Youtube": {
       "type": "string",
       "default": "https://www.youtube.com/watch?v=UkPzcJ20aJM&ab_channel=Rocket.Chat"
+    },
+    "Event": {
+      "type": "string",
+      "required": true
     }
   }
 }

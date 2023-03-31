@@ -36,8 +36,6 @@ export default class RocketChatInstance {
       acsPayload=acsCode
     }
 
-    console.log("checoldscm....", acsCode)
-
     const payload = acsCode
       ? JSON.stringify({
           serviceName: "google",
@@ -83,6 +81,7 @@ export default class RocketChatInstance {
       }
     } catch (err) {
       console.error(err.message);
+      throw new Error(err.message);
     }
   }
 
@@ -100,6 +99,8 @@ export default class RocketChatInstance {
       return await response.json();
     } catch (err) {
       console.error(err.message);
+      throw new Error(err.message);
+
     }
   }
 
@@ -120,6 +121,8 @@ export default class RocketChatInstance {
       return await response.json();
     } catch (err) {
       console.error(err.message);
+      throw new Error(err.message);
+
     }
   }
 
@@ -138,6 +141,8 @@ export default class RocketChatInstance {
       return await response.json();
     } catch (err) {
       console.error(err.message);
+      throw new Error(err.message);
+
     }
   }
 
@@ -157,6 +162,8 @@ export default class RocketChatInstance {
       return await response.json();
     } catch (err) {
       console.error(err.message);
+      throw new Error(err.message);
+
     }
   }
 
@@ -212,6 +219,26 @@ export default class RocketChatInstance {
       return await response.json();
     } catch (err) {
       console.error(err.message);
+      throw new Error(err.message);
+
+    }
+  }
+
+  async getUserInfo() {
+    try {
+      const response = await fetch(`${this.host}/api/v1/me`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-Auth-Token": Cookies.get("rc_token"),
+          "X-User-Id": Cookies.get("rc_uid"),
+        },
+        method: "GET",
+      });
+      return await response.json();
+    } catch (err) {
+      console.error(err.message);
+      throw new Error(err.message);
+
     }
   }
 }

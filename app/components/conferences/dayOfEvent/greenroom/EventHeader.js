@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { FaRocketchat } from "react-icons/fa";
 import styles from "../../../../styles/Jitsi.module.css";
@@ -7,6 +8,16 @@ export const EventHeader = ({ eventData, open, setOpen }) => {
   const eventName = eventData?.data?.attributes?.name;
   const eventOrg = eventData?.data?.attributes?.["owner-name"];
   const validRCflag = verifyValidRCchat();
+
+  const handleOpen = () => {
+    const hashmail = Cookies.get("hashmail");
+    if (hashmail) {
+      validRCflag = { valid: true, msg: "Open Chat" };
+      setOpen(!open);
+    } else {
+      alert("Please login to open chat, at the top right corner");
+    }
+  };
 
   const renderTooltip = (props) => (
     <Tooltip id="chat-error-tooltip" {...props}>
@@ -28,7 +39,7 @@ export const EventHeader = ({ eventData, open, setOpen }) => {
         <Button
           style={{ marginRight: "1em" }}
           variant="light"
-          onClick={() => setOpen(!open)}
+          onClick={handleOpen}
         >
           <FaRocketchat color="red" size={20} />
         </Button>

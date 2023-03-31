@@ -53,9 +53,22 @@
 @media (min-width: 768px) {
   .event_custom_container {
     max-width: 100%;
+    overflow: hidden;
   }
 }
 
+.event_custom_container {
+  position: relative;
+}
+
+.image_cover {
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  object-fit: cover;
+  object-position: center;
+}
 
 
 .date_icon {
@@ -156,6 +169,7 @@
 @media (min-width: 990px) {
   .event_show_root {
     margin: 1em auto;
+    min-width: 900px;
   }
   .speaker_intro {
     display: flex;

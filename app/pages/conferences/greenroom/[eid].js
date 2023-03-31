@@ -10,8 +10,8 @@ import EventSpeakerStage from "../../../components/conferences/dayOfEvent/greenr
 import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { RCdesktopChat } from "../../../components/conferences/dayOfEvent/RCchat";
-import styles from "../../../styles/Greenroom.module.css"
-
+import styles from "../../../styles/Greenroom.module.css";
+import { AdvtButtons } from "../../../components/conferences/dayOfEvent/AdvtTool";
 
 const Greenroom = ({ eventIdentifier, spkdata, eventdata }) => {
   const [open, setOpen] = useState(false);
@@ -32,12 +32,11 @@ const Greenroom = ({ eventIdentifier, spkdata, eventdata }) => {
             open={open}
           />
         </div>
-        <div
-          className={styles.greenroom_page_chat}
-        >
+        <div className={styles.greenroom_page_chat}>
           <RCdesktopChat open={open} setOpen={setOpen} />
         </div>
       </div>
+      <AdvtButtons repoUrl={"https://github.com/RocketChat/RC4Conferences"} />
     </>
   );
 };
@@ -65,13 +64,13 @@ export async function getStaticPaths() {
 export async function getStaticProps(context) {
   const eventIdentifier = context.params.eid;
   //temp 9ddffcbb
-  const res = await getEventDeatils(eventIdentifier);
-  const eventdata = res.data;
+  const eventdata = await getEventDeatils(eventIdentifier);
 
   const topNavItems = await fetchAPI("/top-nav-item");
 
   return {
     props: { eventIdentifier, topNavItems, eventdata },
+    revalidate: 10,
   };
 }
 

@@ -9,9 +9,10 @@ import {
 } from "../../../lib/conferences/eventCall";
 
 export const generatePassword = async (mail) => {
-  const passcode = crypto.HmacSHA256(mail, process.env.EVENT_USER_PASSPHRASE);
+  // concatenate mail and passphrase string
+  const passcode = mail + process.env.EVENT_USER_PASSPHRASE;
 
-  return passcode.toString(crypto.enc.Base64);
+  return passcode;
 };
 
 export const setCookie = (res) => {
@@ -78,6 +79,7 @@ export const autoLogin = async (mail, passcode) => {
       email: mail,
     };
     const signedIn = await checkEmail(emailData);
+
     if (signedIn.data.exists) {
       const ressignin = await signIn(mail, passcode);
       return ressignin;

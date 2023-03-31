@@ -8,7 +8,8 @@
     "preexport": "npm run build",
     "export": "next export",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prettier": "prettier --write \"src/**/*.{js,jsx}\""
   },
   "dependencies": {
     "@apollo/client": "^3.5.9",
@@ -39,6 +40,7 @@
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.0",
     "react-dom": "17.0.2",
+    "react-hot-toast": "^2.4.0",
     "react-i18next": "^11.15.3",
     "react-icons": "^4.3.1",
     "react-slick": "^0.28.1",
@@ -49,7 +51,8 @@
   },
   "devDependencies": {
     "eslint": "8.6.0",
-    "eslint-config-next": "12.0.7"
+    "eslint-config-next": "12.0.7",
+    "prettier": "^2.8.4"
   },
   "volta": {
     "node": "16.4.0"

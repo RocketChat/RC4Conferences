@@ -8,21 +8,26 @@ import Growthcounters from '../components/growthcounters';
 import { Container, Col } from 'react-bootstrap';
 import { fetchAPI } from '../lib/api';
 import { INFOTILES_DATA } from '../lib/const/infotiles';
+import { DiscourseClient } from '../components/discourse/lib';
+import { DiscourseProvider, DiscourseTopicListTabs } from '../components/discourse/client';
 
 function Home(props) {
   return (
-    <>
+    <DiscourseProvider host={process.env.NEXT_PUBLIC_DISCOURSE_HOST}>
       <Head>
         <title>Rocket.Chat: Communications Platform You Can Fully Trust</title>
-        <meta name='description' content='Rocket.Chat is a Communications Platform You Can Fully Trust' />
-        <link rel='icon' href='/favicon.ico' />
+        <meta
+          name="description"
+          content="Rocket.Chat is a Communications Platform You Can Fully Trust"
+        />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Container
         fluid
-        className='d-flex flex-column align-items-center gap-3 gap-md-5'
+        className="d-flex flex-column align-items-center gap-3 gap-md-5"
       >
-        <Col className='d-flex flex-column align-items-center gap-2 py-5 mt-2'>
+        <Col className="d-flex flex-column align-items-center gap-2 py-5 mt-2">
           <h1
             className={`display-4 fw-bold text-center ${styles.hero_heading}`}
           >
@@ -31,26 +36,41 @@ function Home(props) {
           <p
             className={`fw-regular col-10 col-md-8 text-center ${styles.hero_subheading}`}
           >
-            Let's dream, share, and collaborate in shaping the future of the
-            Rocket.Chat ecosystem together
+            Let&apos;s dream, share, and collaborate in shaping the future of
+            the Rocket.Chat ecosystem together
           </p>
         </Col>
-        <Col className='mb-5 d-flex flex-column align-items-center'>
-          <h6 className='py-2 fs-6'> <a href={props?.guides?.data?.location} target="_blank">Read the Guides</a>  | <a href={props?.releaseNotes?.data?.location} target="_blank">Read Release Notes</a> </h6>
+        <Col className="mb-5 d-flex flex-column align-items-center">
+          <h6 className="py-2 fs-6">
+            {' '}
+            <a
+              href={props?.guides?.data?.location}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read the Guides
+            </a>{' '}
+            |{' '}
+            <a
+              href={props?.releaseNotes?.data?.location}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read Release Notes
+            </a>{' '}
+          </h6>
           <Searchbox></Searchbox>
         </Col>
         <Col>
           <Growthcounters></Growthcounters>
         </Col>
-        <Col className='my-5'>
+        <Col className="my-5">
           <div className={styles.infotiles}>
             <Infotiles data={INFOTILES_DATA} />
           </div>
         </Col>
 
-        <div
-          className={`d-flex flex-column py-5 ${styles.community_news}  `}
-        >
+        <div className={`d-flex flex-column py-5 ${styles.community_news}  `}>
           <h2 className={`mx-auto  w-auto pb-5 ${styles.title}`}>
             Latest Community News
           </h2>
@@ -61,8 +81,15 @@ function Home(props) {
           Get What You Need...
         </h2>
         <Personacircle personas={props.personas.data}></Personacircle>
+
+        <div className={` d-flex w-100 flex-column py-5 align-items-center`}>
+          <h2 className={`mx-auto w-auto m-2 ${styles.title}`}>
+            Community Activity
+          </h2>
+          <DiscourseTopicListTabs max={10} maxWidth={'900px'} tabs={props.discourseTabsData} />
+        </div>
       </Container>
-    </>
+    </DiscourseProvider>
   );
 }
 export default Home;
@@ -73,12 +100,36 @@ export async function getStaticProps({ params }) {
   const guides = await fetchAPI('/guide');
   const releaseNotes = await fetchAPI('/release-note');
   const topNavItems = await fetchAPI('/top-nav-item');
- 
+
+  let discourseTabsData = [];
+  if (process.env.NEXT_PUBLIC_DISCOURSE_HOST) {
+    const discourseClient = new DiscourseClient(process.env.NEXT_PUBLIC_DISCOURSE_HOST, {
+      /**
+       * Switch to false if using apiKey and apiUserName.
+       * Currently using only unauthenticated apis. So apiKey and apiUserName is not required
+       * */
+      isClient: true,
+    });
+    const topTopics = await discourseClient.getTopTopics()
+    const latestTopics = await discourseClient.getLatestTopics()
+    const solvedTopics = await discourseClient.getSolvedTopics()
+    const unsolvedTopics = await discourseClient.getUnsolvedTopics()
+    discourseTabsData = [{
+      variant: 'top',
+      data: topTopics,
+    }, {
+      variant: 'latest',
+      data: latestTopics,
+    }, {
+      variant: 'solved',
+      data: solvedTopics
+    }, {
+      variant: 'unsolved',
+      data: unsolvedTopics,
+    }];
+  }
+
   return {
-    props: { carousels, personas, guides, releaseNotes, topNavItems },
-    // Next.js will attempt to re-generate the page:
-    // - When a request comes in
-    // - At most once every 1 second
-    revalidate: 1,
+    props: { carousels, personas, guides, releaseNotes, topNavItems, discourseTabsData },
   };
 }
