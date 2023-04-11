@@ -8,6 +8,8 @@ import {
 import AvatarEditor from 'react-avatar-editor';
 import styles from '../../../styles/EventImage.module.css';
 import { useRef, useState } from "react";
+import { AiFillCamera } from "react-icons/ai";
+import { BsFillImageFill } from "react-icons/bs";
 import { RxCross1 } from "react-icons/rx";
 
 export const EventImage = ({ handleImageChange }) => {
@@ -146,6 +148,7 @@ export const EventImage = ({ handleImageChange }) => {
         <Row className={styles.eventUpload}>
           <Col className={`${showEventUplaod ? styles.showDiv : styles.hideDiv} ${styles.eventUploadOptions}`} lg={8}>
             <Form.Label style={headerLabelStyle} className={styles.eventUploadLabel}>
+              <AiFillCamera className={styles.eventUploadIcon} />
               <Form.Control
                 className={styles.eventUploadInput}
                 name="headerimage"
@@ -157,6 +160,7 @@ export const EventImage = ({ handleImageChange }) => {
           </Col>
           <Col className={`${showEventUplaod ? styles.showDiv : styles.hideDiv} ${styles.logoUploadOptions}`} >
             <Form.Label style={logoLabelStyle} className={styles.eventUploadLogo}>
+                <BsFillImageFill className={styles.eventUploadIconPic} />
                 <Form.Control
                   className={styles.eventUploadInput}
                   name="logoimage"
