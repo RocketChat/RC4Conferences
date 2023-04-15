@@ -22,6 +22,8 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
 
 
   const [formState, setFormState] = useState({
+    headerimage: "",
+    logoimage: "",
     name: "",
     description: "",
     "starts-at": new Date(),
@@ -138,6 +140,13 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
     }));
   };
 
+  const handleImageChange = (imageType, img) => {
+    setFormState((prev) => ({
+      ...prev,
+      [imageType]: img,
+    }));
+  }
+
   const handleSwitch = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -170,6 +179,7 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
               ticket={ticket}
               handleSwitch={handleSwitch}
               handlePublicSwitch={handlePublicSwitch}
+              handleImageChange={handleImageChange}
             />
             <ButtonGroup aria-label="Basic example">
               <Button variant="primary" type="submit">
