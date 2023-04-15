@@ -1,0 +1,155 @@
+.eventUpload {
+  padding: 0 12px;
+}
+
+.showDiv {
+  display: block;
+}
+
+.hideDiv {
+  display: none;
+}
+
+.slider {
+  width: 50%;
+  margin: 2% auto;
+}
+
+.eventUploadOptions {
+  padding: 0px;
+  position: relative;
+  aspect-ratio: 2/1;
+  background-color: #fff;
+  cursor: pointer;
+  overflow: hidden;
+  text-align: center;
+  transition: background-color ease-in-out 150ms;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+}
+
+.logoUploadOptions {
+  padding: 0px;
+  position: relative;
+  aspect-ratio: 1/1;
+  background-color: #fff;
+  cursor: pointer;
+  overflow: hidden;
+  text-align: center;
+  transition: background-color ease-in-out 150ms;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  margin-left: 12px;
+}
+
+.eventUploadLabel {
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  overflow: hidden
+}
+
+.eventUploadIcon{
+  position: absolute;
+  font-size: 2.5rem;
+  color: rgb(33, 27, 27);
+  margin: auto;
+  left: 50%;
+  z-index: 0;
+}
+
+.eventUploadInput {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.eventUploadLogo {
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-weight: 400;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  overflow: hidden
+}
+
+.eventUploadIconPic{
+  position: absolute;
+  font-size: 2.5rem;
+  color: rgb(33, 27, 27);
+  margin: auto;
+  left: calc(50% - 1.25rem);
+  z-index: 0;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 20;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.modal {
+  padding: 12px 12px 12px 12px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  position: absolute;
+  margin: auto;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  z-index: 30;
+  animation: slide-down 300ms ease-out forwards;
+}
+
+.buttonClass {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.outerCard {
+  border: 1px solid #c4bbbb;
+  border-radius: 8px;
+}
+
+.cross {
+  float: right;
+  align-items: right;
+  display: inline;
+  color: rgb(13, 10, 10);
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.showEventImage {
+  opacity: 1;
+}
+
+.eventImage {
+  transition: all 1s;
+}
+
+@media (max-width: 768px) {
+  .modal {
+    width: 80%;
+    margin: auto 10%;
+  }
+}
