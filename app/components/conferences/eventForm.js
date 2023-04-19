@@ -3,11 +3,13 @@ import {
   InputGroup,
   Toast,
 } from "react-bootstrap";
+import { EventImage } from "./display/EventImage";
 
-export const EventForm = ({ handleChange, intialValues, ticket , handleSwitch, handlePublicSwitch, isPublic }) => {
+export const EventForm = ({ handleChange, handleImageChange, intialValues, ticket , handleSwitch, handlePublicSwitch, isPublic }) => {
   
   return (
     <>
+      <EventImage intialValues={intialValues} handleImageChange={handleImageChange} />
       <Form.Group className="mb-3">
         <Form.Label>Event name*</Form.Label>
         <Form.Control

@@ -17,9 +17,10 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { deleteSponsor, editEvent, getSponsorsDetails, publishSponsor, updateSponsor } from "../../../lib/conferences/eventCall";
 import styles from "../../../styles/event.module.css";
+import toast, { Toaster } from 'react-hot-toast';
 
 
-export const SponsorForm = ({ event, handleToast }) => {
+export const SponsorForm = ({ event }) => {
 
     const router = useRouter()
     const [sponsors, setSponsors] = useState([])
@@ -122,8 +123,9 @@ export const SponsorForm = ({ event, handleToast }) => {
             sponsors.map((value) => {
                 updateSponsor({data : value},token);
             })
-
-            handleToast({ show: true, msg: "Sponsor Updated Successfully" })
+            toast.success('Sponsor Updated Successfully', {
+                duration: 2000,
+            });
             router.push(`/conferences/admin/c/${event.data.id}/sessions`)
         } catch (error) {
             console.log("Error in updating sponsors",error)   
@@ -181,6 +183,7 @@ export const SponsorForm = ({ event, handleToast }) => {
     }, [])
 
     return (
+    <>
         <div className="m-3">
             <Stack className={styles.speaker_add_btn}>
                 <Button onClick={() => { setModalShow(true) }}>Add Sponsors</Button>
@@ -212,7 +215,7 @@ export const SponsorForm = ({ event, handleToast }) => {
               }
             </ButtonGroup>
         </div>
-    );
+    </>);
 };
 
 const SponsorList = (props) => {

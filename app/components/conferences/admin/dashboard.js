@@ -8,6 +8,7 @@ import {
   getUserEventDeatils,
 } from "../../../lib/conferences/eventCall";
 import styles from "../../../styles/event.module.css";
+import toast, { Toaster } from 'react-hot-toast';
 
 export const EventDashBoard = () => {
   const [eventData, setEventData] = useState(null);
@@ -39,13 +40,21 @@ export const EventDashBoard = () => {
         authCookie.jwtInfo.identity,
         authCookie.access_token
       );
+      toast.success('Event deleted successfully',{
+        duration:2000
+      })
       setEventData(eventres.data);
+      
+
     } catch (e) {
-      console.error("An error occurred while deleting the Event", e);
+      toast.error("An error occurred while deleting the Event",{
+        duration:2000
+      });
     }
   };
 
   return (
+    <> 
     <ListGroup className={styles.admin_event_list}>
       {eventData?.data &&
         eventData.data.map((event) => {
@@ -69,5 +78,6 @@ export const EventDashBoard = () => {
           );
         })}
     </ListGroup>
+    </>
   );
 };

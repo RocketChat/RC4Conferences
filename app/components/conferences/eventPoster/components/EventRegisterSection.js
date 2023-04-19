@@ -1,21 +1,17 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 import {
   Alert,
   Badge,
   Button,
-  ButtonGroup,
-  Card,
   Container,
   Modal,
   Nav,
   Navbar,
-} from "react-bootstrap";
-import styles from "../../../styles/event.module.css";
-import { BiError } from "react-icons/bi";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import Cookies from "js-cookie";
-import { unsignCook } from "../../../lib/conferences/eventCall";
+} from 'react-bootstrap';
+import styles from '../styles/index.module.css';
+import { BiError } from 'react-icons/bi';
+import { useRouter } from 'next/router';
+import EventStrip from './EventStrip';
 
 const detectElement = (options) => {
   const containerRef = useRef(null);
@@ -38,19 +34,19 @@ const detectElement = (options) => {
   return [containerRef, inView];
 };
 
-export const EventTicket = ({ tktDetail, event, error }) => {
+export const EventTicket = ({ tktDetail, event, error, customLink }) => {
   const [containerRef, inView] = detectElement({
     root: null,
-    rootMargin: "0px 0px 100% 0px",
-    threshold: 0.7,
+    rootMargin: '0px 0px 100% 0px',
+    threshold: 0.1,
   });
 
   const [open, setOpen] = useState(false);
 
   const errMessHelper = {
     0: "The User Email doesn't have the Speaker/Admin rights, please contact the event organizer for rights.",
-    1: "It seems there is an issue with your login, please logout and signin then try again!",
-    2: "Looks like you are not logged in, please login and try again!",
+    1: 'It seems there is an issue with your login, please logout and signin then try again!',
+    2: 'Looks like you are not logged in, please login and try again!',
   };
   const [err, setErr] = useState(errMessHelper[2]);
   const [alertOp, setAlertOp] = useState(false);
@@ -73,13 +69,14 @@ export const EventTicket = ({ tktDetail, event, error }) => {
 
   return (
     <>
-      <InNav
-        brand={tktName}
-        price={tktPrice}
-        handleJoin={handleJoin}
+      <EventStrip
+        event={event.data}
+        ticket={tktDetail}
         containerRef={containerRef}
+        handleJoin={handleJoin}
         showMainstage={showMainstage}
         eid={eid}
+        customLink={customLink}
       />
       {!inView && (
         <TopNav
@@ -88,6 +85,7 @@ export const EventTicket = ({ tktDetail, event, error }) => {
           handleJoin={handleJoin}
           showMainstage={showMainstage}
           eid={eid}
+          customLink={customLink}
         />
       )}
       <JoinModal
@@ -109,25 +107,29 @@ const InNav = ({
   containerRef,
   showMainstage,
   eid,
+  customLink,
 }) => {
   return (
     <Navbar
       ref={containerRef}
-      className={styles.event_ticket_nav}
+      className={styles.event_ticket_innav}
       variant="dark"
     >
       <Container>
         <Navbar.Brand>
-          {brand}{" "}
-          <Badge as={"span"} pill bg="light" text="secondary">
-            {price ? price : "Free"}
+          {brand}{' '}
+          <Badge as={'span'} pill bg="light" text="secondary">
+            {price ? price : 'Free'}
           </Badge>
         </Navbar.Brand>
         <Nav className="me-auto"></Nav>
         {showMainstage ? (
           <Button onClick={handleJoin}>Join</Button>
         ) : (
-          <Button href={`/conferences/greenroom/${eid}`} target="_blank">
+          <Button
+            href={customLink || `/conferences/greenroom/${eid}`}
+            target="_blank"
+          >
             Join
           </Button>
         )}
@@ -136,14 +138,21 @@ const InNav = ({
   );
 };
 
-const TopNav = ({ brand, price, handleJoin, showMainstage, eid }) => {
+const TopNav = ({
+  brand,
+  price,
+  handleJoin,
+  showMainstage,
+  eid,
+  customLink,
+}) => {
   return (
-    <Navbar fixed={"top"} className={styles.event_ticket_nav} variant="dark">
+    <Navbar fixed={'bottom'} className={styles.event_ticket_nav} variant="dark">
       <Container>
-        <Navbar.Brand>
-          {brand}{" "}
-          <Badge as={"span"} pill bg="light" text="secondary">
-            {price ? price : "Free"}
+        <Navbar.Brand style={{ fontSize: 'inherit', fontFamily: 'monospace' }}>
+          {brand}{' '}
+          <Badge as={'span'} pill bg="light" text="secondary">
+            {price ? price : 'Free'}
           </Badge>
         </Navbar.Brand>
         <Nav className="me-auto"></Nav>
@@ -151,12 +160,18 @@ const TopNav = ({ brand, price, handleJoin, showMainstage, eid }) => {
         <Button>Join</Button>
         </Link> */}
         {showMainstage ? (
-          <Button onClick={handleJoin}>Join</Button>
-        ) : (
-          <Button href={`/conferences/greenroom/${eid}`} target="_blank">
+          <Button size="sm" onClick={handleJoin}>
             Join
           </Button>
-        )}{" "}
+        ) : (
+          <Button
+            size="sm"
+            href={customLink || `/conferences/greenroom/${eid}`}
+            target="_blank"
+          >
+            Join (BBB)
+          </Button>
+        )}{' '}
       </Container>
     </Navbar>
   );
@@ -172,50 +187,44 @@ const JoinModal = ({ open, handleClose, event, alertOp, setAlertOp, err }) => {
   useEffect(() => {
     const checkSignedIn = async () => {
       try {
-        const hashmail = Cookies.get("hashmail");
+        const isSignedIn = await isSignedIn();
 
-        const res = await unsignCook({ hash: hashmail });
-        const mail = res.mail;
-
-        const emailRegex =
-          /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-
-        if (emailRegex.test(mail)) {
+        if (isSignedIn) {
           setIsSignedIn(true);
         }
       } catch (e) {
-        console.error("An error while verifying admin access", e);
+        console.error('An error while verifying admin access', e);
       }
     };
     try {
-      if (event.data.attributes.privacy === "private") {
+      if (event.data.attributes.privacy === 'private') {
         checkSignedIn();
       } else {
         setIsSignedIn(true);
       }
     } catch (e) {
       console.error(
-        "An error occurred while whitelisting the event as public",
+        'An error occurred while whitelisting the event as public',
         e
       );
     }
   });
 
   const handleRedirect = (location) => {
-    if (typeof window != "undefined") {
-      window.open(location, "_blank");
+    if (typeof window != 'undefined') {
+      window.open(location, '_blank');
     }
   };
 
   return (
     <Modal show={open} onHide={handleClose} backdrop="static">
       <Modal.Header>
-        <Modal.Title>Join, {eventName ? eventName : "Event"}</Modal.Title>
+        <Modal.Title>Join, {eventName ? eventName : 'Event'}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className={styles.join_modal_button}>
           <Button
-            name={"greenroom"}
+            name={'greenroom'}
             onClick={() => handleRedirect(`/conferences/greenroom/${eventId}`)}
             disabled={!isSignedIn}
           >
@@ -225,14 +234,14 @@ const JoinModal = ({ open, handleClose, event, alertOp, setAlertOp, err }) => {
           <Button
             disabled={!isSignedIn}
             onClick={() => handleRedirect(`/conferences/mainstage/${eventId}`)}
-            name={"mainstage"}
+            name={'mainstage'}
           >
             Join as a Attendee
           </Button>
         </div>
         <Alert
           className="mt-3"
-          variant={"danger"}
+          variant={'danger'}
           show={!isSignedIn || alertOp}
         >
           {<BiError />} {err}
