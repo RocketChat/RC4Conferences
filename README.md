@@ -6,6 +6,10 @@ Rocket Chat for Virtual Conferences a.k.a __RC4Confernces__ (in short) is a set 
 
 Got questions? Or want to discuss any idea for the project, feel free to drop by and say "Hi": [Rocket.Chat](https://open.rocket.chat/direct/evan.shu), [Gmail](mailto:sdevanshu90@gmail.com)
 
+<a href="https://github.com/monoclehq">
+    <img src="https://open-source-assets.middlewarehq.com/svgs/RocketChat-RC4Conferences-contributor-metrics-dark-widget.svg"/>
+</a>
+
 ## Table of Contents
 
 - [ Installation](#installation)
