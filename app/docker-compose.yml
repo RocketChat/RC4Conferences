@@ -9,6 +9,11 @@ services:
         container_name: rc4conf
         restart: unless-stopped
         working_dir: /app
+        volumes:
+          - ./pages:/app/pages
+          - ./public:/app/public
+          - ./styles:/app/styles
+          - ./components:/app/components
         networks:
           - spnet
           - oesnet
