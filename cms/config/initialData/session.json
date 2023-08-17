@@ -2,197 +2,149 @@
   {
     "id": 1,
     "Event": "GSoC Demo Day",
-    "Start": "2022-08-31T14:30:00.000Z",
-    "End": "2022-08-31T14:40:00.000Z",
-    "Title": "Welcome to Rocket.Chat GSOC Demo Day 2022!",
+    "Start": "2023-08-24T11:00:00.000Z",
+    "End": "2023-08-24T11:20:00.000Z",
+    "Title": "Welcome to Rocket.Chat GSOC Demo Day 2023!",
     "Mentor": "",
     "Description": "Let's welcome all participants, contributors and Mentor!",
     "Speaker": "Gabriel Engel & Rodrigo Nascimento",
-    "Duration": 10,
-    "Youtube": "https://youtu.be/UkPzcJ20aJM"
+    "Duration": 20,
+    "Youtube": null
   },
   {
     "id": 2,
     "Event": "GSoC Demo Day",
-    "Start": "2022-08-31T14:40:00.000Z",
-    "End": "2022-08-31T15:00:00.000Z",
-    "Title": "Standalone Desktop Messaging cross-platforms Applet",
-    "Mentor": "Jean Brito, Gabriel Casals",
-    "Description": "Create a simpler desktop application where there is a simple channels list on a little window and each chat will open in another separated window, making it possible to talk with people without opening a big window. Making the usage of Rocket.chat more seamless.",
-    "Speaker": "Ahmed Ibrahim",
+    "Start": "2023-08-24T11:20:00.000Z",
+    "End": "2023-08-24T11:40:00.000Z",
+    "Title": "Scaled Botpress Connector",
+    "Mentor": "Duda Nogueira, Yash Rajpal",
+    "Description": "Join us for an exciting session where we will showcase the new botpress connector app for Rocket.Chat, an open-source chat platform that lets you create your own chatbots and integrations.",
+    "Speaker": "Shubham Bhardwaj",
     "Duration": 20,
-    "Youtube": "https://youtu.be/9GV2mkiyoBk"
+    "Youtube": null
   },
   {
     "id": 3,
     "Event": "GSoC Demo Day",
-    "Start": "2022-08-31T15:00:00.000Z",
-    "End": "2022-08-31T15:20:00.000Z",
-    "Speaker": "Danish Ahmed Mirza",
-    "Title": "New Emoji Picker for Mobile Client",
-    "Mentor": "Diego Mello, Daniel Silva",
-    "Description": "Action sheets are a very common UX pattern which are used to interact with quick actions and can be found in almost every mobile app nowadays. There are already multiple places where Bottom Action Sheets are used in Rocket.Chat app like the message actions menu. The main goal of the project is to redesign and add more features to the existing Emoji Picker, Reactions List and the other components, improving the overall user experience and then render them as Bottom Action Sheet.",
+    "Start": "2023-08-24T11:40:00.000Z",
+    "End": "2023-08-24T12:00:00.000Z",
+    "Speaker": "Vinayak Sharma",
+    "Title": "Whiteboard Integration",
+    "Mentor": "Shiqi Mei, Douglas Gubert",
+    "Description": "Do you want to enhance your team collaboration with whiteboards and visual drawing? If so, you will love our new Rocket.Chat App that integrates Markboard, an open-source whiteboard created by a Rocket.Chat GSoC alumni. Markboard is built on the same technology stack as Rocket.Chat, and it allows you to create and share concepts, diagrams, sketches, and more with your team members. In this session, you will learn how to install and use the app, how it extends Rocket.Chat’s team collaboration features, and what challenges and outcomes the project faced. You will also see some live demos of the app in action and interact with our project team. Don’t miss this opportunity to discover how Markboard can transform your team collaboration with Rocket.Chat!",
     "Duration": 20,
-    "Youtube": "https://youtu.be/m2f7KsN28n4"
+    "Youtube": null
   },
   {
     "id": 4,
     "Event": "GSoC Demo Day",
-    "Start": "2022-08-31T18:00:00.000Z",
-    "End": "2022-08-31T18:20:00.000Z",
-    "Speaker": "Devanshu",
-    "Title": "Rocket.Chat for Virtual Conferences",
-    "Mentor": "Sing Li & Marcos Defendi",
-    "Description": "An open source scaled virtual conferences creation, management, and operation system. It aims to enable online communities to easily run and host virtual events of any size. The system is designed to be flexibily customizable and fully scalable from day one, extending contemporary ReactJS components with full stack behaviors, powered by NextJS. This project leverages FOSS Asia's excellent open source Event-yay server backend for conference creation and management. For day of conference operations, this project leverage open source Jitsi video's broadcast capability to an RTMP-forest for scaled consumption while embedded  Rocket.Chat enables attendees and speakers to mingle and collaborate freely – with full persistent chat history.",
+    "Start": "2023-08-24T12:00:00.000Z",
+    "End": "2023-08-24T12:20:00.000Z",
+    "Speaker": "Vivek Srivastava",
+    "Title": "UiKit Playground 2.0",
+    "Mentor": "Douglas Fabris, Guilherme Gazzo",
+    "Description": "Are you interested in creating new UI elements for Rocket.Chat, the open-source chat platform? If so, you will enjoy our session on Rocket.Chat UiKit, the protocol/tool that allows Rocket.Chat apps to add new web and mobile elements to the current UI. Rocket.Chat UiKit is a powerful and flexible way to customize and extend your chat experience with Rocket.Chat. In this session, you will learn how to use the UiKit Playground, a tool that lets you visualize and test the main functionalities of the UiKit. You will also learn how to add other features that improve and encourage the development of apps, such as templates, workflows simulation, connecting to a workspace, and sending/sharing the prototypes through Rocket.Chat. You will also see some live demos of the UiKit in action and interact with our project team. Don’t miss this opportunity to discover how Rocket.Chat UiKit can help you create amazing UI elements for your chat apps!",
     "Duration": 20,
-    "Youtube": "https://youtu.be/lFICpi25JeE"
+    "Youtube": null
   },
   {
     "id": 5,
     "Event": "GSoC Demo Day",
-    "Start": "2022-08-31T15:20:00.000Z",
-    "End": "2022-08-31T15:40:00.000Z",
+    "Start": "2023-08-24T12:20:00.000Z",
+    "End": "2023-08-24T12:40:00.000Z",
     "Speaker": "",
     "Title": "20 minutes Break",
     "Mentor": "",
     "Description": "",
     "Duration": 20,
-    "Youtube": "https://youtu.be/UkPzcJ20aJM"
+    "Youtube": null
   },
   {
     "id": 6,
     "Event": "GSoC Demo Day",
-    "Start": "2022-08-31T16:00:00.000Z",
-    "End": "2022-08-31T16:20:00.000Z",
-    "Speaker": "Irfan Asif",
-    "Title": "Rocket.Chat Figma App",
-    "Mentor": "Douglas Gubert, Ivan Netto & Alvaro Mello",
-    "Description": "This project will help designers to connect with Figma directly from Rocket.Chat. Design teams will be able to receive notifications from Figma in their channels and manage their designs systems in an efficient way.",
+    "Start": "2023-08-24T12:40:00.000Z",
+    "End": "2023-08-24T13:00:00.000Z",
+    "Speaker": "Nabhag Motivaras",
+    "Title": "Integrate Notion via RC App",
+    "Mentor": "Samad Yar Khan, Bárbara Zanella",
+    "Description": "In this presentation, you'll gain insights into the development of a unique integration that allows for seamless interaction between Rocket.Chat and Notion. Imagine the power of creating pages and receiving notifications, all without stepping out of Rocket.Chat's ecosystem.",
     "Duration": 20,
-    "Youtube": "https://youtu.be/b0ctQMvGVK8"
+    "Youtube": null
   },
   {
     "id": 7,
     "Event": "GSoC Demo Day",
-    "Start": "2022-08-31T16:20:00.000Z",
-    "End": "2022-08-31T16:40:00.000Z",
-    "Speaker": "Mustafa Hasan Khan",
-    "Title": "ClickUp App for Rocket.Chat",
-    "Mentor": "Douglas Gubert & Allan Ribeiro",
-    "Description": "ClickUp is the #1 task/project management platform, even used by the Rocket.Chat team and many other teams that collaborate on Rocket.Chat",
+    "Start": "2023-08-24T13:00:00.000Z",
+    "End": "2023-08-24T13:20:00.000Z",
+    "Speaker": "Mohd Sameer",
+    "Title": "Miro App for Rocket.Chat",
+    "Mentor": "Mustafa Hasan Khan, Rafael Tapia",
+    "Description": "Unleash your creativity as we explore the synergy between Rocket.Chat and Miro, opening doors to efficient idea sharing and visual collaboration. Don't miss out on this opportunity to witness firsthand how the Miro App transforms the way you work together. Join us and embark on a journey to boost productivity and engagement in your collaborative projects.",
     "Duration": 20,
-    "Youtube": "https://youtu.be/bRsUmHh8Qfo"
+    "Youtube": null
   },
   {
     "id": 8,
     "Event": "GSoC Demo Day",
-    "Start": "2022-08-31T16:40:00.000Z",
-    "End": "2022-08-31T17:00:00.000Z",
-    "Speaker": "Nishant Patel",
-    "Title": "Message Forwarding (For Rocket.Chat)",
-    "Mentor": "Douglas Fabris & Milton Rucks",
-    "Description": "This project implements the ability to forward messages to another channel, thread, or discussion. It significantly improves the user's experience and their productivity.",
+    "Start": "2023-08-24T13:20:00.000Z",
+    "End": "2023-08-24T13:40:00.000Z",
+    "Speaker": "Aditya Singh",
+    "Title": "Guided RC Code Walkthrough and Tutorial",
+    "Mentor": "Kevin Aleman, Sing Li",
+    "Description": "This project Project uses VS code's Code tour extension which helps us to create step by step tours Let's say if developer wants to know how a message is sent, they may install the extension and start the tour and the tour would traverse through multiple files and folders and guide users how things are happening.",
     "Duration": 20,
-    "Youtube": "https://youtu.be/CMtyC1UlZ80"
+    "Youtube": null
   },
   {
     "id": 9,
     "Event": "GSoC Demo Day",
-    "Start": "2022-08-31T17:00:00.000Z",
-    "End": "2022-08-31T17:20:00.000Z",
-    "Speaker": "Samad Khan",
-    "Title": "Rocket.Chat GitHub App",
-    "Mentor": "Rohan Lekhwani & Sing Li",
-    "Description": "The GitHub App is a GitHub Integration for Rocket.Chat which will enable developers to perform GitHub actions right from Rocket.Chat channels. It enable users to fetch repository data, subscribe to repository events, open new issues, search GitHub for issues and pull requests, review and merge pull request and do much more right from Rocket.Chat. The GitHub App seamlessly integrates GitHub functionalities with Rocket.Chat and improves the collaboration between developers.",
+    "Start": "2023-08-24T13:40:00.000Z",
+    "End": "2023-08-24T14:00:00.000Z",
+    "Speaker": "Disha Bhardwaj",
+    "Title": "Introduce Captcha to Livechat Widget",
+    "Mentor": "Murtaza Patrawala, Renato Becker, Kevin Aleman",
+    "Description": "Join us for a quick session unveiling the triumph against spam messages. Witness how RocketChat's live chat widget now stands fortified with CAPTCHA, ensuring human interactions and elevating user experience. Say goodbye to spam and hello to secure and seamless conversations. Be there to witness the evolution!",
     "Duration": 20,
-    "Youtube": "https://youtu.be/RsHfbliOwgY"
+    "Youtube": null
   },
   {
     "id": 10,
     "Event": "GSoC Demo Day",
-    "Start": "2022-08-31T17:20:00.000Z",
-    "End": "2022-08-31T17:40:00.000Z",
+    "Start": "2023-08-24T14:00:00.000Z",
+    "End": "2023-08-24T14:20:00.000Z",
     "Speaker": "",
     "Title": "20 minutes Break",
     "Mentor": "",
     "Description": "",
     "Duration": 20,
-    "Youtube": "https://youtu.be/UkPzcJ20aJM"
+    "Youtube": null
   },
   {
     "id": 11,
     "Event": "GSoC Demo Day",
-    "Start": "2022-08-31T15:40:00.000Z",
-    "End": "2022-08-31T16:00:00.000Z",
-    "Speaker": "Sangyul Cha",
-    "Title": "Botpress Connector Enhancements",
-    "Mentor": "Frank Dase & Duda Nogueira",
-    "Description": "This project extends a existing community-contributed Botpress connector to facilitate deployment of Botpress chatbots and Omnichannel bots. Better rich UI/UX / interaction support for bots and ability to run multiple instances of multiple bots.",
+    "Start": "2023-08-24T14:20:00.000Z",
+    "End": "2023-08-24T14:40:00.000Z",
+    "Speaker": "M. Palanikannan",
+    "Title": "Google Summer of Code Community Hub",
+    "Mentor": "Dhruv Jain, Devanshu, Hugo Costa",
+    "Description": "Join us for an exciting session, presenting the Full-stack components, which can be leveraged to build a scalable, flexible GSoC Community Hub",
     "Duration": 20,
-    "Youtube": "https://youtu.be/nuCdLnhiW_0"
+    "Youtube": null
   },
   {
     "id": 12,
     "Event": "GSoC Demo Day",
-    "Start": "2022-08-31T17:40:00.000Z",
-    "End": "2022-08-31T18:00:00.000Z",
-    "Speaker": "Sidharth Mohanty",
-    "Title": "Embedded Chat Component",
-    "Mentor": "Rohan Lekhwani",
-    "Description": "EmbeddedChat allows users to integrate RocketChat into their React web-based applications easily also providing an amazing developer experience while introducing in-app chat solutions.",
-    "Duration": 20,
-    "Youtube": "https://youtu.be/gcB5c6cvg9w"
-  },
-  {
-    "id": 13,
-    "Event": "GSoC Demo Day",
-    "Start": "2022-08-31T18:20:00.000Z",
-    "End": "2022-08-31T18:40:00.000Z",
-    "Speaker": "Sitaram Rathi",
-    "Title": "Rocket.Chat Terminal User Interface",
-    "Mentor": "Aaron Ogle & Debdut Chakraborty",
-    "Description": "Rocket Chat right now is present as a web, app and desktop client. I've expanded rocket chat to a fourth platform right into the terminal of user by developing it's Terminal User Interface. It has all the basic functionalities of login using email and access token, sending and receiving messages in realtime, lisitng and navigating in channels and DMs, slash commands, @ mentioning still adding more in it.",
-    "Duration": 20,
-    "Youtube": "https://youtu.be/n7tdkNhivtY"
-  },
-  {
-    "id": 14,
-    "Event": "GSoC Demo Day",
-    "Start": "2022-08-31T18:40:00.000Z",
-    "End": "2022-08-31T19:00:00.000Z",
-    "Speaker": "Vivek Srivastava",
-    "Title": "Playground for UIKit ReactJS components",
-    "Mentor": "Martin Schoeler & Guilherme Gazzo",
-    "Description": "Playground is an application that lets developers test different components and aspects of a Fuselage UI kit without having to set up a server and go through all the motions to test it. It will also allow developers to generate code used by Rocket.Chat apps and edit the content to preview the result.",
-    "Duration": 20,
-    "Youtube": "https://youtu.be/Nis5gAw5aZ4"
-  },
-  {
-    "id": 15,
-    "Event": "GSoC Demo Day",
-    "Start": "2022-08-31T19:00:00.000Z",
-    "End": "2022-08-31T19:20:00.000Z",
-    "Speaker": "Yuqing",
-    "Title": "Rocket.Chat - Teams Bridge: interop with Microsoft Teams",
-    "Mentor": "Gabriel Engel, Yash Rajpal & Fábio Albuquerque",
-    "Description": "TeamsBridge is a Rocket.Chat App to support cross-platform collaboration between Rocket.Chat and Microsoft Teams.",
-    "Duration": 20,
-    "Youtube": "https://youtu.be/SFS9dLsMDWI"
-  },
-  {
-    "id": 16,
-    "Event": "GSoC Demo Day",
-    "Start": "2022-08-31T19:20:00.000Z",
-    "End": "2022-08-31T19:23:00.000Z",
-    "Speaker": "Rocketeers",
+    "Start": "2023-08-24T14:40:00.000Z",
+    "End": "2023-08-24T14:45:00.000Z",
+    "Speaker": "Rocketeers ",
     "Title": "Closing Notes",
     "Mentor": "",
     "Description": "",
-    "Duration": 3,
-    "Youtube": "https://youtu.be/Bgz2bfxot8w"
+    "Duration": 5,
+    "Youtube": null
   },
   {
-    "id": 17,
+    "id": 13,
     "Event": "GSoC Alumni Summit 2023",
     "Start": "2023-03-30T06:00:00-04:00",
     "End": "2023-03-30T06:20:00-04:00",
@@ -203,7 +155,7 @@
     "Youtube": null
   },
   {
-    "id": 18,
+    "id": 14,
     "Event": "GSoC Alumni Summit 2023",
     "Start": "2023-03-30T06:20:00-04:00",
     "End": "2023-03-30T06:40:00-04:00",
@@ -214,7 +166,7 @@
     "Youtube": null
   },
   {
-    "id": 19,
+    "id": 15,
     "Event": "GSoC Alumni Summit 2023",
     "Start": "2023-03-30T06:40:00-04:00",
     "End": "2023-03-30T07:00:00-04:00",
@@ -225,7 +177,7 @@
     "Youtube": null
   },
   {
-    "id": 20,
+    "id": 16,
     "Event": "GSoC Alumni Summit 2023",
     "Start": "2023-03-30T07:00:00-04:00",
     "End": "2023-03-30T07:20:00-04:00",
@@ -236,7 +188,7 @@
     "Youtube": null
   },
   {
-    "id": 21,
+    "id": 17,
     "Event": "GSoC Alumni Summit 2023",
     "Start": "2023-03-30T07:20:00-04:00",
     "End": "2023-03-30T07:50:00-04:00",
@@ -247,7 +199,7 @@
     "Youtube": null
   },
   {
-    "id": 22,
+    "id": 18,
     "Event": "GSoC Alumni Summit 2023",
     "Start": "2023-03-30T07:50:00-04:00",
     "End": "2023-03-30T08:10:00-04:00",
@@ -258,7 +210,7 @@
     "Youtube": null
   },
   {
-    "id": 23,
+    "id": 19,
     "Event": "GSoC Alumni Summit 2023",
     "Start": "2023-03-30T08:10:00-04:00",
     "End": "2023-03-30T08:30:00-04:00",
@@ -269,7 +221,7 @@
     "Youtube": null
   },
   {
-    "id": 24,
+    "id": 20,
     "Event": "GSoC Alumni Summit 2023",
     "Start": "2023-03-30T08:30:00-04:00",
     "End": "2023-03-30T08:50:00-04:00",
@@ -280,7 +232,7 @@
     "Youtube": null
   },
   {
-    "id": 25,
+    "id": 21,
     "Event": "GSoC Alumni Summit 2023",
     "Start": "2023-03-30T08:50:00-04:00",
     "End": "2023-03-30T09:10:00-04:00",
@@ -291,7 +243,7 @@
     "Youtube": null
   },
   {
-    "id": 26,
+    "id": 22,
     "Event": "GSoC Alumni Summit 2023",
     "Start": "2023-03-30T09:10:00-04:00",
     "End": "2023-03-30T09:20:00-04:00",
@@ -302,7 +254,7 @@
     "Youtube": null
   },
   {
-    "id": 27,
+    "id": 23,
     "Event": "GSoC Alumni Summit 2023",
     "Start": "2023-03-30T09:20:00-04:00",
     "End": "2023-03-30T09:30:00-04:00",
