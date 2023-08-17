@@ -128,6 +128,7 @@ export const SmEventSpeaker = ({ eid, speaker }) => {
 };
 
 export const MdEventSpeaker = ({ eid, speaker }) => {
+  console.log("speaker is", speaker)
   const [open, setOpen] = useState({});
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
