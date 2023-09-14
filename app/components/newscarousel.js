@@ -94,12 +94,12 @@ function Newscarousel(props) {
             },
           },
         ]}
-        prevArrow={<PrevArrow />}
-        nextArrow={<NextArrow />}
-      >
+        >
+        <PrevArrow />
         {props.carousels.map((item, i) => (
           <Item key={i} item={item} />
-        ))}
+          ))}
+          <NextArrow />
       </Slider>
     </>
   );
