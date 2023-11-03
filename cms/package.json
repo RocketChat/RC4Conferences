@@ -14,7 +14,7 @@
     "@octokit/core": "^3.5.1",
     "@strapi/plugin-i18n": "4.1.11",
     "@strapi/plugin-users-permissions": "4.1.11",
-    "@strapi/strapi": "4.1.11",
+    "@strapi/strapi": "4.13.1",
     "axios": "^0.27.2",
     "sqlite3": "^5.0.8"
   },
