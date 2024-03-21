@@ -1,10 +1,10 @@
-import { useMediaQueries, useMediaQuery } from '@rocket.chat/fuselage-hooks';
 import { Col, Container, Image, Row, Stack } from 'react-bootstrap';
 import styles from '../styles/index.module.css';
 import { EventTicket } from './EventRegisterSection';
 import { BsCalendar2Event, BsInfoCircle } from 'react-icons/bs';
 import { GoLocation } from 'react-icons/go';
 import EventStrip from './EventStrip';
+import useMediaQuery from '../../useMediaQuery';
 
 export const SmEventHeader = ({ event, error, customLink }) => {
   const isSmallScreen = useMediaQuery('(max-width: 576px)');

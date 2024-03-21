@@ -16,10 +16,10 @@ import {
 import styles from '../styles/index.module.css';
 
 import { MdEventSpeaker, SmEventSpeaker } from './EventSpeaker';
-import { useMediaQuery } from '@rocket.chat/fuselage-hooks';
 import { MdEventHeader, SmEventHeader } from './EventHeader';
 
 import { BsYoutube } from 'react-icons/bs';
+import useMediaQuery from '../../useMediaQuery';
 
 const EventShow = ({ event, error, speaker, prsession, customLink }) => {
   let urlHash = '';
@@ -36,7 +36,6 @@ const EventShow = ({ event, error, speaker, prsession, customLink }) => {
 
   const isSmallScreen = useMediaQuery('(max-width: 576px)');
 
-  const isMdScreen = useMediaQuery('(min-width: 768px)');
 
   return (
     <>

@@ -64,8 +64,10 @@ export const EventTicket = ({ tktDetail, event, error, customLink }) => {
     setOpen(!open);
   };
 
-  const showMainstage = event?.data?.attributes.is_videoroom_enabled;
+  const showMainstage = event?.data?.attributes['is-videoroom-enabled'];
   const eid = event?.data?.attributes.identifier;
+
+  console.log('showMainstage', showMainstage);
 
   return (
     <>
@@ -169,7 +171,7 @@ const TopNav = ({
             href={customLink || `/conferences/greenroom/${eid}`}
             target="_blank"
           >
-            Join (BBB)
+            Join
           </Button>
         )}{' '}
       </Container>
