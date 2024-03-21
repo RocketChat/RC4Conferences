@@ -21,7 +21,7 @@ function Layout(props) {
           style={{ textDecoration: 'none', color: 'white' }}
         >
           <h6>
-            📢 Join our GSoC'23 Alumni Summit at{' '}
+            📢 Join our GSoC'24 Alumni Summit at{' '}
             {new Date('2023-03-30T06:00:00-04:00').toLocaleString('en-GB', {
               day: '2-digit',
               month: '2-digit',
