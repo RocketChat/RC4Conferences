@@ -171,7 +171,7 @@ jobs:
         env:
           {
             NEXT_PUBLIC_STRAPI_API_URL: "http://localhost:1337",
-            NEXT_PUBLIC_EVENT_BACKEND_URL: "http://conf.rceng.shop:8090",
+            NEXT_PUBLIC_EVENT_BACKEND_URL: "https://8188-49-43-26-241.ngrok-free.app",
             NEXT_PUBLIC_DISCOURSE_HOST: "https://forums.rocket.chat",
             DISCOURSE_HOST: "https://forums.rocket.chat",
           }
