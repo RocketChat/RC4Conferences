@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.9",
+    "@embeddedchat/react": "^0.1.12",
     "@jitsi/react-sdk": "^1.0.0",
     "@jitsi/web-sdk": "^0.2.0",
     "@rocket.chat/fuselage": "^0.31.3",
@@ -36,7 +37,6 @@
     "next-auth": "^4.2.1",
     "next-firebase-auth": "^1.0.0-canary.5",
     "node-sass": "^7.0.1",
-    "rc-component-react": "github:RocketChat/EmbeddedChat",
     "react": "^17.0.2",
     "react-avatar-editor": "^13.0.0",
     "react-bootstrap": "^2.1.0",
