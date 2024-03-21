@@ -9,7 +9,7 @@ import {
 } from '../../../lib/conferences/eventCall';
 import { fetchAPI } from '../../../lib/api';
 import { EventPoster } from '../../../components/conferences/eventPoster/components';
-import { AdvtButtons } from "../../../components/conferences/dayOfEvent/AdvtTool";
+import { AdvtButtons } from '../../../components/conferences/dayOfEvent/AdvtTool';
 
 function EventDisplayPage({ event, spkdata, prsession }) {
   const router = useRouter();
@@ -19,10 +19,16 @@ function EventDisplayPage({ event, spkdata, prsession }) {
     <div>
       <Head>
         <title>{eventname ? eventname : 'Event Poster'}</title>
-        <meta name="description" content="Rocket.Chat GSoC 2023 Alumni Summit, March 30th" />
+        <meta
+          name="description"
+          content="Rocket.Chat GSoC 2024 Alumni Summit, March 25th"
+        />
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta property="og:image" content="https://github.com/RocketChat/RC4Conferences/blob/main/app/assets/gsoc_alumni_2023.png?raw=true" />
+        <meta
+          property="og:image"
+          content="https://github.com/RocketChat/RC4Conferences/blob/main/app/assets/alumni_summit_2024.png?raw=true"
+        />
       </Head>
       <div className="mx-auto">
         <Stack direction="vertical">
@@ -34,8 +40,7 @@ function EventDisplayPage({ event, spkdata, prsession }) {
             customLink={'https://bbb.rocket.chat/b/sin-ur2-c72-cbv'}
           />
         </Stack>
-        <AdvtButtons repoUrl={"https://github.com/RocketChat/RC4Conferences"} />
-
+        <AdvtButtons repoUrl={'https://github.com/RocketChat/RC4Conferences'} />
       </div>
     </div>
   );

@@ -13,16 +13,14 @@ function Layout(props) {
 
   return (
     <>
-      <div
-        className="announcement_strip"
-      >
+      <div className="announcement_strip">
         <a
-          href={'/conferences/c/GSoC-Alumni-Summit-2023'}
+          href={'/conferences/c/GSoC-Alumni-Summit-2024'}
           style={{ textDecoration: 'none', color: 'white' }}
         >
           <h6>
             📢 Join our GSoC'24 Alumni Summit at{' '}
-            {new Date('2023-03-30T06:00:00-04:00').toLocaleString('en-GB', {
+            {new Date('2024-03-25T11:00:00.000Z').toLocaleString('en-GB', {
               day: '2-digit',
               month: '2-digit',
               year: 'numeric',

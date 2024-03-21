@@ -7,14 +7,12 @@ import { DoEWrapper } from '../wrapperComponent';
 import styles from '../../../../styles/event.module.css';
 import dynamic from 'next/dynamic';
 import { getIPInfo } from '../../../../lib/geoAPI';
-import { useMediaQuery } from '@rocket.chat/fuselage-hooks';
 import { EventHeader } from '../greenroom/EventHeader';
 
 const asiaLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK0;
 const otherLink = process.env.NEXT_PUBLIC_SERVER_STREAM_LINK1;
 
 export const EventMainstage = ({ eventdetails, open, setOpen }) => {
-  const isSmallScreen = useMediaQuery('(max-width: 790px)');
   // const [open, setOpen] = useState(isSmallScreen);
   const [streamLink, setStreamLink] = useState(asiaLink);
   const [region, setRegion] = useState('Asia');

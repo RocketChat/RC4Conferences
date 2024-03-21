@@ -4,7 +4,6 @@ import { SpeakerChatToolbar } from './SpeakerToolbar';
 import { Card, Collapse } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import { useMediaQuery } from '@rocket.chat/fuselage-hooks';
 import { ssrVerifyAdmin } from '../../auth/AuthSuperProfileHelper';
 import { unsignCook } from '../../../../lib/conferences/eventCall';
 import Cookies from 'js-cookie';
@@ -17,7 +16,6 @@ const EventSpeakerStage = ({
   open,
   setOpen,
 }) => {
-  const isSmallScreen = useMediaQuery('(max-width: 790px)');
 
   const [isAdmin, setIsAdmin] = useState(false);
 
