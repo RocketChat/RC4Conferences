@@ -67,8 +67,6 @@ export const EventTicket = ({ tktDetail, event, error, customLink }) => {
   const showMainstage = event?.data?.attributes['is-videoroom-enabled'];
   const eid = event?.data?.attributes.identifier;
 
-  console.log('showMainstage', showMainstage);
-
   return (
     <>
       <EventStrip

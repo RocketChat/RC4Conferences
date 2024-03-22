@@ -37,7 +37,7 @@ function EventDisplayPage({ event, spkdata, prsession }) {
             error={error}
             speaker={spkdata}
             prsession={prsession}
-            customLink={'https://bbb.rocket.chat/b/sin-ur2-c72-cbv'}
+            customLink={'https://meet.google.com/dbt-czaj-whr'}
           />
         </Stack>
         <AdvtButtons repoUrl={'https://github.com/RocketChat/RC4Conferences'} />
