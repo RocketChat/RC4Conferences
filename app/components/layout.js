@@ -15,7 +15,7 @@ function Layout(props) {
     <>
       <div className="announcement_strip">
         <a
-          href={'/conferences/c/GSoC-Alumni-Summit-2024'}
+          href={'/community/conferences/c/GSoC-Alumni-Summit-2024'}
           style={{ textDecoration: 'none', color: 'white' }}
         >
           <h6>
