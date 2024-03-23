@@ -63,7 +63,7 @@ function EventStrip({
               href={customLink || `/conferences/greenroom/${eid}`}
               target="_blank"
             >
-              Join (BBB)
+              Join
             </Button>
           )}
         </Col>
