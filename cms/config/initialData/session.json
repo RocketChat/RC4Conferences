@@ -214,8 +214,8 @@
     "Event": "GSoC Alumni Summit 2024",
     "Start": "2024-03-25T12:50:00.000Z",
     "End": "2024-03-25T13:10:00.000Z",
-    "Title": "TBD",
-    "Description": "TBD",
+    "Title": "Inaugural Journeys: GSoC Alumni Reflect on First-Time Experiences",
+    "Description": "Join us at the GSoC Alumni Summit for an inspiring session titled 'Inaugural Journeys,' where seasoned GSoC alumni will share their first-time experiences. Discover the challenges they overcame, the knowledge they gained, and the paths they paved in the world of open-source development. This is a perfect opportunity for new contributors to learn, connect, and get inspired to embark on their own GSoC adventures.",
     "Speaker": "Ezequiel Reis",
     "Duration": 20,
     "Youtube": null
@@ -225,8 +225,8 @@
     "Event": "GSoC Alumni Summit 2024",
     "Start": "2024-03-25T13:10:00.000Z",
     "End": "2024-03-25T13:20:00.000Z",
-    "Title": "TBD",
-    "Description": "TBD",
+    "Title": "Impact of AI on Software developer role",
+    "Description": "Navigating the New Code Era: AI’s Role in Redefining Software Development” Unpack the transformative effects of artificial intelligence on the software development industry. This session will explore how AI is revolutionizing the developer’s toolkit, automating routine tasks, and fostering innovative problem-solving strategies. Discover how AI is not just a tool but a partner in coding, pushing the boundaries of what developers can achieve and shaping the future of software creation. Join us to understand the evolving role of the software developer in an AI-integrated world.",
     "Speaker": "Murtaza Patrawala",
     "Duration": 20,
     "Youtube": null
@@ -269,8 +269,8 @@
     "Event": "GSoC Alumni Summit 2024",
     "Start": "2024-03-25T14:20:00.000Z",
     "End": "2024-03-25T14:40:00.000Z",
-    "Title": "TBD",
-    "Description": "TBD",
+    "Title": "GSoC Chronicles & AI Innovation: A Personal Voyage",
+    "Description": "Dive into the personal narrative of a GSoC alumnus in ‘GSoC Chronicles & AI Innovation: A Personal Voyage.’ This session offers a retrospective look at the transformative journey through Google Summer of Code, highlighting the pivotal experiences and lessons learned. Additionally, the talk will introduce an exciting new venture: the AI Query Bot project. Attendees will get a first-hand account of the project’s inception, its objectives, and the anticipated impact on the open-source community.",
     "Speaker": "Shiqi Mei",
     "Duration": 20,
     "Youtube": null
