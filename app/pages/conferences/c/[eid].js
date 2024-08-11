@@ -21,13 +21,13 @@ function EventDisplayPage({ event, spkdata, prsession }) {
         <title>{eventname ? eventname : 'Event Poster'}</title>
         <meta
           name="description"
-          content="Rocket.Chat GSoC 2024 Alumni Summit, March 25th"
+          content={eventname ? eventname : 'Event Poster'}
         />
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta
           property="og:image"
-          content="https://github.com/RocketChat/RC4Conferences/blob/main/app/assets/alumni_summit_2024.png?raw=true"
+          content={event?.data?.attributes?.['original-image-url']}
         />
       </Head>
       <div className="mx-auto">
@@ -37,7 +37,7 @@ function EventDisplayPage({ event, spkdata, prsession }) {
             error={error}
             speaker={spkdata}
             prsession={prsession}
-            customLink={'https://meet.google.com/dbt-czaj-whr'}
+            customLink={'https://meet.google.com/xjf-yuvh-cci'}
           />
         </Stack>
         <AdvtButtons repoUrl={'https://github.com/RocketChat/RC4Conferences'} />
