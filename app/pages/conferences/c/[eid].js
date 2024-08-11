@@ -80,6 +80,8 @@ export async function getStaticProps(context) {
   );
   let prsession = sessionRes.data[0];
 
+  console.log('prsession', prsession.attributes);
+
   if (!prsession) prsession = null;
 
   return {
