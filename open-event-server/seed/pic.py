@@ -30,10 +30,12 @@ with open('speakers.json', 'r') as file:
 def update_photo_url(speakers, usernames):
     for speaker in speakers:
         if speaker.get('id', 0) >= 5:
-            name = speaker.get('name', '').lower().replace(' ', '.')
-            if name in usernames:
-                username = name
-                speaker['photo_url'] = f"https://open.rocket.chat/{username}"
+            name = speaker.get('name', '').lower()
+            first_name = name.split()[0]  # Get the first name
+            for username in usernames:
+                if first_name in username:
+                    speaker['photo_url'] = f"https://open.rocket.chat/avatar/{username}"
+                    break
 
 # Update the photo_url values
 update_photo_url(speakers, usernames)

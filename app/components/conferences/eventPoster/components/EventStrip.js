@@ -36,7 +36,7 @@ function EventStrip({
 
     const options = {
       year: 'numeric',
-      month: '2-digit',
+      month: 'short',
       day: '2-digit',
       hour: '2-digit',
       minute: '2-digit',
@@ -50,11 +50,12 @@ function EventStrip({
     const config = {
       name: event?.attributes['name'],
       description: event?.attributes['description'],
-      startDate: '2024-03-25',
-      startTime: '11:00',
-      endTime: '14:30',
+      startDate: new Date(event.attributes['starts-at']).toISOString().split('T')[0],
+      startTime: new Date(event.attributes['starts-at']).toISOString().split('T')[1].substring(0, 5),
+      endTime: new Date(event.attributes['ends-at']).toISOString().split('T')[1].substring(0, 5),
+      timeZone: "Etc/UTC",
       organizer: 'Rocket.Chat|devanshu.sharma@rocket.chat',
-      location: 'https://meet.google.com/dbt-czaj-whr',
+      location: 'https://meet.google.com/xjf-yuvh-cci',
       options: [
         'Apple',
         'Google',
@@ -64,7 +65,7 @@ function EventStrip({
         'Outlook.com',
         'Yahoo',
       ],
-      iCalFileName: 'rocket-chat-gsoc-alumni-summit-2024',
+      iCalFileName: 'rocket-chat-gsoc-demo-day-2024',
     };
 
     setConfig(config);
