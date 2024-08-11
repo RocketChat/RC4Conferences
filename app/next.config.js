@@ -8,6 +8,7 @@ module.exports = {
   },
   basePath: '/community',
   images: {
+    unoptimized: true,
     domains: [
       'global-uploads.webflow.com',
       'avatars.githubusercontent.com',
