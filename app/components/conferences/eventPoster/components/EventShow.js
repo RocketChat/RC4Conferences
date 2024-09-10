@@ -203,7 +203,7 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
                 </tr>
                 <tr>
                   <Collapse in={toOpen[sess.id]}>
-                    <td colSpan="12">{`Descsription: ${sess.attributes.Description}`}</td>
+                    <td colSpan="12">{`Description: ${sess.attributes.Description}`}</td>
                   </Collapse>
                 </tr>
               </tbody>
