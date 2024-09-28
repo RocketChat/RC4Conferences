@@ -197,7 +197,7 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
                         size={'25'}
                         href={`${sess.attributes.Youtube}`}
                       />
-                      Coming...
+                      {sess.attributes.Youtube ? 'Watch' : 'No Video'}
                     </Button>
                   </td>
                 </tr>

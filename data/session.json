@@ -38,26 +38,27 @@
     {
         "id": "29",
         "Event": "GSoC Demo Day 2024",
-        "Speaker": "Anjaneya Gupta",
         "Start": "2024-09-12T10:45:00Z",
         "End": "2024-09-12T11:00:00Z",
-        "Mentor": "M.PalaniKannan, Sing Li",
-        "Title": "GSoC Community Hub 2024",
-        "Duration": 15,
-        "Youtube": null,
-        "Description": "The Ultimate Solution for Scalable Static Websites Full-Stack Functionality: Seamlessly integrate data from the serverless CMS when needed, or choose alternative data sources according to your project requirements. Enhanced Syntax - Tailored for an effortless experience for community creators."
-    },
-    {
-        "id": "30",
-        "Event": "GSoC Demo Day 2024",
-        "Start": "2024-09-12T11:00:00Z",
-        "End": "2024-09-12T11:15:00Z",
         "Mentor": "Sing Li, Shubham Bhardwaj",
         "Title": "AI Emoji Embellisher",
         "Duration": 15,
         "Speaker": "Sandeep Pillai",
         "Youtube": null,
         "Description": "Text embellishment is a natural language generation problem that aims to enhance the lexical and syntactic complexity of a text while retaining the same semantic information and meaning. This is often achieved by incorporating emojis, punctuation, and additional details to make the text more interesting and engaging. This proposal delves into the implementation details of the Embellisher App for Rocket.Chat. This app will enable users to generate emojified / embellished text messages from plain text messages they enter in the message box using open-source LLMs. Upon generation, the user will be notified with an interactive message that only the sender can see."
+        
+    },
+    {
+        "id": "30",
+        "Event": "GSoC Demo Day 2024",
+        "Start": "2024-09-12T11:00:00Z",
+        "End": "2024-09-12T11:15:00Z",
+        "Speaker": "Anjaneya Gupta",
+        "Mentor": "M.PalaniKannan, Sing Li",
+        "Title": "GSoC Community Hub 2024",
+        "Duration": 15,
+        "Youtube": null,
+        "Description": "The Ultimate Solution for Scalable Static Websites Full-Stack Functionality: Seamlessly integrate data from the serverless CMS when needed, or choose alternative data sources according to your project requirements. Enhanced Syntax - Tailored for an effortless experience for community creators."
     },
     {
         "id": "31",
@@ -181,25 +182,26 @@
     {
         "id": "41",
         "Event": "GSoC Demo Day 2024",
-        "Speaker": "Ryan Zhou",
         "Start": "2024-09-12T13:45:00Z",
         "End": "2024-09-12T14:00:00Z",
-        "Mentor": "Samad, John, Mustafa",
-        "Title": "AI Programmer",
-        "Duration": 15,
-        "Youtube": null,
-        "Description": "This is an AI bot to help you automatically generate code pieces. A Rocket.Chat app that enables the AI programmer functionalities where users can utilize the tool to create a short piece of code in C/C++, Java, Javascript, Typescript or Python based on specification supplied by the user. This implementation includes modern open source LLMs (Mistral, CodeLlama, WizardCode, Llama2, Phi, and so on) for a simplified configuration. This functionality also allows users to ask for a new variation of the code or augment/fine-tune the system for a more precise code generation. To achieve this, we propose to design a more intuitive and interactive UX to simplify users\u2019 interaction. Finally, we will explore to bridge the generated codes with sharing APIs, allowing them to be shared to external applications and added to GitHub as a pull request. The AI Programmer app will be published on Rocket.Chat Marketplace together with specified documentation."
-    },
-    {
-        "id": "42",
-        "Event": "GSoC Demo Day 2024",
-        "Start": "2024-09-12T14:00:00Z",
-        "End": "2024-09-12T14:15:00Z",
+       
         "Mentor": "",
         "Title": "15 minutes Break",
         "Description": "",
         "Duration": 15,
         "Youtube": null
+    },
+    {
+        "id": "42",
+        "Event": "GSoC Demo Day 2024",
+        "Speaker": "Ryan Zhou",
+        "Start": "2024-09-12T14:00:00Z",
+        "End": "2024-09-12T14:15:00Z",
+        "Mentor": "Samad, John, Mustafa",
+        "Title": "AI Programmer",
+        "Duration": 15,
+        "Youtube": null,
+        "Description": "This is an AI bot to help you automatically generate code pieces. A Rocket.Chat app that enables the AI programmer functionalities where users can utilize the tool to create a short piece of code in C/C++, Java, Javascript, Typescript or Python based on specification supplied by the user. This implementation includes modern open source LLMs (Mistral, CodeLlama, WizardCode, Llama2, Phi, and so on) for a simplified configuration. This functionality also allows users to ask for a new variation of the code or augment/fine-tune the system for a more precise code generation. To achieve this, we propose to design a more intuitive and interactive UX to simplify users\u2019 interaction. Finally, we will explore to bridge the generated codes with sharing APIs, allowing them to be shared to external applications and added to GitHub as a pull request. The AI Programmer app will be published on Rocket.Chat Marketplace together with specified documentation."
     },
     {
         "id": "43",
