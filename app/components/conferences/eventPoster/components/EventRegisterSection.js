@@ -58,14 +58,14 @@ export const EventTicket = ({ tktDetail, event, error, customLink }) => {
     }
   });
 
-  const tktName = tktDetail.attributes.name;
-  const tktPrice = tktDetail.attributes.price;
+  const tktName = tktDetail.name;
+  const tktPrice = tktDetail.price;
   const handleJoin = () => {
     setOpen(!open);
   };
 
-  const showMainstage = event?.data?.attributes['is-videoroom-enabled'];
-  const eid = event?.data?.attributes.identifier;
+  const showMainstage = event?.data?.['is_videoroom_enabled'];
+  const eid = event?.data?.identifier;
 
   return (
     <>
@@ -178,7 +178,7 @@ const TopNav = ({
 };
 
 const JoinModal = ({ open, handleClose, event, alertOp, setAlertOp, err }) => {
-  const eventName = event?.data?.attributes.name;
+  const eventName = event?.data?.name;
   const eventId = event?.data?.id;
   const router = useRouter();
 
@@ -197,7 +197,7 @@ const JoinModal = ({ open, handleClose, event, alertOp, setAlertOp, err }) => {
       }
     };
     try {
-      if (event.data.attributes.privacy === 'private') {
+      if (event.data.privacy === 'private') {
         checkSignedIn();
       } else {
         setIsSignedIn(true);

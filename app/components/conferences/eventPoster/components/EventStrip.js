@@ -23,16 +23,16 @@ function EventStrip({
   showMainstage,
 }) {
   const [timezone, setTimezone] = useState('');
-  const [startDate, setStartDate] = useState(event.attributes['starts-at']);
-  const [endDate, setEndDate] = useState(event.attributes['ends-at']);
+  const [startDate, setStartDate] = useState(event['starts_at']);
+  const [endDate, setEndDate] = useState(event['ends_at']);
   const [config, setConfig] = useState({});
 
   useEffect(() => {
     // Fetch the timezone from the user's browser
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     setTimezone(timeZone);
-    const start = new Date(event.attributes['starts-at']);
-    const end = new Date(event.attributes['ends-at']);
+    const start = new Date(event['starts_at']);
+    const end = new Date(event['ends_at']);
 
     const options = {
       year: 'numeric',
@@ -48,8 +48,8 @@ function EventStrip({
     setEndDate(`${new Date(end).toLocaleTimeString('en-US', options)}`);
 
     const config = {
-      name: event?.attributes['name'],
-      description: event?.attributes['description'],
+      name: event?.['name'],
+      description: event?.['description'],
       startDate: '2024-03-25',
       startTime: '11:00',
       endTime: '14:30',
@@ -68,7 +68,7 @@ function EventStrip({
     };
 
     setConfig(config);
-  }, [event.attributes['starts-at'], event.attributes['ends-at'], timezone]);
+  }, [event['starts_at'], event['ends_at'], timezone]);
 
   return (
     <Container
@@ -77,7 +77,7 @@ function EventStrip({
       fluid
     >
       <Row className={styles.event_strip_name}>
-        <Col style={{ overflow: 'auto' }}>{event.attributes.name}</Col>
+        <Col style={{ overflow: 'auto' }}>{event.name}</Col>
         <Col
           xs={2}
           md={1.5}
@@ -129,22 +129,20 @@ function EventStrip({
           </Row>
           <Row>
             <Col xs={1} md={1} xl={1} sm={1} xxl={1}></Col>
-            <Col>{event.attributes['location-name'] || 'Online'}</Col>
+            <Col>{event['location-name'] || 'Online'}</Col>
           </Row>
         </Col>
         <Col className="event-ticket-details">
           <Row>
             <Col>
-              {ticket ? ticket.attributes.name : 'Community'}{' '}
+              {ticket ? ticket.name : 'Community'}{' '}
               <Badge as={'span'} pill bg="light" text="secondary">
-                {ticket?.attributes?.price ?? 'Free'}
+                {ticket?.price ?? 'Free'}
               </Badge>
             </Col>
           </Row>
           <div className="ticket-name"></div>
-          <div className="ticket-price">
-            {ticket ? ticket.attributes.price : 'Free'}
-          </div>
+          <div className="ticket-price">{ticket ? ticket.price : 'Free'}</div>
         </Col>
       </Row>
     </Container>

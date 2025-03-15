@@ -1,7 +1,7 @@
-import styles from "../styles/Newscarousel.module.css";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import styles from '../styles/Newscarousel.module.css';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const PrevArrow = ({ currentSlide, slideCount, ...props }) => {
   return (
@@ -43,20 +43,18 @@ const Item = (props) => {
   return (
     <div className={`bg-white m-2 h-auto + ${styles.active_carousel}`}>
       <a
-        href={props.item.attributes.url}
+        href={props.item.url}
         target="_blank"
         rel="noreferrer"
         className="text-decoration-none text-black :hover"
       >
         <img
-          className={styles["carousel-item-image"]}
-          src={props.item.attributes.imageUrl}
+          className={styles['carousel-item-image']}
+          src={props.item.imageUrl}
         />
         <div className={`p-2 p-md-3 h-auto + ${styles.content}`}>
-          <h2 className={`${styles.heading}`}>{props.item.attributes.name}</h2>
-          <p className={`${styles.description}`}>
-            {props.item.attributes.description}
-          </p>
+          <h2 className={`${styles.heading}`}>{props.item.name}</h2>
+          <p className={`${styles.description}`}>{props.item.description}</p>
         </div>
       </a>
     </div>

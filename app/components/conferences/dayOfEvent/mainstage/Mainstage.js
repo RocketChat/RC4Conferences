@@ -16,7 +16,7 @@ export const EventMainstage = ({ eventdetails, open, setOpen }) => {
   // const [open, setOpen] = useState(isSmallScreen);
   const [streamLink, setStreamLink] = useState(asiaLink);
   const [region, setRegion] = useState('Asia');
-  const evePoster = eventdetails?.data?.attributes?.['original-image-url'];
+  const evePoster = eventdetails?.data?.['original_image_url'];
 
   useEffect(async () => {
     try {

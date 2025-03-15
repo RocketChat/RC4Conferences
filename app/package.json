@@ -12,8 +12,7 @@
     "prettier": "prettier --write \"src/**/*.{js,jsx}\""
   },
   "dependencies": {
-    "@apollo/client": "^3.5.9",
-    "@embeddedchat/react": "^0.1.12",
+    "@apollo/client": "^3.13.4",
     "@jitsi/react-sdk": "^1.0.0",
     "@rocket.chat/icons": "^0.31.3",
     "@rocket.chat/sdk": "^1.0.0-alpha.42",
@@ -23,9 +22,6 @@
     "crypto-js": "^4.1.1",
     "dompurify": "^2.3.5",
     "emoji-toolkit": "^6.6.0",
-    "firebase": "^9.6.3",
-    "firebase-admin": "^10.0.2",
-    "gapi-cjs": "^1.0.3",
     "graphql": "^16.3.0",
     "js-cookie": "^3.0.1",
     "lodash": "^4.17.21",
@@ -33,7 +29,6 @@
     "next": "^12.2.5",
     "next-auth": "^4.2.1",
     "next-firebase-auth": "^1.0.0-canary.5",
-    "node-sass": "^7.0.1",
     "react": "^18.0.0",
     "react-avatar-editor": "^13.0.0",
     "react-bootstrap": "^2.1.0",
@@ -53,6 +48,6 @@
     "prettier": "^2.8.4"
   },
   "volta": {
-    "node": "16.4.0"
+    "node": "20.4.0"
   }
 }

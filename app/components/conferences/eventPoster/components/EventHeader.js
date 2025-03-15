@@ -9,19 +9,29 @@ import useMediaQuery from '../../useMediaQuery';
 export const SmEventHeader = ({ event, error, customLink }) => {
   const isSmallScreen = useMediaQuery('(max-width: 576px)');
 
+  const sampleTicket = {
+    name: 'Free Ticket',
+    price: 0,
+  };
+  console.log('Event Header', event);
   return (
     <div className={styles.event_small_banner}>
-      <Image src={event.data.attributes['original-image-url']} fluid />
-      <EventTicket tktDetail={event.included[0]} event={event} error={error} customLink={customLink} />
+      <Image src={event.data['original_image_url']} fluid />
+      <EventTicket
+        tktDetail={sampleTicket}
+        event={event}
+        error={error}
+        customLink={customLink}
+      />
       <div className={styles.event_banner_title}>
         <Container>
           <Row>
             <Col>
-              <h4>{event.data.attributes.name}</h4>
+              <h4>{event.data.name}</h4>
               <p>
                 by{' '}
                 <span style={{ color: '#d6162f' }}>
-                  {event.data.attributes['owner-name'] || 'Dnouv'}
+                  {event.data['owner-name'] || 'Dnouv'}
                 </span>
               </p>
             </Col>
@@ -41,11 +51,16 @@ export const SmEventHeader = ({ event, error, customLink }) => {
 };
 
 export const MdEventHeader = ({ event, error, customLink }) => {
+  console.log('Event Header', event);
+  const sampleTicket = {
+    name: 'Community Ticket',
+    price: 'Free',
+  };
   return (
     <div className={styles.event_big_banner}>
       <div
         style={{
-          background: `url(${event.data.attributes['original-image-url']})`,
+          background: `url(${event.data['original_image_url']})`,
           backgroundRepeat: 'round',
           borderRadius: '15px',
           margin: 'auto',
@@ -56,18 +71,17 @@ export const MdEventHeader = ({ event, error, customLink }) => {
       >
         <div style={{ backdropFilter: 'blur(10px)', borderRadius: 'inherit' }}>
           <Image
-            src={event.data.attributes['original-image-url']}
+            src={event.data['original_image_url']}
             style={{ scale: '70%' }}
             fluid
           />
         </div>
       </div>
-      {/* <EventStrip event={event.data} ticket={event.included[0]} /> */}
-
+      <EventStrip event={event.data} ticket={sampleTicket} />
       {/* <Container className={styles.event_custom_container}>
         <Row
           style={{
-            background: `url(${event.data.attributes['original-image-url']})`,
+            background: `url(${event.data['original_image_url']})`,
             backgroundSize: '67%',
           }}
         >
@@ -80,11 +94,11 @@ export const MdEventHeader = ({ event, error, customLink }) => {
             style={{ backdropFilter: 'blur(45px)' }}
           >
             <Row>
-              <h5>{event.data.attributes.name}</h5>
+              <h5>{event.data.name}</h5>
               <p>
                 by{' '}
                 <span style={{ color: '#d6162f' }}>
-                  {event.data.attributes['owner-name'] || 'Dnouv'}
+                  {event.data['owner-name'] || 'Dnouv'}
                 </span>
               </p>
             </Row>
@@ -96,15 +110,19 @@ export const MdEventHeader = ({ event, error, customLink }) => {
           </Col>
         </Row>
       </Container> */}
-
-      <EventTicket tktDetail={event.included[0]} event={event} error={error} customLink={customLink} />
+      {/* <EventTicket
+        tktDetail={event.included[0]}
+        event={event}
+        error={error}
+        customLink={customLink}
+      /> */}
     </div>
   );
 };
 
 export const EventDate = ({ eventData }) => {
-  let start = eventData.attributes['starts-at'];
-  let end = eventData.attributes['ends-at'];
+  let start = eventData['starts_at'];
+  let end = eventData['ends_at'];
   start = `${new Date(start).toDateString()} ${new Date(
     start
   ).toLocaleTimeString()}`;
@@ -131,8 +149,8 @@ export const EventDate = ({ eventData }) => {
 };
 
 export const MdEventDate = ({ eventData }) => {
-  let start = eventData.attributes['starts-at'];
-  let end = eventData.attributes['ends-at'];
+  let start = eventData['starts_at'];
+  let end = eventData['ends_at'];
   start = `${new Date(start).toDateString()} ${new Date(
     start
   ).toLocaleTimeString()}`;
@@ -157,7 +175,7 @@ export const MdEventDate = ({ eventData }) => {
 };
 
 export const EventSingleDate = ({ eventData }) => {
-  let start = eventData.attributes['starts-at'];
+  let start = eventData['starts_at'];
   start = new Date(start);
   const month = start.toLocaleString('default', { month: 'short' });
   const date = start.getDate();
@@ -170,7 +188,7 @@ export const EventSingleDate = ({ eventData }) => {
 };
 
 const EventLocation = ({ eventData }) => {
-  const location = eventData.attributes['location-name'];
+  const location = eventData['location-name'];
 
   return (
     <Container>
@@ -190,7 +208,7 @@ const EventLocation = ({ eventData }) => {
 };
 
 const MdEventLocation = ({ eventData }) => {
-  const location = eventData.attributes['location-name'];
+  const location = eventData['location-name'];
 
   return (
     <Row className="mb-5">

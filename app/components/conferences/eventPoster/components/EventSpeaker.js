@@ -29,23 +29,23 @@ export const SmEventSpeaker = ({ eid, speaker }) => {
       <Container>
         <Row>
           <ButtonGroup>
-            {props.attributes.github && (
-              <Button variant="link" href={props.attributes.github}>
+            {props.github && (
+              <Button variant="link" href={props.github}>
                 <FaGithub />
               </Button>
             )}
-            {props.attributes.email && (
-              <Button variant="link" href={`mailto:${props.attributes.email}`}>
+            {props.email && (
+              <Button variant="link" href={`mailto:${props.email}`}>
                 <FiMail />
               </Button>
             )}
-            {props.attributes.twitter && (
-              <Button variant="link" href={props.attributes.twitter}>
+            {props.twitter && (
+              <Button variant="link" href={props.twitter}>
                 <FaTwitter />
               </Button>
             )}
-            {props.attributes.linkedin && (
-              <Button variant="link" href={props.attributes.linkedin}>
+            {props.linkedin && (
+              <Button variant="link" href={props.linkedin}>
                 <FaLinkedin />
               </Button>
             )}
@@ -72,17 +72,14 @@ export const SmEventSpeaker = ({ eid, speaker }) => {
                 <Image
                   width={70}
                   roundedCircle
-                  src={
-                    spk.attributes['photo-url'] ||
-                    avatarGenerate(spk.attributes.name)
-                  }
-                  placeholder={avatarGenerate(spk.attributes.name)}
+                  src={spk['photo_url'] || avatarGenerate(spk.name)}
+                  placeholder={avatarGenerate(spk.name)}
                 />
               </div>
 
               <Row className={styles.speaker_intro}>
                 <div className={styles.event_speaker_name}>
-                  {spk.attributes.name}
+                  {spk.name}
                   <OverlayTrigger
                     placement="top"
                     delay={{ show: 250, hide: 400 }}
@@ -93,11 +90,9 @@ export const SmEventSpeaker = ({ eid, speaker }) => {
                     </Button>
                   </OverlayTrigger>
                 </div>
-                <div className={styles.event_speaker_title}>
-                  {spk.attributes.position}
-                </div>
+                <div className={styles.event_speaker_title}>{spk.position}</div>
                 <div className={styles.event_speaker_bio}>
-                  {spk.attributes['short-biography']}
+                  {spk['short_biography']}
                 </div>
               </Row>
               <Row className={styles.speaker_intro}>
@@ -114,7 +109,7 @@ export const SmEventSpeaker = ({ eid, speaker }) => {
                   </Button>
                   <Collapse in={open[spk.id]}>
                     <div id="example-collapse-text">
-                      {spk.attributes['long-biography'] ||
+                      {spk['long_biography'] ||
                         'Hey, looks like this fellow speaker likes surprises.'}
                     </div>
                   </Collapse>
@@ -134,23 +129,23 @@ export const MdEventSpeaker = ({ eid, speaker }) => {
       <Container>
         <Row>
           <ButtonGroup>
-            {props.attributes.github && (
-              <Button variant="link" href={props.attributes.github}>
+            {props.github && (
+              <Button variant="link" href={props.github}>
                 <FaGithub />
               </Button>
             )}
-            {props.attributes.email && (
-              <Button variant="link" href={`mailto:${props.attributes.email}`}>
+            {props.email && (
+              <Button variant="link" href={`mailto:${props.email}`}>
                 <FiMail />
               </Button>
             )}
-            {props.attributes.twitter && (
-              <Button variant="link" href={props.attributes.twitter}>
+            {props.twitter && (
+              <Button variant="link" href={props.twitter}>
                 <FaTwitter />
               </Button>
             )}
-            {props.attributes.linkedin && (
-              <Button variant="link" href={props.attributes.linkedin}>
+            {props.linkedin && (
+              <Button variant="link" href={props.linkedin}>
                 <FaLinkedin />
               </Button>
             )}
@@ -179,11 +174,8 @@ export const MdEventSpeaker = ({ eid, speaker }) => {
                     <Image
                       fluid
                       roundedCircle
-                      src={
-                        spk.attributes['photo-url'] ||
-                        avatarGenerate(spk.attributes.name)
-                      }
-                      placeholder={avatarGenerate(spk.attributes.name)}
+                      src={spk['photo_url'] || avatarGenerate(spk.name)}
+                      placeholder={avatarGenerate(spk.name)}
                     />
                   </div>
                 </Col>
@@ -191,7 +183,7 @@ export const MdEventSpeaker = ({ eid, speaker }) => {
                   <Row>
                     <Row className={styles.speaker_intro}>
                       <Col md="auto" className={styles.event_speaker_name}>
-                        {spk.attributes.name}
+                        {spk.name}
                         <OverlayTrigger
                           placement="top"
                           delay={{ show: 250, hide: 1000 }}
@@ -203,11 +195,11 @@ export const MdEventSpeaker = ({ eid, speaker }) => {
                         </OverlayTrigger>
                       </Col>
                       <Col md="auto" className={styles.event_speaker_title}>
-                        {spk.attributes.position}
+                        {spk.position}
                       </Col>
                     </Row>
                     <div className={styles.event_speaker_bio}>
-                      {spk.attributes['short-biography']}
+                      {spk['short_biography']}
                       <Badge
                         pill
                         as={'span'}
@@ -228,10 +220,10 @@ export const MdEventSpeaker = ({ eid, speaker }) => {
                           id="example-collapse-text"
                           className={styles.speaker_bio_expand}
                         >
-                          {spk.attributes['long-biography'] ? (
+                          {spk['long_biography'] ? (
                             <span
                               dangerouslySetInnerHTML={{
-                                __html: spk.attributes['long-biography'],
+                                __html: spk['long_biography'],
                               }}
                             />
                           ) : (

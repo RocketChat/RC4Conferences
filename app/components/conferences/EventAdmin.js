@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import NewMenubar from "../menubar/newMenuBar";
-import _ from "lodash";
-import Cookies from "js-cookie";
-import { verifyAdmin } from "./auth/AuthSuperProfileHelper";
-import { unsignCook } from "../../lib/conferences/eventCall";
+import { useEffect, useState } from 'react';
+import NewMenubar from '../menubar/newMenuBar';
+import _ from 'lodash';
+import Cookies from 'js-cookie';
+import { verifyAdmin } from './auth/AuthSuperProfileHelper';
+import { unsignCook } from '../../lib/conferences/eventCall';
 
 export const VerifyUserRole = ({ menuprops }) => {
   if (!menuprops.menu?.topNavItems) {
@@ -11,7 +11,7 @@ export const VerifyUserRole = ({ menuprops }) => {
   }
   const [getCurrentUser, { data, error, loading }] = verifyAdmin();
   const [verified, setVerified] = useState(false);
-  const hashmail = Cookies.get("hashmail");
+  const hashmail = Cookies.get('hashmail');
   useEffect(() => {
     const decipherEmail = async () => {
       try {
@@ -20,7 +20,7 @@ export const VerifyUserRole = ({ menuprops }) => {
           getCurrentUser({ email: res.mail });
         }
       } catch {
-        console.error("Error while deciphering");
+        console.error('Error while deciphering');
       }
     };
     decipherEmail();
@@ -34,22 +34,22 @@ export const VerifyUserRole = ({ menuprops }) => {
   const abortAdmin = () => {
     menuCache = _.cloneDeep(menuprops);
 
-    menuCache.menu.topNavItems.data.attributes.body =
-      menuCache.menu.topNavItems.data.attributes.body.filter(
-        (element) => element.label !== "Admin"
+    menuCache.menu.topNavItems.data.body =
+      menuCache.menu.topNavItems.data.body.filter(
+        (element) => element.label !== 'Admin'
       );
   };
 
   if (data) {
     const isAdmin = data.findUserByEmail?.rc4conf?.data[0]?.role;
-    if (isAdmin === "Admin") {
+    if (isAdmin === 'Admin') {
       !verified && setVerified(true);
     }
   }
 
   if (error) {
     console.error(
-      "An error ocurred while getting user details on Superprofile",
+      'An error ocurred while getting user details on Superprofile',
       error
     );
   }

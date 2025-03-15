@@ -1,15 +1,21 @@
-import {
-  Form,
-  InputGroup,
-  Toast,
-} from "react-bootstrap";
-import { EventImage } from "./display/EventImage";
+import { Form, InputGroup, Toast } from 'react-bootstrap';
+import { EventImage } from './display/EventImage';
 
-export const EventForm = ({ handleChange, handleImageChange, intialValues, ticket , handleSwitch, handlePublicSwitch, isPublic }) => {
-  
+export const EventForm = ({
+  handleChange,
+  handleImageChange,
+  intialValues,
+  ticket,
+  handleSwitch,
+  handlePublicSwitch,
+  isPublic,
+}) => {
   return (
     <>
-      <EventImage intialValues={intialValues} handleImageChange={handleImageChange} />
+      <EventImage
+        intialValues={intialValues}
+        handleImageChange={handleImageChange}
+      />
       <Form.Group className="mb-3">
         <Form.Label>Event name*</Form.Label>
         <Form.Control
@@ -35,20 +41,20 @@ export const EventForm = ({ handleChange, handleImageChange, intialValues, ticke
       <Form.Group className="mb-3">
         <Form.Label>Event Banner Image URI</Form.Label>
         <Form.Control
-          name="original-image-url"
+          name="original_image_url"
           type="url"
           placeholder="https://via.placeholder.com/1920x960.png"
-          value={intialValues["original-image-url"]}
+          value={intialValues['original_image_url']}
           onChange={handleChange}
         />
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>Event Organizer logo</Form.Label>
         <Form.Control
-          name="logo-url"
+          name="logo_url"
           type="url"
           placeholder="https://via.placeholder.com/100.png"
-          value={intialValues["logo-url"]}
+          value={intialValues['logo_url']}
           onChange={handleChange}
         />
       </Form.Group>
@@ -56,10 +62,10 @@ export const EventForm = ({ handleChange, handleImageChange, intialValues, ticke
         <Form.Label>Start Date*</Form.Label>
         <Form.Control
           required
-          name="starts-at"
+          name="starts_at"
           type="datetime-local"
-          value={intialValues["starts-at"]}
-          min={intialValues["start-at"]}
+          value={intialValues['starts_at']}
+          min={intialValues['start-at']}
           onChange={handleChange}
           placeholder=""
         />
@@ -68,10 +74,10 @@ export const EventForm = ({ handleChange, handleImageChange, intialValues, ticke
         <Form.Label>End Date*</Form.Label>
         <Form.Control
           required
-          name="ends-at"
+          name="ends_at"
           type="datetime-local"
-          value={intialValues["ends-at"]}
-          min={intialValues["start-at"]}
+          value={intialValues['ends_at']}
+          min={intialValues['start-at']}
           onChange={handleChange}
           placeholder=""
         />
@@ -84,7 +90,7 @@ export const EventForm = ({ handleChange, handleImageChange, intialValues, ticke
             name="switch"
             onChange={handleSwitch}
             type="switch"
-            value={"on"}
+            value={'on'}
             defaultChecked={!ticket.state}
           />
         </InputGroup.Text>
@@ -94,26 +100,29 @@ export const EventForm = ({ handleChange, handleImageChange, intialValues, ticke
           name="name"
           type="text"
           onChange={handleSwitch}
-          value = {ticket.name}
+          value={ticket.name}
           placeholder={
-            ticket.state ? "Free Ticket Name" : "Free Registration Name"
+            ticket.state ? 'Free Ticket Name' : 'Free Registration Name'
           }
         />
         <Form.Control
           required
           name="quantity"
           type="number"
-          value = {ticket.quantity}
+          value={ticket.quantity}
           min={1}
           onChange={handleSwitch}
           placeholder="Quantity"
         />
       </InputGroup>
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
-        <Form.Check onChange={handlePublicSwitch} checked={isPublic} type="checkbox" label="Make this event public (Role-based access not required)" />
+        <Form.Check
+          onChange={handlePublicSwitch}
+          checked={isPublic}
+          type="checkbox"
+          label="Make this event public (Role-based access not required)"
+        />
       </Form.Group>
     </>
-
   );
 };
-

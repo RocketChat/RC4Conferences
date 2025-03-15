@@ -16,7 +16,6 @@ const EventSpeakerStage = ({
   open,
   setOpen,
 }) => {
-
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
@@ -44,7 +43,7 @@ const EventSpeakerStage = ({
         <Jitsibroadcaster
           room={
             eventdata
-              ? eventdata.data.attributes?.['chat-room-name']
+              ? eventdata.data?.['chat-room-name']
               : `DemoDay-${eventIdentifier}`
           }
           disName={'Speakers'}

@@ -1,8 +1,8 @@
-import axios from "axios";
+import axios from 'axios';
 
 const eventUrl = process.env.NEXT_PUBLIC_EVENT_BACKEND_URL;
 const nextDeployUrl =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000';
 
 //NextJS local API route call begins
 export const signCook = async (mail) => {
@@ -12,7 +12,7 @@ export const signCook = async (mail) => {
 
 export const unsignCook = async (hash) => {
   const res = await fetch(`${nextDeployUrl}/api/conf/unsignCook`, {
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify(hash),
   });
   return res.json();
@@ -91,7 +91,7 @@ export const editEvent = async (data, auth, identifier) => {
 
 export const getTicketDetails = async (eid, auth) => {
   const headers = {
-    "Content-Type": "application/vnd.api+json",
+    'Content-Type': 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
   };
   const res = await axios.get(`${eventUrl}/v1/tickets/${eid}`, {
@@ -104,7 +104,7 @@ export const getTicketDetails = async (eid, auth) => {
 
 export const editEventTicket = async (eid, data, auth) => {
   const headers = {
-    "Content-Type": "application/vnd.api+json",
+    'Content-Type': 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
   };
   const res = await axios.patch(`${eventUrl}/v1/tickets/${eid}`, data, {
@@ -117,7 +117,7 @@ export const editEventTicket = async (eid, data, auth) => {
 
 export const publishEventTicket = async (data, auth) => {
   const headers = {
-    "Content-Type": "application/vnd.api+json",
+    'Content-Type': 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
   };
   const res = await axios.post(`${eventUrl}/v1/tickets`, data, {
@@ -130,27 +130,29 @@ export const publishEventTicket = async (data, auth) => {
 ////// Event Fetch Call Begins
 export const getEventDeatils = async (eid) => {
   const headers = {
-    Accept: "application/vnd.api+json",
+    Accept: 'application/vnd.api+json',
+    'x-api-key': process.env.NEXT_PUBLIC_EVENT_API_KEY,
   };
   const res = await fetch(`${eventUrl}/v1/events/${eid}?include=tickets`, {
-    headers: headers
-  });  
+    headers: headers,
+  });
   return res.json();
 };
 
 export const getAllEvents = async (eid) => {
   const headers = {
-    Accept: "application/vnd.api+json",
+    Accept: 'application/vnd.api+json',
+    'x-api-key': process.env.NEXT_PUBLIC_EVENT_API_KEY,
   };
-  const res = await axios.get(`${eventUrl}/v1/events`, {
+  const res = await fetch(`${eventUrl}/v1/events`, {
     headers: headers,
-    });
-  return res;
+  });
+  return res.json();
 };
 
 export const getUserEventDeatils = async (uid, auth) => {
   const headers = {
-    Accept: "application/vnd.api+json",
+    Accept: 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
   };
   const res = await axios.get(`${eventUrl}/v1/users/${uid}/events`, {
@@ -160,12 +162,12 @@ export const getUserEventDeatils = async (uid, auth) => {
 };
 
 // Event Speaker call
-export const getEventSpeakers = async (eid, auth) => {
+export const getEventSpeakers = async (eid) => {
   const headers = {
-    Accept: "application/vnd.api+json",
-    Authorization: `JWT ${auth}`,
+    Accept: 'application/vnd.api+json',
+    'x-api-key': process.env.NEXT_PUBLIC_EVENT_API_KEY,
   };
-  const res = await fetch(`${eventUrl}/v1/events/${eid}/speakers?sort=id`, {
+  const res = await fetch(`${eventUrl}/v1/speakers/event/${eid}?sort=id`, {
     headers: headers,
   });
   return res.json();
@@ -173,9 +175,9 @@ export const getEventSpeakers = async (eid, auth) => {
 
 export const addEventSpeakers = async (data, auth) => {
   const headers = {
-    Accept: "application/vnd.api+json",
+    Accept: 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
-    "Content-Type": "application/vnd.api+json",
+    'Content-Type': 'application/vnd.api+json',
   };
   const res = await axios.post(`${eventUrl}/v1/speakers`, data, {
     headers: headers,
@@ -185,7 +187,7 @@ export const addEventSpeakers = async (data, auth) => {
 
 export const deleteEventSpeaker = async (sid, auth) => {
   const headers = {
-    Accept: "application/vnd.api+json",
+    Accept: 'application/vnd.api+json',
     Authorization: `JWT ${auth}`,
   };
   const res = await axios.delete(`${eventUrl}/v1/speakers/${sid}`, {
@@ -195,10 +197,10 @@ export const deleteEventSpeaker = async (sid, auth) => {
 };
 
 export const deleteEvent = async (eid, auth) => {
-  const res = await fetch( `${nextDeployUrl}/api/conf/events/${eid}`, {
-    method: "DELETE",
+  const res = await fetch(`${nextDeployUrl}/api/conf/events/${eid}`, {
+    method: 'DELETE',
     body: auth,
-    });
+  });
   return res;
 };
 ////// Event Fetch Call Ends

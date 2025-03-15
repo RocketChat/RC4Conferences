@@ -14,7 +14,7 @@ import { AdvtButtons } from '../../../components/conferences/dayOfEvent/AdvtTool
 function EventDisplayPage({ event, spkdata, prsession }) {
   const router = useRouter();
   const { eid, error } = router.query;
-  const eventname = event?.data?.attributes?.name;
+  const eventname = event?.data?.name;
   return (
     <div>
       <Head>
@@ -50,8 +50,8 @@ export async function getStaticPaths() {
   let paths = null;
   try {
     const res = await getAllEvents();
-    paths = res.data.data.map((event) => ({
-      params: { eid: event.attributes.identifier },
+    paths = res.data.map((event) => ({
+      params: { eid: event.identifier },
     }));
     return {
       paths: paths,
@@ -67,23 +67,18 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
+  console.log('context', context);
   const eventIdentifier = context.params.eid;
   //temp 9ddffcbb
   const event = await getEventDeatils(eventIdentifier);
-
+  console.log('event', event);
   const spkdata = await getEventSpeakers(eventIdentifier);
-
-  const topNavItems = await fetchAPI('/top-nav-item');
-
-  const sessionRes = await fetchAPI(
-    `/event-sessions?populate=session_items&filters[event_id][$eq]=${event?.data?.id}`
-  );
-  let prsession = sessionRes.data[0];
+  let prsession = null;
 
   if (!prsession) prsession = null;
 
   return {
-    props: { topNavItems, event, spkdata, prsession },
+    props: { event, spkdata, prsession },
   };
 }
 

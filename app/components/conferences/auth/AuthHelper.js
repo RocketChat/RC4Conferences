@@ -1,12 +1,12 @@
-import crypto from "crypto-js";
-import Cookies from "js-cookie";
+import crypto from 'crypto-js';
+import Cookies from 'js-cookie';
 import {
   checkEmail,
   eventAuthSignIn,
   eventAuthSignUp,
   userAdminPatch,
   userSetVerified,
-} from "../../../lib/conferences/eventCall";
+} from '../../../lib/conferences/eventCall';
 
 export const generatePassword = async (mail) => {
   // concatenate mail and passphrase string
@@ -20,11 +20,11 @@ export const setCookie = (res) => {
     ...res.data,
   };
   const jwtDec = JSON.parse(
-    Buffer.from(res.data.access_token.split(".")[1], "base64").toString()
+    Buffer.from(res.data.access_token.split('.')[1], 'base64').toString()
   );
-  cookieData["jwtInfo"] = jwtDec;
+  cookieData['jwtInfo'] = jwtDec;
   const expTime = new Date(jwtDec.exp * 1000);
-  Cookies.set("event_auth", JSON.stringify(cookieData), { expires: expTime });
+  Cookies.set('event_auth', JSON.stringify(cookieData), { expires: expTime });
 };
 
 const signIn = async (mail, passcode) => {
@@ -43,7 +43,7 @@ const signUp = async (mail, passcode) => {
         email: mail,
         password: passcode,
       },
-      type: "user",
+      type: 'user',
     },
   };
   const res = await eventAuthSignUp(toPost);
@@ -52,26 +52,26 @@ const signUp = async (mail, passcode) => {
 
 const setAdmin = async (uid, token) => {
   const toSend = {
-    "data": {
-      "attributes": {
-        "is-admin": true
+    data: {
+      attributes: {
+        'is-admin': true,
       },
-      "type": "user",
-      "id": uid
-    }
-  }
+      type: 'user',
+      id: uid,
+    },
+  };
   const toVerifyData = {
-    "data": {
-      "attributes": {
-        "is-verified": true
+    data: {
+      attributes: {
+        'is-verified': true,
       },
-      "type": "user",
-      "id": uid
-    }
-  }
-  await userAdminPatch(uid, toSend, token)
-  await userSetVerified(uid, toVerifyData, token)
-}
+      type: 'user',
+      id: uid,
+    },
+  };
+  await userAdminPatch(uid, toSend, token);
+  await userSetVerified(uid, toVerifyData, token);
+};
 
 export const autoLogin = async (mail, passcode) => {
   try {
@@ -85,15 +85,12 @@ export const autoLogin = async (mail, passcode) => {
       return ressignin;
     } else {
       const ressignup = await signUp(mail, passcode);
-      
-      const ressignin = await signIn(
-        ressignup.data.data.attributes.email,
-        passcode
-      );
-      await setAdmin(ressignup.data.data.id, ressignin.data.access_token)
+
+      const ressignin = await signIn(ressignup.data.data.email, passcode);
+      await setAdmin(ressignup.data.data.id, ressignin.data.access_token);
       return ressignin;
     }
   } catch (error) {
-    console.error("An error occurred while authorizing", error);
+    console.error('An error occurred while authorizing', error);
   }
 };

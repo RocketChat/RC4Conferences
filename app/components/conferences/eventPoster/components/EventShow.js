@@ -36,63 +36,62 @@ const EventShow = ({ event, error, speaker, prsession, customLink }) => {
 
   const isSmallScreen = useMediaQuery('(max-width: 576px)');
 
-
   return (
     <>
-    <MdEventHeader event={event} error={error} customLink={customLink} />
-    <SmEventHeader event={event} error={error} customLink={customLink} />
-    <Card className={styles.event_show_root}>
-      <div className={styles.event_nav}>
-        <Tabs
-          id="controlled-tab-example"
-          activeKey={key}
-          onSelect={(k) => setKey(k)}
-          className={styles.event_nav_header}
-          fill
-        >
-          <Tab eventKey="home" title="Overview">
-            <Stack>
-              <EventDesc eventData={event.data} />
-              <div className={styles.event_logo}>
-                <Image src={event.data.attributes['logo-url']} width={100} />
-              </div>
-              <div className={styles.event_organizer_header}>
-                <h6> Organizer </h6>
-              </div>
-            </Stack>
-          </Tab>
-          {prsession && (
-            <Tab eventKey="sessions" title="Sessions">
-              <EventSession
-                session={prsession}
-                toOpen={toOpen}
-                setToOpen={setToOpen}
-              />
+      <MdEventHeader event={event} error={error} customLink={customLink} />
+      <SmEventHeader event={event} error={error} customLink={customLink} />
+      <Card className={styles.event_show_root}>
+        <div className={styles.event_nav}>
+          <Tabs
+            id="controlled-tab-example"
+            activeKey={key}
+            onSelect={(k) => setKey(k)}
+            className={styles.event_nav_header}
+            fill
+          >
+            <Tab eventKey="home" title="Overview">
+              <Stack>
+                <EventDesc eventData={event.data} />
+                <div className={styles.event_logo}>
+                  <Image src={event.data['logo_url']} width={100} />
+                </div>
+                <div className={styles.event_organizer_header}>
+                  <h6> Organizer </h6>
+                </div>
+              </Stack>
             </Tab>
-          )}
-          <Tab eventKey="speakers" title="Speakers">
-            {key == 'speakers' &&
-              (isSmallScreen ? (
-                <SmEventSpeaker
-                  eid={event.data.attributes.identifier}
-                  speaker={speaker}
+            {prsession && (
+              <Tab eventKey="sessions" title="Sessions">
+                <EventSession
+                  session={prsession}
+                  toOpen={toOpen}
+                  setToOpen={setToOpen}
                 />
-              ) : (
-                <MdEventSpeaker
-                  eid={event.data.attributes.identifier}
-                  speaker={speaker}
-                />
-              ))}
-          </Tab>
-        </Tabs>
-      </div>
-    </Card>
+              </Tab>
+            )}
+            <Tab eventKey="speakers" title="Speakers">
+              {key == 'speakers' &&
+                (isSmallScreen ? (
+                  <SmEventSpeaker
+                    eid={event.data.identifier}
+                    speaker={speaker}
+                  />
+                ) : (
+                  <MdEventSpeaker
+                    eid={event.data.identifier}
+                    speaker={speaker}
+                  />
+                ))}
+            </Tab>
+          </Tabs>
+        </div>
+      </Card>
     </>
   );
 };
 
 const EventDesc = ({ eventData }) => {
-  const eventDesc = eventData.attributes.description;
+  const eventDesc = eventData.description;
   // eventDesc = eventDesc.replace(/(<([^>]+)>)/gi, "");
 
   return (
@@ -128,10 +127,10 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
 
   let headerItems = [];
 
-  if (Array.isArray(session.attributes.session_items.data)) {
-    headerItems = Object.keys(
-      session.attributes.session_items.data[0].attributes
-    ).filter((it) => !excludedFields.includes(it));
+  if (Array.isArray(session.session_items.data)) {
+    headerItems = Object.keys(session.session_items.data[0]).filter(
+      (it) => !excludedFields.includes(it)
+    );
   }
 
   const retHours = (tm) => {
@@ -163,8 +162,8 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
               : 'No Sessions Header'}
           </tr>
         </thead>
-        {Array.isArray(session.attributes.session_items.data) ? (
-          session.attributes.session_items.data.map((sess) => {
+        {Array.isArray(session.session_items.data) ? (
+          session.session_items.data.map((sess) => {
             return (
               <tbody key={sess.id}>
                 <tr>
@@ -180,22 +179,22 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
                       {'>'}
                     </Badge>
                   </td>
-                  <td>{retHours(sess.attributes.Start)}</td>
-                  <td>{retHours(sess.attributes.End)}</td>
-                  <td>{sess.attributes.Speaker}</td>
-                  <td>{sess.attributes.Title}</td>
-                  <td>{sess.attributes.Duration}</td>
+                  <td>{retHours(sess.Start)}</td>
+                  <td>{retHours(sess.End)}</td>
+                  <td>{sess.Speaker}</td>
+                  <td>{sess.Title}</td>
+                  <td>{sess.Duration}</td>
                   <td>
                     <Button
                       variant="link"
                       target="_blank"
-                      href={`${sess.attributes.Youtube}`}
-                      disabled={!sess.attributes.Youtube}
+                      href={`${sess.Youtube}`}
+                      disabled={!sess.Youtube}
                     >
                       <BsYoutube
                         color="red"
                         size={'25'}
-                        href={`${sess.attributes.Youtube}`}
+                        href={`${sess.Youtube}`}
                       />
                       Coming...
                     </Button>
@@ -203,7 +202,7 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
                 </tr>
                 <tr>
                   <Collapse in={toOpen[sess.id]}>
-                    <td colSpan="12">{`Descsription: ${sess.attributes.Description}`}</td>
+                    <td colSpan="12">{`Descsription: ${sess.Description}`}</td>
                   </Collapse>
                 </tr>
               </tbody>

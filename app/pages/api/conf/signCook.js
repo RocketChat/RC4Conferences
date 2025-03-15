@@ -1,8 +1,7 @@
-import crypto from "crypto-js";
-import RocketChatInstance from "../../../components/auth/goauth/gapi";
+import crypto from 'crypto-js';
 
 export default async function handler(req, res) {
-  if (req.method === "POST") {
+  if (req.method === 'POST') {
     const hasAllRequiredCreds =
       process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID &&
       process.env.NEXT_PUBLIC_RC_URL &&
@@ -17,21 +16,16 @@ export default async function handler(req, res) {
       );
       res.status(200).json({ hash: encrypted.toString() });
     } else {
-      const RCInstance = new RocketChatInstance(
-        process.env.NEXT_PUBLIC_RC_URL,
-        process.env.NEXT_PUBLIC_RC_ROOM_ID
-      );
-
       try {
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_RC_URL}/api/v1/me`,
           {
             headers: {
-              "Content-Type": "application/text",
-              "X-Auth-Token": req.cookies.rc_token,
-              "X-User-Id": req.cookies.rc_uid,
+              'Content-Type': 'application/text',
+              'X-Auth-Token': req.cookies.rc_token,
+              'X-User-Id': req.cookies.rc_uid,
             },
-            method: "GET",
+            method: 'GET',
           }
         );
 
@@ -54,6 +48,6 @@ export default async function handler(req, res) {
     // Process a POST request
   } else {
     // Handle any other HTTP method
-    res.status(400).json({ error: "Unsupported Route Method" });
+    res.status(400).json({ error: 'Unsupported Route Method' });
   }
 }

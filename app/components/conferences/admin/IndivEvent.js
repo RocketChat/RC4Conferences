@@ -1,5 +1,5 @@
-import Cookies from "js-cookie";
-import { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
 import {
   Button,
   Card,
@@ -16,14 +16,14 @@ import {
   Stack,
   Tab,
   Tabs,
-} from "react-bootstrap";
+} from 'react-bootstrap';
 import {
   addEventSpeakers,
   deleteEventSpeaker,
   getEventSpeakers,
-} from "../../../lib/conferences/eventCall";
-import styles from "../../../styles/event.module.css";
-import { EditEvent , CustomToast} from "./EditEvent";
+} from '../../../lib/conferences/eventCall';
+import styles from '../../../styles/event.module.css';
+import { EditEvent, CustomToast } from './EditEvent';
 import toast, { Toaster } from 'react-hot-toast';
 
 export const IndivEventDash = ({ eid, event }) => {
@@ -32,7 +32,7 @@ export const IndivEventDash = ({ eid, event }) => {
   const [editSpeaker, setEditSpeaker] = useState({});
   const [load, setLoad] = useState(false);
 
-  let authCookie = Cookies.get("event_auth");
+  let authCookie = Cookies.get('event_auth');
   if (authCookie) {
     authCookie = JSON.parse(authCookie);
   }
@@ -43,31 +43,31 @@ export const IndivEventDash = ({ eid, event }) => {
   };
 
   // function to replace empty strings in the editSpeaker object
-  const replaceEmpty = (obj) => { 
+  const replaceEmpty = (obj) => {
     for (const key in obj) {
-      if (obj[key] === "") {
+      if (obj[key] === '') {
         obj[key] = null;
       }
     }
     return obj;
-   }
+  };
 
   const publishSpeaker = async () => {
     const sanitizedSpeaker = replaceEmpty(editSpeaker);
 
     const toPublish = {
       data: {
-        type: "speaker",
+        type: 'speaker',
         relationships: {
           event: {
             data: {
-              type: "event",
+              type: 'event',
               id: eid,
             },
           },
           user: {
             data: {
-              type: "user",
+              type: 'user',
               id: authCookie?.jwtInfo?.identity,
             },
           },
@@ -91,13 +91,13 @@ export const IndivEventDash = ({ eid, event }) => {
         const res = await publishSpeaker();
         setSpeakerInfo((oarr) => [...oarr, res.data.data]);
         toast.success('Speaker added successfully', {
-          duration : 20000
-        })
+          duration: 20000,
+        });
         setModalShow(false);
       }
     } catch (e) {
-      toast.error("An error occurred while publishing speaker", {
-        duration : 20000
+      toast.error('An error occurred while publishing speaker', {
+        duration: 20000,
       });
     } finally {
       setLoad(false);
@@ -113,63 +113,64 @@ export const IndivEventDash = ({ eid, event }) => {
   const handleDelete = async (e) => {
     try {
       await deleteEventSpeaker(e.target.id, authCookie?.access_token);
-      toast.success('Speaker deleted successfully',{
-        duration : 2000,
+      toast.success('Speaker deleted successfully', {
+        duration: 2000,
       });
       setSpeakerInfo((oarr) => oarr.filter((spk) => spk.id !== e.target.id));
     } catch (e) {
-      toast.error("An error occurred while deleting the Speaker",{
-        duration : 2000,
+      toast.error('An error occurred while deleting the Speaker', {
+        duration: 2000,
       });
     }
   };
 
-
   return (
     <>
-    <Container>
-      <Row>
-        <h4 className="text-center my-2">Editing Event {event.data.attributes.name}</h4>
-      </Row>
-      <Row>
-        <Card className = "p-0">
-        <Tabs
-          defaultActiveKey="edit_event"
-          id="uncontrolled-tab-example"
-          className={styles.edit_event_tabs}
-          fill
-          >
-          <Tab eventKey="edit_event" title="Edit Event Details">
-            <div className="m-3">
-            <EditEvent event={event} />
-            </div>
-          </Tab>
-          <Tab eventKey="speaker" title="Speaker">
-            <div className="m-3">
-            <Stack className={styles.speaker_add_btn}>
-              <Button onClick={() => setModalShow(true)}>Add Speaker</Button>
-            </Stack>
-            <SpeakerModal
-              show={modalShow}
-              onHide={() => setModalShow(false)}
-              handleAddSpeaker={handleAddSpeaker}
-              handleChange={handleChange}
-              load={load}
-            />
-            <SpeakerList
-              setSpeakerInfo={setSpeakerInfo}
-              speakerInfo={speakerInfo}
-              fetchSpeaker={fetchSpeaker}
-              handleDelete={handleDelete}
-            />
-            </div>
-          </Tab>
-          <Tab eventKey="contact" title="Contact" disabled></Tab>
-        </Tabs>
-        </Card>
-      </Row>
-    </Container>
-    {/* <CustomToast type="success" show={toast.show} msg={toast.msg} /> */}
+      <Container>
+        <Row>
+          <h4 className="text-center my-2">Editing Event {event.data.name}</h4>
+        </Row>
+        <Row>
+          <Card className="p-0">
+            <Tabs
+              defaultActiveKey="edit_event"
+              id="uncontrolled-tab-example"
+              className={styles.edit_event_tabs}
+              fill
+            >
+              <Tab eventKey="edit_event" title="Edit Event Details">
+                <div className="m-3">
+                  <EditEvent event={event} />
+                </div>
+              </Tab>
+              <Tab eventKey="speaker" title="Speaker">
+                <div className="m-3">
+                  <Stack className={styles.speaker_add_btn}>
+                    <Button onClick={() => setModalShow(true)}>
+                      Add Speaker
+                    </Button>
+                  </Stack>
+                  <SpeakerModal
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                    handleAddSpeaker={handleAddSpeaker}
+                    handleChange={handleChange}
+                    load={load}
+                  />
+                  <SpeakerList
+                    setSpeakerInfo={setSpeakerInfo}
+                    speakerInfo={speakerInfo}
+                    fetchSpeaker={fetchSpeaker}
+                    handleDelete={handleDelete}
+                  />
+                </div>
+              </Tab>
+              <Tab eventKey="contact" title="Contact" disabled></Tab>
+            </Tabs>
+          </Card>
+        </Row>
+      </Container>
+      {/* <CustomToast type="success" show={toast.show} msg={toast.msg} /> */}
     </>
   );
 };
@@ -187,8 +188,8 @@ const SpeakerList = ({
           const res = await fetchSpeaker();
           setSpeakerInfo(res.data);
         } catch (e) {
-          toast.error("An error occurred while loading speakers", {
-            duration : 2000
+          toast.error('An error occurred while loading speakers', {
+            duration: 2000,
           });
         }
       }
@@ -205,18 +206,18 @@ const SpeakerList = ({
                   <Row className="align-items-baseline">
                     <Col xs sm md={1}>
                       <Image
-                        width={"50em"}
-                        height={"50em"}
+                        width={'50em'}
+                        height={'50em'}
                         roundedCircle
-                        src={spk.attributes["photo-url"]}
+                        src={spk['photo_url']}
                       />
                     </Col>
                     <Col>
-                      <span>{spk.attributes.name}</span>
+                      <span>{spk.name}</span>
                     </Col>
                     <Col className={styles.event_speaker_delete}>
                       <Button
-                        variant={"danger"}
+                        variant={'danger'}
                         id={spk.id}
                         onClick={handleDelete}
                       >
@@ -228,7 +229,7 @@ const SpeakerList = ({
               </ListGroupItem>
             );
           })
-        : "No Speaker found"}
+        : 'No Speaker found'}
     </ListGroup>
   );
 };
@@ -237,103 +238,100 @@ const SpeakerModal = (props) => {
   const { handleAddSpeaker, handleChange } = props;
   return (
     <>
-    <Toaster
-     position="top-right"
-     reverseOrder={false}
-    />
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Add Speaker
-        </Modal.Title>
-      </Modal.Header>
-      <Form onSubmit={handleAddSpeaker}>
-        <Modal.Body>
-          <Form.Group className="mb-3">
-            <Form.Label>Name</Form.Label>
-            <Form.Control
-              required
-              onChange={handleChange}
-              type="text"
-              name="name"
-              placeholder="Name"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Profile Pic URL</Form.Label>
-            <Form.Control
-              type="url"
-              onChange={handleChange}
-              name="photo-url"
-              placeholder="https://link-to.image"
-            />
-          </Form.Group>
-          <InputGroup className="mb-3">
-      <InputGroup.Text>Social links</InputGroup.Text>
-      <Form.Control
-              required
-              onChange={handleChange}
-              name="email"
-              type="email"
-              placeholder="Email*"
-            />
-            <Form.Control
-              onChange={handleChange}
-              name="linkedin"
-              type="url"
-              placeholder="LinkedIn"
-            />
-            <Form.Control
-              onChange={handleChange}
-              name="github"
-              type="url"
-              placeholder="GitHub"
-            />
-    </InputGroup>
-          <Form.Group className="mb-3">
-            <Form.Label>Short Biography</Form.Label>
-            <Form.Control
-              required
-              onChange={handleChange}
-              name="short-biography"
-              as="textarea"
-              type="textarea"
-              placeholder="A short sweet biography"
-            />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Long Biography</Form.Label>
-            <Form.Control
-              as="textarea"
-              onChange={handleChange}
-              name="long-biography"
-              type="textarea"
-              placeholder="Write to your heart's content"
-            />
-          </Form.Group>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button disabled={props.load} variant="success" type="submit">
-            {props.load ? (
-              <Spinner
-                as="span"
-                animation="border"
-                size="sm"
-                role="status"
-                aria-hidden="true"
+      <Toaster position="top-right" reverseOrder={false} />
+      <Modal
+        {...props}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Add Speaker
+          </Modal.Title>
+        </Modal.Header>
+        <Form onSubmit={handleAddSpeaker}>
+          <Modal.Body>
+            <Form.Group className="mb-3">
+              <Form.Label>Name</Form.Label>
+              <Form.Control
+                required
+                onChange={handleChange}
+                type="text"
+                name="name"
+                placeholder="Name"
               />
-            ) : (
-              "Add"
-            )}
-          </Button>
-        </Modal.Footer>
-      </Form>
-    </Modal>
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Profile Pic URL</Form.Label>
+              <Form.Control
+                type="url"
+                onChange={handleChange}
+                name="photo_url"
+                placeholder="https://link-to.image"
+              />
+            </Form.Group>
+            <InputGroup className="mb-3">
+              <InputGroup.Text>Social links</InputGroup.Text>
+              <Form.Control
+                required
+                onChange={handleChange}
+                name="email"
+                type="email"
+                placeholder="Email*"
+              />
+              <Form.Control
+                onChange={handleChange}
+                name="linkedin"
+                type="url"
+                placeholder="LinkedIn"
+              />
+              <Form.Control
+                onChange={handleChange}
+                name="github"
+                type="url"
+                placeholder="GitHub"
+              />
+            </InputGroup>
+            <Form.Group className="mb-3">
+              <Form.Label>Short Biography</Form.Label>
+              <Form.Control
+                required
+                onChange={handleChange}
+                name="short_biography"
+                as="textarea"
+                type="textarea"
+                placeholder="A short sweet biography"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>Long Biography</Form.Label>
+              <Form.Control
+                as="textarea"
+                onChange={handleChange}
+                name="long_biography"
+                type="textarea"
+                placeholder="Write to your heart's content"
+              />
+            </Form.Group>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button disabled={props.load} variant="success" type="submit">
+              {props.load ? (
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />
+              ) : (
+                'Add'
+              )}
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
     </>
   );
 };
