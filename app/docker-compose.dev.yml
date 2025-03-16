@@ -1,0 +1,27 @@
+# docker-compose.yml
+
+version: "3"
+
+services:
+  app:
+    image: docker-nextjs-dev
+    env_file:
+      - .env
+    build:
+      dockerfile: Dockerfile.development
+    ports:
+      - "$NEXTJS_PORT:3000"
+    networks:
+      - spnet
+      - oesnet
+    volumes:
+      - ./pages:/app/pages
+      - ./public:/app/public
+      - ./styles:/app/styles
+      - ./assets:/app/assets
+
+networks:
+  spnet:
+    external: true
+  oesnet:
+    external: true
