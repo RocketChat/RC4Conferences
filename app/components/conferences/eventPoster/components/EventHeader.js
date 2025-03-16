@@ -75,7 +75,7 @@ export const MdEventHeader = ({ event, error, customLink }) => {
           />
         </div>
       </div>
-      <EventStrip event={event.data} ticket={sampleTicket} />
+      {/* <EventStrip event={event.data} ticket={sampleTicket} /> */}
       {/* <Container className={styles.event_custom_container}>
         <Row
           style={{
@@ -108,12 +108,12 @@ export const MdEventHeader = ({ event, error, customLink }) => {
           </Col>
         </Row>
       </Container> */}
-      {/* <EventTicket
-        tktDetail={event.included[0]}
+      <EventTicket
+        tktDetail={sampleTicket}
         event={event}
         error={error}
         customLink={customLink}
-      /> */}
+      />
     </div>
   );
 };

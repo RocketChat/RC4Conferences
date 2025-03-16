@@ -22,17 +22,16 @@ function EventStrip({
   eid,
   showMainstage,
 }) {
-  const [timezone, setTimezone] = useState('');
-  const [startDate, setStartDate] = useState(event['starts_at']);
-  const [endDate, setEndDate] = useState(event['ends_at']);
+  const [timezone, setTimezone] = useState(
+    Intl.DateTimeFormat().resolvedOptions().timeZone
+  );
+  const [formattedStartDate, setFormattedStartDate] = useState(event.starts_at);
+  const [formattedEndDate, setFormattedEndDate] = useState(event.ends_at);
   const [config, setConfig] = useState({});
 
   useEffect(() => {
-    // Fetch the timezone from the user's browser
-    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    setTimezone(timeZone);
-    const start = new Date(event['starts_at']);
-    const end = new Date(event['ends_at']);
+    const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    setTimezone(userTimeZone);
 
     const options = {
       year: 'numeric',
@@ -41,20 +40,25 @@ function EventStrip({
       hour: '2-digit',
       minute: '2-digit',
       hour12: true,
-      timeZone: timeZone, // specify the timezone here
+      timeZone: userTimeZone, // ✅ Now it updates only on the client
     };
 
-    setStartDate(`${new Date(start).toLocaleTimeString('en-US', options)}`);
-    setEndDate(`${new Date(end).toLocaleTimeString('en-US', options)}`);
+    setFormattedStartDate(
+      new Date(event.starts_at).toLocaleString('en-US', options)
+    );
+    setFormattedEndDate(
+      new Date(event.ends_at).toLocaleString('en-US', options)
+    );
 
-    const config = {
-      name: event?.['name'],
-      description: event?.['description'],
-      startDate: '2024-03-25',
-      startTime: '11:00',
-      endTime: '14:30',
-      organizer: 'Rocket.Chat|devanshu.sharma@rocket.chat',
-      location: 'https://meet.google.com/dbt-czaj-whr',
+    setConfig({
+      name: event?.name,
+      description: event?.description,
+      startDate: '2025-03-27',
+      timeZone: 'Asia/Calcutta',
+      startTime: '16:30',
+      endTime: '23:30',
+      organizer: event?.organizer,
+      location: customLink,
       options: [
         'Apple',
         'Google',
@@ -64,11 +68,9 @@ function EventStrip({
         'Outlook.com',
         'Yahoo',
       ],
-      iCalFileName: 'rocket-chat-gsoc-alumni-summit-2024',
-    };
-
-    setConfig(config);
-  }, [event['starts_at'], event['ends_at'], timezone]);
+      iCalFileName: 'rocket-chat-gsoc-alumni-summit-2025',
+    });
+  }, [event.starts_at, event.ends_at]);
 
   return (
     <Container
@@ -87,18 +89,12 @@ function EventStrip({
           className="event-join-button"
         >
           {showMainstage ? (
-            <>
-              <Button size="sm" onClick={handleJoin}>
-                Join
-              </Button>
-            </>
+            <Button size="sm" onClick={handleJoin}>
+              Join
+            </Button>
           ) : (
             <ButtonGroup>
-              <Button
-                size="sm"
-                href={customLink || `/conferences/greenroom/${eid}`}
-                target="_blank"
-              >
+              <Button size="sm" id="custom" href={customLink} target="_blank">
                 Join
               </Button>
               <Button
@@ -117,7 +113,7 @@ function EventStrip({
         <Col sm={4} md={5} className="event-datetime">
           <Row>Time and Date ({timezone})</Row>
           <Row>
-            {startDate} - {endDate}
+            {formattedStartDate} - {formattedEndDate}
           </Row>
         </Col>
         <Col className="event-location">
