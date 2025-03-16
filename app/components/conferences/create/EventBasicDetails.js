@@ -17,7 +17,7 @@ import styles from "../../../styles/event.module.css";
 import { EventForm } from "../eventForm";
 import toast, { Toaster } from 'react-hot-toast';
 
-export const EventBasicCreate = ({ setDraft, handleToast }) => {
+export const EventBasicCreate = ({ setDraft }) => {
   const [isPublic, setIsPublic] = useState(false);
 
 
@@ -119,7 +119,7 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
       toast.success('Event Created successfully',{
         duration:2000
       })
-      router.push("sessions");
+      router.push(`/conferences/admin/c/${res.data.data.id}/sponsors`);
     } catch (e) {
       toast.error("Event creation failed" ,{
         duration:2000
