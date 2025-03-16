@@ -31,7 +31,7 @@ function Layout(props) {
           </h6>
         </a>
       </div>
-      <VerifyUserRole menuprops={props} />
+      {/* <VerifyUserRole menuprops={props} /> */}
       {props.children}
       <Footer></Footer>
       {loading && <span className="loader"></span>}

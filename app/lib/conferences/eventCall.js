@@ -133,7 +133,7 @@ export const getEventDeatils = async (eid) => {
     Accept: 'application/vnd.api+json',
     'x-api-key': process.env.NEXT_PUBLIC_EVENT_API_KEY,
   };
-  const res = await fetch(`${eventUrl}/v1/events/${eid}?include=tickets`, {
+  const res = await fetch(`${eventUrl}/v1/events/${eid}`, {
     headers: headers,
   });
   return res.json();
@@ -204,3 +204,15 @@ export const deleteEvent = async (eid, auth) => {
   return res;
 };
 ////// Event Fetch Call Ends
+
+//// Get Event Session Call
+export const getEventSessions = async (eid) => {
+  const headers = {
+    Accept: 'application/vnd.api+json',
+    'x-api-key': process.env.NEXT_PUBLIC_EVENT_API_KEY,
+  };
+  const res = await fetch(`${eventUrl}/v1/sessions/event/${eid}`, {
+    headers: headers,
+  });
+  return res.json();
+};

@@ -13,7 +13,6 @@ export const SmEventHeader = ({ event, error, customLink }) => {
     name: 'Free Ticket',
     price: 0,
   };
-  console.log('Event Header', event);
   return (
     <div className={styles.event_small_banner}>
       <Image src={event.data['original_image_url']} fluid />
@@ -51,7 +50,6 @@ export const SmEventHeader = ({ event, error, customLink }) => {
 };
 
 export const MdEventHeader = ({ event, error, customLink }) => {
-  console.log('Event Header', event);
   const sampleTicket = {
     name: 'Community Ticket',
     price: 'Free',

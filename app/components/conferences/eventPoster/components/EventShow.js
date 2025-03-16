@@ -53,7 +53,7 @@ const EventShow = ({ event, error, speaker, prsession, customLink }) => {
               <Stack>
                 <EventDesc eventData={event.data} />
                 <div className={styles.event_logo}>
-                  <Image src={event.data['logo_url']} width={100} />
+                  <Image src={event?.data['logo_url']} width={100} />
                 </div>
                 <div className={styles.event_organizer_header}>
                   <h6> Organizer </h6>
@@ -63,7 +63,7 @@ const EventShow = ({ event, error, speaker, prsession, customLink }) => {
             {prsession && (
               <Tab eventKey="sessions" title="Sessions">
                 <EventSession
-                  session={prsession}
+                  session={prsession[0]}
                   toOpen={toOpen}
                   setToOpen={setToOpen}
                 />
@@ -127,8 +127,8 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
 
   let headerItems = [];
 
-  if (Array.isArray(session.session_items.data)) {
-    headerItems = Object.keys(session.session_items.data[0]).filter(
+  if (Array.isArray(session.session_items)) {
+    headerItems = Object.keys(session.session_items[0]).filter(
       (it) => !excludedFields.includes(it)
     );
   }
@@ -162,8 +162,8 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
               : 'No Sessions Header'}
           </tr>
         </thead>
-        {Array.isArray(session.session_items.data) ? (
-          session.session_items.data.map((sess) => {
+        {Array.isArray(session.session_items) ? (
+          session.session_items.map((sess) => {
             return (
               <tbody key={sess.id}>
                 <tr>

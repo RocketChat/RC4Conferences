@@ -1,16 +1,16 @@
-import Head from "next/head";
+import Head from 'next/head';
 
 import {
   getAllEvents,
   getEventDeatils,
   unsignCook,
-} from "../../../lib/conferences/eventCall";
-import { EventMainstage } from "../../../components/conferences/dayOfEvent/mainstage/Mainstage";
-import { fetchAPI } from "../../../lib/api";
-import { useState } from "react";
-import { RCdesktopChat } from "../../../components/conferences/dayOfEvent/RCchat";
-import styles from "../../../styles/Mainstage.module.css";
-import { AdvtButtons } from "../../../components/conferences/dayOfEvent/AdvtTool";
+} from '../../../lib/conferences/eventCall';
+import { EventMainstage } from '../../../components/conferences/dayOfEvent/mainstage/Mainstage';
+import { fetchAPI } from '../../../lib/api';
+import { useState } from 'react';
+// import { RCdesktopChat } from "../../../components/conferences/dayOfEvent/RCchat";
+import styles from '../../../styles/Mainstage.module.css';
+import { AdvtButtons } from '../../../components/conferences/dayOfEvent/AdvtTool';
 
 const EventMainstagePage = ({ event }) => {
   const [open, setOpen] = useState(false);
@@ -24,14 +24,14 @@ const EventMainstagePage = ({ event }) => {
         />
       </Head>
       <div className={styles.mainstage_page_wrapper}>
-        <div className={styles.mainstage_page_video} style={{ width: "100%" }}>
+        <div className={styles.mainstage_page_video} style={{ width: '100%' }}>
           <EventMainstage eventdetails={event} open={open} setOpen={setOpen} />
         </div>
         <div className={styles.mainstage_page_chat}>
-          <RCdesktopChat open={open} setOpen={setOpen} />
+          {/* <RCdesktopChat open={open} setOpen={setOpen} /> */}
         </div>
       </div>
-      <AdvtButtons repoUrl={"https://github.com/RocketChat/RC4Conferences"} />
+      <AdvtButtons repoUrl={'https://github.com/RocketChat/RC4Conferences'} />
     </div>
   );
 };
@@ -40,18 +40,18 @@ export async function getStaticPaths() {
   let paths = null;
   try {
     const res = await getAllEvents();
-    paths = res.data.data.map((event) => ({
-      params: { eid: event.id },
+    paths = res.data.map((event) => ({
+      params: { eid: event.id.toString() },
     }));
     return {
       paths: paths,
-      fallback: "blocking",
+      fallback: 'blocking',
     };
   } catch (e) {
-    console.error("An error while fetching list of events", e);
+    console.error('An error while fetching list of events', e);
     return {
       paths: [{ params: { eid: 1 } }],
-      fallback: "blocking",
+      fallback: 'blocking',
     };
   }
 }
@@ -61,7 +61,7 @@ export async function getStaticProps(context) {
   //temp 9ddffcbb
   const event = await getEventDeatils(eventIdentifier);
 
-  const topNavItems = await fetchAPI("/top-nav-item");
+  const topNavItems = await fetchAPI('/top-nav-item');
 
   return {
     props: { eventIdentifier, topNavItems, event },

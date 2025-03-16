@@ -1,17 +1,17 @@
-import Head from "next/head";
-import { useRouter } from "next/router";
+import Head from 'next/head';
+import { useRouter } from 'next/router';
 import {
   getAllEvents,
   getEventDeatils,
   unsignCook,
-} from "../../../lib/conferences/eventCall";
-import { fetchAPI } from "../../../lib/api";
-import EventSpeakerStage from "../../../components/conferences/dayOfEvent/greenroom/EventSpeakerRoom";
-import { useEffect, useState } from "react";
-import Cookies from "js-cookie";
-import { RCdesktopChat } from "../../../components/conferences/dayOfEvent/RCchat";
-import styles from "../../../styles/Greenroom.module.css";
-import { AdvtButtons } from "../../../components/conferences/dayOfEvent/AdvtTool";
+} from '../../../lib/conferences/eventCall';
+import { fetchAPI } from '../../../lib/api';
+import EventSpeakerStage from '../../../components/conferences/dayOfEvent/greenroom/EventSpeakerRoom';
+import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+// import { RCdesktopChat } from "../../../components/conferences/dayOfEvent/RCchat";
+import styles from '../../../styles/Greenroom.module.css';
+import { AdvtButtons } from '../../../components/conferences/dayOfEvent/AdvtTool';
 
 const Greenroom = ({ eventIdentifier, spkdata, eventdata }) => {
   const [open, setOpen] = useState(false);
@@ -33,10 +33,10 @@ const Greenroom = ({ eventIdentifier, spkdata, eventdata }) => {
           />
         </div>
         <div className={styles.greenroom_page_chat}>
-          <RCdesktopChat open={open} setOpen={setOpen} />
+          {/* <RCdesktopChat open={open} setOpen={setOpen} /> */}
         </div>
       </div>
-      <AdvtButtons repoUrl={"https://github.com/RocketChat/RC4Conferences"} />
+      <AdvtButtons repoUrl={'https://github.com/RocketChat/RC4Conferences'} />
     </>
   );
 };
@@ -45,28 +45,29 @@ export async function getStaticPaths() {
   let paths = null;
   try {
     const res = await getAllEvents();
-    paths = res.data.data.map((event) => ({
-      params: { eid: event.id },
+    paths = res.data.map((event) => ({
+      params: { eid: event.id.toString() },
     }));
     return {
       paths: paths,
-      fallback: "blocking",
+      fallback: 'blocking',
     };
   } catch (e) {
-    console.error("An error while fetching list of events", e);
+    console.error('An error while fetching list of events', e);
     return {
       paths: [{ params: { eid: 1 } }],
-      fallback: "blocking",
+      fallback: 'blocking',
     };
   }
 }
 
 export async function getStaticProps(context) {
+  console.log('context', context);
   const eventIdentifier = context.params.eid;
   //temp 9ddffcbb
   const eventdata = await getEventDeatils(eventIdentifier);
 
-  const topNavItems = await fetchAPI("/top-nav-item");
+  const topNavItems = await fetchAPI('/top-nav-item');
 
   return {
     props: { eventIdentifier, topNavItems, eventdata },

@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import {
   getAllEvents,
   getEventDeatils,
+  getEventSessions,
   getEventSpeakers,
   unsignCook,
 } from '../../../lib/conferences/eventCall';
@@ -51,7 +52,7 @@ export async function getStaticPaths() {
   try {
     const res = await getAllEvents();
     paths = res.data.map((event) => ({
-      params: { eid: event.identifier },
+      params: { eid: event.id.toString() },
     }));
     return {
       paths: paths,
@@ -60,20 +61,20 @@ export async function getStaticPaths() {
   } catch (e) {
     console.error('An error while fetching list of events', e);
     return {
-      paths: [{ params: { eid: 1 } }],
+      paths: [{ params: { eid: 1, id: 1 } }],
       fallback: 'blocking',
     };
   }
 }
 
 export async function getStaticProps(context) {
-  console.log('context', context);
   const eventIdentifier = context.params.eid;
+  const eventId = context.params.id;
   //temp 9ddffcbb
   const event = await getEventDeatils(eventIdentifier);
-  console.log('event', event);
   const spkdata = await getEventSpeakers(eventIdentifier);
-  let prsession = null;
+  const getSessions = await getEventSessions(eventIdentifier);
+  let prsession = getSessions.data;
 
   if (!prsession) prsession = null;
 

@@ -31,14 +31,14 @@ export const VerifyUserRole = ({ menuprops }) => {
     return <NewMenubar menu={menuprops.menu.topNavItems} />;
   }
 
-  const abortAdmin = () => {
-    menuCache = _.cloneDeep(menuprops);
+  // const abortAdmin = () => {
+  //   menuCache = _.cloneDeep(menuprops);
 
-    menuCache.menu.topNavItems.data.body =
-      menuCache.menu.topNavItems.data.body.filter(
-        (element) => element.label !== 'Admin'
-      );
-  };
+  //   menuCache.menu.topNavItems.data.body =
+  //     menuCache.menu.topNavItems.data.body.filter(
+  //       (element) => element.label !== 'Admin'
+  //     );
+  // };
 
   if (data) {
     const isAdmin = data.findUserByEmail?.rc4conf?.data[0]?.role;
@@ -56,7 +56,7 @@ export const VerifyUserRole = ({ menuprops }) => {
 
   return (
     <>
-      {abortAdmin()}
+      {/* {abortAdmin()} */}
       {verified ? (
         // <Menubar menu={menuprops.menu.topNavItems} />
         <NewMenubar menu={menuprops.menu.topNavItems} />
