@@ -31,7 +31,7 @@ router.get("/:id", (async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
     const eventsCollection = getEventsCollection();
 
-    const event = await eventsCollection.findOne({ id });
+    const event = await eventsCollection.findOne({ id: id });
     if (!event) {
       return res
         .status(404)
@@ -49,7 +49,12 @@ router.post("/", (async (req: Request, res: Response) => {
   try {
     const newEvent: IEvent = req.body as IEvent;
     const eventsCollection = getEventsCollection();
+    // Generate a unique identifier for the new event
+    newEvent.id = Math.floor(Math.random() * 1000000); // Replace with a more robust ID generation method if needed
 
+    if (!newEvent.identifier) {
+      newEvent.identifier = `event-${newEvent.id}`;
+    }
     // Check if the event already exists based on the identifier
     const existingEvent = await eventsCollection.findOne({
       identifier: newEvent.identifier,

@@ -11,9 +11,9 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/api/v1/events", eventRoutes);
-app.use("/api/v1/speakers", speakerRoutes);
-app.use("/api/v1/sessions", sessionRoutes);
+app.use("/v1/events", eventRoutes);
+app.use("/v1/speakers", speakerRoutes);
+app.use("/v1/sessions", sessionRoutes);
 
 // Health check endpoint
 app.get("/health", (_, res) => {
