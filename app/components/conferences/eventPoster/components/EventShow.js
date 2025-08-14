@@ -181,8 +181,9 @@ const EventSession = ({ session, toOpen, setToOpen }) => {
                   </td>
                   <td>{retHours(sess.Start)}</td>
                   <td>{retHours(sess.End)}</td>
-                  <td>{sess.Speaker}</td>
                   <td>{sess.Title}</td>
+                  <td>{sess.Speaker}</td>
+
                   <td>{sess.Duration}</td>
                   <td>
                     <Button

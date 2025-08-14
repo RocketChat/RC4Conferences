@@ -33,7 +33,7 @@ function EventDisplayPage({ event, spkdata, prsession }) {
             error={error}
             speaker={spkdata}
             prsession={prsession}
-            customLink={'https://meet.google.com/yfm-sfvp-svw'}
+            customLink={event?.data?.external_event_url}
           />
         </Stack>
         <AdvtButtons repoUrl={'https://github.com/RocketChat/RC4Conferences'} />

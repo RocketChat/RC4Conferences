@@ -174,6 +174,7 @@ export const MdEventSpeaker = ({ eid, speaker }) => {
                     <Image
                       fluid
                       roundedCircle
+                      className={styles.profile_img}
                       src={spk['photo_url'] || avatarGenerate(spk.name)}
                       placeholder={avatarGenerate(spk.name)}
                     />
