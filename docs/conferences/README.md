@@ -53,6 +53,10 @@ The client-side of RC4Conferences is developed using NextJS, to start the develo
 ```
 sh startNext.sh localhost
 ```
+The client-side of RC4Conferences is developed using NextJS, to start the development environment of NextJS using docker run the following command
+```
+sh startNext.sh localhost --docker
+```
 _Note: Please replace the "localhost" (127.0.0.1) with your static IP if you are doing environment setup on your VM. For e.g. `173.456.1.19`_
 
 On a successful execution of script, the NextJS will start on port `3000` (default) or if it is occupied the next available port shall be used e.g., `3001`.
