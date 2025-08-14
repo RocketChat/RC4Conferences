@@ -148,12 +148,12 @@ export const getAllEvents = async (eid) => {
   return res;
 };
 
-export const getUserEventDeatils = async (uid, auth) => {
+export const getUserEventDeatilsByState = async (uid, auth,state) => {
   const headers = {
     Accept: "application/vnd.api+json",
     Authorization: `JWT ${auth}`,
   };
-  const res = await axios.get(`${eventUrl}/v1/users/${uid}/events`, {
+  const res = await axios.get(`${eventUrl}/v1/users/${uid}/events?filter=[{"name" : "state","op" : "eq","val" : "${state}"}]`, {
     headers: headers,
   });
   return res;
