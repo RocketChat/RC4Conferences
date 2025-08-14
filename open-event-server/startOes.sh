@@ -4,6 +4,9 @@ ERR_FILE="log/err_log.txt"
 INIT_FLAG="log/init_flag"
 OES_CONTAINER_ID=$( docker ps -q -f name=opev-web )
 
+DOMAIN="localhost"
+if [ ! -z "$1" ]; then DOMAIN="$1"; fi
+
 if [ -e $INIT_FLAG ] && [ ! -z $OES_CONTAINER_ID ]; then
     echo "-- Open Event Server is already up and running --"
     exit 0

@@ -36,16 +36,32 @@ Got questions? Or want to discuss any idea for the project, feel free to drop by
 # Instant Setup ~1.5 minutes
 To try out the project within minutes, run the following two bash commands, and you will be good to go:
 
+<ins>Gitpod Setup</ins>
+
+Well...there's no setup needed here, we've taken care of setting everything up so that you can directly work on the code while we push the configuration 😉
+
+Start developing and make changes to your code via a single click **Anytime-Anywhere**!
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/RocketChat/RC4Conferences)
+
+__Well wait..what is Gitpod 🤔?__
+
+[Gitpod](https://www.gitpod.io/docs/introduction/getting-started) is an Open Source Cloud Developer Environment, it's basically a pre-configured dev environment which we've setup for you!
+
+You can open RC4Conferences in Gitpod and work on [any IDE](https://www.gitpod.io/docs/references/ides-and-editors) of your choice ✨
+
+Some *Recommendations* while using **Gitpod**:
+
+- Download the [gitpod browser extension](https://www.gitpod.io/docs/configure/user-settings/browser-extension) to start working on any branch, issue or PR via a single click in under a minute!
+- To enjoy *BLAZINGLY FAST* startup times while developing on your forked branches, consider [enabling prebuilds by setting up a Project with your forked repository as a "Project"](https://www.gitpod.io/docs/configure/projects/prebuilds/#projects-and-prebuilds)
+
+---
 <ins>Local Setup</ins>
 ```bash
 sh startdevenv.sh localhost
 sh startNext.sh localhost
 ```
-<ins>Gitpod Setup</ins>
-```bash
-sh startdevenv.sh localhost
-sh startNextGp.sh localhost
-```
+
 _Note: Please replace the "localhost" (127.0.0.1) with your static IP if you are doing environment setup on your VM. For e.g. `173.456.1.19`_
 
 Now you can try out the following:
