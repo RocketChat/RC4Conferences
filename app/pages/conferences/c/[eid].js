@@ -17,11 +17,16 @@ function EventDisplayPage({ event, spkdata, prsession }) {
   const { eid, error } = router.query;
   const eventname = event?.data?.name;
   console.log('event', event);
+  // Strip HTML tags from description for meta tag
+  const metaDescription = event.data.description
+    ? event.data.description.replace(/<[^>]*>/g, '')
+    : '';
+
   return (
     <div>
       <Head>
         <title>{eventname ? eventname : 'Event Poster'}</title>
-        <meta name="description" content={event.data.description} />
+        <meta name="description" content={metaDescription} />
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta property="og:image" content={event.data.original_image_url} />
