@@ -15,7 +15,7 @@ import styles from "../../../styles/event.module.css";
 import toast, { Toaster } from 'react-hot-toast';
 
 
-export const EditEvent = ({ event, handleToast }) => {
+export const EditEvent = ({ event }) => {
   const [formState, setFormState] = useState({
     name: event.data.attributes.name,
     description: event.data.attributes.description,
@@ -110,8 +110,7 @@ export const EditEvent = ({ event, handleToast }) => {
       const tres = handleTicketUpdate(event.data.relationships.tickets.data[0].id, token)
       
       sessionStorage.setItem("event", JSON.stringify(res.data))
-      
-      router.push("/conferences/admin/dashboard")
+      router.push(`/conferences/admin/c/${res.data.data.id}/sponsors`)
     } catch (e) {
       console.error("Event Update failed", e.response.data.error);
       if (e.response.status == 401) {
