@@ -129,37 +129,45 @@ const EventDescription = ({ eventData }) => {
 };
 
 const EventSession = ({ session, expandedSessions, onToggleExpansion }) => {
+  const isSmallScreen = useMediaQuery('(max-width: 768px)');
+
   // Configuration for core table columns (always show if available)
   const CORE_COLUMN_CONFIG = {
     Start: {
       label: 'Start Time',
       formatter: formatTime,
       priority: 1,
+      mobileHide: false,
     },
     End: {
       label: 'End Time',
       formatter: formatTime,
       priority: 2,
+      mobileHide: true, // Hide on mobile to save space
     },
     Title: {
       label: 'Session Title',
       formatter: (value) => value || 'Untitled',
       priority: 3,
+      mobileHide: false,
     },
     Speaker: {
       label: 'Speaker',
       formatter: (value) => value || 'TBD',
       priority: 4,
+      mobileHide: false,
     },
     Duration: {
       label: 'Duration',
       formatter: (value) => (value ? `${value} min` : 'N/A'),
       priority: 5,
+      mobileHide: true, // Hide on mobile, can be calculated from start/end
     },
     Youtube: {
       label: 'Recording',
       formatter: null, // Special handling
       priority: 6,
+      mobileHide: false,
     },
   };
 
@@ -204,7 +212,7 @@ const EventSession = ({ session, expandedSessions, onToggleExpansion }) => {
     });
 
     // Filter and sort table columns
-    const columns = Array.from(allFields)
+    let columns = Array.from(allFields)
       .filter((key) => !SYSTEM_FIELDS.includes(key))
       .filter((key) => !DETAIL_FIELDS.includes(key))
       .filter((key) => CORE_COLUMN_CONFIG[key]) // Only show configured columns
@@ -214,6 +222,11 @@ const EventSession = ({ session, expandedSessions, onToggleExpansion }) => {
         return priorityA - priorityB;
       });
 
+    // Filter out mobile-hidden columns on small screens
+    if (isSmallScreen) {
+      columns = columns.filter((key) => !CORE_COLUMN_CONFIG[key]?.mobileHide);
+    }
+
     // Check if any session has details worth showing
     const hasDetails = sessionItems.some((item) =>
       DETAIL_FIELDS.some(
@@ -222,7 +235,7 @@ const EventSession = ({ session, expandedSessions, onToggleExpansion }) => {
     );
 
     return { tableColumns: columns, hasDetailsForAnySession: hasDetails };
-  }, [sessionItems]);
+  }, [sessionItems, isSmallScreen]);
 
   if (sessionItems.length === 0) {
     return (
@@ -235,34 +248,39 @@ const EventSession = ({ session, expandedSessions, onToggleExpansion }) => {
   }
 
   return (
-    <Container style={{ maxWidth: '99vw' }}>
-      <Table responsive striped hover>
-        <thead>
-          <tr>
-            {hasDetailsForAnySession && <th style={{ width: '50px' }}></th>}
-            {tableColumns.map((column) => (
-              <th key={column}>
-                {CORE_COLUMN_CONFIG[column]?.label || column}
-              </th>
+    <Container fluid className="px-2 px-md-3">
+      <div className="table-responsive">
+        <Table striped hover className="mb-0">
+          <thead>
+            <tr>
+              {hasDetailsForAnySession && (
+                <th style={{ width: isSmallScreen ? '40px' : '50px' }}></th>
+              )}
+              {tableColumns.map((column) => (
+                <th key={column} className={isSmallScreen ? 'text-nowrap' : ''}>
+                  {CORE_COLUMN_CONFIG[column]?.label || column}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {sessionItems.map((sessionItem, index) => (
+              <SessionRow
+                key={sessionItem.uniqueId}
+                session={sessionItem}
+                columns={tableColumns}
+                columnConfig={CORE_COLUMN_CONFIG}
+                detailFields={DETAIL_FIELDS}
+                isExpanded={expandedSessions[sessionItem.uniqueId] || false}
+                onToggle={onToggleExpansion}
+                showExpandButton={hasDetailsForAnySession}
+                isSmallScreen={isSmallScreen}
+                rowNumber={index + 1}
+              />
             ))}
-          </tr>
-        </thead>
-        <tbody>
-          {sessionItems.map((sessionItem, index) => (
-            <SessionRow
-              key={sessionItem.uniqueId}
-              session={sessionItem}
-              columns={tableColumns}
-              columnConfig={CORE_COLUMN_CONFIG}
-              detailFields={DETAIL_FIELDS}
-              isExpanded={expandedSessions[sessionItem.uniqueId] || false}
-              onToggle={onToggleExpansion}
-              showExpandButton={hasDetailsForAnySession}
-              rowNumber={index + 1}
-            />
-          ))}
-        </tbody>
-      </Table>
+          </tbody>
+        </Table>
+      </div>
     </Container>
   );
 };
@@ -275,6 +293,7 @@ const SessionRow = ({
   isExpanded,
   onToggle,
   showExpandButton,
+  isSmallScreen,
   rowNumber,
 }) => {
   const handleToggle = useCallback(() => {
@@ -303,14 +322,14 @@ const SessionRow = ({
                 className="p-0 d-flex align-items-center"
                 style={{ textDecoration: 'none' }}
               >
-                <BsYoutube color="#FF0000" size={24} />
+                <BsYoutube color="#FF0000" size={isSmallScreen ? 20 : 24} />
               </Button>
             ) : (
               <span
                 className="d-flex align-items-center"
                 style={{ cursor: 'default' }}
               >
-                <BsYoutube color="#6c757d" size={24} />
+                <BsYoutube color="#6c757d" size={isSmallScreen ? 20 : 24} />
               </span>
             )}
           </OverlayTrigger>
@@ -319,7 +338,25 @@ const SessionRow = ({
     }
 
     const formatter = columnConfig[column]?.formatter;
-    return formatter ? formatter(value) : value || 'N/A';
+    const formattedValue = formatter ? formatter(value) : value || 'N/A';
+
+    // Truncate long values on mobile
+    if (isSmallScreen && column === 'Title' && formattedValue.length > 30) {
+      return (
+        <OverlayTrigger
+          placement="top"
+          overlay={
+            <Tooltip id={`title-tooltip-${session.uniqueId}`}>
+              {formattedValue}
+            </Tooltip>
+          }
+        >
+          <span>{formattedValue.substring(0, 30)}...</span>
+        </OverlayTrigger>
+      );
+    }
+
+    return formattedValue;
   };
 
   // Get all detail fields that have values for this session
@@ -332,6 +369,14 @@ const SessionRow = ({
     .filter((detail) => detail.value && String(detail.value).trim() !== '');
 
   const hasSessionDetails = sessionDetails.length > 0;
+
+  // Separate description from other details for better layout
+  const descriptionDetail = sessionDetails.find(
+    (detail) => detail.field === 'Description'
+  );
+  const otherDetails = sessionDetails.filter(
+    (detail) => detail.field !== 'Description'
+  );
 
   return (
     <>
@@ -346,7 +391,10 @@ const SessionRow = ({
                 onClick={handleToggle}
                 className={styles.session_expand}
                 aria-label={isExpanded ? 'Collapse session' : 'Expand session'}
-                style={{ cursor: 'pointer' }}
+                style={{
+                  cursor: 'pointer',
+                  fontSize: isSmallScreen ? '0.7rem' : '0.8rem',
+                }}
               >
                 {isExpanded ? '▼' : '▶'}
               </Badge>
@@ -354,7 +402,9 @@ const SessionRow = ({
           </td>
         )}
         {columns.map((column) => (
-          <td key={column}>{renderCellValue(column, session[column])}</td>
+          <td key={column} className={isSmallScreen ? 'small' : ''}>
+            {renderCellValue(column, session[column])}
+          </td>
         ))}
       </tr>
       {hasSessionDetails && (
@@ -365,20 +415,52 @@ const SessionRow = ({
           >
             <Collapse in={isExpanded}>
               <div className="p-3 bg-light border-top">
-                <div className="row">
-                  {sessionDetails.map(({ field, value, label }) => (
-                    <div key={field} className="col-md-6 mb-2">
-                      <strong>{label}:</strong>
-                      <div className="mt-1">
-                        {field === 'Description' ? (
-                          <div dangerouslySetInnerHTML={{ __html: value }} />
-                        ) : (
-                          <span>{value}</span>
-                        )}
-                      </div>
+                {/* Description gets full width if it exists */}
+                {descriptionDetail && (
+                  <div className="mb-3">
+                    <strong>{descriptionDetail.label}:</strong>
+                    <div
+                      className="mt-2"
+                      style={{
+                        maxHeight: '200px',
+                        overflowY: 'auto',
+                        padding: '8px',
+                        backgroundColor: '#fff',
+                        borderRadius: '4px',
+                        border: '1px solid #dee2e6',
+                      }}
+                    >
+                      <div
+                        dangerouslySetInnerHTML={{
+                          __html: descriptionDetail.value,
+                        }}
+                      />
                     </div>
-                  ))}
-                </div>
+                  </div>
+                )}
+
+                {/* Other details in responsive grid */}
+                {otherDetails.length > 0 && (
+                  <div className="row">
+                    {otherDetails.map(({ field, value, label }) => (
+                      <div
+                        key={field}
+                        className={`${
+                          otherDetails.length === 1
+                            ? 'col-12'
+                            : isSmallScreen
+                            ? 'col-12 mb-2'
+                            : 'col-md-6 mb-2'
+                        }`}
+                      >
+                        <strong>{label}:</strong>
+                        <div className="mt-1">
+                          <span>{value}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </Collapse>
           </td>
