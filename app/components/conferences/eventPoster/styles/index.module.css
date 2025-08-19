@@ -95,9 +95,17 @@
 
 .event_speaker_avatar {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   padding: 15px;
+}
+
+.profile_img {
+  width: 70px;  
+  height: 70px;  
+  object-fit: cover;  /* Prevents stretching */
+  border-radius: 50%;  /* Makes it circular */
+  aspect-ratio: 1 / 1; /* Ensures the image remains square before rounding */
 }
 
 @media (max-width: 576px) {
