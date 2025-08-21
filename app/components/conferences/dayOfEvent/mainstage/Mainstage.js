@@ -18,20 +18,24 @@ export const EventMainstage = ({ eventdetails, open, setOpen }) => {
   const [region, setRegion] = useState('Asia');
   const evePoster = eventdetails?.data?.['original_image_url'];
 
-  useEffect(async () => {
-    try {
-      const res = await getIPInfo();
-      const ipInfo = res.data;
-      if (ipInfo.timezone.split('/')[0] == 'Asia') {
-        setStreamLink(asiaLink);
-        setRegion(ipInfo.timezone.split('/')[0]);
-      } else {
-        setStreamLink(otherLink);
-        setRegion(ipInfo.timezone.split('/')[0]);
+  useEffect(() => {
+    const fetchIPInfo = async () => {
+      try {
+        const res = await getIPInfo();
+        const ipInfo = res.data;
+        if (ipInfo.timezone.split('/')[0] == 'Asia') {
+          setStreamLink(asiaLink);
+          setRegion(ipInfo.timezone.split('/')[0]);
+        } else {
+          setStreamLink(otherLink);
+          setRegion(ipInfo.timezone.split('/')[0]);
+        }
+      } catch (e) {
+        console.error('error in ip allocation switching to Asia server', e);
       }
-    } catch (e) {
-      console.error('error in ip allocation switching to Asia server', e);
-    }
+    };
+    
+    fetchIPInfo();
   }, []);
 
   return (

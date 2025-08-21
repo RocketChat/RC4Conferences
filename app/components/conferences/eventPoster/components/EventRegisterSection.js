@@ -12,6 +12,7 @@ import styles from '../styles/index.module.css';
 import { BiError } from 'react-icons/bi';
 import { useRouter } from 'next/router';
 import EventStrip from './EventStrip';
+import { isSignedIn as checkIsSignedIn } from '../server/isSignedIn';
 
 const useDetectElement = (options) => {
   const containerRef = useRef(null);
@@ -57,7 +58,7 @@ export const EventTicket = ({ tktDetail, event, error, customLink }) => {
       setErr(errMessHelper[error]);
       setAlertOp(true);
     }
-  });
+  }, [error]);
 
   const tktName = tktDetail.name;
   const tktPrice = tktDetail.price;
@@ -188,9 +189,9 @@ const JoinModal = ({ open, handleClose, event, alertOp, setAlertOp, err }) => {
   useEffect(() => {
     const checkSignedIn = async () => {
       try {
-        const isSignedIn = await isSignedIn();
+        const signedInStatus = await checkIsSignedIn();
 
-        if (isSignedIn) {
+        if (signedInStatus) {
           setIsSignedIn(true);
         }
       } catch (e) {
@@ -209,7 +210,7 @@ const JoinModal = ({ open, handleClose, event, alertOp, setAlertOp, err }) => {
         e
       );
     }
-  });
+  }, [event.data.privacy]);
 
   const handleRedirect = (location) => {
     if (typeof window != 'undefined') {

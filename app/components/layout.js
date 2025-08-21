@@ -1,9 +1,8 @@
 import '../styles/Layout.module.css';
 import Footer from './footer';
-import { useRouter, Router } from 'next/router';
+import { Router } from 'next/router';
 import { VerifyUserRole } from './conferences/EventAdmin';
 import { useState } from 'react';
-import Link from 'next/link';
 
 function Layout(props) {
   const [loading, setLoading] = useState(false);
@@ -13,7 +12,7 @@ function Layout(props) {
 
   return (
     <>
-      {/* <VerifyUserRole menuprops={props} /> */}
+      <VerifyUserRole menuprops={props} />
       {props.children}
       <Footer></Footer>
       {loading && <span className="loader"></span>}

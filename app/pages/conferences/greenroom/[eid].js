@@ -9,7 +9,6 @@ import { fetchAPI } from '../../../lib/api';
 import EventSpeakerStage from '../../../components/conferences/dayOfEvent/greenroom/EventSpeakerRoom';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
-// import { RCdesktopChat } from "../../../components/conferences/dayOfEvent/RCchat";
 import styles from '../../../styles/Greenroom.module.css';
 import { AdvtButtons } from '../../../components/conferences/dayOfEvent/AdvtTool';
 
@@ -33,7 +32,6 @@ const Greenroom = ({ eventIdentifier, spkdata, eventdata }) => {
           />
         </div>
         <div className={styles.greenroom_page_chat}>
-          {/* <RCdesktopChat open={open} setOpen={setOpen} /> */}
         </div>
       </div>
       <AdvtButtons repoUrl={'https://github.com/RocketChat/RC4Conferences'} />
