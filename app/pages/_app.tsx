@@ -7,7 +7,16 @@ import {SessionProvider} from 'next-auth/react';
 import { ApolloProvider } from '@apollo/client';
 import client from '../apollo-client';
 import { Toaster } from 'react-hot-toast';
-function MyApp({ Component, pageProps: {session, ...pageProps}}) {
+import type { AppProps } from 'next/app';
+
+interface MyAppProps extends AppProps {
+  pageProps: {
+    session?: any;
+    [key: string]: any;
+  };
+}
+
+function MyApp({ Component, pageProps: {session, ...pageProps}}: MyAppProps) {
   return (
     <SSRProvider>
       <ApolloProvider client={client}>

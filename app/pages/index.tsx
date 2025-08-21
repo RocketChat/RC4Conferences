@@ -8,8 +8,30 @@ import Growthcounters from '../components/growthcounters';
 import { Container, Col } from 'react-bootstrap';
 import { fetchAPI } from '../lib/api';
 import { INFOTILES_DATA } from '../lib/const/infotiles';
+import { GetStaticProps } from 'next';
 
-function Home(props) {
+// DiscourseClient is referenced but not imported in the original code
+declare const DiscourseClient: any;
+
+interface HomeProps {
+  carousels: {
+    data: any[];
+  };
+  personas: {
+    data: any[];
+  };
+  guides: any;
+  releaseNotes: {
+    data: {
+      version: string;
+      location: string;
+    };
+  };
+  topNavItems: any;
+  discourseTabsData: any[];
+}
+
+function Home(props: HomeProps) {
   return (
     <>
       <Head>
@@ -91,7 +113,7 @@ function Home(props) {
 }
 export default Home;
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps<HomeProps> = async ({ params }) => {
   const carousels = await fetchAPI('/carousels');
   const personas = await fetchAPI('/personas');
   const guides = await fetchAPI('/guide');

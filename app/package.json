@@ -9,7 +9,7 @@
     "export": "next export",
     "start": "next start",
     "lint": "next lint",
-    "prettier": "prettier --write \"src/**/*.{js,jsx}\""
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx}\""
   },
   "dependencies": {
     "@apollo/client": "^3.13.9",
@@ -43,11 +43,24 @@
     "url-join": "^5.0.0"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
+    "@types/lodash": "^4.17.17",
+    "@types/node": "^22.10.5",
+    "@types/react": "^18.3.21",
+    "@types/react-dom": "^18.3.5",
+    "@types/react-slick": "^0.23.13",
+    "@typescript-eslint/eslint-plugin": "^8.20.0",
+    "@typescript-eslint/parser": "^8.20.0",
     "eslint": "^8.57.1",
     "eslint-config-next": "^13.5.7",
-    "prettier": "^3.6.2"
+    "prettier": "^3.6.2",
+    "typescript": "^5.7.3"
   },
   "volta": {
-    "node": "20.4.0"
+    "node": "24.7.0"
+  },
+  "engines": {
+    "node": ">=24.0.0",
+    "npm": ">=10.0.0"
   }
 }
