@@ -1,4 +1,5 @@
 import styles from '../styles/Newscarousel.module.css';
+import Image from 'next/image';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -48,9 +49,12 @@ const Item = (props) => {
         rel="noreferrer"
         className="text-decoration-none text-black :hover"
       >
-        <img
+        <Image
           className={styles['carousel-item-image']}
           src={props.item.imageUrl}
+          alt={props.item.title || 'News article image'}
+          width={400}
+          height={250}
         />
         <div className={`p-2 p-md-3 h-auto + ${styles.content}`}>
           <h2 className={`${styles.heading}`}>{props.item.name}</h2>

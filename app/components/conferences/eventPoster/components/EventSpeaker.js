@@ -74,6 +74,7 @@ export const SmEventSpeaker = ({ eid, speaker }) => {
                   roundedCircle
                   src={spk['photo_url'] || avatarGenerate(spk.name)}
                   placeholder={avatarGenerate(spk.name)}
+                  alt={spk.name || 'Speaker photo'}
                 />
               </div>
 
@@ -177,6 +178,7 @@ export const MdEventSpeaker = ({ eid, speaker }) => {
                       className={styles.profile_img}
                       src={spk['photo_url'] || avatarGenerate(spk.name)}
                       placeholder={avatarGenerate(spk.name)}
+                      alt={spk.name || 'Speaker photo'}
                     />
                   </div>
                 </Col>

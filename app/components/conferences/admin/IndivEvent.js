@@ -210,6 +210,7 @@ const SpeakerList = ({
                         height={'50em'}
                         roundedCircle
                         src={spk['photo_url']}
+                        alt={spk.name || 'Speaker photo'}
                       />
                     </Col>
                     <Col>

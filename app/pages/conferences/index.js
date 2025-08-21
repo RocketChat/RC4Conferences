@@ -25,7 +25,7 @@ function EventHomeDemo({ imgUrl, passcode }) {
             className={styles.home_bg}
           >
             <div className={styles.home_bg_content}>
-              <Image width={300} height={250} src={eventLogo} />
+              <Image width={300} height={250} src={eventLogo} alt="Event logo" />
               <EventHome passcode={passcode} />
             </div>
           </div>

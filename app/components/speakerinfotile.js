@@ -16,6 +16,7 @@ export default function SpeakerInfotiles({ data }) {
               width={271}
               height={174}
               objectFit="cover"
+              alt={obj.name || 'Speaker photo'}
             />
           )}
           <div className={Styles.card_content}>

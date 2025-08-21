@@ -15,7 +15,7 @@ export const SmEventHeader = ({ event, error, customLink }) => {
   };
   return (
     <div className={styles.event_small_banner}>
-      <Image src={event.data['original_image_url']} fluid />
+      <Image src={event.data['original_image_url']} fluid alt="Event banner" />
       <EventTicket
         tktDetail={sampleTicket}
         event={event}
@@ -72,6 +72,7 @@ export const MdEventHeader = ({ event, error, customLink }) => {
             src={event.data['original_image_url']}
             style={{ scale: '70%' }}
             fluid
+            alt="Event poster"
           />
         </div>
       </div>

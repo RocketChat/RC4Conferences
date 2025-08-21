@@ -161,6 +161,7 @@ const GalleryModal = ({
                         onClick={handleImage}
                         className={`${styles.assetImage} nim_${i}`}
                         src={a.image_url}
+                        alt={a.name || 'NFT asset'}
                       />
                     </div>
                   )
