@@ -7,7 +7,7 @@ import { verifyValidRCchat } from '../helper';
 export const EventHeader = ({ eventData, open, setOpen }) => {
   const eventName = eventData?.data?.name;
   const eventOrg = eventData?.data?.['owner-name'];
-  const validRCflag = verifyValidRCchat();
+  let validRCflag = verifyValidRCchat();
 
   const handleOpen = () => {
     const hashmail = Cookies.get('hashmail');

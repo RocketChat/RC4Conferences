@@ -13,7 +13,7 @@ import { BiError } from 'react-icons/bi';
 import { useRouter } from 'next/router';
 import EventStrip from './EventStrip';
 
-const detectElement = (options) => {
+const useDetectElement = (options) => {
   const containerRef = useRef(null);
   const [inView, setInView] = useState(false);
 
@@ -24,18 +24,19 @@ const detectElement = (options) => {
 
   useEffect(() => {
     let observer = new IntersectionObserver(callbackFn, options);
-    if (containerRef.current) observer.observe(containerRef.current);
+    const currentRef = containerRef.current;
+    if (currentRef) observer.observe(currentRef);
 
     return () => {
-      if (containerRef.current) observer.unobserve(containerRef.current);
+      if (currentRef) observer.unobserve(currentRef);
     };
-  }, [containerRef, options]);
+  }, [options]);
 
   return [containerRef, inView];
 };
 
 export const EventTicket = ({ tktDetail, event, error, customLink }) => {
-  const [containerRef, inView] = detectElement({
+  const [containerRef, inView] = useDetectElement({
     root: null,
     rootMargin: '0px 0px 100% 0px',
     threshold: 0.1,

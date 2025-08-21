@@ -90,6 +90,7 @@ export default function Videostreamer(props) {
                 <a
                   href="https://videojs.com/html5-video-support/"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   supports HTML5 video
                 </a>

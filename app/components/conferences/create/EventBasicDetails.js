@@ -53,12 +53,12 @@ export const EventBasicCreate = ({ setDraft, handleToast }) => {
     nativeDefaultEnd.setMinutes(
       nativeDefaultEnd.getMinutes() + 30 - nativeDefaultEnd.getTimezoneOffset()
     );
-    nativeDefaultEnd = nativeDefaultEnd.toISOString().slice(0, 16);
+    const nativeDefaultEndString = nativeDefaultEnd.toISOString().slice(0, 16);
 
     setFormState((prev) => ({
       ...prev,
       starts_at: nativeDefaultStart,
-      ends_at: nativeDefaultEnd,
+      ends_at: nativeDefaultEndString,
     }));
   }, []);
 

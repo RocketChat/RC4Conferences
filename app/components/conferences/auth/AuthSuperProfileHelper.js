@@ -19,7 +19,7 @@ export const FIND_USER_BY_MAIL = gql`
   }
 `;
 
-export const verifyAdmin = () => {
+export const useVerifyAdmin = () => {
   const [getCurrentUser, { data, error, loading }] =
     useLazyQuery(FIND_USER_BY_MAIL);
 

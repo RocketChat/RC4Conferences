@@ -2,16 +2,14 @@ import { useEffect, useState } from 'react';
 import NewMenubar from '../menubar/newMenuBar';
 import _ from 'lodash';
 import Cookies from 'js-cookie';
-import { verifyAdmin } from './auth/AuthSuperProfileHelper';
+import { useVerifyAdmin } from './auth/AuthSuperProfileHelper';
 import { unsignCook } from '../../lib/conferences/eventCall';
 
 export const VerifyUserRole = ({ menuprops }) => {
-  if (!menuprops.menu?.topNavItems) {
-    return <NewMenubar menu={menuprops.menu.topNavItems} />;
-  }
-  const [getCurrentUser, { data, error, loading }] = verifyAdmin();
+  const [getCurrentUser, { data, error, loading }] = useVerifyAdmin();
   const [verified, setVerified] = useState(false);
   const hashmail = Cookies.get('hashmail');
+
   useEffect(() => {
     const decipherEmail = async () => {
       try {
@@ -24,7 +22,8 @@ export const VerifyUserRole = ({ menuprops }) => {
       }
     };
     decipherEmail();
-  }, []);
+  }, [getCurrentUser, hashmail]);
+
   let menuCache = null;
 
   if (!menuprops.menu?.topNavItems) {

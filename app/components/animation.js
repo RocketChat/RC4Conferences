@@ -9,8 +9,9 @@ const Animation = React.memo(() => {
   console.log('animation rerendered');
   return (
     <span className={styles.track}>
-      {Array.apply(null, { length: 4 }).map(() => (
+      {Array.apply(null, { length: 4 }).map((_, index) => (
         <p
+          key={`heart-${index}`}
           className={styles.emojiAnimationContainer}
           style={{
             color: 'red',
@@ -22,8 +23,9 @@ const Animation = React.memo(() => {
           ❤
         </p>
       ))}
-      {Array.apply(null, { length: 4 }).map(() => (
+      {Array.apply(null, { length: 4 }).map((_, index) => (
         <p
+          key={`thumbs-${index}`}
           className={styles.emojiAnimationContainer}
           style={{
             overflow: 'hidden',
@@ -37,5 +39,7 @@ const Animation = React.memo(() => {
     </span>
   );
 });
+
+Animation.displayName = 'Animation';
 
 export default Animation;

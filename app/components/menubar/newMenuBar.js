@@ -41,6 +41,8 @@ const CustomToggle = forwardRef(({ children, onClick }, ref) => (
   </a>
 ));
 
+CustomToggle.displayName = 'CustomToggle';
+
 if (!hasAllRequiredCreds)
   console.log(
     'RC4Community is now using a dummy Auth Component! If you wish to use a robust Auth component, provide all the credentials first (https://github.com/RocketChat/RC4Community/tree/master/app/components/auth)'
@@ -182,7 +184,7 @@ const MobileNav = ({ nav_Items }) => {
                               (subItem, key) =>
                                 subItem.attributes.parent_id ===
                                   item.attributes.id && (
-                                  <div className="px-4 py-1 fw-light">
+                                  <div key={key} className="px-4 py-1 fw-light">
                                     <Link
                                       key={key}
                                       href={
@@ -304,10 +306,10 @@ const DesktopNav = ({ nav_Items }) => {
                         </div>
                         {/*if submenus contain more sub menus */}
                         {item.sub_menus?.data.map(
-                          (subItem) =>
+                          (subItem, key) =>
                             subItem.attributes.parent_id ===
                               item.attributes.id && (
-                              <div className="px-4 pt-3 fw-light">
+                              <div key={key} className="px-4 pt-3 fw-light">
                                 <Link
                                   href={
                                     subItem.attributes.url
