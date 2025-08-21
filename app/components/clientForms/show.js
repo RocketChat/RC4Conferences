@@ -11,7 +11,7 @@ function RCform({ formId, fw }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('form submitted', e);
+    // TODO: Implement form submission logic
   };
 
   return (

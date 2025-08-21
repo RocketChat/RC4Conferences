@@ -6,7 +6,6 @@ function getRandomInt(max) {
 }
 
 const Animation = React.memo(() => {
-  console.log('animation rerendered');
   return (
     <span className={styles.track}>
       {Array.apply(null, { length: 4 }).map((_, index) => (

@@ -226,8 +226,6 @@ function EventStrip({
   const handleCalendarAction = useCallback(() => {
     try {
       if (Object.keys(calendarConfig).length > 0) {
-        console.log('Calendar config:', calendarConfig); // Debug log
-
         // On mobile devices, use direct Google Calendar URL as fallback
         if (isMobileDevice()) {
           const googleUrl = generateGoogleCalendarUrl(event, customLink);
