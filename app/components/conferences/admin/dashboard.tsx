@@ -12,10 +12,18 @@ import toast, { Toaster } from 'react-hot-toast';
 
 export const EventDashBoard = () => {
   const [eventData, setEventData] = useState(null);
-  let authCookie = Cookies.get('event_auth');
-  if (authCookie) {
-    authCookie = JSON.parse(authCookie);
-  }
+  const [authCookie, setAuthCookie] = useState<any>(null);
+  
+  useEffect(() => {
+    const cookie = Cookies.get('event_auth');
+    if (cookie) {
+      try {
+        setAuthCookie(JSON.parse(cookie));
+      } catch {
+        setAuthCookie(null);
+      }
+    }
+  }, []);
   useEffect(() => {
     const fetchEventDeatils = async () => {
       try {

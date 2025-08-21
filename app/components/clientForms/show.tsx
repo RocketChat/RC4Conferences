@@ -7,7 +7,7 @@ function RCform({ formId, fw }) {
   const { form, isLoading, isError } = useFormData(formId);
 
   if (isLoading) return <Spinner />;
-  if (isError) return <Error />;
+  if (isError) return <Error statusCode={500} />;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,7 +48,7 @@ function RCform({ formId, fw }) {
               {ele.type == 'number'}
             </Form.Group>
           ))}
-          <Button variant="primary" o type="submit">
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>

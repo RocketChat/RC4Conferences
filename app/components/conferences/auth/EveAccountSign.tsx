@@ -121,6 +121,7 @@ const EventSignUpForm = ({ err, setErr }) => {
 
   const [load, setLoad] = useState(false);
   const [match, setMatch] = useState(true);
+  const router = useRouter();
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -201,7 +202,7 @@ const EventSignUpForm = ({ err, setErr }) => {
           aria-label="Password"
         />
       </InputGroup>
-      <InputGroup className="mb-3" controlId="formRePassword">
+      <InputGroup className="mb-3">
         <InputGroup.Text>Re-Enter Password*</InputGroup.Text>
         <Form.Control
           onChange={handleChange}
@@ -247,16 +248,16 @@ const EventAuth = () => {
           fill
           className="justify-content-center"
           variant="tabs"
-          activeKey={login}
-          defaultActiveKey="#signin"
+          activeKey={login ? "signin" : "signup"}
+          defaultActiveKey="signin"
         >
           <Nav.Item onClick={() => setLogin(true)}>
-            <Nav.Link eventKey="true" href="#signin">
+            <Nav.Link eventKey="signin" href="#signin">
               Sign In
             </Nav.Link>
           </Nav.Item>
           <Nav.Item onClick={() => setLogin(false)}>
-            <Nav.Link eventKey="false" href="#signup">
+            <Nav.Link eventKey="signup" href="#signup">
               Sign Up
             </Nav.Link>
           </Nav.Item>
@@ -275,7 +276,7 @@ const EventAuth = () => {
       <Card.Footer
         className={styles.sign_card_foot}
         onClick={() => {
-          setLogin(!login), setErr({ show: false });
+          setLogin(!login), setErr({ show: false, mess: "" });
         }}
       >
         {login ? "I'm new here! Sign Up" : "Back to Sign In"}

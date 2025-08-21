@@ -8,69 +8,61 @@ import {
   Toast,
 } from 'react-bootstrap';
 import Cookies from 'js-cookie';
-import { EventForm } from '../eventForm';
-import { useRouter } from 'next/router';
 import {
-  editEvent,
-  getTicketDetails,
-  editEventTicket,
+  publishEvent,
+  publishEventTicket,
 } from '../../../lib/conferences/eventCall';
+import { useRouter } from 'next/router';
 import styles from '../../../styles/event.module.css';
+import { EventForm } from '../eventForm';
 import toast, { Toaster } from 'react-hot-toast';
 
-export const EditEvent = ({ event, handleToast }) => {
+export const EventBasicCreate = ({ setDraft, handleToast }) => {
+  const [isPublic, setIsPublic] = useState(false);
+
   const [formState, setFormState] = useState({
-    name: event.data.name,
-    description: event.data.description,
-    starts_at: event.data['starts_at'].slice(0, 16),
-    ends_at: event.data['ends_at'].slice(0, 16),
-    original_image_url: event.data['original_image_url'],
-    logo_url: event.data['logo_url'],
+    headerimage: '',
+    logoimage: '',
+    name: '',
+    description: '',
+    starts_at: new Date(),
+    ends_at: new Date(),
+    original_image_url:
+      'https://lh3.googleusercontent.com/n6WF5Pv12ucRY8ObS74SY4coMuFs8ALtHmq7brwnMJVkBzNveiTQfj9sBygEt-KT6ykMMzDHZ3ifjY7jQkNx9Lbj7O7zhGTdMLUgkB8=w600',
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     online: true,
     is_sessions_speakers_enabled: true,
-    privacy: event.data.privacy,
   });
 
-  const [publish, setPublish] = useState('published');
-  const [isPublic, setIsPublic] = useState(
-    event.data.privacy === 'public' ? true : false
-  );
+  const [publish, setPublish] = useState('draft');
 
   const [ticket, setTicket] = useState({
-    name: 'Registration',
+    name: '',
     state: true,
-    quantity: 1,
+    quantity: '',
   });
 
   const router = useRouter();
 
   useEffect(() => {
-    const ticketInfo = async () => {
-      try {
-        let token = Cookies.get('event_auth');
-        token
-          ? (token = JSON.parse(token).access_token)
-          : new Error('Please, Sign in again');
+    const date = new Date();
+    date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+    const nativeDefaultStart = date.toISOString().slice(0, 16);
 
-        const res = await getTicketDetails(
-          event.data.relationships.tickets.data[0].id,
-          token
-        );
+    const nativeDefaultEnd = new Date(nativeDefaultStart);
+    nativeDefaultEnd.setMinutes(
+      nativeDefaultEnd.getMinutes() + 30 - nativeDefaultEnd.getTimezoneOffset()
+    );
+    const nativeDefaultEndString = nativeDefaultEnd.toISOString().slice(0, 16);
 
-        setTicket({
-          name: res.data.name,
-          state: res.data.type === 'free',
-          quantity: res.data.quantity,
-        });
-      } catch (e) {
-        console.error('An error occurred while fetching tickets', e);
-      }
-    };
-    ticketInfo();
+    setFormState((prev) => ({
+      ...prev,
+      starts_at: new Date(nativeDefaultStart),
+      ends_at: new Date(nativeDefaultEndString),
+    }));
   }, []);
 
-  const handleTicketUpdate = async (eid, auth) => {
+  const handleTicketPublish = async (eid, auth) => {
     const tdata = {
       data: {
         attributes: {
@@ -83,22 +75,24 @@ export const EditEvent = ({ event, handleToast }) => {
           'max-order': 1,
           'is-description-visible': true,
         },
+        relationships: {
+          event: {
+            data: {
+              type: 'event',
+              id: eid,
+            },
+          },
+        },
         type: 'ticket',
-        id: eid,
       },
     };
 
-    const tickRes = await editEventTicket(eid, tdata, auth);
+    const tickRes = await publishEventTicket(tdata, auth);
     return tickRes;
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
-    if (formState['logo_url'] === '') {
-      delete formState['logo_url'];
-    }
-
     const data = {
       data: {
         attributes: {
@@ -106,34 +100,50 @@ export const EditEvent = ({ event, handleToast }) => {
           state: publish,
           privacy: isPublic ? 'public' : 'private',
         },
-        id: event.data.id,
         type: 'event',
       },
     };
-
     try {
       let token = Cookies.get('event_auth');
       token
         ? (token = JSON.parse(token).access_token)
         : new Error('Please, Sign in again');
 
-      const res = await editEvent(data, token, event.data.identifier);
-      toast.success('Event updated');
-      const tres = handleTicketUpdate(
-        event.data.relationships.tickets.data[0].id,
-        token
-      );
+      const res = await publishEvent(data, token);
 
+      await handleTicketPublish(res.data.data.id, token);
+
+      sessionStorage.setItem('draft', String(publish == 'draft'));
       sessionStorage.setItem('event', JSON.stringify(res.data));
-
-      router.push('/conferences/admin/dashboard');
+      toast.success('Event Created successfully', {
+        duration: 2000,
+      });
+      router.push('sessions');
     } catch (e) {
-      console.error('Event Update failed', e.response.data.error);
+      toast.error('Event creation failed', {
+        duration: 2000,
+      });
       if (e.response.status == 401) {
         Cookies.remove('event_auth');
         router.push('/conferences');
       }
     }
+  };
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setFormState((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleImageChange = (imageType, img) => {
+    setFormState((prev) => ({
+      ...prev,
+      [imageType]: img,
+    }));
   };
 
   const handleSwitch = (e) => {
@@ -150,15 +160,6 @@ export const EditEvent = ({ event, handleToast }) => {
         }));
   };
 
-  const handleChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setFormState((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
   const handlePublicSwitch = (e) => {
     const checked = e.target.checked;
     setIsPublic(checked);
@@ -166,37 +167,34 @@ export const EditEvent = ({ event, handleToast }) => {
 
   return (
     <>
-      <Toaster position="top-right" reverseOrder={false} />
       <Card>
+        <Card.Header>Creating Event {formState.name}!</Card.Header>
         <Card.Body>
           <Form onSubmit={handleFormSubmit}>
             <EventForm
-              isPublic={isPublic}
               intialValues={formState}
+              isPublic={isPublic}
               handleChange={handleChange}
               ticket={ticket}
               handleSwitch={handleSwitch}
               handlePublicSwitch={handlePublicSwitch}
+              handleImageChange={handleImageChange}
             />
             <ButtonGroup aria-label="Basic example">
               <Button variant="primary" type="submit">
-                Save
+                Next
+              </Button>
+              <Button
+                variant="success"
+                onClick={() => setPublish('published')}
+                type="submit"
+              >
+                Publish
               </Button>
             </ButtonGroup>
           </Form>
         </Card.Body>
       </Card>
     </>
-  );
-};
-
-export const CustomToast = ({ show, type, msg }) => {
-  return (
-    <Toast show={show} className={styles.toast} bg={type}>
-      <Toast.Header>
-        <strong className="me-auto">Event Alert!</strong>
-      </Toast.Header>
-      <Toast.Body>{msg}</Toast.Body>
-    </Toast>
   );
 };

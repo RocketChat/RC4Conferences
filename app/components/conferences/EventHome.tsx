@@ -7,13 +7,18 @@ import { autoLogin, setCookie } from "./auth/AuthHelper";
 const EventHome = ({ passcode }) => {
   const router = useRouter();
   const [load, setLoad] = useState(false);
+  const [parsedSession, setParsedSession] = useState<any>(null);
   let session = Cookies.get("event_auth");
   let umail = process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL;
   useEffect(() => {
     if (session) {
-      session = JSON.parse(session);
+      try {
+        setParsedSession(JSON.parse(session));
+      } catch {
+        setParsedSession(null);
+      }
     }
-  });
+  }, [session]);
 
   const handleAutoAuth = async () => {
     setLoad(true);
@@ -26,7 +31,7 @@ const EventHome = ({ passcode }) => {
   };
 
   const handleClick = () => {
-    if (session?.access_token) {
+    if (parsedSession?.access_token) {
       router.push("/conferences/create/basic-detail");
     } else {
       passcode && umail

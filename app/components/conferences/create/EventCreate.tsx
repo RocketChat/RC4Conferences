@@ -3,10 +3,19 @@ import { EventBasicCreate } from "./EventBasicDetails";
 import styles from "../../../styles/event.module.css";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import toast from 'react-hot-toast';
 
 export const EventCreate = ({ active }) => {
   const [draft, setDraft] = useState(false);
   const router = useRouter();
+
+  const handleToast = (message: string, type: 'success' | 'error' = 'success') => {
+    if (type === 'success') {
+      toast.success(message);
+    } else {
+      toast.error(message);
+    }
+  };
 
 
   const pageRoute = {
@@ -41,7 +50,7 @@ export const EventCreate = ({ active }) => {
         </Nav>
       </Card.Header>
       <Card.Body>
-        {pageRoute[active] == 0 && <EventBasicCreate  />}
+        {pageRoute[active] == 0 && <EventBasicCreate setDraft={setDraft} handleToast={handleToast} />}
         {pageRoute[active] == 1 && "Coming Soon"}
         {pageRoute[active] == undefined &&
           "Hey! You got yourself on an fabled isle."}

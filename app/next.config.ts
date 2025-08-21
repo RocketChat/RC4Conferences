@@ -1,6 +1,7 @@
-const path = require('path');
+import path from 'path';
+import type { NextConfig } from 'next';
 
-module.exports = {
+const config: NextConfig = {
   reactStrictMode: true,
   output: 'standalone',
   sassOptions: {
@@ -25,3 +26,5 @@ module.exports = {
     return config;
   },
 };
+
+export default config;

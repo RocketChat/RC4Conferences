@@ -49,7 +49,6 @@ export const AdvtButtons = ({ repoUrl }) => {
           placement="right"
           delay={{ show: 250, hide: 400 }}
           overlay={renderTooltip({ message: "Report a bug" })}
-          href={`${repoUrl}/issues/new`}
         >
           <Button
             target="_blank"

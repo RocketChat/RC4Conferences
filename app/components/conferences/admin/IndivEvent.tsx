@@ -31,14 +31,29 @@ export const IndivEventDash = ({ eid, event }) => {
   const [modalShow, setModalShow] = useState(false);
   const [editSpeaker, setEditSpeaker] = useState({});
   const [load, setLoad] = useState(false);
+  const [authCookie, setAuthCookie] = useState<any>(null);
 
-  let authCookie = Cookies.get('event_auth');
-  if (authCookie) {
-    authCookie = JSON.parse(authCookie);
-  }
+  useEffect(() => {
+    const cookie = Cookies.get('event_auth');
+    if (cookie) {
+      try {
+        setAuthCookie(JSON.parse(cookie));
+      } catch {
+        setAuthCookie(null);
+      }
+    }
+  }, []);
+
+  const handleToast = (message: string, type: 'success' | 'error' = 'success') => {
+    if (type === 'success') {
+      toast.success(message);
+    } else {
+      toast.error(message);
+    }
+  };
 
   const fetchSpeaker = async () => {
-    const res = await getEventSpeakers(eid, authCookie?.access_token);
+    const res = await getEventSpeakers(eid);
     return res;
   };
 
@@ -140,7 +155,7 @@ export const IndivEventDash = ({ eid, event }) => {
             >
               <Tab eventKey="edit_event" title="Edit Event Details">
                 <div className="m-3">
-                  <EditEvent event={event} />
+                  <EditEvent event={event} handleToast={handleToast} />
                 </div>
               </Tab>
               <Tab eventKey="speaker" title="Speaker">

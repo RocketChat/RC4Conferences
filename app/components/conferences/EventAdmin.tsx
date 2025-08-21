@@ -5,8 +5,10 @@ import Cookies from 'js-cookie';
 import { useVerifyAdmin } from './auth/AuthSuperProfileHelper';
 import { unsignCook } from '../../lib/conferences/eventCall';
 
-export const VerifyUserRole = ({ menuprops }) => {
-  const [getCurrentUser, { data, error, loading }] = useVerifyAdmin();
+export const VerifyUserRole = ({ menuprops }: { menuprops: any }) => {
+  const hookResult = useVerifyAdmin();
+  const [getCurrentUser, apolloResult] = Array.isArray(hookResult) ? hookResult : [hookResult, {}];
+  const { data, error, loading } = (apolloResult as any) || {};
   const [verified, setVerified] = useState(false);
   const hashmail = Cookies.get('hashmail');
 
@@ -15,7 +17,9 @@ export const VerifyUserRole = ({ menuprops }) => {
       try {
         if (hashmail) {
           const res = await unsignCook({ hash: hashmail });
-          getCurrentUser({ email: res.mail });
+          if (typeof getCurrentUser === 'function') {
+            getCurrentUser({ email: res.mail });
+          }
         }
       } catch {
         console.error('Error while deciphering');
