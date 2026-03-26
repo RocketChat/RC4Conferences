@@ -2,13 +2,10 @@ import Head from 'next/head';
 
 import {
   getAllEvents,
-  getEventDeatils,
-  unsignCook,
+  getEventDetails,
 } from '../../../lib/conferences/eventCall';
 import { EventMainstage } from '../../../components/conferences/dayOfEvent/mainstage/Mainstage';
-import { fetchAPI } from '../../../lib/api';
 import { useState } from 'react';
-// import { RCdesktopChat } from "../../../components/conferences/dayOfEvent/RCchat";
 import styles from '../../../styles/Mainstage.module.css';
 import { AdvtButtons } from '../../../components/conferences/dayOfEvent/AdvtTool';
 
@@ -37,35 +34,29 @@ const EventMainstagePage = ({ event }) => {
 };
 
 export async function getStaticPaths() {
-  let paths = null;
   try {
     const res = await getAllEvents();
-    paths = res.data.map((event) => ({
-      params: { eid: event.id.toString() },
-    }));
     return {
-      paths: paths,
-      fallback: 'blocking',
+      paths: res.data.map((event) => ({
+        params: { eid: event.identifier },
+      })),
+      fallback: false,
     };
   } catch (e) {
     console.error('An error while fetching list of events', e);
     return {
-      paths: [{ params: { eid: 1 } }],
-      fallback: 'blocking',
+      paths: [],
+      fallback: false,
     };
   }
 }
 
 export async function getStaticProps(context) {
   const eventIdentifier = context.params.eid;
-  //temp 9ddffcbb
-  const event = await getEventDeatils(eventIdentifier);
-
-  const topNavItems = await fetchAPI('/top-nav-item');
+  const event = await getEventDetails(eventIdentifier);
 
   return {
-    props: { eventIdentifier, topNavItems, event },
-    revalidate: 10,
+    props: { eventIdentifier, event },
   };
 }
 

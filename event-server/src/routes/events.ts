@@ -1,37 +1,38 @@
-import {
-  Router,
-  Request,
-  Response,
-  NextFunction,
-  RequestHandler,
-} from "express";
+import { Router, Request, Response, RequestHandler } from "express";
 import { getEventsCollection } from "../db/collections";
 import { authenticateApiKey } from "../middleware/auth";
 import { IEvent } from "../types";
 
 const router = Router();
-
-// Apply authentication to all routes
-router.use(authenticateApiKey);
+const generateId = () => Date.now() + Math.floor(Math.random() * 1000);
 
 // Get all events
 router.get("/", (async (req: Request, res: Response) => {
   try {
     const eventsCollection = getEventsCollection();
-    const events = await eventsCollection.find().toArray();
+    const events = await eventsCollection
+      .find({}, { sort: { starts_at: 1, id: 1 } })
+      .toArray();
     res.json({ success: true, data: events });
   } catch (error: any) {
     res.status(500).json({ success: false, message: error.message });
   }
 }) as RequestHandler);
 
-// Get event by id
-router.get("/:id", (async (req: Request, res: Response) => {
+// Get event by id or identifier
+router.get("/:idOrIdentifier", (async (req: Request, res: Response) => {
   try {
-    const id = parseInt(req.params.id);
+    const idOrIdentifier = req.params.idOrIdentifier;
     const eventsCollection = getEventsCollection();
 
-    const event = await eventsCollection.findOne({ id: id });
+    let query: any;
+    if (!isNaN(Number(idOrIdentifier))) {
+      query = { id: parseInt(idOrIdentifier) };
+    } else {
+      query = { identifier: idOrIdentifier };
+    }
+
+    const event = await eventsCollection.findOne(query);
     if (!event) {
       return res
         .status(404)
@@ -45,12 +46,15 @@ router.get("/:id", (async (req: Request, res: Response) => {
 }) as RequestHandler);
 
 // Create new event
-router.post("/", (async (req: Request, res: Response) => {
+router.post("/", authenticateApiKey, (async (req: Request, res: Response) => {
   try {
     const newEvent: IEvent = req.body as IEvent;
     const eventsCollection = getEventsCollection();
-    // Generate a unique identifier for the new event
-    newEvent.id = Math.floor(Math.random() * 1000000); // Replace with a more robust ID generation method if needed
+    
+    // Preserve provided ID or generate a new one
+    if (newEvent.id === undefined || newEvent.id === null) {
+      newEvent.id = generateId();
+    }
 
     if (!newEvent.identifier) {
       newEvent.identifier = `event-${newEvent.id}`;
@@ -77,7 +81,7 @@ router.post("/", (async (req: Request, res: Response) => {
 }) as RequestHandler);
 
 // Update event
-router.put("/:id", (async (req: Request, res: Response) => {
+router.put("/:id", authenticateApiKey, (async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id);
     const updateData = req.body;
@@ -102,7 +106,7 @@ router.put("/:id", (async (req: Request, res: Response) => {
 }) as RequestHandler);
 
 // Delete event
-router.delete("/:id", (async (req: Request, res: Response) => {
+router.delete("/:id", authenticateApiKey, (async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id);
     const eventsCollection = getEventsCollection();

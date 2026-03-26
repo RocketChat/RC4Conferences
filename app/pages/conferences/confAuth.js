@@ -1,48 +1,36 @@
-import Head from "next/head";
-import { Stack } from "react-bootstrap";
-import { ssrVerifyAdmin } from "../../components/conferences/auth/AuthSuperProfileHelper";
-import EventAuth from "../../components/conferences/auth/EveAccountSign";
-import { fetchAPI } from "../../lib/api";
+import Head from 'next/head';
+import Link from 'next/link';
+import { Card, Container } from 'react-bootstrap';
 
 function EventAuthPage() {
   return (
     <div>
       <Head>
-        <title>Event Auth</title>
-        <meta name="description" content="Rocket.Chat form tool demo" />
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Legacy Admin Auth Removed</title>
+        <meta
+          name="description"
+          content="Legacy browser-based event auth has been removed from the static frontend."
+        />
       </Head>
-      <div className="mx-auto">
-        <h1 className="mx-auto mt-3">Preview of Event Auth Component</h1>
-        <Stack direction="horizontal">
-          <EventAuth />
-        </Stack>
-      </div>
+      <Container className="py-5">
+        <Card body>
+          <h1 className="h3">Legacy admin auth has been removed</h1>
+          <p className="mb-3">
+            The old browser-based admin flow depended on the removed
+            `open-event-server`. The production frontend is now a static,
+            public-facing site.
+          </p>
+          <p className="mb-0">
+            Manage events through the event server API and seeding scripts, then
+            rebuild the static site to publish changes.
+          </p>
+          <div className="mt-3">
+            <Link href="/conferences">Back to conferences</Link>
+          </div>
+        </Card>
+      </Container>
     </div>
   );
-}
-
-export async function getServerSideProps(context) {
-  const umail = context.req.cookies?.user_mail;
-  let isAdmin = false
-  if (umail) {
-    isAdmin = await ssrVerifyAdmin({email: umail})
-  }
-  if (!isAdmin) {
-    context.res.writeHead(303, { Location: "/" });
-    context.res.end();
-  }
-  else {
-    context.res.writeHead(303, { Location: "/" });
-    context.res.end();
-  }
-  const topNavItems = await fetchAPI("/top-nav-item");
-
-  return {
-    props: { topNavItems },
-    revalidate: 10,
-  };
 }
 
 export default EventAuthPage;

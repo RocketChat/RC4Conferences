@@ -1,76 +1,71 @@
-import Head from "next/head";
-import { ProgressBar, Stack } from "react-bootstrap";
-import EventHome from "../../components/conferences/EventHome";
-import Image from "next/image";
-import eventLogo from "../../assets/event_logo.svg";
-import styles from "../../styles/event.module.css";
-import { generatePassword } from "../../components/conferences/auth/AuthHelper";
-import { ssrVerifyAdmin } from "../../components/conferences/auth/AuthSuperProfileHelper";
-import { unsignCook } from "../../lib/conferences/eventCall";
+import Head from 'next/head';
+import Link from 'next/link';
+import { Card, Container, Stack } from 'react-bootstrap';
+import { getAllEvents } from '../../lib/conferences/eventCall';
+import styles from '../../styles/event.module.css';
 
-function EventHomeDemo({ imgUrl, passcode }) {
-
+function ConferencesHome({ events }) {
   return (
     <div>
       <Head>
-        <title>Form</title>
-        <meta name="description" content="Rocket.Chat form tool demo" />
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Conferences</title>
+        <meta
+          name="description"
+          content="Browse published RC4Conferences event pages."
+        />
       </Head>
-      <div className="mx-auto">
-        <Stack direction="vertical">
-          <div
-            style={{ backgroundImage: `url(${imgUrl})` }}
-            className={styles.home_bg}
-          >
-            <div className={styles.home_bg_content}>
-              <Image width={300} height={250} src={eventLogo} />
-              <EventHome passcode={passcode} />
-            </div>
+      <Container className="py-5">
+        <Stack gap={3}>
+          <div>
+            <h1 className="mb-2">Published conferences</h1>
+            <p className="text-muted mb-0">
+              The production frontend now serves public event pages only.
+              Content management happens through the event server API and seed
+              tooling.
+            </p>
           </div>
+          {events.length === 0 ? (
+            <Card body>No events are currently published.</Card>
+          ) : (
+            events.map((event) => (
+              <Card key={event.id} body className={styles.event_card}>
+                <h2 className="h4 mb-2">{event.name}</h2>
+                <p className="mb-3 text-muted">
+                  {event.starts_at} to {event.ends_at}
+                </p>
+                <div className="d-flex gap-3 flex-wrap">
+                  <Link href={`/conferences/c/${event.identifier}`}>
+                    View event page
+                  </Link>
+                  <Link href={`/conferences/mainstage/${event.identifier}`}>
+                    View mainstage
+                  </Link>
+                </div>
+              </Card>
+            ))
+          )}
         </Stack>
-      </div>
+      </Container>
     </div>
   );
 }
 
-export async function getServerSideProps(context) {
-  const res = await fetch(
-    "https://source.unsplash.com/random/1920x1080/?event,online,teamwork"
-  );
-  const umail = context.req.cookies?.hashmail;
-  if (!umail) {
+export async function getStaticProps() {
+  try {
+    const response = await getAllEvents();
     return {
-      redirect: {
-        destination: '/',
-        permanent: false
+      props: {
+        events: response.data,
       },
-    }
-  }
-  const mailres = await unsignCook({
-    hash: umail
-  })
-  const imgUrl = res.url;
-  let passcode = null;
-  let isAdmin = false
-  if (mailres.mail === process.env.NEXT_PUBLIC_EVENT_ADMIN_MAIL) {
-    passcode = await generatePassword(mailres.mail);
-    isAdmin = await ssrVerifyAdmin({email: mailres.mail})
-  }
-  
-  if (!isAdmin) {
+    };
+  } catch (error) {
+    console.error('Failed to load conference list', error);
     return {
-      redirect: {
-        destination: '/',
-        permanent: false
+      props: {
+        events: [],
       },
-    }
+    };
   }
-  
-  return {
-    props: { imgUrl, passcode },
-  };
 }
 
-export default EventHomeDemo;
+export default ConferencesHome;

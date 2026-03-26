@@ -1,0 +1,20 @@
+{
+    "id": 202508,
+    "name": "Rocket.Chat Demo Day 2025",
+    "latitude": 0.0,
+    "longitude": 0.0,
+    "location_name": null,
+    "starts_at": "2025-08-21T11:00:00.000Z",
+    "ends_at": "2025-08-21T17:15:00.000Z",
+    "timezone": "Etc/UTC",
+    "description": "<p>Every single year,  Rocket.Chat Demo Day  showcases open source innovations and major contributions to our platform from our growing open source contributors community.   Many of these community members join us from programs such as  Google Summer of Code where we’re a proud ninth year participating organization. <br><br> Join us in taking a peek at the future of Rocket.Chat,  be prepared to be wow’d by the amazing creativity and innovative touches that these “demos” bring.   The day will start with a short introduction by Rocket.Chat’s project leader and founder, Gabriel Engel.</p>",
+    "original_image_url": "https://github.com/RocketChat/RC4Conferences/blob/main/assets/demo_day_2025.png?raw=true",
+    "logo_url": "https://github.com/RocketChat/Rocket.Chat.Artwork/raw/master/Logos/2020/png/icon-red.png",
+    "owner_name": "Rocket.Chat",
+    "owner_description": "",
+    "privacy": "public",
+    "created_at": "2025-08-14T10:28:07.893689+00:00",
+    "identifier": "GSoC-25-Demo-Day",
+    "schedule_published_on": "1970-01-01 00:00:00+00:00",
+    "state": "published"
+}

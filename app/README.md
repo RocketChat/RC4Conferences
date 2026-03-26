@@ -1,17 +1,22 @@
-# ReactJS Fully Componentized App
+# Frontend App
 
-This community system is a web app dynaically generated and packaged by NextJS during build time, by combinaing structure and data from a headless CMS - strapi.
+This Next.js app builds a static public site from the Mongo-backed
+`event-server`.
 
-The app is 100% composed of ReactJS components.  See the `components` directory for the set of ReactJS components used, and see the `styles` directory for the CSS module associated with each of the components.
+## Environment
 
-The application is written for nextjs and deployable on all nextjs compatible CDN + microservices and scaled deployment platforms. For build and design, start it in a shell:
-```
-npm i
+Copy [`.env.example`](/Users/deva/Developer/ospr/RC4Conferences/app/.env.example) to `.env.local` and set:
+
+- `NEXT_PUBLIC_EVENT_SERVER_URL`
+- `NEXT_PUBLIC_BASE_PATH` if the site is deployed under a subpath
+- stream variables if you use the public mainstage page
+
+## Commands
+
+```bash
+npm install
 npm run dev
+npm run build:static
 ```
-You can use ethe environment variable `NEXT_PUBLIC_STRAPI_API_URL` to override the location of strapi cms, if it is not running on the same host.
 
-```
-NEXT_PUBLIC_STRAPI_API_URL=http://127.0.0.1:1337  npm run dev
-```
-Now RC4Community should be accessible from http://localhost:3000
+`npm run build:static` produces the exportable site in `out/`.

@@ -1,47 +1,63 @@
-import Head from "next/head";
-import { Stack } from "react-bootstrap";
-import { useRouter } from "next/router";
-import { IndivEventDash } from "../../../../components/conferences/admin/IndivEvent";
-import { getEventDeatils } from "../../../../lib/conferences/eventCall";
+import Head from 'next/head';
+import Link from 'next/link';
+import { Card, Container } from 'react-bootstrap';
+import {
+  getAllEvents,
+  getEventDetails,
+} from '../../../../lib/conferences/eventCall';
 
 function EventEditPage({ event }) {
-  const router = useRouter();
-  const { eid } = router.query;
   return (
     <div>
       <Head>
-        <title>Event Edit</title>
-        <meta name="description" content="Rocket.Chat form tool demo" />
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Editing Removed</title>
+        <meta
+          name="description"
+          content="The legacy in-browser editing flow is no longer part of the static build."
+        />
       </Head>
-      <div className="mx-auto">
-        <Stack direction="vertical">
-          <IndivEventDash eid={eid} event={event} />
-        </Stack>
-      </div>
+      <Container className="py-5">
+        <Card body>
+          <h1 className="h3">{event?.data?.name || 'Event'} editing removed</h1>
+          <p className="mb-0">
+            The old editor depended on the removed `open-event-server`. Update
+            this event through the event server API, then rebuild the static
+            frontend.
+          </p>
+          <div className="mt-3">
+            <Link href="/conferences">Back to conferences</Link>
+          </div>
+        </Card>
+      </Container>
     </div>
   );
 }
 
-export async function getServerSideProps(context) {
-  const authCookie = context.req.cookies?.event_auth;
-  const eventIdentifier = context.query.eid;
-
-  if (!authCookie) {
+export async function getStaticPaths() {
+  try {
+    const response = await getAllEvents();
     return {
-      redirect: {
-        destination: "/conferences",
-        permanent: false,
-      },
+      paths: response.data.map((event) => ({
+        params: { eid: event.identifier },
+      })),
+      fallback: false,
     };
+  } catch (error) {
+    console.error('Failed to prebuild legacy edit pages', error);
+    return { paths: [], fallback: false };
   }
-  //temp 9ddffcbb
-  const event = await getEventDeatils(eventIdentifier);
+}
 
-  return {
-    props: { event },
-  };
+export async function getStaticProps({ params }) {
+  try {
+    const event = await getEventDetails(params.eid);
+    return {
+      props: { event },
+    };
+  } catch (error) {
+    console.error('Failed to load event details', error);
+    return { notFound: true };
+  }
 }
 
 export default EventEditPage;

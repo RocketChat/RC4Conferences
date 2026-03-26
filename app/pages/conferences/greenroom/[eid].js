@@ -1,78 +1,62 @@
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
+import { Card, Container } from 'react-bootstrap';
 import {
   getAllEvents,
-  getEventDeatils,
-  unsignCook,
+  getEventDetails,
 } from '../../../lib/conferences/eventCall';
-import { fetchAPI } from '../../../lib/api';
-import EventSpeakerStage from '../../../components/conferences/dayOfEvent/greenroom/EventSpeakerRoom';
-import { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
-// import { RCdesktopChat } from "../../../components/conferences/dayOfEvent/RCchat";
-import styles from '../../../styles/Greenroom.module.css';
-import { AdvtButtons } from '../../../components/conferences/dayOfEvent/AdvtTool';
 
-const Greenroom = ({ eventIdentifier, spkdata, eventdata }) => {
-  const [open, setOpen] = useState(false);
-
+const Greenroom = ({ event }) => {
   return (
     <>
       <Head>
-        <title>Conference Green Room</title>
-        <link rel="icon" href="../../rocket_gsoc_0" />
+        <title>Greenroom Removed</title>
       </Head>
-      <div className={styles.greenroom_page_wrapper}>
-        <div className={styles.greenroom_page_video}>
-          <EventSpeakerStage
-            eventdata={eventdata}
-            spkdata={spkdata}
-            eventIdentifier={eventIdentifier}
-            setOpen={setOpen}
-            open={open}
-          />
-        </div>
-        <div className={styles.greenroom_page_chat}>
-          {/* <RCdesktopChat open={open} setOpen={setOpen} /> */}
-        </div>
-      </div>
-      <AdvtButtons repoUrl={'https://github.com/RocketChat/RC4Conferences'} />
+      <Container className="py-5">
+        <Card body>
+          <h1 className="h3">
+            {event?.data?.name || 'Event'} greenroom is not exported
+          </h1>
+          <p className="mb-0">
+            The old greenroom flow depended on runtime auth and middleware, so
+            it has been removed from the static production frontend.
+          </p>
+          <div className="mt-3">
+            <Link href={`/conferences/c/${event?.data?.identifier || ''}`}>
+              Back to the event page
+            </Link>
+          </div>
+        </Card>
+      </Container>
     </>
   );
 };
 
 export async function getStaticPaths() {
-  let paths = null;
   try {
-    const res = await getAllEvents();
-    paths = res.data.map((event) => ({
-      params: { eid: event.id.toString() },
-    }));
+    const response = await getAllEvents();
     return {
-      paths: paths,
-      fallback: 'blocking',
+      paths: response.data.map((event) => ({
+        params: { eid: event.identifier },
+      })),
+      fallback: false,
     };
-  } catch (e) {
-    console.error('An error while fetching list of events', e);
-    return {
-      paths: [{ params: { eid: 1 } }],
-      fallback: 'blocking',
-    };
+  } catch (error) {
+    console.error('Failed to prebuild greenroom pages', error);
+    return { paths: [], fallback: false };
   }
 }
 
-export async function getStaticProps(context) {
-  console.log('context', context);
-  const eventIdentifier = context.params.eid;
-  //temp 9ddffcbb
-  const eventdata = await getEventDeatils(eventIdentifier);
-
-  const topNavItems = await fetchAPI('/top-nav-item');
-
-  return {
-    props: { eventIdentifier, topNavItems, eventdata },
-    revalidate: 10,
-  };
+export async function getStaticProps({ params }) {
+  try {
+    const event = await getEventDetails(params.eid);
+    return {
+      props: { event },
+    };
+  } catch (error) {
+    console.error('Failed to load greenroom event', error);
+    return { notFound: true };
+  }
 }
 
 export default Greenroom;

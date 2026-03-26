@@ -1,12 +1,11 @@
 import { Router, Request, Response, RequestHandler } from "express";
 import { getSessionsCollection } from "../db/collections";
 import { authenticateApiKey } from "../middleware/auth";
+import { resolveEventId } from "../db/eventLookup";
 import { ISession } from "../types";
 
 const router = Router();
-
-// Apply authentication to all routes
-router.use(authenticateApiKey);
+const generateId = () => Date.now() + Math.floor(Math.random() * 1000);
 
 // Get all sessions
 router.get("/", (async (_: Request, res: Response) => {
@@ -22,8 +21,12 @@ router.get("/", (async (_: Request, res: Response) => {
 // Get sessions by event id
 router.get("/event/:eventId", (async (req: Request, res: Response) => {
   try {
-    const eventId = parseInt(req.params.eventId);
+    const eventId = await resolveEventId(req.params.eventId);
     const sessionsCollection = getSessionsCollection();
+
+    if (eventId === null) {
+      return res.json({ success: true, data: [] });
+    }
 
     const sessions = await sessionsCollection
       .find({ event_id: eventId })
@@ -54,10 +57,23 @@ router.get("/:id", (async (req: Request, res: Response) => {
 }) as RequestHandler);
 
 // Create new session
-router.post("/", (async (req: Request, res: Response) => {
+router.post("/", authenticateApiKey, (async (req: Request, res: Response) => {
   try {
     const newSession: ISession = req.body as ISession;
     const sessionsCollection = getSessionsCollection();
+
+    if (newSession.id === undefined || newSession.id === null) {
+      newSession.id = generateId();
+    }
+
+    const existingSession = await sessionsCollection.findOne({
+      id: newSession.id,
+    });
+    if (existingSession) {
+      return res
+        .status(409)
+        .json({ success: false, message: "Session already exists" });
+    }
 
     const result = await sessionsCollection.insertOne(newSession);
     if (!result.acknowledged) {
@@ -71,7 +87,7 @@ router.post("/", (async (req: Request, res: Response) => {
 }) as RequestHandler);
 
 // Update session
-router.put("/:id", (async (req: Request, res: Response) => {
+router.put("/:id", authenticateApiKey, (async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id);
     const updateData = req.body;
@@ -96,7 +112,7 @@ router.put("/:id", (async (req: Request, res: Response) => {
 }) as RequestHandler);
 
 // Delete session
-router.delete("/:id", (async (req: Request, res: Response) => {
+router.delete("/:id", authenticateApiKey, (async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id);
     const sessionsCollection = getSessionsCollection();

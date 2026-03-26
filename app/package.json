@@ -5,14 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "preexport": "npm run build",
     "export": "next export",
+    "build:static": "npm run build && npm run export",
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write \"src/**/*.{js,jsx}\""
   },
   "dependencies": {
-    "@apollo/client": "^3.13.4",
     "@jitsi/react-sdk": "^1.0.0",
     "@rocket.chat/icons": "^0.31.3",
     "@rocket.chat/sdk": "^1.0.0-alpha.42",
@@ -22,13 +21,10 @@
     "crypto-js": "^4.1.1",
     "dompurify": "^2.3.5",
     "emoji-toolkit": "^6.6.0",
-    "graphql": "^16.3.0",
     "js-cookie": "^3.0.1",
     "lodash": "^4.17.21",
     "marked": "^4.0.12",
     "next": "^12.2.5",
-    "next-auth": "^4.2.1",
-    "next-firebase-auth": "^1.0.0-canary.5",
     "react": "^18.0.0",
     "react-avatar-editor": "^13.0.0",
     "react-bootstrap": "^2.1.0",
@@ -43,9 +39,18 @@
     "url-join": "^5.0.0"
   },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "@types/dompurify": "^3.0.5",
+    "@types/js-cookie": "^3.0.6",
+    "@types/lodash": "^4.17.24",
+    "@types/marked": "^5.0.2",
+    "@types/node": "^22.13.10",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
     "eslint": "8.6.0",
     "eslint-config-next": "12.0.7",
-    "prettier": "^2.8.4"
+    "prettier": "^2.8.4",
+    "typescript": "^5.9.3"
   },
   "volta": {
     "node": "20.4.0"

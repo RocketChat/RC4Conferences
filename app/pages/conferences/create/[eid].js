@@ -1,46 +1,49 @@
-import Head from "next/head";
-import { Stack } from "react-bootstrap";
-import { useRouter } from "next/router";
-import { EventCreate } from "../../../components/conferences/create/EventCreate";
-import { ssrVerifyAdmin } from "../../../components/conferences/auth/AuthSuperProfileHelper";
-import { fetchAPI } from "../../../lib/api";
-import { unsignCook } from "../../../lib/conferences/eventCall";
+import Head from 'next/head';
+import Link from 'next/link';
+import { Card, Container } from 'react-bootstrap';
 
-function EventCreatePage() {
-  const router = useRouter();
-  const { eid } = router.query;
+function EventCreatePage({ step }) {
   return (
     <div>
       <Head>
-        <title>Event Create</title>
-        <meta name="description" content="Rocket.Chat form tool demo" />
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Creation Removed</title>
+        <meta
+          name="description"
+          content="The legacy in-browser event creation flow has been removed from the static build."
+        />
       </Head>
-      <div className="mx-auto">
-        <h1 className="mx-auto mt-3">Preview of Event Create Component</h1>
-        <Stack direction="vertical">
-          <EventCreate active={eid} />
-        </Stack>
-      </div>
+      <Container className="py-5">
+        <Card body>
+          <h1 className="h3">Legacy creation step: {step}</h1>
+          <p className="mb-0">
+            Event authoring now happens outside the static frontend. Use the
+            event server API and seeding scripts, then rebuild the site.
+          </p>
+          <div className="mt-3">
+            <Link href="/conferences">Back to conferences</Link>
+          </div>
+        </Card>
+      </Container>
     </div>
   );
 }
 
 export async function getStaticPaths() {
-    return {
-      paths: [{ params: { eid: "basic-detail" }}, {params: {eid: "session"}}, {params: {eid: "other-ddetails"}} ],
-      fallback: "blocking", 
-    };
+  return {
+    paths: [
+      { params: { eid: 'basic-detail' } },
+      { params: { eid: 'session' } },
+      { params: { eid: 'other-details' } },
+    ],
+    fallback: false,
+  };
 }
 
-export async function getStaticProps(context) {
-
-  const topNavItems = await fetchAPI("/top-nav-item");
-  
+export async function getStaticProps({ params }) {
   return {
-    props: { topNavItems },
-    revalidate: 10,
+    props: {
+      step: params.eid,
+    },
   };
 }
 

@@ -22,8 +22,21 @@ const avatarGenerate = (sn) => {
   return res;
 };
 
+const getSpeakerList = (speaker) => {
+  if (Array.isArray(speaker)) {
+    return speaker;
+  }
+
+  if (Array.isArray(speaker?.data)) {
+    return speaker.data;
+  }
+
+  return [];
+};
+
 export const SmEventSpeaker = ({ eid, speaker }) => {
   const [open, setOpen] = useState({});
+  const speakerList = getSpeakerList(speaker);
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       <Container>
@@ -64,8 +77,12 @@ export const SmEventSpeaker = ({ eid, speaker }) => {
   };
   return (
     <div>
-      {speaker &&
-        speaker.data.map((spk) => {
+      {speakerList.length === 0 && (
+        <Container className="py-3">
+          <p className="mb-0 text-muted">Speakers will be announced soon.</p>
+        </Container>
+      )}
+      {speakerList.map((spk) => {
           return (
             <Container key={spk.id} className="mb-3">
               <div className={styles.event_speaker_avatar}>
@@ -124,6 +141,7 @@ export const SmEventSpeaker = ({ eid, speaker }) => {
 
 export const MdEventSpeaker = ({ eid, speaker }) => {
   const [open, setOpen] = useState({});
+  const speakerList = getSpeakerList(speaker);
   const renderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       <Container>
@@ -164,8 +182,12 @@ export const MdEventSpeaker = ({ eid, speaker }) => {
   };
   return (
     <div>
-      {speaker &&
-        speaker.data.map((spk) => {
+      {speakerList.length === 0 && (
+        <Container className="py-3">
+          <p className="mb-0 text-muted">Speakers will be announced soon.</p>
+        </Container>
+      )}
+      {speakerList.map((spk) => {
           return (
             <Container key={spk.id} className="mb-3">
               <Row className={styles.event_speaker_row}>

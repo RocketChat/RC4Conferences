@@ -1,0 +1,504 @@
+[{
+  "_id": {
+    "$oid": "67d6ad3b73fa222115b3d7f2"
+  },
+  "id": 3,
+  "event_name": "Demo Day 2025",
+  "event_id": 202508,
+  "session_items": [
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T11:00:00Z",
+      "End": "2025-08-21T11:20:00Z",
+      "Title": "Welcome to GSoC 2025 Demo Day!",
+      "Mentor": "",
+      "Description": "Let's welcome all participants, contributors and Mentors!",
+      "Speaker": "Gabriel Engel, Felipe Scuciatto, Sing Li",
+      "Duration": 20,
+      "Youtube": "https://www.youtube.com/watch?v=s0CkCynrD0U"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T11:20:00Z",
+      "End": "2025-08-21T11:35:00Z",
+      "Title": "Google Summer of Code Community Hub 2025",
+      "Mentor": "Anjaneya Gupta Dhruv Jain",
+      "Description": "The primary aim of this project will be the refactoring of a domain specific language compiler to produce Svelte components rather than React Components, in order to enable the translation of components specified using minimal syntax to robust, secure and functional web applications at scale. Multiple components will be implemented using the new svelte framework , such as a video conferencing meet-your-mentor component, and a gsoc Leaderboard component which would allow for the gamification of contributions to the Rocket.Chat community. Finally, all components will be adapted to fully meet the pre-scaled “serverless” vision for the application, so components can be specified can be specified in natural language and transformed into full fledged applications at build time. All of this will culminate in the implementation of a functional Community Hub to be used for future summers.",
+      "Speaker": "Daniel Akinola",
+      "Duration": 15,
+      "Youtube": "https://youtu.be/Acc1wle2YgY?si=Petx3HDqMMAX4bUw"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T11:35:00Z",
+      "End": "2025-08-21T11:50:00Z",
+      "Title": "E2EE for Ruqola",
+      "Mentor": "Aaron Ogle, Laurent Montel",
+      "Description": "E2EE for Ruqola, E2EE for Ruqola,E2EE for Ruqola,E2EE for Ruqola",
+      "Speaker": "NA",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T11:50:00Z",
+      "End": "2025-08-21T12:05:00Z",
+      "Title": "Convert endpoints to new Pattern",
+      "Mentor": "Matheus Cardoso, Guilherme Gazzo (Co-mentor)",
+      "Description": "Updated Rocket.Chat APIs to adopt the OpenAPI Specification (OAS). Implemented AJV validation for request bodies, queries, and responses to ensure type safety and consistency. Integrated Swagger UI with the new OAS pattern, enabling interactive and accurate API documentation for developers. Automated the generation of OpenAPI specs, centralising each updated API into a single file containing its validation, schema, and definition, replacing scattered files across the project. Improved overall maintainability and developer experience by standardising and thoroughly documenting all updated APIs.",
+      "Speaker": "Ahmed Abdel-Twab",
+      "Duration": 15,
+      "Youtube": "https://www.youtube.com/watch?v=b77PAA1rFz8"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T12:15:00Z",
+      "End": "2025-08-21T12:30:00Z",
+      "Title": "Receipts Processor and Reporting App powered by Multi-modal LLMs",
+      "Mentor": "Maria Khelli, Aditya Singh",
+      "Description": "This project automates receipt processing and expense reporting using OCR capabilities of multi-modal LLMs to address the time-consuming nature of manual expense tracking.\n\nUsers upload receipts into designated chat channels—each representing a specific event, time period, or trip—where the system validates the image, extracts structured data such as amount, date, and items, and categorizes expenses automatically. The processed data is stored persistently, allowing users to generate detailed spending reports in various formats (daily, weekly, monthly, yearly, or custom date ranges), filter by specific channels, or view overall spending.\n\nAdditional functionalities include natural language query support, optional slash command integration to perform actions like showing receipt data. All designed to streamline financial tracking by minimizing manual input and enabling efficient, structured querying of expense data.",
+      "Speaker": "William Liu",
+      "Duration": 15,
+      "Youtube": "https://www.youtube.com/watch?v=aHJvcjv23uI"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T12:30:00Z",
+      "End": "2025-08-21T12:45:00Z",
+      "Title": "Natural Language Bridge to Legacy Email System",
+      "Mentor": "Aman Negi, Vipin Chaudhary",
+      "Description": "This project presents a great solution to one of modern communication's most persistent challenges: The continued widespread use of legacy email alongside newer messaging platforms. Despite the evolution of systems like Rocket.Chat, email remains deeply entrenched in global workflows and communities. This project elegantly bridges this divide by creating a seamless interface that allows Rocket.Chat users to interact with email systems through natural language commands, bringing legacy email functionality directly into the Rocket.Chat environment.\n\nWith the help of this app:\n- User can send the email to anyone and generate email content too.\n- User can summarise the conversations in channel/thread and send it as an email to anyone.\n- User can get email statistics.\n- User can send mass emails to people present in the channel.",
+      "Speaker": "Priyanshu Harsh",
+      "Duration": 15,
+      "Youtube": "https://www.youtube.com/watch?v=vyx7toVtzRE"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T12:45:00Z",
+      "End": "2025-08-21T13:00:00Z",
+      "Title": "AI Enhanced Message Composer Component",
+      "Mentor": "Gabriel Engel, Zishan_Ahmad, Martin Schoeler",
+      "Description": "I am working on integrating AI agent/capability to the old message composer , so that user can write message or type it with ease and accuracy , features like translations , emojification , summarisations and other things are the feature that are planed to be added , the most intresting part is the project is consdier to be added in the main repo of rocket chat but after long discussion and chekcing and it is mentored under CEO gabriel himself, It been very much challenging and exciting to work on the main code base directly.",
+      "Speaker": "Ayush",
+      "Duration": 15,
+      "Youtube": "https://www.youtube.com/watch?v=8QFLKasLf20"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T13:10:00Z",
+      "End": "2025-08-21T13:25:00Z",
+      "Title": "Trip Helper App",
+      "Mentor": "The Amazing ones 1. Zishan Ahmad 2. Yuriko Kikuchi",
+      "Description": "Trip Helper App is a smart travel assistant that makes planning trips effortless and fun. The best part is that it uses a Large Language Model (LLM) extensively to understand user needs, and answer travel related questions instantly. This makes the app feel like you’re chatting with a knowledgeable travel buddy who’s always ready to help, saving you time and making your trips smoother and more enjoyable.",
+      "Speaker": "Piyush Bhatt",
+      "Duration": 15,
+      "Youtube": "https://youtu.be/rMBN1awG8QY?si=zkookxm2XpAaGjtg"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T13:25:00Z",
+      "End": "2025-08-21T13:40:00Z",
+      "Title": "Code Review Assistant App for Rocket.Chat",
+      "Mentor": "Devanshu, Mustafa Khan, Felipe Scuciatto",
+      "Description": "The Code Review Assistant App for Rocket.Chat is an AI-powered tool designed to streamline and accelerate the code review process in open-source projects. It analyzes pull requests, identifies the most suitable reviewers using commit history, the CODEOWNERS file, and contribution patterns, and automatically assigns them. The app also performs a preliminary review using LLMs and notifies relevant contributors via Rocket.Chat. It provides commands and reminders to ensure timely code review and collaboration. This tool improves the developer experience and helps open-source teams reduce PR delays.",
+      "Speaker": "Jannat",
+      "Duration": 15,
+      "Youtube": "https://youtu.be/WxWmcqaqkbo?si=PHkBp8r7DAqp5ZT0"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T13:40:00Z",
+      "End": "2025-08-21T13:55:00Z",
+      "Title": "AI Chat Workflows Automation App With Multi-Step Reasoning",
+      "Mentor": "Hardik Bhatia",
+      "Description": "This LLM-powered Rocket.Chat app automates multi-step chat workflows by\ninterpreting natural language commands. It monitors messages in specified channels\n(or from specific users) and executes predefined actions based on triggers, enabling\nintelligent, automated responses without manual scripting.",
+      "Speaker": "Dhairyashil Shinde",
+      "Duration": 15,
+      "Youtube": "https://www.youtube.com/watch?v=7iWkOZGXB5c"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T14:05:00Z",
+      "End": "2025-08-21T14:20:00Z",
+      "Title": "Message Timestamp Date Picker Component",
+      "Mentor": "Martin Schoeler",
+      "Description": "special session",
+      "Speaker": "Jinghan Yu",
+      "Duration": 15,
+      "Youtube": "https://www.youtube.com/watch?v=NDvf6MRLNa8"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T14:20:00Z",
+      "End": "2025-08-21T14:35:00Z",
+      "Title": "Real Time Message Rendering in Message Composer",
+      "Mentor": "Martin Schoeler, Sing Li",
+      "Description": "The Rich Text Composer being developed will be able to show rich formatted text on the fly. Markdown formats enclosed between asterisks, underscores and tilde will show up as formatted rich text as soon as it is being typed.\nReal time preview allows users to see the exact format that will finally render in the chat room. This project is being simultaneously developed alongside another Composer project which will allow AI generated text being generated on the fly.\nThis project can help bridge the gap between the limitations of typing plain text markdown inside a plain text editor, and simplifying the user experience by being able to create complex equations and code.",
+      "Speaker": "Ishan Mitra",
+      "Duration": 15,
+      "Youtube": "https://youtu.be/ioU9-aee9Ic?si=vYeBHHu6menCnq-I"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T14:35:00Z",
+      "End": "2025-08-21T14:50:00Z",
+      "Title": "Passkey-Based WebAuthn Authentication for Rocket.Chat",
+      "Mentor": "Dnouv, Julio Araujo",
+      "Description": "The WebAuthn standard, now widely available on modern Android and iOS devices, enable\nconvenient passwordless authentication satisfying 2FA (biometrics and \"have device\").\nFrequently this involves scanning a QR code followed by unintrusive biometrics such as FaceID\non iOS. This project aims to integrate WebAuthn in Rocket.Chat authentication to offer a\npasswordless, secure login experience. The implementation needs to be aligned with\nRocket.Chat’s existing authentication system while ensuring backward compatibility with all\nexisting login methods.",
+      "Speaker": "Fang Zihao",
+      "Duration": 15,
+      "Youtube": "https://www.youtube.com/watch?v=pJar7cc8TOs"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T15:00:00Z",
+      "End": "2025-08-21T15:15:00Z",
+      "Title": "Fuselage React Native compatibility (tamagui)",
+      "Mentor": "Júlia Jaeger Foresti, Guilherme Gazzo",
+      "Description": "The project focuses on modernizing the Fuselage component library by migrating selected Ul components to Tamagui a performant, design-system-driven React & React Native Ul kit. This allows Rocket.Chat's component library to support cross-platform rendering (web + native) from a single codebase.\n\nThe migration includes:\n\nRewriting core components like Button, Input, Card, and Autocomplete\n\nEnsuring parity with the original @rocket.chat/fuselage APIs\n\nMaintaining styling consistency via Tamagui tokens\n\nImproving developer experience with Storybook integration for cross-platform testing\n\nThis initiative bridges the web-native gap, enabling future-ready development for Rocket.Chat.",
+      "Speaker": "Thanisha Dewangan",
+      "Duration": 15,
+      "Youtube": "https://www.youtube.com/watch?v=JOwcw-y1gg8"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T15:15:00Z",
+      "End": "2025-08-21T15:30:00Z",
+      "Title": "Log in via QR code using mobile app",
+      "Mentor": "Diego Sampaio, Jean Brito",
+      "Description": "This project introduces a modern, passwordless login experience for Rocket.Chat’s web client using QR codes and real-time communication. Instead of typing in credentials, users can now simply scan a QR code using the Rocket.Chat mobile app to log in instantly and securely.\n\nHere’s how it works: When a user visits the web login page, they’re shown a short-lived, cryptographically signed QR code that refreshes every 60 seconds. An authenticated mobile user can scan this code using the in-app scanner, triggering a secure token validation process over WebSocket. If valid, the web client logs in immediately — no password, no email, no friction.\n\nThe system was built using React for the web UI, React Native for the scanner, and Node.js for backend validation and token handling. The key highlights include ephemeral token logic, real-time WebSocket communication, and secure mobile-to-web authentication flow.\n\nIt’s cool because it combines convenience and security in a way that feels seamless. For users, it's one-tap login. For Rocket.Chat, it's a robust and scalable solution that enhances UX without compromising safety.",
+      "Speaker": "Jinendra Jain",
+      "Duration": 15,
+      "Youtube": "https://www.youtube.com/watch?v=2TT2rK24EAU"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T15:30:00Z",
+      "End": "2025-08-21T15:45:00Z",
+      "Title": "Implement visual regression testing",
+      "Mentor": "Douglas Fabris, Guilherme Gazzo",
+      "Description": "Visual regression testing is a relatively new and evolving field in software testing. Unlike traditional unit or integration tests, which validate logic and functionality, visual regression testing focuses on ensuring that the appearance of UI components remains consistent over time.\nAt Rocket.Chat and in its component library Fuselage, this is achieved using a tool called Loki.\nLoki captures screenshots (snapshots) of UI components and compares the current rendering with a previously approved reference snapshot. It uses an image comparison library (like pixelmatch) to detect visual differences at the pixel level. If any visual discrepancy is found, Loki reports that the component has visually changed — this can help catch unintended UI regressions early in development.\nLoki has option to run test inside a Docker container, which ensures that snapshots are taken in a consistent rendering environment . This is especially important when running in different environments , as it minimizes flakiness and platform-specific inconsistencies.\nA smart system is in place to optimize the test scope:\nIf a component (e.g., Button) is changed, Loki doesn't just test that component.\nIt also tests:\nOther components within the same package that might depend on the changed component.\nOther packages with Storybook entries that import or use the changed component.\nThis approach ensures comprehensive coverage while still being efficient, as it avoids re-running all snapshots unnecessarily.",
+      "Speaker": "Anshul",
+      "Duration": 15,
+      "Youtube": "https://www.youtube.com/watch?v=-rEd38s2Gm8"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T15:55:00Z",
+      "End": "2025-08-21T16:10:00Z",
+      "Title": "End to End Testing using Maestro",
+      "Mentor": "Diego Mello",
+      "Description": "My GSoC project at Rocket.Chat is about improving the testing system for the Rocket.Chat mobile app using a tool called Maestro. Maestro helps test the app by acting like a real user. It can tap buttons, type messages, switch between screens, and make sure everything works the way it should.\n\nThe goal of my project is to build and improve these tests so that developers can catch bugs early and be more confident when they update or release new features. I’m also connecting these tests to GitHub Actions, so they run automatically whenever someone makes a change to the app. This helps keep the app stable without needing to test everything manually.\n\nWhile working on this project, I’m learning a lot about how end-to-end testing works, why testing is important, and how automated tests are used in real-world software development. I’m also learning how continuous integration tools like GitHub Actions help run these tests every time code is pushed.\n\nThis project is exciting because it helps improve the quality of the app, saves developers time, and gives users a better experience. It also gives me hands-on experience with testing tools, automation, and working on a real open-source project.",
+      "Speaker": "Rohit Bansal",
+      "Duration": 15,
+      "Youtube": "https://www.youtube.com/watch?v=OWjEBC8zn6E"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T16:10:00Z",
+      "End": "2025-08-21T16:25:00Z",
+      "Title": "Messages scheduling",
+      "Mentor": "Abhinav.Kumar, Ricardo Garim",
+      "Description": "This project introduces scheduled messaging to Rocket.Chat, allowing users to compose messages in advance and have them automatically delivered at a specific time. It's especially useful for teams spread across time zones, enabling communication to happen at the most effective moment—even if the sender is offline.\n\nWhether it's for sending reminders, announcements, or time-sensitive updates, scheduled messaging gives users more control over when their messages are delivered. They can also review, update, or cancel scheduled messages before they're sent.\n\nWhat makes this feature stand out is how it enhances asynchronous collaboration and helps reduce the pressure of real-time communication. By letting users plan their messages with precision, it promotes more thoughtful, efficient, and timely conversations across global teams.",
+      "Speaker": "Thotsem Jajo",
+      "Duration": 15,
+      "Youtube": "https://www.youtube.com/watch?v=3dhdjmbknQc"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T16:25:00Z",
+      "End": "2025-08-21T16:40:00Z",
+      "Title": "Server Guide Agent",
+      "Mentor": "Gabriel Casals , Jeffrey Yu",
+      "Description": "This project focuses on building an intelligent onboarding and user guidance agent app within Rocket.Chat to enhance new user engagement. It introduces two main workflows — Admin Workflow and User Workflow , designed to simplify the onboarding process and provide personalized assistance to users. In the Admin Workflow, server administrators can configure key onboarding elements such as welcome messages, server rules, suggested channels, default channels for auto-joining, and guides for important features. Admins can also broadcast messages to multiple users and channels. In the User Workflow, regular users interact with the bot, which responds based on the admin-defined configurations. The bot assists users by answering questions about server rules, recommending useful channels, and guiding them through onboarding and many more.",
+      "Speaker": "Abir Chakraborty",
+      "Duration": 15,
+      "Youtube": "https://www.youtube.com/watch?v=_im2pw2_R7s"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T16:50:00Z",
+      "End": "2025-08-21T17:05:00Z",
+      "Title": "Private Teams and Private Channels Administration Improvements",
+      "Mentor": "Matheus Cardoso, John Crisp",
+      "Description": "This project enhances administrators’ ability to manage private teams and channels in Rocket.Chat. Authorized admins can add or remove users, change user roles, and manage team channels via the Directory, even if they are not members. The project aims to make it easier for platform administrators to monitor and intervene when necessary, while still respecting user privacy boundaries. This improves transparency, control, and flexibility in workspace management.",
+      "Speaker": "Lexie Huang",
+      "Duration": 15,
+      "Youtube": "https://www.youtube.com/watch?v=fuccloHy3y4"
+    },
+    {
+      "Event": "GSoC 2025 Demo Day",
+      "Start": "2025-08-21T17:05:00Z",
+      "End": "2025-08-21T17:15:00Z",
+      "Title": "Closing Notes & Thank You",
+      "Mentor": "",
+      "Description": "A final thank you to all our contributors, mentors, and organizers for making GSoC 2025 a success.",
+      "Speaker": "Gabriel Engel, Felipe Scuciatto, Sing Li",
+      "Duration": 10,
+      "Youtube": "https://youtu.be/6fnacpWUY1U?si=VQLhb4sAfozYs3rL"
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "67d59c47959d46d07f8d28ad"
+  },
+  "id": 2,
+  "event_name": "Alumni Summit 2025",
+  "event_id": 190299,
+  "session_items": [
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T11:00:00Z",
+      "End": "2025-03-27T11:20:00Z",
+      "Title": "Welcome to Rocket.Chat Alumni Summit 2025!",
+      "Mentor": "",
+      "Description": "Let's welcome all participants, contributors and Mentor!",
+      "Speaker": "Felipe Scuciatto/Gabriel Engel/Sing Li",
+      "Duration": 20,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T11:20:00Z",
+      "End": "2025-03-27T11:35:00Z",
+      "Title": "Building a global network through GSoC.",
+      "Mentor": "",
+      "Description": "",
+      "Speaker": "Dhruv Jain",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T11:35:00Z",
+      "End": "2025-03-27T11:50:00Z",
+      "Title": "Communication, the most important aspect of GSoC",
+      "Mentor": "",
+      "Description": "",
+      "Speaker": "Yuriko Kikuchi",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T11:50:00Z",
+      "End": "2025-03-27T12:05:00Z",
+      "Title": "Community Hangout",
+      "Mentor": "",
+      "Description": "A relaxed slot for attendees and speakers to hang out, connect, and chat about all things GSoC and open source. No presentations — just open mic, friendly conversations, and space to share thoughts or ask questions. Feel free to join in, say hi, or just listen in!",
+      "Speaker": "",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T12:05:00Z",
+      "End": "2025-03-27T12:20:00Z",
+      "Title": "Maximizing Your GSoC Journey: From a Great Proposal to Real-World Impact",
+      "Mentor": "",
+      "Description": "",
+      "Speaker": "Abhinav Kumar",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T12:20:00Z",
+      "End": "2025-03-27T12:35:00Z",
+      "Title": "Breake",
+      "Mentor": "",
+      "Description": "Break / Placeholder",
+      "Speaker": "",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T12:35:00Z",
+      "End": "2025-03-27T12:50:00Z",
+      "Title": "How Open Source opens doors to endless opportunities",
+      "Mentor": "",
+      "Description": "",
+      "Speaker": "Mustafa Khan",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T12:50:00Z",
+      "End": "2025-03-27T13:05:00Z",
+      "Title": "Special Session",
+      "Mentor": "",
+      "Description": "",
+      "Speaker": "Felipe Scuciatto",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T13:05:00Z",
+      "End": "2025-03-27T13:20:00Z",
+      "Title": "Special Session",
+      "Mentor": "",
+      "Description": "",
+      "Speaker": "Devanshu Sharma",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T13:20:00Z",
+      "End": "2025-03-27T13:35:00Z",
+      "Title": "Open Source for Learning and Networking.",
+      "Mentor": "",
+      "Description": "",
+      "Speaker": "Vipin Chaudary",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T13:35:00Z",
+      "End": "2025-03-27T13:50:00Z",
+      "Title": "Breake / Placeholder",
+      "Mentor": "",
+      "Description": "Break / Placeholder",
+      "Speaker": "",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T13:50:00Z",
+      "End": "2025-03-27T14:05:00Z",
+      "Title": "Success Stories and Lessons Learned from GSoC Alumni",
+      "Mentor": "",
+      "Description": "",
+      "Speaker": "Umang Utkarsh",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T14:05:00Z",
+      "End": "2025-03-27T14:20:00Z",
+      "Title": "Building a Global Network through GSoC",
+      "Mentor": "",
+      "Description": "",
+      "Speaker": "Karan Bedi",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T14:20:00Z",
+      "End": "2025-03-27T14:35:00Z",
+      "Title": "Community Hangout",
+      "Mentor": "",
+      "Description": "A relaxed slot for attendees and speakers to hang out, connect, and chat about all things GSoC and open source. No presentations — just open mic, friendly conversations, and space to share thoughts or ask questions. Feel free to join in, say hi, or just listen in!",
+      "Speaker": "",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T14:35:00Z",
+      "End": "2025-03-27T14:50:00Z",
+      "Title": "How to Write a Winning GSoC Proposal: Insider Tips from Alumni",
+      "Mentor": "",
+      "Description": "",
+      "Speaker": "Prisha Gupta",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T14:50:00Z",
+      "End": "2025-03-27T15:05:00Z",
+      "Title": "Beyond GSoC: How opensource shaped my early career",
+      "Mentor": "",
+      "Description": "",
+      "Speaker": "Hardik Bhatia",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T15:05:00Z",
+      "End": "2025-03-27T15:20:00Z",
+      "Title": "How to Write a Winning GSoC Proposal: Insider Tips from Alumni",
+      "Mentor": "",
+      "Description": "",
+      "Speaker": "Maria Khelli",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T15:20:00Z",
+      "End": "2025-03-27T15:35:00Z",
+      "Title": "Placeholder",
+      "Mentor": "",
+      "Description": "Break / Placeholder",
+      "Speaker": "Murtaza Patrawala",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T15:35:00Z",
+      "End": "2025-03-27T15:50:00Z",
+      "Title": "The Hidden Benefits of Open Source: Networking, Learning, and Growth",
+      "Mentor": "",
+      "Description": "",
+      "Speaker": "Ashuntosh Singh",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T15:50:00Z",
+      "End": "2025-03-27T16:05:00Z",
+      "Title": "how to increase chances of getting selected for GSoC: dos and donts",
+      "Mentor": "",
+      "Description": "",
+      "Speaker": "Aman Negi",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T16:05:00Z",
+      "End": "2025-03-27T16:20:00Z",
+      "Title": "Overcoming challenges in Open Source Projects",
+      "Mentor": "",
+      "Description": "",
+      "Speaker": "Henit Chobisa",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T16:20:00Z",
+      "End": "2025-03-27T16:35:00Z",
+      "Title": "How to dive into any massive Open Source codebases that you have no clue about!",
+      "Mentor": "",
+      "Description": "",
+      "Speaker": "Palanikannan M",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit",
+      "Start": "2025-03-27T16:35:00Z",
+      "End": "2025-03-27T16:50:00Z",
+      "Title": "Closing Notes",
+      "Mentor": "",
+      "Description": "",
+      "Speaker": "Felipe Scuciatto / Devanshu Sharma",
+      "Duration": 15,
+      "Youtube": null
+    }
+  ]
+}]

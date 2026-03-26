@@ -1,12 +1,11 @@
 import { Router, Request, Response, RequestHandler } from "express";
 import { getSpeakersCollection } from "../db/collections";
 import { authenticateApiKey } from "../middleware/auth";
+import { resolveEventId } from "../db/eventLookup";
 import { ISpeaker } from "../types";
 
 const router = Router();
-
-// Apply authentication to all routes
-router.use(authenticateApiKey);
+const generateId = () => Date.now() + Math.floor(Math.random() * 1000);
 
 // Get all speakers
 router.get("/", (async (_: Request, res: Response) => {
@@ -24,8 +23,12 @@ router.get("/", (async (_: Request, res: Response) => {
 // Get speakers by event id
 router.get("/event/:eventId", (async (req: Request, res: Response) => {
   try {
-    const eventId = parseInt(req.params.eventId);
+    const eventId = await resolveEventId(req.params.eventId);
     const speakersCollection = getSpeakersCollection();
+
+    if (eventId === null) {
+      return res.json({ success: true, data: [] });
+    }
 
     const speakers = await speakersCollection
       .find({ event_id: eventId }, { sort: { id: 1 } })
@@ -55,10 +58,7 @@ router.get("/:id", (async (req: Request, res: Response) => {
   }
 }) as RequestHandler);
 
-// Create many speakers
-// Create many speakers
-// Create many speakers
-router.post("/bulk", (async (req: Request, res: Response) => {
+router.post("/bulk", authenticateApiKey, (async (req: Request, res: Response) => {
   try {
     const speakers: ISpeaker[] = req.body as ISpeaker[];
     const speakersCollection = getSpeakersCollection();
@@ -68,7 +68,7 @@ router.post("/bulk", (async (req: Request, res: Response) => {
       if (speaker.id === undefined) {
         return {
           ...speaker,
-          id: Math.floor(Math.random() * 1000000),
+          id: generateId(),
         };
       }
       return speaker;
@@ -99,22 +99,25 @@ router.post("/bulk", (async (req: Request, res: Response) => {
   }
 }) as RequestHandler);
 // Create new speaker
-router.post("/", (async (req: Request, res: Response) => {
+router.post("/", authenticateApiKey, (async (req: Request, res: Response) => {
   try {
     const newSpeaker: ISpeaker = req.body as ISpeaker;
     const speakersCollection = getSpeakersCollection();
-    // check if the speaker already exists based on the identifier
-    const existingSpeaker = await speakersCollection.findOne({
-      identifier: newSpeaker.id,
-    });
+    
+    // Preserve provided ID or generate a new one
+    if (newSpeaker.id === undefined || newSpeaker.id === null) {
+      newSpeaker.id = generateId();
+    }
 
+    // check if the speaker already exists based on the id
+    const existingSpeaker = await speakersCollection.findOne({
+      id: newSpeaker.id,
+    });
     if (existingSpeaker) {
       return res
         .status(409)
         .json({ success: false, message: "Speaker already exists" });
     }
-    // Generate a unique identifier for the new speaker
-    newSpeaker.id = Math.floor(Math.random() * 1000000); // Replace with a more robust ID generation method if needed
     const result = await speakersCollection.insertOne(newSpeaker);
     if (!result.acknowledged) {
       throw new Error("Failed to insert speaker");
@@ -127,7 +130,7 @@ router.post("/", (async (req: Request, res: Response) => {
 }) as RequestHandler);
 
 // Update speaker
-router.put("/:id", (async (req: Request, res: Response) => {
+router.put("/:id", authenticateApiKey, (async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id);
     const updateData = req.body;
@@ -152,7 +155,7 @@ router.put("/:id", (async (req: Request, res: Response) => {
 }) as RequestHandler);
 
 // Delete speaker - supports both id and name as query parameters
-router.delete("/", (async (req: Request, res: Response) => {
+router.delete("/", authenticateApiKey, (async (req: Request, res: Response) => {
   try {
     const { id, name } = req.query;
     const speakersCollection = getSpeakersCollection();
@@ -200,32 +203,8 @@ router.delete("/", (async (req: Request, res: Response) => {
   }
 }) as RequestHandler);
 
-// Optional: Keep the ID-based endpoint for backward compatibility
-router.delete("/:id", (async (req: Request, res: Response) => {
-  try {
-    const id = parseInt(req.params.id);
-    const speakersCollection = getSpeakersCollection();
-
-    const result = await speakersCollection.deleteOne({ id });
-
-    if (result.deletedCount === 0) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Speaker not found" });
-    }
-
-    res.json({
-      success: true,
-      message: "Speaker deleted successfully",
-      data: { deletedCount: result.deletedCount },
-    });
-  } catch (error: any) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-}) as RequestHandler);
-
 // Add bulk delete endpoint
-router.delete("/bulk", (async (req: Request, res: Response) => {
+router.delete("/bulk", authenticateApiKey, (async (req: Request, res: Response) => {
   try {
     const { ids, name } = req.body;
     const speakersCollection = getSpeakersCollection();
@@ -265,6 +244,30 @@ router.delete("/bulk", (async (req: Request, res: Response) => {
     res.json({
       success: true,
       message: `Successfully deleted ${result.deletedCount} speaker(s)`,
+      data: { deletedCount: result.deletedCount },
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+}) as RequestHandler);
+
+// Optional: Keep the ID-based endpoint for backward compatibility
+router.delete("/:id", authenticateApiKey, (async (req: Request, res: Response) => {
+  try {
+    const id = parseInt(req.params.id);
+    const speakersCollection = getSpeakersCollection();
+
+    const result = await speakersCollection.deleteOne({ id });
+
+    if (result.deletedCount === 0) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Speaker not found" });
+    }
+
+    res.json({
+      success: true,
+      message: "Speaker deleted successfully",
       data: { deletedCount: result.deletedCount },
     });
   } catch (error: any) {

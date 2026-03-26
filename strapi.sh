@@ -1,5 +1,5 @@
 cd cms
-npm i
+# npm i
 export PORT=$1
-npm run build
+# npm run build
 INITIALIZE_DATA=true npm run develop 

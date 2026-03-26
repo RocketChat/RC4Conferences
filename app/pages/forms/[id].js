@@ -1,8 +1,8 @@
-import Head from "next/head";
-import RCform from "../../components/clientForms/show";
-import { getFormData } from "../../lib/formAPI";
+import Head from 'next/head';
+import RCform from '../../components/clientForms/show';
+import { getForms } from '../../lib/conferences/eventCall';
 
-export default function FormPage({ formFields }) {
+export default function FormPage({ formId }) {
   return (
     <div>
       <Head>
@@ -11,12 +11,30 @@ export default function FormPage({ formFields }) {
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <RCform formFields={[formFields]} />
+      <RCform formId={formId} />
     </div>
   );
 }
 
-FormPage.getInitialProps = async (ctx) => {
-  const res = await getFormData(ctx.query.id);
-  return { formFields: res };
-};
+export async function getStaticPaths() {
+  try {
+    const response = await getForms();
+    return {
+      paths: response.data.map((form) => ({
+        params: { id: String(form.id) },
+      })),
+      fallback: false,
+    };
+  } catch (error) {
+    console.error('Failed to prebuild forms', error);
+    return { paths: [], fallback: false };
+  }
+}
+
+export async function getStaticProps({ params }) {
+  return {
+    props: {
+      formId: params.id,
+    },
+  };
+}

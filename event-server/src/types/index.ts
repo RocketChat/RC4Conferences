@@ -57,3 +57,73 @@ export interface ISession {
   event_id: number;
   session_items: ISessionItem[];
 }
+
+export interface ICarousel {
+  id: number;
+  name: string;
+  description: string;
+  imageUrl: string;
+  url: string;
+  published_at?: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface IPersonaIcon {
+  id: number;
+  icon: string;
+  size: number;
+  color: string;
+}
+
+export interface IPersona {
+  id: number;
+  name: string;
+  persona_icon: IPersonaIcon;
+}
+
+export interface IGuide {
+  id: number;
+  label: string;
+  location: string;
+}
+
+export interface IReleaseNote {
+  id: number;
+  label: string;
+  location: string;
+}
+
+export interface ISubMenu {
+  id: number;
+  label: string;
+  url: string | null;
+  style: string;
+}
+
+export interface ITopNavMenuItem {
+  __component: string;
+  id: number;
+  label: string;
+  sub_menus?: ISubMenu[];
+  url?: string;
+}
+
+export interface ITopNav {
+  id: number;
+  body: ITopNavMenuItem[];
+}
+
+export interface IFormField {
+  label: string;
+  value: string;
+  type: string;
+  min: string;
+  max: string;
+  required: boolean;
+}
+
+export interface IForm {
+  id: number;
+  formQs: IFormField[];
+}

@@ -68,7 +68,7 @@ const EventShow = ({ event, error, speaker, prsession, customLink }) => {
             {prsession && (
               <Tab eventKey="sessions" title="Sessions">
                 <EventSession
-                  session={prsession[0]}
+                  session={prsession}
                   expandedSessions={expandedSessions}
                   onToggleExpansion={toggleSessionExpansion}
                 />

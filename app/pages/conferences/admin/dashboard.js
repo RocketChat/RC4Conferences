@@ -1,38 +1,32 @@
-import Head from "next/head";
-import { Stack } from "react-bootstrap";
-import { EventCreate } from "../../../components/conferences/create/EventCreate";
-import { ssrVerifyAdmin } from "../../../components/conferences/auth/AuthSuperProfileHelper";
-import { fetchAPI } from "../../../lib/api";
-import { unsignCook } from "../../../lib/conferences/eventCall";
-import { EventDashBoard } from "../../../components/conferences/admin/dashboard";
+import Head from 'next/head';
+import Link from 'next/link';
+import { Card, Container } from 'react-bootstrap';
 
 function EventDashBoardPage() {
   return (
     <div>
       <Head>
-        <title>Event Create</title>
-        <meta name="description" content="Rocket.Chat form tool demo" />
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Dashboard Removed</title>
+        <meta
+          name="description"
+          content="The legacy browser dashboard has been removed from the static build."
+        />
       </Head>
-      <div className="mx-auto">
-        <h1 className="mx-auto mt-3">Preview of Event Dashboard</h1>
-        <Stack direction="vertical">
-          <EventDashBoard />
-        </Stack>
-      </div>
+      <Container className="py-5">
+        <Card body>
+          <h1 className="h3">Legacy dashboard removed</h1>
+          <p className="mb-0">
+            Event creation and editing are no longer handled inside the static
+            Next.js app. Use the event server API or seed scripts to manage
+            content.
+          </p>
+          <div className="mt-3">
+            <Link href="/conferences">Back to conferences</Link>
+          </div>
+        </Card>
+      </Container>
     </div>
   );
-}
-
-export async function getStaticProps(context) {
-
-  const topNavItems = await fetchAPI("/top-nav-item");
-
-  return {
-    props: { topNavItems },
-    revalidate: 10,
-  };
 }
 
 export default EventDashBoardPage;

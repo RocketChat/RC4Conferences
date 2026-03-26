@@ -6,7 +6,9 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "dev": "nodemon --exec ts-node src/server.ts",
+    "dev": "nodemon --legacy-watch --watch src --watch data --ext ts,json --exec ts-node src/server.ts",
+    "dev:once": "ts-node src/server.ts",
+    "seed": "ts-node src/scripts/seed_from_cache.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

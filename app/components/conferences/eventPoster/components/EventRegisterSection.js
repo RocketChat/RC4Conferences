@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  Alert,
   Badge,
   Button,
   Container,
@@ -9,8 +8,6 @@ import {
   Navbar,
 } from 'react-bootstrap';
 import styles from '../styles/index.module.css';
-import { BiError } from 'react-icons/bi';
-import { useRouter } from 'next/router';
 import EventStrip from './EventStrip';
 
 const detectElement = (options) => {
@@ -42,21 +39,6 @@ export const EventTicket = ({ tktDetail, event, error, customLink }) => {
   });
 
   const [open, setOpen] = useState(false);
-
-  const errMessHelper = {
-    0: "The User Email doesn't have the Speaker/Admin rights, please contact the event organizer for rights.",
-    1: 'It seems there is an issue with your login, please logout and signin then try again!',
-    2: 'Looks like you are not logged in, please login and try again!',
-  };
-  const [err, setErr] = useState(errMessHelper[2]);
-  const [alertOp, setAlertOp] = useState(false);
-
-  useEffect(() => {
-    if (Object.keys(errMessHelper).includes(error)) {
-      setErr(errMessHelper[error]);
-      setAlertOp(true);
-    }
-  });
 
   const tktName = tktDetail.name;
   const tktPrice = tktDetail.price;
@@ -92,9 +74,6 @@ export const EventTicket = ({ tktDetail, event, error, customLink }) => {
         open={open}
         handleClose={handleJoin}
         event={event}
-        alertOp={alertOp}
-        setAlertOp={setAlertOp}
-        err={err}
       />
     </>
   );
@@ -177,38 +156,9 @@ const TopNav = ({
   );
 };
 
-const JoinModal = ({ open, handleClose, event, alertOp, setAlertOp, err }) => {
+const JoinModal = ({ open, handleClose, event }) => {
   const eventName = event?.data?.name;
-  const eventId = event?.data?.id;
-  const router = useRouter();
-
-  const [isSignedIn, setIsSignedIn] = useState(false);
-
-  useEffect(() => {
-    const checkSignedIn = async () => {
-      try {
-        const isSignedIn = await isSignedIn();
-
-        if (isSignedIn) {
-          setIsSignedIn(true);
-        }
-      } catch (e) {
-        console.error('An error while verifying admin access', e);
-      }
-    };
-    try {
-      if (event.data.privacy === 'private') {
-        checkSignedIn();
-      } else {
-        setIsSignedIn(true);
-      }
-    } catch (e) {
-      console.error(
-        'An error occurred while whitelisting the event as public',
-        e
-      );
-    }
-  });
+  const eventIdentifier = event?.data?.identifier;
 
   const handleRedirect = (location) => {
     if (typeof window != 'undefined') {
@@ -224,28 +174,17 @@ const JoinModal = ({ open, handleClose, event, alertOp, setAlertOp, err }) => {
       <Modal.Body>
         <div className={styles.join_modal_button}>
           <Button
-            name={'greenroom'}
-            onClick={() => handleRedirect(`/conferences/greenroom/${eventId}`)}
-            disabled={!isSignedIn}
-          >
-            Join as a Speaker
-          </Button>
-          <br />
-          <Button
-            disabled={!isSignedIn}
-            onClick={() => handleRedirect(`/conferences/mainstage/${eventId}`)}
+            onClick={() =>
+              handleRedirect(`/conferences/mainstage/${eventIdentifier}`)
+            }
             name={'mainstage'}
           >
-            Join as a Attendee
+            Join mainstage
           </Button>
         </div>
-        <Alert
-          className="mt-3"
-          variant={'danger'}
-          show={!isSignedIn || alertOp}
-        >
-          {<BiError />} {err}
-        </Alert>
+        <p className="mt-3 mb-0 text-muted">
+          Speaker-only greenroom access was removed from the static frontend.
+        </p>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>

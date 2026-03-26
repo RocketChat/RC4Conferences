@@ -1,13 +1,16 @@
 const path = require('path');
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 module.exports = {
   reactStrictMode: true,
-  output: 'standalone',
+  trailingSlash: true,
   sassOptions: {
     includePaths: [path.join(__dirname, 'styles')],
   },
-  basePath: '/community',
+  basePath,
   images: {
+    unoptimized: true,
     domains: [
       'global-uploads.webflow.com',
       'avatars.githubusercontent.com',
