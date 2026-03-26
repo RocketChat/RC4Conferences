@@ -5,12 +5,12 @@ import { BiEdit } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import {
   deleteEvent,
-  getUserEventDeatils,
+  getUserEventDeatilsByState,
 } from "../../../lib/conferences/eventCall";
 import styles from "../../../styles/event.module.css";
 import toast, { Toaster } from 'react-hot-toast';
 
-export const EventDashBoard = () => {
+export const EventDashBoard = ({state}) => {
   const [eventData, setEventData] = useState(null);
   let authCookie = Cookies.get("event_auth");
   if (authCookie) {
@@ -20,9 +20,10 @@ export const EventDashBoard = () => {
     const fetchEventDeatils = async () => {
     try {
       if (!eventData) {
-        const eventres = await getUserEventDeatils(
+        const eventres = await getUserEventDeatilsByState(
           authCookie.jwtInfo.identity,
-          authCookie.access_token
+          authCookie.access_token,
+          state
         );
         setEventData(eventres.data);
       }
@@ -36,9 +37,10 @@ export const EventDashBoard = () => {
   const handleDelete = async (e) => {
     try {
       await deleteEvent(e.target.id, authCookie?.access_token);
-      const eventres = await getUserEventDeatils(
+      const eventres = await getUserEventDeatilsByState(
         authCookie.jwtInfo.identity,
-        authCookie.access_token
+        authCookie.access_token,
+        state
       );
       toast.success('Event deleted successfully',{
         duration:2000
