@@ -10,6 +10,7 @@ AUTH_HEADER="Basic cmNhZG1pbjpnc29jMjAyNC4u"
 # Build the Next.js application
 echo "Building the Next.js application..."
 cd app || { echo "Error: Directory 'app' not found"; exit 1; }
+export NEXT_PUBLIC_BASE_PATH="/community"
 yarn build
 if [ $? -ne 0 ]; then
   echo "Error: Build failed"

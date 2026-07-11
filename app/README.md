@@ -10,6 +10,8 @@ Copy [`.env.example`](/Users/deva/Developer/ospr/RC4Conferences/app/.env.example
 - `NEXT_PUBLIC_EVENT_SERVER_URL`
 - `NEXT_PUBLIC_BASE_PATH` if the site is deployed under a subpath
 - stream variables if you use the public mainstage page
+- `LOCALIZE_SPEAKER_IMAGES=true` only if you explicitly want build-time
+  copies written into `public/speakers`
 
 ## Commands
 

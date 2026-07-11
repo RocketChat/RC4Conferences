@@ -1,0 +1,20 @@
+{
+  "id": 20260329,
+  "name": "GSoC Alumni Summit 2026",
+  "latitude": 0.0,
+  "longitude": 0.0,
+  "location_name": null,
+  "starts_at": "2026-03-29T11:00:00.000Z",
+  "ends_at": "2026-03-29T13:20:00.000Z",
+  "timezone": "UTC",
+  "description": "<p>Join us for the 2026 edition of the GSoC Alumni Summit. This marks our 10th year participating in Google Summer of Code, and we are bringing contributors, mentors, and alumni together to share what they built, what they learned, and how open source shaped their careers.</p><p>The event opens with welcome remarks from Rocket.Chat leadership, followed by short alumni talks and a community hangout.</p>",
+  "original_image_url": "https://github.com/RocketChat/RC4Conferences/blob/main/assets/alumni_summit_2026.png?raw=true",
+  "logo_url": "https://github.com/RocketChat/Rocket.Chat.Artwork/raw/master/Logos/2020/png/icon-red.png",
+  "owner_name": "Rocket.Chat",
+  "owner_description": "",
+  "privacy": "public",
+  "created_at": "2026-03-26T00:00:00.000Z",
+  "identifier": "GSoC-26-Alumni-Summit",
+  "schedule_published_on": "1970-01-01 00:00:00+00:00",
+  "state": "published"
+}

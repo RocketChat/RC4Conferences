@@ -1,5 +1,5 @@
 import { fetchEventAPI } from '../api';
-import { IEvent, IForm, ISession, ISpeaker } from '../types';
+import { IEvent, ISession, ISpeaker } from '../types';
 
 export interface ApiResponse<T> {
   success: boolean;
@@ -22,9 +22,3 @@ export const getEventSpeakers = async (
 export const getEventSessions = async (
   eid: string
 ): Promise<ApiResponse<ISession[]>> => fetchEventAPI(`/sessions/event/${eid}`);
-
-export const getForms = async (): Promise<{ data: IForm[] }> =>
-  fetchEventAPI('/cms/forms');
-
-export const getForm = async (id: string): Promise<{ data: IForm | null }> =>
-  fetchEventAPI(`/cms/forms/${id}`);

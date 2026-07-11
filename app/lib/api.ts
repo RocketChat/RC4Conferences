@@ -16,6 +16,8 @@ const CMS_FILE_MAP: Record<string, string> = {
   forms: 'forms.json',
 };
 const EVENT_FILES = [
+  'event_dd_2026.json',
+  'event_ams_2026.json',
   'event_ams_2025.json',
   'event_dd_2025.json',
   'event_dd_2023.json',
@@ -23,12 +25,19 @@ const EVENT_FILES = [
   'event_open_call.json',
 ];
 const SPEAKER_FILES = [
+  'speakers_dd_2026.json',
+  'speakers_ams_2026.json',
   'speakers_ams_2025.json',
   'speakers_dd_2025.json',
   'speakers_dd_2023.json',
   'speakers_open_call.json',
 ];
-const SESSION_FILES = ['sessions_dd_2025.json', 'sessions_ams_2025.json'];
+const SESSION_FILES = [
+  'sessions_dd_2026.json',
+  'sessions_dd_2025.json',
+  'sessions_ams_2025.json',
+  'sessions_ams_2026.json',
+];
 
 function normalizePath(path = '') {
   return path.startsWith('/') ? path : `/${path}`;

@@ -17,9 +17,6 @@ function SiteNavbar() {
             <Link href="/conferences" passHref legacyBehavior>
               <Nav.Link>Events</Nav.Link>
             </Link>
-            <Link href="/forms/formdemo" passHref legacyBehavior>
-              <Nav.Link>Forms</Nav.Link>
-            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

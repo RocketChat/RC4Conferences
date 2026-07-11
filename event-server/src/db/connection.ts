@@ -19,17 +19,28 @@ export const connectDB = async (): Promise<void> => {
     await client.connect();
 
     dbInstance = client.db();
+    const speakersCollection = dbInstance.collection("speakers");
+    const speakerIndexes = await speakersCollection.indexes();
+    const legacySpeakerIdIndex = speakerIndexes.find(
+      (index) => index.name === "id_1" && index.unique
+    );
+
+    // Speaker IDs originated as event-local IDs in the cached datasets.
+    if (legacySpeakerIdIndex) {
+      await speakersCollection.dropIndex(legacySpeakerIdIndex.name as string);
+    }
+
     await Promise.all([
       dbInstance.collection("events").createIndex({ id: 1 }, { unique: true }),
       dbInstance.collection("events").createIndex(
         { identifier: 1 },
         { unique: true }
       ),
-      dbInstance.collection("speakers").createIndex(
-        { id: 1 },
+      speakersCollection.createIndex({ id: 1 }),
+      speakersCollection.createIndex(
+        { event_id: 1, id: 1 },
         { unique: true }
       ),
-      dbInstance.collection("speakers").createIndex({ event_id: 1 }),
       dbInstance.collection("sessions").createIndex(
         { id: 1 },
         { unique: true }

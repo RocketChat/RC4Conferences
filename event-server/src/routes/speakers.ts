@@ -12,7 +12,7 @@ router.get("/", (async (_: Request, res: Response) => {
   try {
     const speakersCollection = getSpeakersCollection();
     const speakers = await speakersCollection
-      .find({}, { sort: { id: 1 } })
+      .find({}, { sort: { is_featured: -1, id: 1 } })
       .toArray();
     res.json({ success: true, data: speakers });
   } catch (error: any) {
@@ -31,7 +31,7 @@ router.get("/event/:eventId", (async (req: Request, res: Response) => {
     }
 
     const speakers = await speakersCollection
-      .find({ event_id: eventId }, { sort: { id: 1 } })
+      .find({ event_id: eventId }, { sort: { is_featured: -1, id: 1 } })
       .toArray();
     res.json({ success: true, data: speakers });
   } catch (error: any) {
@@ -43,9 +43,14 @@ router.get("/event/:eventId", (async (req: Request, res: Response) => {
 router.get("/:id", (async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id);
+    const eventId = req.query.event_id
+      ? parseInt(req.query.event_id as string)
+      : null;
     const speakersCollection = getSpeakersCollection();
 
-    const speaker = await speakersCollection.findOne({ id });
+    const speaker = await speakersCollection.findOne(
+      eventId === null ? { id } : { id, event_id: eventId }
+    );
     if (!speaker) {
       return res
         .status(404)
@@ -77,7 +82,7 @@ router.post("/bulk", authenticateApiKey, (async (req: Request, res: Response) =>
     // Process all speakers using bulkWrite with upserts
     const bulkOps = processedSpeakers.map((speaker) => ({
       updateOne: {
-        filter: { id: speaker.id },
+        filter: { id: speaker.id, event_id: speaker.event_id },
         update: { $set: speaker },
         upsert: true, // This creates the document if it doesn't exist
       },
@@ -109,9 +114,10 @@ router.post("/", authenticateApiKey, (async (req: Request, res: Response) => {
       newSpeaker.id = generateId();
     }
 
-    // check if the speaker already exists based on the id
+    // Speaker IDs are scoped to their event in the source datasets.
     const existingSpeaker = await speakersCollection.findOne({
       id: newSpeaker.id,
+      event_id: newSpeaker.event_id,
     });
     if (existingSpeaker) {
       return res
@@ -135,9 +141,11 @@ router.put("/:id", authenticateApiKey, (async (req: Request, res: Response) => {
     const id = parseInt(req.params.id);
     const updateData = req.body;
     const speakersCollection = getSpeakersCollection();
+    const eventId = updateData.event_id;
+    const filter = eventId === undefined ? { id } : { id, event_id: eventId };
 
     const result = await speakersCollection.updateOne(
-      { id },
+      filter,
       { $set: updateData }
     );
 
@@ -147,7 +155,7 @@ router.put("/:id", authenticateApiKey, (async (req: Request, res: Response) => {
         .json({ success: false, message: "Speaker not found" });
     }
 
-    const updatedSpeaker = await speakersCollection.findOne({ id });
+    const updatedSpeaker = await speakersCollection.findOne(filter);
     res.json({ success: true, data: updatedSpeaker });
   } catch (error: any) {
     res.status(400).json({ success: false, message: error.message });

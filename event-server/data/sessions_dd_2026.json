@@ -1,0 +1,161 @@
+{
+  "id": 20260716,
+  "event_name": "Rocket.Chat GSoC Demo Day 2026",
+  "event_id": 20260716,
+  "session_items": [
+    {
+      "Event": "Rocket.Chat GSoC Demo Day 2026",
+      "Start": "2026-07-16T14:00:00Z",
+      "End": "2026-07-16T14:20:00Z",
+      "Title": "Welcome to Rocket.Chat GSoC Demo Day 2026",
+      "Mentor": "",
+      "Description": "Opening remarks and a welcome to contributors, mentors, community members, and everyone joining Demo Day.",
+      "Speaker": "Gabriel Engel / Gabriel Casals / Sing Li / Devanshu Sharma",
+      "Duration": 20,
+      "Youtube": null
+    },
+    {
+      "Event": "Rocket.Chat GSoC Demo Day 2026",
+      "Start": "2026-07-16T14:20:00Z",
+      "End": "2026-07-16T14:35:00Z",
+      "Title": "Refactor Virtualized Lists to Use Virtua",
+      "Mentor": "Martin Schoeler / Douglas Fabris",
+      "Description": "Migrating Rocket.Chat's virtualized lists to Virtua while preserving behavior, accessibility, feature parity, and test coverage, with reusable components that simplify future development.",
+      "Speaker": "Srijna Bhargav",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "Rocket.Chat GSoC Demo Day 2026",
+      "Start": "2026-07-16T14:35:00Z",
+      "End": "2026-07-16T14:50:00Z",
+      "Title": "New Users Anti Spammer System",
+      "Mentor": "Gabriel Casals / Alfredo Del Fabro Neto",
+      "Description": "A proactive, human-supervised moderation system that detects coordinated and polymorphic spam from new users, explains each flag, and applies reversible restrictions through a graduated response model.",
+      "Speaker": "Meet Jain",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "Rocket.Chat GSoC Demo Day 2026",
+      "Start": "2026-07-16T14:50:00Z",
+      "End": "2026-07-16T15:05:00Z",
+      "Title": "Rebuilding Jira Integration App for Rocket.Chat",
+      "Mentor": "Felipe Scuciatto / Vipin Chaudhary",
+      "Description": "A modernized Jira integration that lets teams create, view, update, comment on, and receive real-time updates for Jira issues without leaving Rocket.Chat.",
+      "Speaker": "Devansh Kansagra",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "Rocket.Chat GSoC Demo Day 2026",
+      "Start": "2026-07-16T15:05:00Z",
+      "End": "2026-07-16T15:20:00Z",
+      "Title": "OpenClaw Integration for Rocket.Chat",
+      "Mentor": "Jeffrey Yu",
+      "Description": "A native Rocket.Chat channel for OpenClaw agents, supporting direct messages, channel mentions, secure file handling, image understanding, and private self-hosted AI assistance.",
+      "Speaker": "Kartik Doda",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "Rocket.Chat GSoC Demo Day 2026",
+      "Start": "2026-07-16T15:20:00Z",
+      "End": "2026-07-16T15:30:00Z",
+      "Title": "Intermission",
+      "Mentor": "",
+      "Description": "A short break before the next project block.",
+      "Speaker": "",
+      "Duration": 10,
+      "Youtube": null
+    },
+    {
+      "Event": "Rocket.Chat GSoC Demo Day 2026",
+      "Start": "2026-07-16T15:30:00Z",
+      "End": "2026-07-16T15:45:00Z",
+      "Title": "High-Performance Message Parser Rewrite",
+      "Mentor": "Matheus Cardoso / Ahmed Nasser",
+      "Description": "A hand-written TypeScript recursive-descent parser replacing generated parser code while preserving exact behavior, improving maintainability, and validating parity through comprehensive tests and more than 30,000 fuzz runs.",
+      "Speaker": "Amit Ashutosh",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "Rocket.Chat GSoC Demo Day 2026",
+      "Start": "2026-07-16T15:45:00Z",
+      "End": "2026-07-16T16:00:00Z",
+      "Title": "EmbeddedChat 2026",
+      "Mentor": "Zishan Ahmed",
+      "Description": "A modernization of Rocket.Chat's embeddable chat widget covering Matrix federation, current APIs, WCAG accessibility, pluggable AI adapters, and a mobile-first user experience.",
+      "Speaker": "Aryan Verma",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "Rocket.Chat GSoC Demo Day 2026",
+      "Start": "2026-07-16T16:00:00Z",
+      "End": "2026-07-16T16:15:00Z",
+      "Title": "Agenda Jobs Admin Page",
+      "Mentor": "Kevin Aleman / Douglas Gubert",
+      "Description": "An administration dashboard for monitoring background jobs, reviewing execution status and history, and taking management actions when jobs require attention.",
+      "Speaker": "Khizar Shah",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "Rocket.Chat GSoC Demo Day 2026",
+      "Start": "2026-07-16T16:15:00Z",
+      "End": "2026-07-16T16:30:00Z",
+      "Title": "Minimal MCP Server Generator for Rocket.Chat",
+      "Mentor": "Hardik Bhatia / Dhairyashil Shinde",
+      "Description": "A Gemini CLI extension that turns a natural-language requirement into a focused, runnable MCP server with the Rocket.Chat APIs and multi-step workflows needed for that task.",
+      "Speaker": "Sezal Lagwal",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "Rocket.Chat GSoC Demo Day 2026",
+      "Start": "2026-07-16T16:30:00Z",
+      "End": "2026-07-16T16:40:00Z",
+      "Title": "Intermission",
+      "Mentor": "",
+      "Description": "A short break before the final project block.",
+      "Speaker": "",
+      "Duration": 10,
+      "Youtube": null
+    },
+    {
+      "Event": "Rocket.Chat GSoC Demo Day 2026",
+      "Start": "2026-07-16T16:40:00Z",
+      "End": "2026-07-16T16:55:00Z",
+      "Title": "Agentic Code Analyzer",
+      "Mentor": "William Liu / Devanshu Sharma",
+      "Description": "An agentic code-analysis system that generates a comprehensive codebase wiki and uses MCP to answer questions with both architectural understanding and execution capabilities.",
+      "Speaker": "Echo Xiao",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "Rocket.Chat GSoC Demo Day 2026",
+      "Start": "2026-07-16T16:55:00Z",
+      "End": "2026-07-16T17:10:00Z",
+      "Title": "Room Header Buttons Ordering",
+      "Mentor": "Martin Schoeler / Milton Rucks",
+      "Description": "A deterministic, schema-driven layout engine that lets administrators configure button ordering and feature pinning independently for public channels, private groups, and direct messages.",
+      "Speaker": "Rahian Santos",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "Rocket.Chat GSoC Demo Day 2026",
+      "Start": "2026-07-16T17:10:00Z",
+      "End": "2026-07-16T17:20:00Z",
+      "Title": "Closing Notes & Thank You",
+      "Mentor": "",
+      "Description": "Closing remarks and thanks to the contributors, mentors, organizers, and community members who made Demo Day possible.",
+      "Speaker": "Gabriel Engel / Gabriel Casals / Sing Li / Devanshu Sharma",
+      "Duration": 10,
+      "Youtube": null
+    }
+  ]
+}

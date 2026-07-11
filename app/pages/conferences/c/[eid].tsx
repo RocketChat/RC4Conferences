@@ -21,10 +21,15 @@ interface IEventDisplayPageProps {
   prsession: ISession | null;
 }
 
+const EVENT_JOIN_LINKS: Record<string, string> = {
+  'GSoC-26-Alumni-Summit': 'https://meet.google.com/snn-vqds-cwf',
+};
+
 const EventDisplayPage: React.FC<IEventDisplayPageProps> = ({ event, spkdata, prsession }) => {
   const router = useRouter();
   const { error } = router.query;
   const eventname = event?.data?.name;
+  const joinLink = EVENT_JOIN_LINKS[event?.data?.identifier ?? ''];
   
   // Strip HTML tags from description for meta tag
   const metaDescription = event?.data?.description
@@ -47,7 +52,7 @@ const EventDisplayPage: React.FC<IEventDisplayPageProps> = ({ event, spkdata, pr
             error={error}
             speaker={spkdata}
             prsession={prsession}
-            customLink={event?.data?.identifier}
+            customLink={joinLink}
           />
         </Stack>
         <AdvtButtons repoUrl={'https://github.com/RocketChat/RC4Conferences'} />

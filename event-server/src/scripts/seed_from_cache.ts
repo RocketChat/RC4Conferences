@@ -25,6 +25,8 @@ async function seedData() {
     {
       type: "event",
       files: [
+          "event_dd_2026.json",
+          "event_ams_2026.json",
           "event_ams_2025.json", 
           "event_dd_2025.json",
           "event_dd_2023.json",
@@ -35,6 +37,8 @@ async function seedData() {
     {
       type: "speaker",
       files: [
+          "speakers_dd_2026.json",
+          "speakers_ams_2026.json",
           "speakers_ams_2025.json", 
           "speakers_dd_2025.json",
           "speakers_dd_2023.json",
@@ -44,8 +48,10 @@ async function seedData() {
     {
       type: "session",
       files: [
+          "sessions_dd_2026.json",
           "sessions_dd_2025.json", 
-          "sessions_ams_2025.json"
+          "sessions_ams_2025.json",
+          "sessions_ams_2026.json"
       ],
     },
     {
@@ -55,8 +61,7 @@ async function seedData() {
           { name: "personas.json", endpoint: "personas" },
           { name: "guides.json", endpoint: "guide" },
           { name: "release_notes.json", endpoint: "release-note" },
-          { name: "top_nav_items.json", endpoint: "top-nav-item" },
-          { name: "forms.json", endpoint: "forms" }
+          { name: "top_nav_items.json", endpoint: "top-nav-item" }
       ],
     },
   ];
@@ -134,7 +139,18 @@ async function seedEvent(event: any) {
   try {
     const response = await fetch(`${BASE_URL}/events/${event.id}`, { headers });
     if (response.ok) {
-      console.log(`Event ${event.id} already exists, skipping.`);
+      const putResponse = await fetch(`${BASE_URL}/events/${event.id}`, {
+        method: "PUT",
+        headers,
+        body: JSON.stringify(event),
+      });
+
+      if (putResponse.ok) {
+        console.log(`Updated event: ${event.name} (ID: ${event.id})`);
+      } else {
+        const errData = await putResponse.json();
+        console.error(`Failed to update event ${event.id}:`, errData);
+      }
       return;
     }
 
@@ -157,6 +173,8 @@ async function seedEvent(event: any) {
 
 async function downloadAndUploadImage(imageUrl: string, speakerId: number): Promise<string | null> {
   if (!imageUrl || !imageUrl.startsWith('http')) return null;
+  if (imageUrl.includes("res.cloudinary.com/")) return null;
+  if (imageUrl.includes("open.rocket.chat/avatar/")) return null;
   
   try {
     const response = await fetch(imageUrl);
@@ -190,16 +208,29 @@ async function downloadAndUploadImage(imageUrl: string, speakerId: number): Prom
 
 async function seedSpeaker(speaker: any) {
   try {
-    const response = await fetch(`${BASE_URL}/speakers/${speaker.id}`, { headers });
-    if (response.ok) {
-      console.log(`Speaker ${speaker.id} already exists, skipping.`);
-      return;
-    }
+    const speakerUrl = `${BASE_URL}/speakers/${speaker.id}?event_id=${speaker.event_id}`;
+    const response = await fetch(speakerUrl, { headers });
 
     // Try to localize image
     const localImageUrl = await downloadAndUploadImage(speaker.photo_url, speaker.id);
     if (localImageUrl) {
         speaker.photo_url = localImageUrl;
+    }
+
+    if (response.ok) {
+      const putResponse = await fetch(speakerUrl, {
+        method: "PUT",
+        headers,
+        body: JSON.stringify(speaker),
+      });
+
+      if (putResponse.ok) {
+        console.log(`Updated speaker: ${speaker.name} (ID: ${speaker.id})`);
+      } else {
+        const errData = await putResponse.json();
+        console.error(`Failed to update speaker ${speaker.id}:`, errData);
+      }
+      return;
     }
 
     const postResponse = await fetch(`${BASE_URL}/speakers`, {
@@ -223,7 +254,18 @@ async function seedSession(session: any) {
   try {
     const response = await fetch(`${BASE_URL}/sessions/${session.id}`, { headers });
     if (response.ok) {
-      console.log(`Session ${session.id} already exists, skipping.`);
+      const putResponse = await fetch(`${BASE_URL}/sessions/${session.id}`, {
+        method: "PUT",
+        headers,
+        body: JSON.stringify(session),
+      });
+
+      if (putResponse.ok) {
+        console.log(`Updated session for event ID: ${session.event_id} (ID: ${session.id})`);
+      } else {
+        const errData = await putResponse.json();
+        console.error(`Failed to update session ${session.id}:`, errData);
+      }
       return;
     }
 

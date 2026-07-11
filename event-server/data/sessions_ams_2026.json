@@ -1,0 +1,106 @@
+{
+  "id": 20260329,
+  "event_name": "GSoC Alumni Summit 2026",
+  "event_id": 20260329,
+  "session_items": [
+    {
+      "Event": "GSoC Alumni Summit 2026",
+      "Start": "2026-03-29T11:00:00Z",
+      "End": "2026-03-29T11:20:00Z",
+      "Title": "Welcome to Rocket.Chat Alumni Summit 2026!",
+      "Mentor": "",
+      "Description": "Opening remarks to welcome contributors, mentors, alumni, and community members joining the summit.",
+      "Speaker": "Felipe Scuciatto / Gabriel Engel / Sing Li",
+      "Duration": 20,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit 2026",
+      "Start": "2026-03-29T11:20:00Z",
+      "End": "2026-03-29T11:35:00Z",
+      "Title": "Building a Global Network through GSoC",
+      "Mentor": "",
+      "Description": "Yuriko shares how GSoC opened the door to international collaboration, mentorship, and long-term open-source work at Rocket.Chat.",
+      "Speaker": "Yuriko Kikuchi",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit 2026",
+      "Start": "2026-03-29T11:35:00Z",
+      "End": "2026-03-29T11:50:00Z",
+      "Title": "From Open Source Contributor to Rocket.Chat: Lessons from My GSoC Journey",
+      "Mentor": "",
+      "Description": "Rohit shares how steady open-source contributions led to Google Summer of Code, a deeper focus on mobile testing, and eventually a role at Rocket.Chat.",
+      "Speaker": "Rohit Bansal",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit 2026",
+      "Start": "2026-03-29T11:50:00Z",
+      "End": "2026-03-29T12:05:00Z",
+      "Title": "Success Stories and Lessons Learned from GSoC Alumni",
+      "Mentor": "",
+      "Description": "Vipin shares lessons from continuing in open source after GSoC, mentoring contributors, and building developer tools in the real world.",
+      "Speaker": "Vipin Chaudhary",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit 2026",
+      "Start": "2026-03-29T12:05:00Z",
+      "End": "2026-03-29T12:20:00Z",
+      "Title": "Building a Global Network through GSoC",
+      "Mentor": "",
+      "Description": "Dhairyashil talks about how open-source work at Rocket.Chat helped him move from contributor to product engineer and expand his professional network.",
+      "Speaker": "Dhairyashil Shinde",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit 2026",
+      "Start": "2026-03-29T12:20:00Z",
+      "End": "2026-03-29T12:35:00Z",
+      "Title": "Community Hangout",
+      "Mentor": "",
+      "Description": "An open slot for attendees and speakers to connect, ask questions, and continue the conversation around GSoC and open source.",
+      "Speaker": "",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit 2026",
+      "Start": "2026-03-29T12:35:00Z",
+      "End": "2026-03-29T12:50:00Z",
+      "Title": "Building with (and against) AI: Lessons in Modern Open Source Workflow",
+      "Mentor": "",
+      "Description": "Abhinav reflects on modern open-source development, where AI can speed up delivery, create friction, and still reward careful engineering judgment.",
+      "Speaker": "Abhinav Kumar",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit 2026",
+      "Start": "2026-03-29T12:50:00Z",
+      "End": "2026-03-29T13:05:00Z",
+      "Title": "Building a Global Network through GSoC",
+      "Mentor": "",
+      "Description": "Ahmed reflects on how GSoC and open source helped him connect with a broader technical community while growing as an engineer.",
+      "Speaker": "Ahmed Nasser",
+      "Duration": 15,
+      "Youtube": null
+    },
+    {
+      "Event": "GSoC Alumni Summit 2026",
+      "Start": "2026-03-29T13:05:00Z",
+      "End": "2026-03-29T13:20:00Z",
+      "Title": "Closing Notes",
+      "Mentor": "",
+      "Description": "Closing remarks and thanks from the Rocket.Chat team.",
+      "Speaker": "Felipe Scuciatto / Gabriel Engel / Sing Li",
+      "Duration": 15,
+      "Youtube": null
+    }
+  ]
+}

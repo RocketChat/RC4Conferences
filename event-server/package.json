@@ -9,6 +9,8 @@
     "dev": "nodemon --legacy-watch --watch src --watch data --ext ts,json --exec ts-node src/server.ts",
     "dev:once": "ts-node src/server.ts",
     "seed": "ts-node src/scripts/seed_from_cache.ts",
+    "upload:alumni-2026-images": "node scripts/upload_alumni_2026_images.js",
+    "upload:demo-day-2026-images": "node scripts/upload_demo_day_2026_images.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

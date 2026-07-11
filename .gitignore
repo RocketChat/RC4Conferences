@@ -136,3 +136,8 @@ dist
 .pnp.*
 
 package-lock.json
+app/public/speakers/
+
+# Temporary event intake exports
+/*Form Responses*.csv
+/Picture (File responses)-*.zip

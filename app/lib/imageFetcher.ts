@@ -3,8 +3,16 @@ import path from 'path';
 import { ISpeaker } from './types';
 
 export async function downloadSpeakerImages(speakers: ISpeaker[]): Promise<ISpeaker[]> {
+    const shouldLocalizeImages =
+        process.env.LOCALIZE_SPEAKER_IMAGES === 'true' ||
+        process.env.NEXT_PUBLIC_LOCALIZE_SPEAKER_IMAGES === 'true';
+
     if (typeof window !== 'undefined') {
         // This function should only run in getStaticProps (Node.js environment)
+        return speakers;
+    }
+
+    if (!shouldLocalizeImages) {
         return speakers;
     }
 

@@ -9,6 +9,7 @@ module.exports = {
     includePaths: [path.join(__dirname, 'styles')],
   },
   basePath,
+  assetPrefix: basePath || undefined,
   images: {
     unoptimized: true,
     domains: [
