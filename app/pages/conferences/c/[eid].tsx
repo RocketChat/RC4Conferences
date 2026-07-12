@@ -23,6 +23,7 @@ interface IEventDisplayPageProps {
 
 const EVENT_JOIN_LINKS: Record<string, string> = {
   'GSoC-26-Alumni-Summit': 'https://meet.google.com/snn-vqds-cwf',
+  'GSoC-26-Demo-Day': 'https://meet.google.com/ffm-oabh-vfd',
 };
 
 const EventDisplayPage: React.FC<IEventDisplayPageProps> = ({ event, spkdata, prsession }) => {
